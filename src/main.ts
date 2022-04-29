@@ -15,7 +15,10 @@ const datasets: ChartDataset<"radar">[] = selectedWeapons.map((w) => {
 
 const chart = new Chart(document.getElementById("chart") as HTMLCanvasElement, {
   type: "radar",
-  options: {},
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+  },
   data: { labels: Object.values(Metric), datasets },
 });
 
