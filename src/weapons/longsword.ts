@@ -1,10 +1,10 @@
-import { Metric, Rating } from "../rating";
+import { Metric, RawMetrics } from "../rating";
 
-const rating: Rating = new Map([
+const metrics: RawMetrics = new Map([
   [Metric.DURATION_HORIZONTAL, 22],
   [Metric.DURATION_OVERHEAD, 22],
   [Metric.DURATION_STAB, 21],
   [Metric.DURATION_SPECIAL, 30],
 ]);
 
-export default rating;
+export default metrics;

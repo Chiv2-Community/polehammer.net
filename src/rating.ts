@@ -5,4 +5,12 @@ export enum Metric {
   DURATION_SPECIAL = "Duration - Special",
 }
 
-export type Rating = Map<Metric, number>;
+export enum Rating {
+  SPEED_HORIZONTAL = "Speed - Horizontal",
+  SPEED_OVERHEAD = "Speed - Overhead",
+  SPEED_STAB = "Speed - Stab",
+  SPEED_SPECIAL = "Speed - Special",
+}
+
+export type RawMetrics = Map<Metric, number>;
+export type DerivedRatings = Map<Rating, number>;
