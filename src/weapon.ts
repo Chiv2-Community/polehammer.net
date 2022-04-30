@@ -41,6 +41,38 @@ function toDerived(metrics: RawMetrics): DerivedRatings {
           ])
         );
         break;
+
+      case Rating.RANGE_HORIZONTAL:
+        derived.set(k, metrics.get(Metric.RANGE_HORIZONTAL)!);
+        break;
+      case Rating.RANGE_ALT_HORIZONTAL:
+        derived.set(k, metrics.get(Metric.RANGE_ALT_HORIZONTAL)!);
+        break;
+      case Rating.RANGE_OVERHEAD:
+        derived.set(k, metrics.get(Metric.RANGE_OVERHEAD)!);
+        break;
+      case Rating.RANGE_ALT_OVERHEAD:
+        derived.set(k, metrics.get(Metric.RANGE_ALT_OVERHEAD)!);
+        break;
+      case Rating.RANGE_STAB:
+        derived.set(k, metrics.get(Metric.RANGE_STAB)!);
+        break;
+      case Rating.RANGE_ALT_STAB:
+        derived.set(k, metrics.get(Metric.RANGE_ALT_STAB)!);
+        break;
+      case Rating.RANGE_AVERAGE:
+        derived.set(
+          k,
+          average(derived, [
+            Rating.RANGE_HORIZONTAL,
+            Rating.RANGE_ALT_HORIZONTAL,
+            Rating.RANGE_OVERHEAD,
+            Rating.RANGE_ALT_OVERHEAD,
+            Rating.RANGE_STAB,
+            Rating.RANGE_ALT_STAB,
+          ])
+        );
+        break;
     }
   }
   return derived;
@@ -74,3 +106,4 @@ function normalize(ratings: WeaponRatings): WeaponRatings {
 }
 
 export const NORMALIZED_RATINGS = normalize(ratings);
+// export const NORMALIZED_RATINGS = ratings;
