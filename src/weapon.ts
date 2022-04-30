@@ -7,21 +7,39 @@ export enum Weapon {
   LONGSWORD = "Longsword",
 }
 
+function average(derived: DerivedRatings, ratings: Array<Rating>): number {
+  return (
+    ratings.map((r) => derived.get(r)!).reduce((p, c) => p + c, 0) /
+    ratings.length
+  );
+}
+
 function toDerived(metrics: RawMetrics): DerivedRatings {
-  const derived = new Map<Rating, number>();
-  for (const [k, v] of metrics) {
+  const derived: DerivedRatings = new Map();
+  for (const k of Object.values(Rating)) {
     switch (k) {
-      case Metric.DURATION_HORIZONTAL:
-        derived.set(Rating.SPEED_HORIZONTAL, 1 / v);
+      case Rating.SPEED_HORIZONTAL:
+        derived.set(k, 1 / metrics.get(Metric.DURATION_HORIZONTAL)!);
         break;
-      case Metric.DURATION_OVERHEAD:
-        derived.set(Rating.SPEED_OVERHEAD, 1 / v);
+      case Rating.SPEED_OVERHEAD:
+        derived.set(k, 1 / metrics.get(Metric.DURATION_OVERHEAD)!);
         break;
-      case Metric.DURATION_SPECIAL:
-        derived.set(Rating.SPEED_SPECIAL, 1 / v);
+      case Rating.SPEED_SPECIAL:
+        derived.set(k, 1 / metrics.get(Metric.DURATION_SPECIAL)!);
         break;
-      case Metric.DURATION_STAB:
-        derived.set(Rating.SPEED_STAB, 1 / v);
+      case Rating.SPEED_STAB:
+        derived.set(k, 1 / metrics.get(Metric.DURATION_STAB)!);
+        break;
+      case Rating.SPEED_AVERAGE:
+        derived.set(
+          k,
+          average(derived, [
+            Rating.SPEED_HORIZONTAL,
+            Rating.SPEED_OVERHEAD,
+            Rating.SPEED_SPECIAL,
+            Rating.SPEED_STAB,
+          ])
+        );
         break;
     }
   }

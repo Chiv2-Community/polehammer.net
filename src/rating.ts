@@ -10,6 +10,7 @@ export enum Rating {
   SPEED_OVERHEAD = "Speed - Overhead",
   SPEED_STAB = "Speed - Stab",
   SPEED_SPECIAL = "Speed - Special",
+  SPEED_AVERAGE = "Speed - Average*",
 }
 
 export type RawMetrics = Map<Metric, number>;
