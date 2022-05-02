@@ -2,6 +2,7 @@ import { DerivedRatings, Metric, Rating, RawMetrics } from "./rating";
 import DANE_AXE from "./weapons/dane_axe";
 import KNIFE from "./weapons/knife";
 import LONGSWOARD from "./weapons/longsword";
+import MAUL from "./weapons/maul";
 import POLEHAMMER from "./weapons/polehammer";
 import RAPIER from "./weapons/rapier";
 
@@ -9,6 +10,7 @@ export enum Weapon {
   DANE_AXE = "Dane Axe",
   KNIFE = "Knife",
   LONGSWORD = "Longsword",
+  MAUL = "Maul",
   POLEHAMMER = "Polehammer",
   RAPIER = "Rapier",
 }
@@ -149,6 +151,7 @@ const ratings = new Map([
   [Weapon.DANE_AXE, toDerived(DANE_AXE)],
   [Weapon.KNIFE, toDerived(KNIFE)],
   [Weapon.LONGSWORD, toDerived(LONGSWOARD)],
+  [Weapon.MAUL, toDerived(MAUL)],
   [Weapon.POLEHAMMER, toDerived(POLEHAMMER)],
   [Weapon.RAPIER, toDerived(RAPIER)],
 ]);
