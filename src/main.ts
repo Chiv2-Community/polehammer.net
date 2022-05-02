@@ -5,11 +5,22 @@ import { Weapon } from "./weapon";
 import { NORMALIZED_RATINGS } from "./weapon";
 
 let selectedWeapons = [Weapon.RAPIER, Weapon.LONGSWORD];
+let selectedCategories = [
+  Rating.RANGE_AVERAGE,
+  Rating.SPEED_AVERAGE,
+  Rating.DAMAGE_AVERAGE,
+];
 
-const datasets: ChartDataset<"radar">[] = selectedWeapons.map((w) => {
+const OPACITY = 0.7;
+
+const datasets: ChartDataset<"radar">[] = selectedWeapons.map((w, idx) => {
   return {
     label: w,
-    data: [...NORMALIZED_RATINGS.get(w)!.values()],
+    data: selectedCategories.map((c) => NORMALIZED_RATINGS.get(w)!.get(c)!),
+    backgroundColor: "transparent",
+    borderColor: `hsl(${
+      (idx / selectedWeapons.length) * 360
+    }deg, 100%, 50%, ${OPACITY})`,
   };
 });
 
@@ -19,7 +30,7 @@ const chart = new Chart(document.getElementById("chart") as HTMLCanvasElement, {
     responsive: true,
     maintainAspectRatio: false,
   },
-  data: { labels: Object.values(Rating), datasets },
+  data: { labels: selectedCategories, datasets },
 });
 
 chart.update();

@@ -18,6 +18,7 @@ function toDerived(metrics: RawMetrics): DerivedRatings {
   const derived: DerivedRatings = new Map();
   for (const k of Object.values(Rating)) {
     switch (k) {
+      // SPEED
       case Rating.SPEED_HORIZONTAL:
         derived.set(k, 1 / metrics.get(Metric.DURATION_HORIZONTAL)!);
         break;
@@ -42,6 +43,7 @@ function toDerived(metrics: RawMetrics): DerivedRatings {
         );
         break;
 
+      // RANGE
       case Rating.RANGE_HORIZONTAL:
         derived.set(k, metrics.get(Metric.RANGE_HORIZONTAL)!);
         break;
@@ -70,6 +72,43 @@ function toDerived(metrics: RawMetrics): DerivedRatings {
             Rating.RANGE_ALT_OVERHEAD,
             Rating.RANGE_STAB,
             Rating.RANGE_ALT_STAB,
+          ])
+        );
+        break;
+
+      // DAMAGE
+      case Rating.DAMAGE_HORIZONTAL_LIGHT:
+        derived.set(k, metrics.get(Metric.DAMAGE_HORIZONTAL_LIGHT)!);
+        break;
+      case Rating.DAMAGE_HORIZONTAL_HEAVY:
+        derived.set(k, metrics.get(Metric.DAMAGE_HORIZONTAL_HEAVY)!);
+        break;
+      case Rating.DAMAGE_OVERHEAD_LIGHT:
+        derived.set(k, metrics.get(Metric.DAMAGE_OVERHEAD_LIGHT)!);
+        break;
+      case Rating.DAMAGE_OVERHEAD_HEAVY:
+        derived.set(k, metrics.get(Metric.DAMAGE_OVERHEAD_HEAVY)!);
+        break;
+      case Rating.DAMAGE_STAB_LIGHT:
+        derived.set(k, metrics.get(Metric.DAMAGE_STAB_LIGHT)!);
+        break;
+      case Rating.DAMAGE_STAB_HEAVY:
+        derived.set(k, metrics.get(Metric.DAMAGE_STAB_HEAVY)!);
+        break;
+      case Rating.DAMAGE_SPECIAL:
+        derived.set(k, metrics.get(Metric.DAMAGE_SPECIAL)!);
+        break;
+      case Rating.DAMAGE_AVERAGE:
+        derived.set(
+          k,
+          average(derived, [
+            Rating.DAMAGE_HORIZONTAL_LIGHT,
+            Rating.DAMAGE_HORIZONTAL_HEAVY,
+            Rating.DAMAGE_OVERHEAD_LIGHT,
+            Rating.DAMAGE_OVERHEAD_HEAVY,
+            Rating.DAMAGE_STAB_LIGHT,
+            Rating.DAMAGE_STAB_HEAVY,
+            Rating.DAMAGE_SPECIAL,
           ])
         );
         break;

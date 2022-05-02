@@ -10,6 +10,14 @@ export enum Metric {
   RANGE_ALT_OVERHEAD = "Range - Alt. Overhead",
   RANGE_STAB = "Range - Stab",
   RANGE_ALT_STAB = "Range - Alt. Stab",
+
+  DAMAGE_HORIZONTAL_LIGHT = "Damage - Horizontal (Light)",
+  DAMAGE_OVERHEAD_LIGHT = "Damage - Overhead (Light)",
+  DAMAGE_STAB_LIGHT = "Damage - Stab (Light)",
+  DAMAGE_HORIZONTAL_HEAVY = "Damage - Horizontal (Heavy)",
+  DAMAGE_OVERHEAD_HEAVY = "Damage - Overhead (Heavy)",
+  DAMAGE_STAB_HEAVY = "Damage - Stab (Heavy)",
+  DAMAGE_SPECIAL = "Damage - Special",
 }
 
 export enum Rating {
@@ -26,6 +34,15 @@ export enum Rating {
   RANGE_STAB = "Range - Stab",
   RANGE_ALT_STAB = "Range - Alt. Stab",
   RANGE_AVERAGE = "Range - Average*",
+
+  DAMAGE_HORIZONTAL_LIGHT = "Damage - Horizontal (Light)",
+  DAMAGE_OVERHEAD_LIGHT = "Damage - Overhead (Light)",
+  DAMAGE_STAB_LIGHT = "Damage - Stab (Light)",
+  DAMAGE_HORIZONTAL_HEAVY = "Damage - Horizontal (Heavy)",
+  DAMAGE_OVERHEAD_HEAVY = "Damage - Overhead (Heavy)",
+  DAMAGE_STAB_HEAVY = "Damage - Stab (Heavy)",
+  DAMAGE_SPECIAL = "Damage - Special",
+  DAMAGE_AVERAGE = "Damage - Average*",
 }
 
 export type RawMetrics = Map<Metric, number>;
