@@ -1,9 +1,11 @@
 import { DerivedRatings, Metric, Rating, RawMetrics } from "./rating";
+import KNIFE from "./weapons/knife";
 import LONGSWOARD from "./weapons/longsword";
 import POLEHAMMER from "./weapons/polehammer";
 import RAPIER from "./weapons/rapier";
 
 export enum Weapon {
+  KNIFE = "Knife",
   LONGSWORD = "Longsword",
   POLEHAMMER = "Polehammer",
   RAPIER = "Rapier",
@@ -142,6 +144,7 @@ function normalize(ratings: WeaponRatings): WeaponRatings {
 }
 
 const ratings = new Map([
+  [Weapon.KNIFE, toDerived(KNIFE)],
   [Weapon.LONGSWORD, toDerived(LONGSWOARD)],
   [Weapon.POLEHAMMER, toDerived(POLEHAMMER)],
   [Weapon.RAPIER, toDerived(RAPIER)],
