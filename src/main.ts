@@ -33,4 +33,42 @@ const chart = new Chart(document.getElementById("chart") as HTMLCanvasElement, {
   data: { labels: selectedCategories, datasets },
 });
 
+// Write all weapons we know about into the weapons list
+const weapons = document.getElementById("weapons") as HTMLFieldSetElement;
+Object.values(Weapon).map((w) => {
+  const div = document.createElement("div");
+
+  const input = document.createElement("input");
+  input.id = w;
+  input.checked = selectedWeapons.includes(w);
+  input.setAttribute("type", "checkbox");
+  div.appendChild(input);
+
+  const label = document.createElement("label");
+  label.htmlFor = w;
+  label.innerText = w;
+  div.appendChild(label);
+
+  weapons.appendChild(div);
+});
+
+// Write all categories we know about into the categories list
+const categories = document.getElementById("categories") as HTMLFieldSetElement;
+Object.values(Rating).map((r) => {
+  const div = document.createElement("div");
+
+  const input = document.createElement("input");
+  input.id = r;
+  input.checked = selectedCategories.includes(r);
+  input.setAttribute("type", "checkbox");
+  div.appendChild(input);
+
+  const label = document.createElement("label");
+  label.htmlFor = r;
+  label.innerText = r;
+  div.appendChild(label);
+
+  categories.appendChild(div);
+});
+
 chart.update();
