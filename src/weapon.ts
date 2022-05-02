@@ -1,10 +1,12 @@
 import { DerivedRatings, Metric, Rating, RawMetrics } from "./rating";
 import LONGSWOARD from "./weapons/longsword";
+import POLEHAMMER from "./weapons/polehammer";
 import RAPIER from "./weapons/rapier";
 
 export enum Weapon {
-  RAPIER = "Rapier",
   LONGSWORD = "Longsword",
+  POLEHAMMER = "Polehammer",
+  RAPIER = "Rapier",
 }
 
 function average(derived: DerivedRatings, ratings: Array<Rating>): number {
@@ -117,11 +119,6 @@ function toDerived(metrics: RawMetrics): DerivedRatings {
   return derived;
 }
 
-const ratings = new Map([
-  [Weapon.RAPIER, toDerived(RAPIER)],
-  [Weapon.LONGSWORD, toDerived(LONGSWOARD)],
-]);
-
 export type WeaponRatings = Map<Weapon, DerivedRatings>;
 
 // Per-key, set values across all weapons to [0, 1]
@@ -143,6 +140,12 @@ function normalize(ratings: WeaponRatings): WeaponRatings {
   }
   return normalized;
 }
+
+const ratings = new Map([
+  [Weapon.LONGSWORD, toDerived(LONGSWOARD)],
+  [Weapon.POLEHAMMER, toDerived(POLEHAMMER)],
+  [Weapon.RAPIER, toDerived(RAPIER)],
+]);
 
 export const NORMALIZED_RATINGS = normalize(ratings);
 // export const NORMALIZED_RATINGS = ratings;

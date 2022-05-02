@@ -1,10 +1,14 @@
-import Chart, { ChartDataset } from "chart.js/auto";
+import Chart from "chart.js/auto";
 import { Rating } from "./rating";
 import "./style.css";
 import { Weapon } from "./weapon";
 import { NORMALIZED_RATINGS } from "./weapon";
 
-let selectedWeapons = new Set<Weapon>([Weapon.RAPIER, Weapon.LONGSWORD]);
+let selectedWeapons = new Set<Weapon>([
+  Weapon.LONGSWORD,
+  Weapon.POLEHAMMER,
+  Weapon.RAPIER,
+]);
 let selectedCategories = new Set<Rating>([
   Rating.RANGE_AVERAGE,
   Rating.SPEED_AVERAGE,
