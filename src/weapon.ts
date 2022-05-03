@@ -13,25 +13,70 @@ import FALCHION from "./weapons/falchion";
 import SWORD from "./weapons/sword";
 import { hasBonus } from "./main";
 
+class Weapon {
+  name: string;
+  weapon_type: WeaponType;
+  damage_type: DamageType;
+  two_handed: boolean;
+  attacks: Map[SwingType, Swing]
+  special_attack: SpecialAttack
+  ranged_attack: RangedAttack
+}
+
+class SpecialAttack {
+  range: number
+  windup: number
+  damage: number
+}
+
+class Swing {
+  range: number;
+  alt_range: number?;
+
+  // TODO: Create AttackDuration class containing windup/active hitbox windup/cooldown
+  windup: number; // milliseconds
+  light: MeleeAttack
+  heavy: MeleeAttack
+}
+
+class RangedAttack {
+  projectile_speed: number?; // probably not measured yet
+  windup: number?; // milliseconds
+  damage: ProjectileDamage
+}
+
+class MeleeAttack {
+  windup: number;
+  damage: number; 
+}
+
+class ProjectileDamage {
+  head: number;
+  torso: number;
+  legs: number;
+}
+
 enum DamageType {
   CUT = "Cut",
   CHOP = "Chop",
   BLUNT = "Blunt",
 }
 
-export enum Weapon {
-  DANE_AXE = "Dane Axe",
-  FALCHION = "Falchion",
-  GREATSWORD = "Greatsword",
-  HIGHLAND_SWORD = "Highland Sword",
-  KNIFE = "Knife",
-  LONGSWORD = "Longsword",
-  MAUL = "Maul",
-  MESSER = "Messer",
-  POLEHAMMER = "Polehammer",
-  RAPIER = "Rapier",
+export enum WeaponType {
+  AXE = "Axe",
+  HAMMER = "Hammer",
   SWORD = "Sword",
+  BOW = "Bow"
 }
+
+export enum SwingTypes {
+  HORIZONTAL = "horizontal",
+  OVERHEAD = "overhead",
+  STAB = "stab",
+  SPECIAL = "special"
+}
+
+
 
 const DAMAGE_TYPES = new Map<Weapon, DamageType>([
   [Weapon.DANE_AXE, DamageType.CHOP],

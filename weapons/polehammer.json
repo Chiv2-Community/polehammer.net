@@ -1,0 +1,57 @@
+{
+  "name": "Polehammer",
+  "weapon_type": "Hammer",
+  "damage_type": "Blunt",
+  "two_handed": true,
+  "attacks": {
+    "horizontal": {
+      "range": 28,
+      "alt_range": 23,
+      "light": {
+        "windup": 882,
+        "damage": 45
+      },
+      "heavy": {
+        "windup": 882,
+        "damage": 60
+      }
+    },
+    "overhead": {
+      "range": 30,
+      "alt_range": 30,
+      "light": {
+        "windup": 700,
+        "damage": 45
+      },
+      "heavy": {
+        "windup": 700,
+        "damage": 70
+      }
+    },
+    "stab": {
+      "range": 30,
+      "alt_range": 32,
+      "heavy": {
+        "windup": 767,
+        "light": 40
+      },
+      "heavy": {
+        "windup": 767,
+        "heavy": 60 
+      }
+    }
+  },
+  "ranged_attack": {
+    "projectile_speed": null,
+    "windup": null,
+    "damage": {
+      "legs": 26,
+      "body": 35,
+      "head": 43
+    }
+  },
+  "special_attack": {
+    "range": 30,
+    "windup": 1333,
+    "damage": 100
+  }
