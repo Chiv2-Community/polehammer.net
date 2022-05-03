@@ -33,7 +33,7 @@ class Swing {
   range: number;
   alt_range: number?;
 
-  // TODO: Create AttackDuration class containing windup/active hitbox windup/cooldown
+  // TODO: Create AttackDuration class containing windup/active hitbox/cooldown
   windup: number; // milliseconds
   light: MeleeAttack
   heavy: MeleeAttack
