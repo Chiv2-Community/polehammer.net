@@ -72,8 +72,7 @@ export enum WeaponType {
 export enum SwingTypes {
   HORIZONTAL = "horizontal",
   OVERHEAD = "overhead",
-  STAB = "stab",
-  SPECIAL = "special"
+  STAB = "stab"
 }
 
 
