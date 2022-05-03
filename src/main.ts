@@ -17,19 +17,23 @@ let selectedCategories = new Set<Rating>([
 
 const OPACITY = 0.7;
 
+function weaponColor(weapon: Weapon) {
+  const idx = Object.values(Weapon).indexOf(weapon);
+  const totalWeapons = Object.values(Weapon).length;
+  return `hsl(${(idx / totalWeapons) * 360}deg, 100%, 50%, ${OPACITY})`;
+}
+
 function chartData() {
   return {
     labels: [...selectedCategories],
-    datasets: [...selectedWeapons].map((w, idx) => {
+    datasets: [...selectedWeapons].map((w) => {
       return {
         label: w,
         data: [...selectedCategories].map(
           (c) => NORMALIZED_RATINGS.get(w)!.get(c)!
         ),
         backgroundColor: "transparent",
-        borderColor: `hsl(${
-          (idx / selectedWeapons.size) * 360
-        }deg, 100%, 50%, ${OPACITY})`,
+        borderColor: weaponColor(w),
       };
     }),
   };
@@ -38,6 +42,11 @@ function chartData() {
 const chart = new Chart(document.getElementById("chart") as HTMLCanvasElement, {
   type: "radar",
   options: {
+    plugins: {
+      legend: {
+        display: false,
+      },
+    },
     responsive: true,
     maintainAspectRatio: false,
   },
@@ -58,6 +67,14 @@ function setWeapon(weapon: Weapon, enabled: boolean) {
 const weapons = document.getElementById("weapons") as HTMLFieldSetElement;
 Object.values(Weapon).map((w) => {
   const div = document.createElement("div");
+  div.style.display = "flex";
+  div.style.alignItems = "center";
+
+  const swatch = document.createElement("div");
+  swatch.style.width = "15px";
+  swatch.style.background = weaponColor(w);
+  swatch.style.aspectRatio = "1";
+  div.appendChild(swatch);
 
   const input = document.createElement("input");
   input.id = w;
