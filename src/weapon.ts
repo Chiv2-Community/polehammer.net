@@ -1,10 +1,17 @@
 import { DerivedRatings, Metric, Rating, RawMetrics } from "./rating";
+import { Target } from "./target";
 import DANE_AXE from "./weapons/dane_axe";
 import KNIFE from "./weapons/knife";
 import LONGSWOARD from "./weapons/longsword";
 import MAUL from "./weapons/maul";
 import POLEHAMMER from "./weapons/polehammer";
 import RAPIER from "./weapons/rapier";
+
+enum DamageType {
+  CUT = "Cut",
+  CHOP = "Chop",
+  BLUNT = "Blunt",
+}
 
 export enum Weapon {
   DANE_AXE = "Dane Axe",
@@ -14,6 +21,15 @@ export enum Weapon {
   POLEHAMMER = "Polehammer",
   RAPIER = "Rapier",
 }
+
+const DAMAGE_TYPES = new Map<Weapon, DamageType>([
+  [Weapon.DANE_AXE, DamageType.CHOP],
+  [Weapon.KNIFE, DamageType.CUT],
+  [Weapon.LONGSWORD, DamageType.CUT],
+  [Weapon.MAUL, DamageType.BLUNT],
+  [Weapon.POLEHAMMER, DamageType.BLUNT],
+  [Weapon.RAPIER, DamageType.CUT],
+]);
 
 function average(derived: DerivedRatings, ratings: Array<Rating>): number {
   return (
@@ -127,16 +143,45 @@ function toDerived(metrics: RawMetrics): DerivedRatings {
 
 export type WeaponRatings = Map<Weapon, DerivedRatings>;
 
+export function bonusMult(weapon: Weapon, target: Target): number {
+  if (target === Target.VANGUARD_ARCHER) {
+    return 1;
+  }
+
+  const type = damageType(weapon);
+  if (type === DamageType.CHOP) {
+    return target === Target.FOOTMAN ? 1.175 : 1.25;
+  } else if (type === DamageType.BLUNT) {
+    return target === Target.FOOTMAN ? 1.35 : 1.5;
+  } else {
+    return 1;
+  }
+}
+
+function damageType(weapon: Weapon): DamageType {
+  return DAMAGE_TYPES.get(weapon)!;
+}
+
+function maxPossibleDamage(weapon: Weapon, baseDamage: number) {
+  return (
+    baseDamage *
+    Math.max(
+      ...Object.values(Target).map((target) => bonusMult(weapon, target))
+    )
+  );
+}
+
 // Per-key, set values across all weapons to [0, 1]
 function normalize(ratings: WeaponRatings): WeaponRatings {
   const normalized = new Map(ratings);
   for (const rating of Object.values(Rating)) {
-    // Get min and max
+    // Get min and max for this rating _across all weapons_
+    // Scale max possible damage based on weapon's damage type
     let min = Number.MAX_VALUE;
     let max = Number.MIN_VALUE;
-    for (const [_weapon, derived] of ratings) {
+    for (const [weapon, derived] of ratings) {
       min = Math.min(min, derived.get(rating)!);
-      max = Math.max(max, derived.get(rating)!);
+      max = Math.max(max, maxPossibleDamage(weapon, derived.get(rating)!));
     }
 
     // Scale by min and max

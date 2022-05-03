@@ -1,14 +1,18 @@
 import Chart from "chart.js/auto";
 import { Rating } from "./rating";
 import "./style.css";
-import { Weapon } from "./weapon";
+import { Target } from "./target";
+import { bonusMult, Weapon } from "./weapon";
 import { NORMALIZED_RATINGS } from "./weapon";
+
+let selectedTarget = Target.VANGUARD_ARCHER;
 
 let selectedWeapons = new Set<Weapon>([
   Weapon.LONGSWORD,
   Weapon.POLEHAMMER,
   Weapon.RAPIER,
 ]);
+
 let selectedCategories = new Set<Rating>([
   Rating.RANGE_AVERAGE,
   Rating.SPEED_AVERAGE,
@@ -29,9 +33,16 @@ function chartData() {
     datasets: [...selectedWeapons].map((w) => {
       return {
         label: w,
-        data: [...selectedCategories].map(
-          (c) => NORMALIZED_RATINGS.get(w)!.get(c)!
-        ),
+        data: [...selectedCategories].map((c) => {
+          const baseRating = NORMALIZED_RATINGS.get(w)!.get(c)!;
+          if (c.startsWith("Damage")) {
+            console.log(w);
+            console.log(bonusMult(w, selectedTarget));
+            return bonusMult(w, selectedTarget) * baseRating;
+          } else {
+            return baseRating;
+          }
+        }),
         backgroundColor: "transparent",
         borderColor: weaponColor(w),
       };
@@ -42,6 +53,7 @@ function chartData() {
 const chart = new Chart(document.getElementById("chart") as HTMLCanvasElement, {
   type: "radar",
   options: {
+    animation: false,
     plugins: {
       legend: {
         display: false,
@@ -49,9 +61,20 @@ const chart = new Chart(document.getElementById("chart") as HTMLCanvasElement, {
     },
     responsive: true,
     maintainAspectRatio: false,
+    scales: {
+      radial: {
+        min: 0,
+        max: 1,
+      },
+    },
   },
   data: chartData(),
 });
+
+function redraw() {
+  chart.data = chartData();
+  chart.update();
+}
 
 function setWeapon(weapon: Weapon, enabled: boolean) {
   if (enabled) {
@@ -59,8 +82,7 @@ function setWeapon(weapon: Weapon, enabled: boolean) {
   } else {
     selectedWeapons.delete(weapon);
   }
-  chart.data = chartData();
-  chart.update();
+  redraw();
 }
 
 // Write all weapons we know about into the weapons list
@@ -100,8 +122,7 @@ function setCategory(category: Rating, enabled: boolean) {
   } else {
     selectedCategories.delete(category);
   }
-  chart.data = chartData();
-  chart.update();
+  redraw();
 }
 
 // Write all categories we know about into the categories list
@@ -126,3 +147,20 @@ Object.values(Rating).map((r) => {
 
   categories.appendChild(div);
 });
+
+// Link up target radio buttons
+(document.getElementById("vanguard_archer") as HTMLInputElement).onclick =
+  () => {
+    selectedTarget = Target.VANGUARD_ARCHER;
+    redraw();
+  };
+
+(document.getElementById("footman") as HTMLInputElement).onclick = () => {
+  selectedTarget = Target.FOOTMAN;
+  redraw();
+};
+
+(document.getElementById("knight") as HTMLInputElement).onclick = () => {
+  selectedTarget = Target.KNIGHT;
+  redraw();
+};
