@@ -27,6 +27,10 @@ function weaponColor(weapon: Weapon) {
   return `hsl(${(idx / totalWeapons) * 360}deg, 100%, 50%, ${OPACITY})`;
 }
 
+export function hasBonus(category: Rating) {
+  return category.startsWith("Damage");
+}
+
 function chartData() {
   return {
     labels: [...selectedCategories],
@@ -35,9 +39,7 @@ function chartData() {
         label: w,
         data: [...selectedCategories].map((c) => {
           const baseRating = NORMALIZED_RATINGS.get(w)!.get(c)!;
-          if (c.startsWith("Damage")) {
-            console.log(w);
-            console.log(bonusMult(w, selectedTarget));
+          if (hasBonus(c)) {
             return bonusMult(w, selectedTarget) * baseRating;
           } else {
             return baseRating;

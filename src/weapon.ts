@@ -6,6 +6,12 @@ import LONGSWOARD from "./weapons/longsword";
 import MAUL from "./weapons/maul";
 import POLEHAMMER from "./weapons/polehammer";
 import RAPIER from "./weapons/rapier";
+import GREATSWORD from "./weapons/greatsword";
+import MESSER from "./weapons/messer";
+import HIGHLAND_SWORD from "./weapons/highland_sword";
+import FALCHION from "./weapons/falchion";
+import SWORD from "./weapons/sword";
+import { hasBonus } from "./main";
 
 enum DamageType {
   CUT = "Cut",
@@ -15,20 +21,30 @@ enum DamageType {
 
 export enum Weapon {
   DANE_AXE = "Dane Axe",
+  FALCHION = "Falchion",
+  GREATSWORD = "Greatsword",
+  HIGHLAND_SWORD = "Highland Sword",
   KNIFE = "Knife",
   LONGSWORD = "Longsword",
   MAUL = "Maul",
+  MESSER = "Messer",
   POLEHAMMER = "Polehammer",
   RAPIER = "Rapier",
+  SWORD = "Sword",
 }
 
 const DAMAGE_TYPES = new Map<Weapon, DamageType>([
   [Weapon.DANE_AXE, DamageType.CHOP],
+  [Weapon.FALCHION, DamageType.CUT],
+  [Weapon.GREATSWORD, DamageType.CUT],
+  [Weapon.HIGHLAND_SWORD, DamageType.CUT],
   [Weapon.KNIFE, DamageType.CUT],
   [Weapon.LONGSWORD, DamageType.CUT],
   [Weapon.MAUL, DamageType.BLUNT],
+  [Weapon.MESSER, DamageType.CUT],
   [Weapon.POLEHAMMER, DamageType.BLUNT],
   [Weapon.RAPIER, DamageType.CUT],
+  [Weapon.SWORD, DamageType.CUT],
 ]);
 
 function average(derived: DerivedRatings, ratings: Array<Rating>): number {
@@ -162,12 +178,9 @@ function damageType(weapon: Weapon): DamageType {
   return DAMAGE_TYPES.get(weapon)!;
 }
 
-function maxPossibleDamage(weapon: Weapon, baseDamage: number) {
-  return (
-    baseDamage *
-    Math.max(
-      ...Object.values(Target).map((target) => bonusMult(weapon, target))
-    )
+function maxPossibleBonus(weapon: Weapon) {
+  return Math.max(
+    ...Object.values(Target).map((target) => bonusMult(weapon, target))
   );
 }
 
@@ -179,14 +192,18 @@ function normalize(ratings: WeaponRatings): WeaponRatings {
     // Scale max possible damage based on weapon's damage type
     let min = Number.MAX_VALUE;
     let max = Number.MIN_VALUE;
-    for (const [weapon, derived] of ratings) {
+    for (const [_weapon, derived] of ratings) {
       min = Math.min(min, derived.get(rating)!);
-      max = Math.max(max, maxPossibleDamage(weapon, derived.get(rating)!));
+      max = Math.max(max, derived.get(rating)!);
     }
 
     // Scale by min and max
-    for (const [_weapon, derived] of ratings) {
-      derived.set(rating, (derived.get(rating)! - min) / (max - min));
+    for (const [weapon, derived] of ratings) {
+      let div = 1;
+      if (hasBonus(rating)) {
+        div = maxPossibleBonus(weapon);
+      }
+      derived.set(rating, (derived.get(rating)! - min) / (max - min) / div);
     }
   }
   return normalized;
@@ -194,12 +211,17 @@ function normalize(ratings: WeaponRatings): WeaponRatings {
 
 const ratings = new Map([
   [Weapon.DANE_AXE, toDerived(DANE_AXE)],
+  [Weapon.FALCHION, toDerived(FALCHION)],
+  [Weapon.GREATSWORD, toDerived(GREATSWORD)],
+  [Weapon.HIGHLAND_SWORD, toDerived(HIGHLAND_SWORD)],
   [Weapon.KNIFE, toDerived(KNIFE)],
   [Weapon.LONGSWORD, toDerived(LONGSWOARD)],
   [Weapon.MAUL, toDerived(MAUL)],
+  [Weapon.MESSER, toDerived(MESSER)],
   [Weapon.POLEHAMMER, toDerived(POLEHAMMER)],
   [Weapon.RAPIER, toDerived(RAPIER)],
+  [Weapon.SWORD, toDerived(SWORD)],
 ]);
 
 export const NORMALIZED_RATINGS = normalize(ratings);
-// export const NORMALIZED_RATINGS = ratings;
+export const RATINGS = ratings;
