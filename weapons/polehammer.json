@@ -35,7 +35,7 @@
         "windup": 767,
         "light": 40
       },
-      "heavy": {
+      "light": {
         "windup": 767,
         "heavy": 60 
       }
