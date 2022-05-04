@@ -114,8 +114,12 @@ function setWeapon(weapon: Weapon, enabled: boolean) {
 
   if (enabled) {
     selectedWeapons.add(weapon);
+    const label = checkbox.nextSibling as HTMLLabelElement;
+    label.style.border = `3px ${weaponDash(weapon)} ${weaponColor(weapon)}`;
   } else {
     selectedWeapons.delete(weapon);
+    const label = checkbox.nextSibling as HTMLLabelElement;
+    label.style.border = `3px solid transparent`;
   }
   redraw();
 }
@@ -141,7 +145,6 @@ Object.values(Weapon).map((w) => {
   label.htmlFor = w;
   label.innerText = w;
   label.style.padding = "0.2em";
-  // label.style.border = `3px ${weaponDash(w)} ${weaponColor(w)}`;
   div.appendChild(label);
 
   weapons.appendChild(div);
@@ -204,7 +207,16 @@ function clear() {
   Object.values(Weapon).map((w) => {
     const checkbox = document.getElementById(w) as HTMLInputElement;
     checkbox.checked = false;
+    const label = checkbox.nextSibling as HTMLLabelElement;
+    label.style.border = `3px solid transparent`;
   });
+}
+
+// Choose 3 random weapons
+function random() {
+  clear();
+  const random = shuffle(Object.values(Weapon));
+  random.slice(0, 3).map((w) => setWeapon(w, true));
 }
 
 // Reset to default category selections
@@ -219,13 +231,6 @@ function reset() {
     const checkbox = document.getElementById(r) as HTMLInputElement;
     checkbox.checked = selectedCategories.has(r);
   });
-}
-
-// Choose 3 random weapons
-function random() {
-  clear();
-  const random = shuffle(Object.values(Weapon));
-  random.slice(0, 3).map((w) => setWeapon(w, true));
 }
 
 // Link up to buttons
