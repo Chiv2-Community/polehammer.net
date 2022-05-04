@@ -1,0 +1,45 @@
+{
+  "name": "Falchion",
+  "weaponType": "Sword",
+  "damageType": "Cut",
+  "twoHanded": false,
+  "attacks": {
+    "horizontal": {
+      "range": 20,
+      "altRange": 21,
+      "light": {
+        "windup": 21,
+        "damage": 50
+      },
+      "heavy": {
+        "damage": 65
+      }
+    },
+    "overhead": {
+      "range": 19,
+      "altRange": 20,
+      "light": {
+        "windup": 19,
+        "damage": 55
+      },
+      "heavy": {
+        "damage": 70
+      }
+    },
+    "stab": {
+      "range": 23,
+      "altRange": 24,
+      "light": {
+        "windup": 19,
+        "damage": 40
+      },
+      "heavy": {
+        "damage": 60
+      }
+    }
+  },
+  "specialAttack": {
+    "windup": 29,
+    "damage": 80
+  }
+}

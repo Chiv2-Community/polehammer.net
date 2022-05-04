@@ -10,7 +10,7 @@ import POLEHAMMER from "./weapons/polehammer.json";
 import MESSER from "./weapons/messer.json";
 import MAUL from "./weapons/maul.json";
 import DANE_AXE from "./weapons/dane_axe.json";
-import FALCHION from "./weapons/falchion";
+import FALCHION from "./weapons/falchion.json";
 import GREATSWORD from "./weapons/greatsword";
 import HIGHLAND_SWORD from "./weapons/highland_sword";
 import KNIFE from "./weapons/knife";
@@ -36,7 +36,7 @@ function labelsToJson(name: string, weaponType: WeaponType, damageType: DamageTy
   console.log(JSON.stringify(obj, null, 2))
 }
 
-//labelsToJson("Dane Axe", WeaponType.AXE, DamageType.CHOP, true, DANE_AXE.)
+labelsToJson("Greatsword", WeaponType.SWORD, DamageType.CUT, true, GREATSWORD)
 
 function writeObjectProp(obj: any, paths: string[], value: any): any {
   if(paths.length == 1)
@@ -59,7 +59,8 @@ let ALL_WEAPONS: Weapon[] = [
   weaponFromJson(POLEHAMMER),
   weaponFromJson(MESSER),
   weaponFromJson(MAUL),
-  weaponFromJson(DANE_AXE)
+  weaponFromJson(DANE_AXE),
+  weaponFromJson(FALCHION),
 ]
 
 let STATS: WeaponStats = generateMetrics(ALL_WEAPONS);
