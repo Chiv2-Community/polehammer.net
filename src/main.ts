@@ -99,8 +99,8 @@ const chart = new Chart(document.getElementById("chart") as HTMLCanvasElement, {
       radial: {
         min: 0,
         max: 1,
-        grid: {},
         ticks: {
+          display: false,
           maxTicksLimit: 2,
         },
       },
