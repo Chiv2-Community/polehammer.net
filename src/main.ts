@@ -321,7 +321,7 @@ function random() {
 // Clear all weapon selections
 function reset() {
   selectedCategories.clear();
-  selectedCategories.add(MetricLabel.WINDUP_AVERAGE);
+  selectedCategories.add(MetricLabel.SPEED_AVERAGE);
   selectedCategories.add(MetricLabel.RANGE_AVERAGE);
   selectedCategories.add(MetricLabel.DAMAGE_AVERAGE);
   redraw();
