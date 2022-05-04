@@ -1,8 +1,7 @@
 {
   "name": "Halberd",
-  "weaponType": ["Axe"],
+  "weaponTypes": ["Axe", "Polearm", "Two Handed"],
   "damageType": "Chop",
-  "twoHanded": true,
   "attacks": {
     "horizontal": {
       "range": 33,

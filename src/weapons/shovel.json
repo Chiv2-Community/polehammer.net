@@ -5,7 +5,6 @@
     "Two Handed"
   ],
   "damageType": "Blunt",
-  "twoHanded": true,
   "attacks": {
     "horizontal": {
       "range": 16,

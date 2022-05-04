@@ -1,8 +1,6 @@
 {
   "name": "Morning Star",
-  "weaponTypes": [
-    "Club"
-  ],
+  "weaponTypes": ["One Handed", "Club"],
   "damageType": "Blunt",
   "twoHanded": false,
   "attacks": {

@@ -1,10 +1,7 @@
 {
   "name": "Heavy Mace",
-  "weaponTypes": [
-    "Club"
-  ],
+  "weaponTypes": ["Club", "Two Handed"],
   "damageType": "Chop",
-  "twoHanded": true,
   "attacks": {
     "horizontal": {
       "range": 26,

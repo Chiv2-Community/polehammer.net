@@ -1,6 +1,9 @@
 {
   "name": "Axe",
-  "weaponType": ["Axe"],
+  "weaponTypes": [
+    "Axe",
+    "One Handed"
+  ],
   "damageType": "Chop",
   "twoHanded": false,
   "attacks": {

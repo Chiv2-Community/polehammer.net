@@ -1,8 +1,7 @@
 {
   "name": "Maul",
-  "weaponType": ["Hammer"],
+  "weaponTypes": ["Hammer", "Two Handed"],
   "damageType": "Blunt",
-  "twoHanded": true,
   "attacks": {
     "horizontal": {
       "range": 22,

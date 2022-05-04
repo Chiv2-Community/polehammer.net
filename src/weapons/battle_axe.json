@@ -1,8 +1,10 @@
 {
   "name": "Battle Axe",
-  "weaponType": ["Axe"],
+  "weaponTypes": [
+    "Axe",
+    "Two Handed"
+  ],
   "damageType": "Chop",
-  "twoHanded": true,
   "attacks": {
     "horizontal": {
       "range": 21,

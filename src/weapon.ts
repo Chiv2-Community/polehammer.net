@@ -4,16 +4,14 @@ export class Weapon {
   name!: string;
   weaponTypes!: WeaponType[];
   damageType!: DamageType;
-  twoHanded!: boolean;
   attacks?: Map<SwingType, Swing>;
   specialAttack?: SpecialAttack;
   rangedAttack?: RangedAttack;
 
-  constructor( name: string, weaponTypes: WeaponType[], damageType: DamageType, twoHanded: boolean, attacks: Map<SwingType, Swing>, specialAttack: SpecialAttack, rangedAttack: RangedAttack) {
+  constructor( name: string, weaponTypes: WeaponType[], damageType: DamageType, attacks: Map<SwingType, Swing>, specialAttack: SpecialAttack, rangedAttack: RangedAttack) {
     this.name = name,
     this.weaponTypes = weaponTypes,
     this.damageType = damageType,
-    this.twoHanded = twoHanded,
     this.attacks = attacks,
     this.specialAttack = specialAttack,
     this.rangedAttack = rangedAttack
@@ -131,6 +129,7 @@ export enum WeaponType {
   POLEARM = "Polearm",
   SPEAR = "Spear",
   SWORD = "Sword",
+  Dagger = "Dagger",
   BOW = "Bow",
   TWO_HANDED = "Two Handed",
   ONE_HANDED = "One Handed"

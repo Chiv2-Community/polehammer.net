@@ -1,10 +1,7 @@
 {
   "name": "Mallet",
-  "weaponTypes": [
-    "Hammer"
-  ],
+  "weaponTypes": ["Hammer", "One Handed"],
   "damageType": "Blunt",
-  "twoHanded": false,
   "attacks": {
     "horizontal": {
       "range": 13,

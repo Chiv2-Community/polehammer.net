@@ -1,8 +1,10 @@
 {
   "name": "Cudgel",
-  "weaponType": ["Hammer"],
+  "weaponTypes": [
+    "Club",
+    "One Handed"
+  ],
   "damageType": "Blunt",
-  "twoHanded": false,
   "attacks": {
     "horizontal": {
       "range": 15,

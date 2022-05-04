@@ -1,8 +1,7 @@
 {
   "name": "Glaive",
-  "weaponType": ["Axe"],
+  "weaponTypes": ["Polearm", "Axe", "Two Handed"],
   "damageType": "Chop",
-  "twoHanded": true,
   "attacks": {
     "horizontal": {
       "range": 36,

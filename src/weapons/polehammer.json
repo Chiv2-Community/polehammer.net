@@ -1,8 +1,7 @@
 {
   "name": "Polehammer",
-  "weaponType": ["Hammer"],
+  "weaponTypes": ["Hammer", "Polearm", "Two Handed",
   "damageType": "Blunt",
-  "twoHanded": true,
   "attacks": {
     "horizontal": {
       "range": 28,
@@ -34,7 +33,7 @@
         "damage": 40
       },
       "heavy": {
-        "damage": 60 
+        "damage": 60
       }
     }
   },

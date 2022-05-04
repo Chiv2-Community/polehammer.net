@@ -1,8 +1,7 @@
 {
   "name": "Hatchet",
-  "weaponType": ["Axe"],
+  "weaponTypes": ["Axe", "One Handed"],
   "damageType": "Chop",
-  "twoHanded": true,
   "attacks": {
     "horizontal": {
       "range": 11,

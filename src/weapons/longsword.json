@@ -1,6 +1,6 @@
 {
   "name": "Longsword",
-  "weaponType": ["Sword"],
+  "weaponTypes": ["Sword", "One Handed"],
   "damageType": "Cut",
   "twoHanded": false,
   "attacks": {

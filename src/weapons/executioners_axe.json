@@ -1,8 +1,10 @@
 {
   "name": "Executioner's Axe",
-  "weaponType": ["Axe"],
+  "weaponTypes": [
+    "Axe",
+    "Two Handed"
+  ],
   "damageType": "Chop",
-  "twoHanded": true,
   "attacks": {
     "horizontal": {
       "light": {

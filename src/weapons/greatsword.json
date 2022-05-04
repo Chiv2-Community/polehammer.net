@@ -1,8 +1,7 @@
 {
   "name": "Greatsword",
-  "weaponType": ["Sword"],
+  "weaponTypes": ["Sword", "Two Handed"],
   "damageType": "Cut",
-  "twoHanded": true,
   "attacks": {
     "horizontal": {
       "range": 31,

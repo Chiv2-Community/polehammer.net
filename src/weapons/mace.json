@@ -1,10 +1,7 @@
 {
   "name": "Mace",
-  "weaponTypes": [
-    "Club"
-  ],
+  "weaponTypes": ["Club", "One Handed"],
   "damageType": "Blunt",
-  "twoHanded": false,
   "attacks": {
     "horizontal": {
       "range": 19,

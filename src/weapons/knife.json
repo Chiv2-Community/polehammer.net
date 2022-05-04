@@ -1,8 +1,10 @@
 {
   "name": "Knife",
-  "weaponType": ["Sword"],
+  "weaponTypes": [
+    "Dagger",
+    "One Handed"
+  ],
   "damageType": "Cut",
-  "twoHanded": false,
   "attacks": {
     "horizontal": {
       "range": 11,

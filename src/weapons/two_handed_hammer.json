@@ -5,7 +5,6 @@
     "Two Handed"
   ],
   "damageType": "Chop",
-  "twoHanded": true,
   "attacks": {
     "horizontal": {
       "range": 25,
