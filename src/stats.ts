@@ -27,11 +27,11 @@ export function generateMetrics(weapons: Weapon[]): WeaponStats {
 
     // Ranges
     new BasicMetric(MetricLabel.RANGE_HORIZONTAL, MetricPath.RANGE_HORIZONTAL),
-    new BasicMetric(MetricLabel.RANGE_ALT_HORIZONTAL, MetricPath.RANGE_HORIZONTAL),
+    new BasicMetric(MetricLabel.RANGE_ALT_HORIZONTAL, MetricPath.RANGE_ALT_HORIZONTAL),
     new BasicMetric(MetricLabel.RANGE_OVERHEAD, MetricPath.RANGE_OVERHEAD),
-    new BasicMetric(MetricLabel.RANGE_ALT_OVERHEAD, MetricPath.RANGE_OVERHEAD),
+    new BasicMetric(MetricLabel.RANGE_ALT_OVERHEAD, MetricPath.RANGE_ALT_OVERHEAD),
     new BasicMetric(MetricLabel.RANGE_STAB, MetricPath.RANGE_STAB),
-    new BasicMetric(MetricLabel.RANGE_ALT_STAB, MetricPath.RANGE_STAB),
+    new BasicMetric(MetricLabel.RANGE_ALT_STAB, MetricPath.RANGE_ALT_STAB),
     //new BasicMetric(MetricLabel.RANGE_SPECIAL, MetricPath.RANGE_SPECIAL), TODO
     new AggregateMetric(MetricLabel.RANGE_AVERAGE, RANGE_METRICS, average),
 
