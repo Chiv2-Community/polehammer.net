@@ -2,14 +2,54 @@ import { Chart, registerables } from "chart.js";
 import { MetricLabel } from "./metrics";
 import "./style.css";
 import { Target } from "./target";
-import { Weapon } from "./weapon";
+import { DamageType, Weapon, WeaponType } from "./weapon";
 import { hasBonus, generateMetrics, normalize, WeaponStats } from "./stats";
+import { AnyObject } from "chart.js/types/basic";
+
 import POLEHAMMER from "./weapons/polehammer.json";
 import MESSER from "./weapons/messer.json";
 import MAUL from "./weapons/maul.json";
-import { AnyObject } from "chart.js/types/basic";
+import DANE_AXE from "./weapons/dane_axe.json";
+import FALCHION from "./weapons/falchion";
+import GREATSWORD from "./weapons/greatsword";
+import HIGHLAND_SWORD from "./weapons/highland_sword";
+import KNIFE from "./weapons/knife";
+import LONGSWORD from "./weapons/longsword";
+import RAPIER from "./weapons/rapier";
+import SWORD from "./weapons/sword";
+
+
 
 Chart.register(...registerables) // the auto import stuff was making typescript angry.
+
+function labelsToJson(name: string, weaponType: WeaponType, damageType: DamageType, twoHanded: boolean, labels: Map<string, number>) {
+  let obj = {
+    'name': name,
+    'weaponType': weaponType,
+    'damageType': damageType,
+    'twoHanded': twoHanded
+  }
+
+  for(let [k,v] of labels) {
+    writeObjectProp(obj, k.split('.'), v);
+  }
+  console.log(JSON.stringify(obj, null, 2))
+}
+
+//labelsToJson("Dane Axe", WeaponType.AXE, DamageType.CHOP, true, DANE_AXE.)
+
+function writeObjectProp(obj: any, paths: string[], value: any): any {
+  if(paths.length == 1)
+    obj[paths[0]] = value;
+  else {
+    let curPath = paths.shift()!;
+    if(!(curPath in obj)) 
+      obj[curPath] = {}
+
+    writeObjectProp(obj[curPath], paths, value);
+  }
+  return obj
+}
 
 function weaponFromJson(obj: AnyObject): Weapon {
   return Object.setPrototypeOf(obj, Weapon.prototype);
@@ -18,7 +58,8 @@ function weaponFromJson(obj: AnyObject): Weapon {
 let ALL_WEAPONS: Weapon[] = [
   weaponFromJson(POLEHAMMER),
   weaponFromJson(MESSER),
-  weaponFromJson(MAUL)
+  weaponFromJson(MAUL),
+  weaponFromJson(DANE_AXE)
 ]
 
 let STATS: WeaponStats = generateMetrics(ALL_WEAPONS);
