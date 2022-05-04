@@ -1,45 +1,45 @@
 {
-  "name": "Falchion",
+  "name": "Rapier",
   "weaponType": "Sword",
   "damageType": "Cut",
   "twoHanded": false,
   "attacks": {
     "horizontal": {
-      "range": 20,
-      "altRange": 700,
+      "range": 22,
+      "altRange": 21,
       "light": {
-        "windup": 21,
-        "damage": 50
+        "windup": 633,
+        "damage": 30
       },
       "heavy": {
-        "damage": 65
+        "damage": 50
       }
     },
     "overhead": {
-      "range": 19,
-      "altRange": 20,
+      "range": 21,
+      "altRange": 22,
+      "light": {
+        "windup": 500,
+        "damage": 35
+      },
+      "heavy": {
+        "damage": 55
+      }
+    },
+    "stab": {
+      "range": 25,
+      "altRange": 26,
       "light": {
         "windup": 633,
-        "damage": 55
+        "damage": 50
       },
       "heavy": {
         "damage": 70
       }
-    },
-    "stab": {
-      "range": 23,
-      "altRange": 24,
-      "light": {
-        "windup": 633,
-        "damage": 40
-      },
-      "heavy": {
-        "damage": 60
-      }
     }
   },
   "specialAttack": {
-    "windup": 966,
-    "damage": 80
+    "windup": 700,
+    "damage": 55
   }
 }

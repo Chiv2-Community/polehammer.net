@@ -1,36 +1,36 @@
 {
-  "name": "Falchion",
+  "name": "Highland Sword",
   "weaponType": "Sword",
   "damageType": "Cut",
-  "twoHanded": false,
+  "twoHanded": true,
   "attacks": {
     "horizontal": {
-      "range": 20,
-      "altRange": 700,
+      "range": 31,
+      "altRange": 31,
       "light": {
-        "windup": 21,
-        "damage": 50
+        "windup": 967,
+        "damage": 60
       },
       "heavy": {
-        "damage": 65
+        "damage": 80
       }
     },
     "overhead": {
-      "range": 19,
-      "altRange": 20,
+      "range": 29,
+      "altRange": 32,
       "light": {
-        "windup": 633,
-        "damage": 55
+        "windup": 933,
+        "damage": 85
       },
       "heavy": {
-        "damage": 70
+        "damage": 100
       }
     },
     "stab": {
-      "range": 23,
+      "range": 26,
       "altRange": 24,
       "light": {
-        "windup": 633,
+        "windup": 1000,
         "damage": 40
       },
       "heavy": {
@@ -39,7 +39,7 @@
     }
   },
   "specialAttack": {
-    "windup": 966,
-    "damage": 80
+    "windup": 900,
+    "damage": 60
   }
 }

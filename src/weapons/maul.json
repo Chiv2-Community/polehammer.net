@@ -8,7 +8,7 @@
       "range": 22,
       "altRange": 22,
       "light": {
-        "windup": 27,
+        "windup": 900,
         "damage": 50
       },
       "heavy": {
@@ -19,7 +19,7 @@
       "range": 21,
       "altRange": 21,
       "light": {
-        "windup": 25,
+        "windup": 833,
         "damage": 60
       },
       "heavy": {
@@ -30,7 +30,7 @@
       "range": 20,
       "altRange": 20,
       "light": {
-        "windup": 24,
+        "windup": 800,
         "damage": 30
       },
       "heavy": {
@@ -39,7 +39,7 @@
     }
   },
   "specialAttack": {
-    "windup": 45,
+    "windup": 1500,
     "damage": 120
   }
 }

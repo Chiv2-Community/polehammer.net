@@ -1,45 +1,45 @@
 {
-  "name": "Falchion",
+  "name": "Longsword",
   "weaponType": "Sword",
   "damageType": "Cut",
   "twoHanded": false,
   "attacks": {
     "horizontal": {
-      "range": 20,
-      "altRange": 700,
+      "range": 23,
+      "altRange": 23,
       "light": {
-        "windup": 21,
-        "damage": 50
+        "windup": 733,
+        "damage": 40
       },
       "heavy": {
-        "damage": 65
+        "damage": 60
       }
     },
     "overhead": {
-      "range": 19,
-      "altRange": 20,
+      "range": 22,
+      "altRange": 23,
       "light": {
-        "windup": 633,
-        "damage": 55
+        "windup": 733,
+        "damage": 50
       },
       "heavy": {
         "damage": 70
       }
     },
     "stab": {
-      "range": 23,
-      "altRange": 24,
+      "range": 26,
+      "altRange": 27,
       "light": {
-        "windup": 633,
-        "damage": 40
+        "windup": 700,
+        "damage": 50
       },
       "heavy": {
-        "damage": 60
+        "damage": 65
       }
     }
   },
   "specialAttack": {
-    "windup": 966,
+    "windup": 1000,
     "damage": 80
   }
 }

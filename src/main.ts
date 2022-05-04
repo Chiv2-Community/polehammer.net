@@ -11,45 +11,15 @@ import MESSER from "./weapons/messer.json";
 import MAUL from "./weapons/maul.json";
 import DANE_AXE from "./weapons/dane_axe.json";
 import FALCHION from "./weapons/falchion.json";
-import GREATSWORD from "./weapons/greatsword";
-import HIGHLAND_SWORD from "./weapons/highland_sword";
-import KNIFE from "./weapons/knife";
-import LONGSWORD from "./weapons/longsword";
-import RAPIER from "./weapons/rapier";
-import SWORD from "./weapons/sword";
-
+import GREATSWORD from "./weapons/greatsword.json";
+import HIGHLAND_SWORD from "./weapons/highland_sword.json";
+import KNIFE from "./weapons/knife.json";
+import LONGSWORD from "./weapons/longsword.json";
+import RAPIER from "./weapons/rapier.json";
+import SWORD from "./weapons/sword.json";
 
 
 Chart.register(...registerables) // the auto import stuff was making typescript angry.
-
-function labelsToJson(name: string, weaponType: WeaponType, damageType: DamageType, twoHanded: boolean, labels: Map<string, number>) {
-  let obj = {
-    'name': name,
-    'weaponType': weaponType,
-    'damageType': damageType,
-    'twoHanded': twoHanded
-  }
-
-  for(let [k,v] of labels) {
-    writeObjectProp(obj, k.split('.'), v);
-  }
-  console.log(JSON.stringify(obj, null, 2))
-}
-
-labelsToJson("Greatsword", WeaponType.SWORD, DamageType.CUT, true, GREATSWORD)
-
-function writeObjectProp(obj: any, paths: string[], value: any): any {
-  if(paths.length == 1)
-    obj[paths[0]] = value;
-  else {
-    let curPath = paths.shift()!;
-    if(!(curPath in obj)) 
-      obj[curPath] = {}
-
-    writeObjectProp(obj[curPath], paths, value);
-  }
-  return obj
-}
 
 function weaponFromJson(obj: AnyObject): Weapon {
   return Object.setPrototypeOf(obj, Weapon.prototype);
@@ -61,6 +31,12 @@ let ALL_WEAPONS: Weapon[] = [
   weaponFromJson(MAUL),
   weaponFromJson(DANE_AXE),
   weaponFromJson(FALCHION),
+  weaponFromJson(GREATSWORD),
+  weaponFromJson(HIGHLAND_SWORD),
+  weaponFromJson(KNIFE),
+  weaponFromJson(LONGSWORD),
+  weaponFromJson(RAPIER),
+  weaponFromJson(SWORD),
 ]
 
 let STATS: WeaponStats = generateMetrics(ALL_WEAPONS);
@@ -70,7 +46,7 @@ console.log(NORMALIZED_STATS);
 
 let selectedTarget = Target.VANGUARD_ARCHER;
 
-let selectedWeapons = new Set<Weapon>(ALL_WEAPONS)
+let selectedWeapons = new Set<Weapon>(ALL_WEAPONS.slice(0,3))
 
 let selectedCategories = new Set<MetricLabel>([
   MetricLabel.RANGE_AVERAGE,
