@@ -19,11 +19,11 @@ export function generateMetrics(weapons: Weapon[]): WeaponStats {
   const metricGenerators = [
     // Windups
     // Note that we invert each value within its range, because lower is better.
-    new InverseMetric(MetricLabel.WINDUP_HORIZONTAL, MetricPath.WINDUP_HORIZONTAL, minWindup, maxWindup),
-    new InverseMetric(MetricLabel.WINDUP_OVERHEAD, MetricPath.WINDUP_OVERHEAD, minWindup, maxWindup),
-    new InverseMetric(MetricLabel.WINDUP_STAB, MetricPath.WINDUP_STAB, minWindup, maxWindup),
-    new InverseMetric(MetricLabel.WINDUP_SPECIAL, MetricPath.WINDUP_SPECIAL, minWindup, maxWindup),
-    new AggregateInverseMetric(MetricLabel.WINDUP_AVERAGE, WINDUP_METRICS, minWindup, maxWindup, average),
+    new InverseMetric(MetricLabel.SPEED_HORIZONTAL, MetricPath.WINDUP_HORIZONTAL, minWindup, maxWindup),
+    new InverseMetric(MetricLabel.SPEED_OVERHEAD, MetricPath.WINDUP_OVERHEAD, minWindup, maxWindup),
+    new InverseMetric(MetricLabel.SPEED_STAB, MetricPath.WINDUP_STAB, minWindup, maxWindup),
+    new InverseMetric(MetricLabel.SPEED_SPECIAL, MetricPath.WINDUP_SPECIAL, minWindup, maxWindup),
+    new AggregateInverseMetric(MetricLabel.SPEED_AVERAGE, WINDUP_METRICS, minWindup, maxWindup, average),
 
     // Ranges
     new BasicMetric(MetricLabel.RANGE_HORIZONTAL, MetricPath.RANGE_HORIZONTAL),
