@@ -1,4 +1,4 @@
-import { Chart } from "chart.js/auto";
+import { Chart } from "chart.js";
 import { MetricLabel } from "./metrics";
 import "./style.css";
 import { Target } from "./target";
