@@ -11,21 +11,30 @@
       <div style="width: 20em">
         <fieldset id="target">
           <legend>Target</legend>
-          <input
-            type="radio"
-            name="target"
-            id="Vanguard / Archer"
-            checked
-          /><label for="Vanguard / Archer">Vanguard / Archer</label><br />
-          <input type="radio" name="target" id="Footman" /><label for="Footman"
-            >Footman</label
-          ><br />
-          <input type="radio" name="target" id="Knight" /><label for="Knight"
-            >Knight</label
-          >
+          <div>
+            <input
+              type="radio"
+              name="target"
+              id="Vanguard / Archer"
+              checked
+            /><label for="Vanguard / Archer">Vanguard / Archer</label><br />
+          </div>
+          <div>
+            <input type="radio" name="target" id="Footman" /><label
+              for="Footman"
+              >Footman</label
+            >
+          </div>
+          <div>
+            <input type="radio" name="target" id="Knight" /><label for="Knight"
+              >Knight</label
+            >
+          </div>
         </fieldset>
         <fieldset id="weapons">
           <legend>Weapons</legend>
+          <button id="clear">Clear</button>
+          <button id="random">Random</button>
         </fieldset>
       </div>
       <div style="flex: 1; height: 100vh">
@@ -34,6 +43,7 @@
       <div style="width: 20em">
         <fieldset id="categories">
           <legend>Categories</legend>
+          <button id="reset">Reset</button>
         </fieldset>
       </div>
     </div>

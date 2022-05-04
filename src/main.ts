@@ -9,11 +9,15 @@ let selectedTarget = Target.VANGUARD_ARCHER;
 
 let selectedWeapons = new Set<Weapon>([]);
 
-let selectedCategories = new Set<Rating>([]);
+let selectedCategories = new Set<Rating>([
+  Rating.SPEED_AVERAGE,
+  Rating.RANGE_AVERAGE,
+  Rating.DAMAGE_AVERAGE,
+]);
 
 const SATURATION = "85%";
 const LIGHTNESS = "45%";
-const OPACITY = 0.75;
+const OPACITY = 0.6;
 
 // Repeat the palette three times:
 // Once solid, then once dashed, then once dotted
@@ -95,6 +99,10 @@ const chart = new Chart(document.getElementById("chart") as HTMLCanvasElement, {
       radial: {
         min: 0,
         max: 1,
+        grid: {},
+        ticks: {
+          maxTicksLimit: 2,
+        },
       },
     },
   },
@@ -107,6 +115,9 @@ function redraw() {
 }
 
 function setWeapon(weapon: Weapon, enabled: boolean) {
+  const checkbox = document.getElementById(weapon) as HTMLInputElement;
+  checkbox.checked = enabled;
+
   if (enabled) {
     selectedWeapons.add(weapon);
   } else {
@@ -121,7 +132,6 @@ Object.values(Weapon).map((w) => {
   const div = document.createElement("div");
   div.style.display = "flex";
   div.style.alignItems = "center";
-  div.style.margin = "0.5em";
 
   const input = document.createElement("input");
   input.id = w;
@@ -183,3 +193,35 @@ Object.values(Target).map((t) => {
     redraw();
   };
 });
+
+function shuffle<T>(arr: T[]) {
+  const newArr = arr.slice();
+  for (let i = newArr.length - 1; i > 0; i--) {
+    const rand = Math.floor(Math.random() * (i + 1));
+    [newArr[i], newArr[rand]] = [newArr[rand], newArr[i]];
+  }
+  return newArr;
+}
+
+// Clear all weapon selections
+function clear() {
+  selectedWeapons.clear();
+  redraw();
+  Object.values(Weapon).map((w) => {
+    const checkbox = document.getElementById(w) as HTMLInputElement;
+    checkbox.checked = false;
+  });
+}
+
+// Choose 3 random weapons
+function random() {
+  clear();
+  const random = shuffle(Object.values(Weapon));
+  random.slice(0, 3).map((w) => setWeapon(w, true));
+}
+
+random();
+
+// Link up to buttons
+document.getElementById("random")!.onclick = random;
+document.getElementById("clear")!.onclick = clear;

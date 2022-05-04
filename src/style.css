@@ -8,3 +8,7 @@ fieldset {
   margin: 1em;
   padding: 0.5em;
 }
+
+fieldset div {
+  margin: 0.5em;
+}
