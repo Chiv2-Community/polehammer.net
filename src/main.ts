@@ -129,7 +129,7 @@ Object.values(Weapon).map((w) => {
   const div = document.createElement("div");
   div.style.display = "flex";
   div.style.alignItems = "center";
-  div.style.margin = "0.1em";
+  div.style.margin = "0.5em";
 
   const input = document.createElement("input");
   input.id = w;
@@ -146,10 +146,6 @@ Object.values(Weapon).map((w) => {
   label.innerText = w;
   label.style.padding = "0.2em";
   label.style.border = `3px ${weaponDash(w)} ${weaponColor(w)}`;
-  // label.style.textDecorationThickness = "3px";
-  // label.style.textDecorationLine = "underline";
-  // label.style.textDecorationStyle = "dashed";
-  // label.style.textDecorationColor = weaponColor(w);
   div.appendChild(label);
 
   weapons.appendChild(div);
