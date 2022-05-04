@@ -1,4 +1,4 @@
-import Chart from "chart.js/auto";
+import { Chart } from "chart.js/auto";
 import { MetricLabel } from "./metrics";
 import "./style.css";
 import { Target } from "./target";
@@ -6,7 +6,6 @@ import { Weapon } from "./weapon";
 import { hasBonus, generateMetrics, normalize, WeaponStats } from "./stats";
 import POLEHAMMER from "./weapons/polehammer.json";
 import MESSER from "./weapons/messer.json";
-import MAUL from "./weapons/maul.json";
 import MAUL from "./weapons/maul.json";
 import { AnyObject } from "chart.js/types/basic";
 
@@ -49,7 +48,7 @@ function chartData(dataset: WeaponStats) {
     labels: [...selectedCategories],
     datasets: [...selectedWeapons].map((w) => {
       return {
-        label: w,
+        label: w.name,
         data: [...selectedCategories].map((c) => {
           const baseMetricLabel = dataset.get(w)!.get(c)!;
           if (hasBonus(c)) {

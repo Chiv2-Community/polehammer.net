@@ -1,25 +1,25 @@
-import { Metric, RawMetrics } from "../rating";
+import { MetricPath } from "../metrics";
 
-const metrics: RawMetrics = new Map([
-  [Metric.DURATION_HORIZONTAL, 29],
-  [Metric.DURATION_OVERHEAD, 28],
-  [Metric.DURATION_STAB, 30],
-  [Metric.DURATION_SPECIAL, 27],
+const metrics = new Map([
+  [MetricPath.WINDUP_HORIZONTAL, 29],
+  [MetricPath.WINDUP_OVERHEAD, 28],
+  [MetricPath.WINDUP_STAB, 30],
+  [MetricPath.WINDUP_SPECIAL, 27],
 
-  [Metric.RANGE_HORIZONTAL, 31],
-  [Metric.RANGE_ALT_HORIZONTAL, 31],
-  [Metric.RANGE_OVERHEAD, 29],
-  [Metric.RANGE_ALT_OVERHEAD, 32],
-  [Metric.RANGE_STAB, 26],
-  [Metric.RANGE_ALT_STAB, 24],
+  [MetricPath.RANGE_HORIZONTAL, 31],
+  [MetricPath.RANGE_ALT_HORIZONTAL, 31],
+  [MetricPath.RANGE_OVERHEAD, 29],
+  [MetricPath.RANGE_ALT_OVERHEAD, 32],
+  [MetricPath.RANGE_STAB, 26],
+  [MetricPath.RANGE_ALT_STAB, 24],
 
-  [Metric.DAMAGE_HORIZONTAL_LIGHT, 60],
-  [Metric.DAMAGE_OVERHEAD_LIGHT, 85],
-  [Metric.DAMAGE_STAB_LIGHT, 40],
-  [Metric.DAMAGE_HORIZONTAL_HEAVY, 80],
-  [Metric.DAMAGE_OVERHEAD_HEAVY, 100],
-  [Metric.DAMAGE_STAB_HEAVY, 60],
-  [Metric.DAMAGE_SPECIAL, 60],
+  [MetricPath.DAMAGE_HORIZONTAL_LIGHT, 60],
+  [MetricPath.DAMAGE_OVERHEAD_LIGHT, 85],
+  [MetricPath.DAMAGE_STAB_LIGHT, 40],
+  [MetricPath.DAMAGE_HORIZONTAL_HEAVY, 80],
+  [MetricPath.DAMAGE_OVERHEAD_HEAVY, 100],
+  [MetricPath.DAMAGE_STAB_HEAVY, 60],
+  [MetricPath.DAMAGE_SPECIAL, 60],
 ]);
 
 export default metrics;

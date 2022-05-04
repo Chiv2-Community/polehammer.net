@@ -1,6 +1,5 @@
 import { Weapon } from "./weapon"
 import { MetricLabel, MetricPath, LabelledMetrics, InverseMetric, BasicMetric, AggregateMetric, AggregateInverseMetric, DAMAGE_METRICS, RANGE_METRICS, WINDUP_METRICS } from "./metrics"
-import * as fs from "fs";
 
 export type WeaponStats = Map<Weapon, LabelledMetrics>;
 
@@ -61,7 +60,7 @@ export function normalize(stats: WeaponStats): WeaponStats {
   for (const rating of Object.values(MetricLabel)) {
     // Get min and max for this rating _across all weapons_
     // Scale max possible damage based on weapon's damage type
-    let values: number[] = [...stats.values()].map((x:LabelledMetrics) => x.get(rating))
+    let values: number[] = [...stats.values()].map((x:LabelledMetrics) => x.get(rating)!)
     let min = Math.min(...values);
     let max = Math.max(...values);
 
