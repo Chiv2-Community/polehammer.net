@@ -6,14 +6,8 @@ import { bonusMult, Weapon } from "./weapon";
 import { NORMALIZED_RATINGS } from "./weapon";
 
 let selectedTarget = Target.VANGUARD_ARCHER;
-
-let selectedWeapons = new Set<Weapon>([]);
-
-let selectedCategories = new Set<Rating>([
-  Rating.SPEED_AVERAGE,
-  Rating.RANGE_AVERAGE,
-  Rating.DAMAGE_AVERAGE,
-]);
+let selectedWeapons = new Set<Weapon>();
+let selectedCategories = new Set<Rating>();
 
 const SATURATION = "85%";
 const LIGHTNESS = "45%";
@@ -213,6 +207,20 @@ function clear() {
   });
 }
 
+// Reset to default category selections
+// Clear all weapon selections
+function reset() {
+  selectedCategories.clear();
+  selectedCategories.add(Rating.SPEED_AVERAGE);
+  selectedCategories.add(Rating.RANGE_AVERAGE);
+  selectedCategories.add(Rating.DAMAGE_AVERAGE);
+  redraw();
+  Object.values(Rating).map((r) => {
+    const checkbox = document.getElementById(r) as HTMLInputElement;
+    checkbox.checked = selectedCategories.has(r);
+  });
+}
+
 // Choose 3 random weapons
 function random() {
   clear();
@@ -220,8 +228,10 @@ function random() {
   random.slice(0, 3).map((w) => setWeapon(w, true));
 }
 
-random();
-
 // Link up to buttons
 document.getElementById("random")!.onclick = random;
 document.getElementById("clear")!.onclick = clear;
+document.getElementById("reset")!.onclick = reset;
+
+random();
+reset();
