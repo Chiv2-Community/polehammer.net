@@ -19,12 +19,22 @@ let selectedCategories = new Set<Rating>([
   Rating.DAMAGE_AVERAGE,
 ]);
 
-const OPACITY = 0.7;
+const SATURATION = "85%";
+const LIGHTNESS = "45%";
+const OPACITY = 0.75;
+
+// Repeat the palette once with dashed borders
+const PALETTE_SIZE = Object.values(Weapon).length / 2;
+const PALETTE_DEGS = [...Array(PALETTE_SIZE)].map(
+  (_, idx) => (idx * 360) / PALETTE_SIZE
+);
 
 function weaponColor(weapon: Weapon) {
   const idx = Object.values(Weapon).indexOf(weapon);
   const totalWeapons = Object.values(Weapon).length;
-  return `hsl(${(idx / totalWeapons) * 360}deg, 100%, 50%, ${OPACITY})`;
+  return `hsl(${
+    PALETTE_DEGS[idx % PALETTE_DEGS.length]
+  }deg, ${SATURATION}, ${LIGHTNESS}, ${OPACITY})`;
 }
 
 export function hasBonus(category: Rating) {
@@ -47,6 +57,7 @@ function chartData() {
         }),
         backgroundColor: "transparent",
         borderColor: weaponColor(w),
+        borderDash: [5, 5],
       };
     }),
   };
