@@ -18,12 +18,13 @@ export class Weapon {
     this.specialAttack = specialAttack,
     this.rangedAttack = rangedAttack
   }
+
   bonusMult(target: Target): number {
     if (target === Target.VANGUARD_ARCHER) {
       return 1;
     }
 
-    const type = this.damageType;
+    let type = this.damageType;
     if (type === DamageType.CHOP) {
       return target === Target.FOOTMAN ? 1.175 : 1.25;
     } else if (type === DamageType.BLUNT) {
@@ -41,12 +42,13 @@ export class Weapon {
 
   extractNumber(path: string): number {
     var current:any = this;
-    for(const part in path.split('.')) {
-        if(part in current) {
-          current = current[part];
-        } else {
-          throw Error("Invalid stat path specified. " + path);
-        }
+    let parts = path.split(".");
+    for(let part of parts) {
+      if(part in current) {
+        current = current[part];
+      } else {
+        throw Error("Invalid stat path specified. " + path);
+      }
     }
     return current;
   }

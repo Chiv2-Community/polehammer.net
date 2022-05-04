@@ -23,22 +23,6 @@ export enum MetricPath {
   DAMAGE_SPECIAL = "specialAttack.damage"
 }
 
-export const DAMAGE_METRICS: MetricPath[] = 
-  Object.keys(MetricPath)
-    .filter((m) => m.includes(".damage"))
-    .map(x => MetricPath[x]);
-
-export const RANGE_METRICS = 
-  Object.keys(MetricPath)
-    .filter((m) => m.includes(".range") || m.includes(".altRange"))
-    .map(x => MetricPath[x]);
-
-export const WINDUP_METRICS = 
-  Object.keys(MetricPath)
-    .filter((m) => m.includes(".windup"))
-    .map(x => MetricPath[x]);
-
-
 export enum MetricLabel {
   WINDUP_HORIZONTAL = "Windup - Horizontal",
   WINDUP_OVERHEAD = "Windup - Overhead",
@@ -64,6 +48,19 @@ export enum MetricLabel {
   DAMAGE_SPECIAL = "Damage - Special",
   DAMAGE_AVERAGE = "Damage - Average*",
 }
+
+export const DAMAGE_METRICS = 
+  Object.values(MetricPath)
+    .filter((m) => m.includes(".damage"))
+
+export const RANGE_METRICS = 
+  Object.values(MetricPath)
+    .filter((m) => m.includes(".range") || m.includes(".altRange"))
+
+export const WINDUP_METRICS = 
+  Object.values(MetricPath)
+    .filter((m) => m.includes(".windup"))
+
 
 export type LabelledMetrics = Map<MetricLabel, number>;
 
@@ -139,6 +136,7 @@ export class AggregateInverseMetric extends Metric {
 
   calculate(weapon: Weapon): number {
     const minPlusMax = this.metricMax + this.metricMin
+    console.log(minPlusMax);
     return this.aggregateFunction(this.paths.map((prop) => minPlusMax - weapon.extractNumber(prop)))
   }
 }

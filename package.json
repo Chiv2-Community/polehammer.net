@@ -12,6 +12,7 @@
     "vite": "^2.9.5"
   },
   "dependencies": {
-    "chart.js": "^3.7.1"
+    "chart.js": "^3.7.1",
+    "glob-import-loader": "^1.2.0"
   }
 }

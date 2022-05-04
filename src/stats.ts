@@ -1,11 +1,8 @@
-import { Weapon, DamageType } from "./weapon"
+import { Weapon } from "./weapon"
 import { MetricLabel, MetricPath, LabelledMetrics, InverseMetric, BasicMetric, AggregateMetric, AggregateInverseMetric, DAMAGE_METRICS, RANGE_METRICS, WINDUP_METRICS } from "./metrics"
+import * as fs from "fs";
 
-const ALL_WEAPONS: Weapon[] = []
-
-const DAMAGE_TYPES = new Map<string, DamageType>(
-  ...ALL_WEAPONS.map(wep => [wep.name, wep.weaponType])
-);
+export type WeaponStats = Map<Weapon, LabelledMetrics>;
 
 function average(lst: number[]) {
   if(lst.length > 0)
@@ -14,9 +11,9 @@ function average(lst: number[]) {
     return 0;
 }
 
-export function generate_metrics(weapons: Weapon[]): Map<string,LabelledMetrics> {
+export function generateMetrics(weapons: Weapon[]): WeaponStats {
   // Need to invert the windups range (because higher is bad), so we need to figure out the range before hand.
-  const windups: number[] = weapons.flatMap(wep => DAMAGE_METRICS.map(metric => wep.extractNumber(metric)));
+  const windups: number[] = weapons.flatMap(wep => WINDUP_METRICS.map(metric => wep.extractNumber(metric)));
   const maxWindup = Math.max(...windups);
   const minWindup = Math.min(...windups);
 
@@ -50,39 +47,32 @@ export function generate_metrics(weapons: Weapon[]): Map<string,LabelledMetrics>
     new AggregateMetric(MetricLabel.DAMAGE_AVERAGE, DAMAGE_METRICS, average)
   ];
 
-  return new Map(weapons.map(w => [w.name, new Map(metricGenerators.map(m => [m.name, m.calculate(w)]))]));
+  return new Map(weapons.map(w => [w, new Map(metricGenerators.map(m => [m.name, m.calculate(w)]))]));
 }
 
 export function hasBonus(category: MetricLabel) {
-    return category.toLowerCase().contains("damage")
+    return category.toLowerCase().includes("damage")
 }
 
-export type WeaponMetricLabels = Map<Weapon, DerivedMetricLabels>;
+export type WeaponMetricLabels = Map<string, MetricLabel>;
 
-// Per-key, set values across all weapons to [0, 1]
-function normalize(weapons: Weapon[]): Weapon[] {
-  weapons.map((w) => {
-    for Object.values(MetricLabel).map((k) => {
-      const maxes = Object.values(MetricLabel).map((k) => [k, Math.max(...weapons.map(x => x.extractNumber(k)))]);
-      const mins = Object.values(MetricLabel).map((k) => [k, Math.min(...weapons.map(x => x.extractNumber(k)))]);
-      if (hasBonus(rating)) {
-        div = maxPossibleBonus(weapon);
-      }
-    });
-  });
-  for (const weapon of weapons) {
+export function normalize(stats: WeaponStats): WeaponStats {
+  const normalized = new Map(stats);
+  for (const rating of Object.values(MetricLabel)) {
+    // Get min and max for this rating _across all weapons_
+    // Scale max possible damage based on weapon's damage type
+    let values: number[] = [...stats.values()].map((x:LabelledMetrics) => x.get(rating))
+    let min = Math.min(...values);
+    let max = Math.max(...values);
+
     // Scale by min and max
-    for (const [weapon, derived] of ratings) {
-      let div = 1;
+    for (const [weapon, derived] of normalized) {
+      let div = 1.0;
       if (hasBonus(rating)) {
-        div = maxPossibleBonus(weapon);
+        div = weapon.maxPossibleBonus();
       }
       derived.set(rating, (derived.get(rating)! - min) / (max - min) / div);
     }
   }
   return normalized;
 }
-
-const ratings = all
-export const NORMALIZED_RATINGS = normalize(ratings);
-export const RATINGS = ratings;
