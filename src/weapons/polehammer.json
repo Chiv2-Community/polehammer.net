@@ -12,7 +12,6 @@
         "damage": 45
       },
       "heavy": {
-        "windup": 882,
         "damage": 60
       }
     },
@@ -24,7 +23,6 @@
         "damage": 45
       },
       "heavy": {
-        "windup": 700,
         "damage": 70
       }
     },
@@ -36,7 +34,6 @@
         "damage": 40
       },
       "heavy": {
-        "windup": 767,
         "damage": 60 
       }
     }
@@ -51,7 +48,6 @@
     }
   },
   "specialAttack": {
-    "range": 30,
     "windup": 1333,
     "damage": 100
   }

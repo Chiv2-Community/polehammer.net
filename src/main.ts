@@ -1,4 +1,4 @@
-import { Chart } from "chart.js";
+import { Chart, registerables } from "chart.js";
 import { MetricLabel } from "./metrics";
 import "./style.css";
 import { Target } from "./target";
@@ -8,6 +8,8 @@ import POLEHAMMER from "./weapons/polehammer.json";
 import MESSER from "./weapons/messer.json";
 import MAUL from "./weapons/maul.json";
 import { AnyObject } from "chart.js/types/basic";
+
+Chart.register(...registerables) // the auto import stuff was making typescript angry.
 
 function weaponFromJson(obj: AnyObject): Weapon {
   return Object.setPrototypeOf(obj, Weapon.prototype);

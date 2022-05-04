@@ -12,7 +12,6 @@
         "damage": 50
       },
       "heavy": {
-        "windup": 25,
         "damage": 70
       }
     },
@@ -24,7 +23,6 @@
         "damage": 70
       },
       "heavy": {
-        "windup": 26,
         "damage": 80
       }
     },
@@ -36,7 +34,6 @@
         "damage": 40
       },
       "heavy": {
-        "windup": 22,
         "damage": 55
       }
     }
