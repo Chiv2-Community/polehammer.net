@@ -1,6 +1,6 @@
 {
   "name": "Falchion",
-  "weaponType": ["Sword", "One Handed"],
+  "weaponTypes": ["Sword", "One Handed"],
   "damageType": "Cut",
   "attacks": {
     "horizontal": {
