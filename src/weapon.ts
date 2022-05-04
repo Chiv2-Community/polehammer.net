@@ -48,7 +48,7 @@ enum DamageType {
 export enum Weapon {
   AXE = "Axe",
   BATTLE_AXE = "Battle Axe",
-  CUDGEL = "Cudget",
+  CUDGEL = "Cudgel",
   DAGGER = "Dagger",
   DANE_AXE = "Dane Axe",
   EXECUTIONERS_AXE = "Executioner's Axe",
