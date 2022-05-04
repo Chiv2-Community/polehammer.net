@@ -64,6 +64,7 @@ export class SpecialAttack {
     this.windup = windup;
     this.damage = damage;
   }
+
 }
 
 export class Swing {
@@ -134,4 +135,3 @@ export enum SwingType {
   OVERHEAD = "overhead",
   STAB = "stab"
 }
-

@@ -46,20 +46,52 @@ console.log(NORMALIZED_STATS);
 
 let selectedTarget = Target.VANGUARD_ARCHER;
 
+
 let selectedWeapons = new Set<Weapon>(ALL_WEAPONS.slice(0,3))
+let selectedCategories = new Set<Rating>();
 
-let selectedCategories = new Set<MetricLabel>([
-  MetricLabel.RANGE_AVERAGE,
-  MetricLabel.WINDUP_AVERAGE,
-  MetricLabel.DAMAGE_AVERAGE,
-]);
+const SATURATION = "85%";
+const LIGHTNESS = "45%";
+const OPACITY = 0.6;
 
-const OPACITY = 0.7;
+// Repeat the palette three times:
+// Once solid, then once dashed, then once dotted
+// const PALETTE_SIZE = Math.ceil(Object.values(Weapon).length / 3);
+const PALETTE_SIZE = 16;
+const PALETTE_DEGS = [...Array(PALETTE_SIZE)].map((_, idx) => {
+  // Cycle through large shifts in the 360deg colour wheel
+  // This changes the colour more from one index to another
+  // so we don't get "three shades of green" all in a row
+  return (idx * 360) / PALETTE_SIZE + (idx % 2) * 180;
+});
 
 function weaponColor(weapon: Weapon) {
   const idx = ALL_WEAPONS.indexOf(weapon);
-  const totalWeapons = ALL_WEAPONS.length;
-  return `hsl(${(idx / totalWeapons) * 360}deg, 100%, 50%, ${OPACITY})`;
+  return `hsl(${
+    PALETTE_DEGS[idx % PALETTE_DEGS.length]
+  }deg, ${SATURATION}, ${LIGHTNESS}, ${OPACITY})`;
+}
+
+function weaponDash(weapon: Weapon) {
+  const idx = ALL_WEAPONS.indexOf(weapon);
+  if (idx >= 2 * PALETTE_SIZE) {
+    return "dotted";
+  } else if (idx >= PALETTE_SIZE) {
+    return "dashed";
+  } else {
+    return "solid";
+  }
+}
+
+function borderDash(weapon: Weapon) {
+  switch (weaponDash(weapon)) {
+    case "solid":
+      return undefined;
+    case "dashed":
+      return [8, 8];
+    case "dotted":
+      return [2, 2];
+  }
 }
 
 
@@ -79,6 +111,7 @@ function chartData(dataset: WeaponStats) {
         }),
         backgroundColor: "transparent",
         borderColor: weaponColor(w),
+        borderDash: borderDash(w),
       };
     }),
   };
@@ -99,6 +132,10 @@ const chart = new Chart(document.getElementById("chart") as HTMLCanvasElement, {
       radial: {
         min: 0,
         max: 1,
+        ticks: {
+          display: false,
+          maxTicksLimit: 2,
+        },
       },
     },*/
   },
@@ -111,10 +148,17 @@ function redraw() {
 }
 
 function setWeapon(weapon: Weapon, enabled: boolean) {
+  const checkbox = document.getElementById(weapon) as HTMLInputElement;
+  checkbox.checked = enabled;
+
   if (enabled) {
     selectedWeapons.add(weapon);
+    const label = checkbox.nextSibling as HTMLLabelElement;
+    label.style.border = `3px ${weaponDash(weapon)} ${weaponColor(weapon)}`;
   } else {
     selectedWeapons.delete(weapon);
+    const label = checkbox.nextSibling as HTMLLabelElement;
+    label.style.border = `3px solid transparent`;
   }
   redraw();
 }
@@ -125,12 +169,6 @@ ALL_WEAPONS.map((w) => {
   const div = document.createElement("div");
   div.style.display = "flex";
   div.style.alignItems = "center";
-
-  const swatch = document.createElement("div");
-  swatch.style.width = "15px";
-  swatch.style.background = weaponColor(w);
-  swatch.style.aspectRatio = "1";
-  div.appendChild(swatch);
 
   const input = document.createElement("input");
   input.id = w.name;
@@ -145,6 +183,7 @@ ALL_WEAPONS.map((w) => {
   const label = document.createElement("label");
   label.htmlFor = w.name;
   label.innerText = w.name;
+  label.style.padding = "0.2em";
   div.appendChild(label);
 
   weapons.appendChild(div);
@@ -183,18 +222,60 @@ Object.values(MetricLabel).map((r) => {
 });
 
 // Link up target radio buttons
-(document.getElementById("vanguard_archer") as HTMLInputElement).onclick =
-  () => {
-    selectedTarget = Target.VANGUARD_ARCHER;
+Object.values(Target).map((t) => {
+  const radio = document.getElementById(t) as HTMLInputElement;
+  radio.onclick = () => {
+    selectedTarget = t;
     redraw();
   };
+});
 
-(document.getElementById("footman") as HTMLInputElement).onclick = () => {
-  selectedTarget = Target.FOOTMAN;
-  redraw();
-};
+function shuffle<T>(arr: T[]) {
+  const newArr = arr.slice();
+  for (let i = newArr.length - 1; i > 0; i--) {
+    const rand = Math.floor(Math.random() * (i + 1));
+    [newArr[i], newArr[rand]] = [newArr[rand], newArr[i]];
+  }
+  return newArr;
+}
 
-(document.getElementById("knight") as HTMLInputElement).onclick = () => {
-  selectedTarget = Target.KNIGHT;
+// Clear all weapon selections
+function clear() {
+  selectedWeapons.clear();
   redraw();
-};
+  ALL_WEAPONS.map(w => {
+    const checkbox = document.getElementById(w.name) as HTMLInputElement;
+    checkbox.checked = false;
+    const label = checkbox.nextSibling as HTMLLabelElement;
+    label.style.border = `3px solid transparent`;
+  });
+}
+
+// Choose 3 random weapons
+function random() {
+  clear();
+  const random = shuffle(Object.values(Weapon));
+  random.slice(0, 3).map((w) => setWeapon(w, true));
+}
+
+// Reset to default category selections
+// Clear all weapon selections
+function reset() {
+  selectedCategories.clear();
+  selectedCategories.add(Rating.SPEED_AVERAGE);
+  selectedCategories.add(Rating.RANGE_AVERAGE);
+  selectedCategories.add(Rating.DAMAGE_AVERAGE);
+  redraw();
+  Object.values(Rating).map((r) => {
+    const checkbox = document.getElementById(r) as HTMLInputElement;
+    checkbox.checked = selectedCategories.has(r);
+  });
+}
+
+// Link up to buttons
+document.getElementById("random")!.onclick = random;
+document.getElementById("clear")!.onclick = clear;
+document.getElementById("reset")!.onclick = reset;
+
+random();
+reset();
