@@ -35,7 +35,7 @@
         "windup": 767,
         "damage": 40
       },
-      "light": {
+      "heavy": {
         "windup": 767,
         "damage": 60 
       }

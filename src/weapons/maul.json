@@ -5,35 +5,38 @@
   "twoHanded": true,
   "attacks": {
     "horizontal": {
+      "range": 22,
+      "altRange": 22,
       "light": {
         "windup": 27,
         "damage": 50
       },
-      "range": 22,
-      "altRange": 22,
       "heavy": {
+        "windup": 27,
         "damage": 70
       }
     },
     "overhead": {
+      "range": 21,
+      "altRange": 21,
       "light": {
         "windup": 25,
         "damage": 60
       },
-      "range": 21,
-      "altRange": 21,
       "heavy": {
+        "windup": 25,
         "damage": 80
       }
     },
     "stab": {
+      "range": 20,
+      "altRange": 20,
       "light": {
         "windup": 24,
         "damage": 30
       },
-      "range": 20,
-      "altRange": 20,
       "heavy": {
+        "windup": 24,
         "damage": 40
       }
     }
