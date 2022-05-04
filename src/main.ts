@@ -15,7 +15,8 @@ const OPACITY = 0.6;
 
 // Repeat the palette three times:
 // Once solid, then once dashed, then once dotted
-const PALETTE_SIZE = Object.values(Weapon).length / 3;
+// const PALETTE_SIZE = Math.ceil(Object.values(Weapon).length / 3);
+const PALETTE_SIZE = 16;
 const PALETTE_DEGS = [...Array(PALETTE_SIZE)].map((_, idx) => {
   // Cycle through large shifts in the 360deg colour wheel
   // This changes the colour more from one index to another
