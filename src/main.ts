@@ -2,7 +2,7 @@ import { Chart, registerables } from "chart.js";
 import { MetricLabel } from "./metrics";
 import "./style.css";
 import { Target } from "./target";
-import { Weapon, WeaponType } from "./weapon";
+import { Weapon } from "./weapon";
 import { hasBonus, generateMetrics, normalize, WeaponStats } from "./stats";
 import { AnyObject } from "chart.js/types/basic";
 
@@ -104,7 +104,6 @@ let selectedWeapons = new Set<Weapon>([
 ]);
 
 let selectedCategories = new Set<MetricLabel>();
-let selectedWeaponTypes = new Set<WeaponType>();
 
 const SATURATION = "85%";
 const LIGHTNESS = "45%";
@@ -254,15 +253,6 @@ function setCategory(category: MetricLabel, enabled: boolean) {
   redraw();
 }
 
-function setWeaponType(weaponType: WeaponType, enabled: boolean) {
-  if (enabled) {
-    selectedWeaponTypes.add(weaponType);
-  } else {
-    selectedWeaponTypes.delete(weaponType);
-  }
-  redraw();
-}
-
 // Write all categories we know about into the categories list
 const categories = document.getElementById("categories") as HTMLFieldSetElement;
 Object.values(MetricLabel).map((r) => {
@@ -286,37 +276,6 @@ Object.values(MetricLabel).map((r) => {
   categories.appendChild(div);
 });
 
-const weaponTypes = document.getElementById("weapon-types") as HTMLFieldSetElement;
-Object.values(WeaponType).map(r => {
-  const div = document.createElement("div");
-
-  const input = document.createElement("input");
-  input.id = r;
-  input.checked = selectedWeaponTypes.has(r);
-  input.setAttribute("type", "checkbox");
-  input.onclick = (ev) => {
-    const enabled = (ev.target as HTMLInputElement).checked;
-    setWeaponType(r, enabled);
-    if(selectedWeaponTypes.size != 0) {
-      selectedWeapons.clear();
-      ALL_WEAPONS
-        .filter(x => Array.from(selectedWeaponTypes).every((y: WeaponType) => x.weaponTypes.includes(y)))
-        .forEach(w => selectedWeapons.add(w))
-
-    }
-    updateWeaponCheckboxes();
-    redraw();
-  };
-  div.appendChild(input);
-
-  const label = document.createElement("label");
-  label.htmlFor = r;
-  label.innerText = r;
-  div.appendChild(label);
-
-  weaponTypes.appendChild(div);
-});
-
 // Link up target radio buttons
 Object.values(Target).map((t) => {
   const radio = document.getElementById(t) as HTMLInputElement;
@@ -338,7 +297,6 @@ function shuffle<T>(arr: T[]) {
 // Clear all weapon selections
 function clear() {
   selectedWeapons.clear();
-  selectedWeaponTypes.clear();
   redraw();
   updateWeaponCheckboxes();
 }
@@ -362,7 +320,6 @@ function random() {
 // Reset to default category selections
 // Clear all weapon selections
 function reset() {
-  selectedWeaponTypes.clear();
   selectedCategories.clear();
   selectedCategories.add(MetricLabel.WINDUP_AVERAGE);
   selectedCategories.add(MetricLabel.RANGE_AVERAGE);
@@ -379,5 +336,5 @@ document.getElementById("random")!.onclick = random;
 document.getElementById("clear")!.onclick = clear;
 document.getElementById("reset")!.onclick = reset;
 
-// random();
+random();
 reset();

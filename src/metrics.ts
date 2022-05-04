@@ -136,7 +136,6 @@ export class AggregateInverseMetric extends Metric {
 
   calculate(weapon: Weapon): number {
     const minPlusMax = this.metricMax + this.metricMin
-    console.log(minPlusMax);
     return this.aggregateFunction(this.paths.map((prop) => minPlusMax - weapon.extractNumber(prop)))
   }
 }
