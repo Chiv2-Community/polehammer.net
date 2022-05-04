@@ -23,18 +23,43 @@ const SATURATION = "85%";
 const LIGHTNESS = "45%";
 const OPACITY = 0.75;
 
-// Repeat the palette once with dashed borders
-const PALETTE_SIZE = Object.values(Weapon).length / 2;
-const PALETTE_DEGS = [...Array(PALETTE_SIZE)].map(
-  (_, idx) => (idx * 360) / PALETTE_SIZE
-);
+// Repeat the palette three times:
+// Once solid, then once dashed, then once dotted
+const PALETTE_SIZE = Object.values(Weapon).length / 3;
+const PALETTE_DEGS = [...Array(PALETTE_SIZE)].map((_, idx) => {
+  // Cycle through large shifts in the 360deg colour wheel
+  // This changes the colour more from one index to another
+  // so we don't get "three shades of green" all in a row
+  return (idx * 360) / PALETTE_SIZE + (idx % 2) * 180;
+});
 
 function weaponColor(weapon: Weapon) {
   const idx = Object.values(Weapon).indexOf(weapon);
-  const totalWeapons = Object.values(Weapon).length;
   return `hsl(${
     PALETTE_DEGS[idx % PALETTE_DEGS.length]
   }deg, ${SATURATION}, ${LIGHTNESS}, ${OPACITY})`;
+}
+
+function weaponDash(weapon: Weapon) {
+  const idx = Object.values(Weapon).indexOf(weapon);
+  if (idx >= 2 * PALETTE_SIZE) {
+    return "dotted";
+  } else if (idx >= PALETTE_SIZE) {
+    return "dashed";
+  } else {
+    return "solid";
+  }
+}
+
+function borderDash(weapon: Weapon) {
+  switch (weaponDash(weapon)) {
+    case "solid":
+      return undefined;
+    case "dashed":
+      return [8, 8];
+    case "dotted":
+      return [2, 2];
+  }
 }
 
 export function hasBonus(category: Rating) {
@@ -57,7 +82,7 @@ function chartData() {
         }),
         backgroundColor: "transparent",
         borderColor: weaponColor(w),
-        borderDash: [5, 5],
+        borderDash: borderDash(w),
       };
     }),
   };
@@ -104,12 +129,7 @@ Object.values(Weapon).map((w) => {
   const div = document.createElement("div");
   div.style.display = "flex";
   div.style.alignItems = "center";
-
-  const swatch = document.createElement("div");
-  swatch.style.width = "15px";
-  swatch.style.background = weaponColor(w);
-  swatch.style.aspectRatio = "1";
-  div.appendChild(swatch);
+  div.style.margin = "0.1em";
 
   const input = document.createElement("input");
   input.id = w;
@@ -124,6 +144,12 @@ Object.values(Weapon).map((w) => {
   const label = document.createElement("label");
   label.htmlFor = w;
   label.innerText = w;
+  label.style.padding = "0.2em";
+  label.style.border = `3px ${weaponDash(w)} ${weaponColor(w)}`;
+  // label.style.textDecorationThickness = "3px";
+  // label.style.textDecorationLine = "underline";
+  // label.style.textDecorationStyle = "dashed";
+  // label.style.textDecorationColor = weaponColor(w);
   div.appendChild(label);
 
   weapons.appendChild(div);
