@@ -1,36 +1,36 @@
 {
-  "name": "Highland Sword",
-  "weaponType": ["Sword"],
-  "damageType": "Cut",
+  "name": "Glaive",
+  "weaponType": ["Axe"],
+  "damageType": "Chop",
   "twoHanded": true,
   "attacks": {
     "horizontal": {
-      "range": 31,
+      "range": 36,
       "altRange": 31,
       "light": {
-        "windup": 967,
-        "damage": 60
+        "windup": 733,
+        "damage": 30
       },
       "heavy": {
-        "damage": 80
+        "damage": 50
       }
     },
     "overhead": {
-      "range": 29,
-      "altRange": 32,
+      "range": 38,
+      "altRange": 38,
       "light": {
-        "windup": 933,
-        "damage": 85
+        "windup": 567,
+        "damage": 40
       },
       "heavy": {
-        "damage": 100
+        "damage": 60
       }
     },
     "stab": {
-      "range": 26,
-      "altRange": 24,
+      "range": 37,
+      "altRange": 39,
       "light": {
-        "windup": 1000,
+        "windup": 867,
         "damage": 40
       },
       "heavy": {
@@ -39,7 +39,7 @@
     }
   },
   "specialAttack": {
-    "windup": 900,
+    "windup": 1100,
     "damage": 60
   }
 }

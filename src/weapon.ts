@@ -2,16 +2,16 @@ import { Target } from "./target";
 
 export class Weapon {
   name!: string;
-  weaponType!: WeaponType;
+  weaponTypes!: WeaponType[];
   damageType!: DamageType;
   twoHanded!: boolean;
   attacks?: Map<SwingType, Swing>;
   specialAttack?: SpecialAttack;
   rangedAttack?: RangedAttack;
 
-  constructor( name: string, weaponType: WeaponType, damageType: DamageType, twoHanded: boolean, attacks: Map<SwingType, Swing>, specialAttack: SpecialAttack, rangedAttack: RangedAttack) {
+  constructor( name: string, weaponTypes: WeaponType[], damageType: DamageType, twoHanded: boolean, attacks: Map<SwingType, Swing>, specialAttack: SpecialAttack, rangedAttack: RangedAttack) {
     this.name = name,
-    this.weaponType = weaponType,
+    this.weaponTypes = weaponTypes,
     this.damageType = damageType,
     this.twoHanded = twoHanded,
     this.attacks = attacks,
@@ -126,8 +126,14 @@ export enum DamageType {
 export enum WeaponType {
   AXE = "Axe",
   HAMMER = "Hammer",
+  CLUB = "Club",
+  TOOL = "Tool",
+  POLEARM = "Polearm",
+  SPEAR = "Spear",
   SWORD = "Sword",
-  BOW = "Bow"
+  BOW = "Bow",
+  TWO_HANDED = "Two Handed",
+  ONE_HANDED = "One Handed"
 }
 
 export enum SwingType {

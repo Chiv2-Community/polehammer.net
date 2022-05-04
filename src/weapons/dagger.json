@@ -1,45 +1,45 @@
 {
-  "name": "Sword",
+  "name": "Dagger",
   "weaponType": ["Sword"],
   "damageType": "Cut",
   "twoHanded": false,
   "attacks": {
     "horizontal": {
-      "range": 22,
-      "altRange": 23,
+      "range": 12,
+      "altRange": 14,
       "light": {
-        "windup": 633,
-        "damage": 40
+        "windup": 567,
+        "damage": 30
       },
       "heavy": {
-        "damage": 60
+        "damage": 40
       }
     },
     "overhead": {
-      "range": 22,
-      "altRange": 23,
+      "range": 12,
+      "altRange": 13,
       "light": {
         "windup": 567,
-        "damage": 50
+        "damage": 40
       },
       "heavy": {
-        "damage": 65
+        "damage": 50
       }
     },
     "stab": {
-      "range": 25,
-      "altRange": 27,
+      "range": 17,
+      "altRange": 19,
       "light": {
-        "windup": 667,
-        "damage": 45
+        "windup": 633,
+        "damage": 50
       },
       "heavy": {
-        "damage": 60
+        "damage": 70
       }
     }
   },
   "specialAttack": {
-    "windup": 933,
-    "damage": 70
+    "windup": 1200,
+    "damage": 100
   }
 }

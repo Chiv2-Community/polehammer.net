@@ -2,21 +2,47 @@ import { Chart, registerables } from "chart.js";
 import { MetricLabel } from "./metrics";
 import "./style.css";
 import { Target } from "./target";
-import { DamageType, Weapon, WeaponType } from "./weapon";
+import { Weapon } from "./weapon";
 import { hasBonus, generateMetrics, normalize, WeaponStats } from "./stats";
 import { AnyObject } from "chart.js/types/basic";
 
-import POLEHAMMER from "./weapons/polehammer.json";
-import MESSER from "./weapons/messer.json";
-import MAUL from "./weapons/maul.json";
+import AXE from "./weapons/axe.json";
+import BATTLE_AXE from "./weapons/battle_axe.json";
+import CUDGEL from "./weapons/cudgel.json";
+import DAGGER from "./weapons/dagger.json";
 import DANE_AXE from "./weapons/dane_axe.json";
+import EXECUTIONERS_AXE from "./weapons/executioners_axe.json";
 import FALCHION from "./weapons/falchion.json";
+import GLAIVE from "./weapons/glaive.json";
 import GREATSWORD from "./weapons/greatsword.json";
+import HALBERD from "./weapons/halberd.json";
+import HATCHET from "./weapons/hatchet.json";
+import HEAVY_MACE from "./weapons/heavy_mace.json";
 import HIGHLAND_SWORD from "./weapons/highland_sword.json";
+import JAVELIN from "./weapons/javelin.json";
 import KNIFE from "./weapons/knife.json";
 import LONGSWORD from "./weapons/longsword.json";
+import MACE from "./weapons/mace.json";
+import MALLET from "./weapons/mallet.json";
+import MAUL from "./weapons/maul.json";
+import MESSER from "./weapons/messer.json";
+import MORNING_STAR from "./weapons/morning_star.json";
+import ONE_HANDED_SPEAR from "./weapons/one_handed_spear.json";
+import PICKAXE from "./weapons/pickaxe.json";
+import POLEAXE from "./weapons/poleaxe.json";
+import POLEHAMMER from "./weapons/polehammer.json";
 import RAPIER from "./weapons/rapier.json";
+import SHORT_SWORD from "./weapons/short_sword.json";
+import SHOVEL from "./weapons/shovel.json";
+import SLEDGEHAMMER from "./weapons/sledgehammer.json";
 import SWORD from "./weapons/sword.json";
+import THROWING_AXE from "./weapons/throwing_axe.json";
+import TWO_HANDED_HAMMER from "./weapons/two_handed_hammer.json";
+import TWO_HANDED_SPEAR from "./weapons/two_handed_spear.json";
+import WAR_AXE from "./weapons/war_axe.json";
+import WAR_CLUB from "./weapons/war_club.json";
+import WARHAMMER from "./weapons/warhammer.json";
+
 
 
 Chart.register(...registerables) // the auto import stuff was making typescript angry.
@@ -26,29 +52,58 @@ function weaponFromJson(obj: AnyObject): Weapon {
 }
 
 let ALL_WEAPONS: Weapon[] = [
-  weaponFromJson(POLEHAMMER),
-  weaponFromJson(MESSER),
-  weaponFromJson(MAUL),
+  weaponFromJson(AXE),
+  weaponFromJson(BATTLE_AXE),
+  weaponFromJson(CUDGEL),
+  weaponFromJson(DAGGER),
   weaponFromJson(DANE_AXE),
+  weaponFromJson(EXECUTIONERS_AXE),
   weaponFromJson(FALCHION),
+  weaponFromJson(GLAIVE),
   weaponFromJson(GREATSWORD),
+  weaponFromJson(HALBERD),
+  weaponFromJson(HATCHET),
+  weaponFromJson(HEAVY_MACE),
   weaponFromJson(HIGHLAND_SWORD),
+  weaponFromJson(JAVELIN),
   weaponFromJson(KNIFE),
   weaponFromJson(LONGSWORD),
+  weaponFromJson(MACE),
+  weaponFromJson(MALLET),
+  weaponFromJson(MAUL),
+  weaponFromJson(MESSER),
+  weaponFromJson(MORNING_STAR),
+  weaponFromJson(ONE_HANDED_SPEAR),
+  weaponFromJson(PICKAXE),
+  weaponFromJson(POLEAXE),
+  weaponFromJson(POLEHAMMER),
   weaponFromJson(RAPIER),
+  weaponFromJson(SHORT_SWORD),
+  weaponFromJson(SHOVEL),
+  weaponFromJson(SLEDGEHAMMER),
   weaponFromJson(SWORD),
+  weaponFromJson(THROWING_AXE),
+  weaponFromJson(TWO_HANDED_HAMMER),
+  weaponFromJson(TWO_HANDED_SPEAR),
+  weaponFromJson(WAR_AXE),
+  weaponFromJson(WAR_CLUB),
+  weaponFromJson(WARHAMMER)
 ]
+
+let WEAPONS_BY_NAME: Map<string, Weapon> = new Map(ALL_WEAPONS.map(x => [x.name, x]))
 
 let STATS: WeaponStats = generateMetrics(ALL_WEAPONS);
 let NORMALIZED_STATS: WeaponStats = normalize(STATS);
 
-console.log(NORMALIZED_STATS);
-
 let selectedTarget = Target.VANGUARD_ARCHER;
 
+let selectedWeapons = new Set<Weapon>([
+  WEAPONS_BY_NAME.get("Polehammer")!, 
+  WEAPONS_BY_NAME.get("Dane Axe")!, 
+  WEAPONS_BY_NAME.get("Messer")!
+]);
 
-let selectedWeapons = new Set<Weapon>(ALL_WEAPONS.slice(0,3))
-let selectedCategories = new Set<Rating>();
+let selectedCategories = new Set<MetricLabel>();
 
 const SATURATION = "85%";
 const LIGHTNESS = "45%";
@@ -148,7 +203,7 @@ function redraw() {
 }
 
 function setWeapon(weapon: Weapon, enabled: boolean) {
-  const checkbox = document.getElementById(weapon) as HTMLInputElement;
+  const checkbox = document.getElementById(weapon.name) as HTMLInputElement;
   checkbox.checked = enabled;
 
   if (enabled) {
@@ -254,7 +309,7 @@ function clear() {
 // Choose 3 random weapons
 function random() {
   clear();
-  const random = shuffle(Object.values(Weapon));
+  const random = shuffle(ALL_WEAPONS);
   random.slice(0, 3).map((w) => setWeapon(w, true));
 }
 
@@ -262,11 +317,11 @@ function random() {
 // Clear all weapon selections
 function reset() {
   selectedCategories.clear();
-  selectedCategories.add(Rating.SPEED_AVERAGE);
-  selectedCategories.add(Rating.RANGE_AVERAGE);
-  selectedCategories.add(Rating.DAMAGE_AVERAGE);
+  selectedCategories.add(MetricLabel.WINDUP_AVERAGE);
+  selectedCategories.add(MetricLabel.RANGE_AVERAGE);
+  selectedCategories.add(MetricLabel.DAMAGE_AVERAGE);
   redraw();
-  Object.values(Rating).map((r) => {
+  Object.values(MetricLabel).map((r) => {
     const checkbox = document.getElementById(r) as HTMLInputElement;
     checkbox.checked = selectedCategories.has(r);
   });
@@ -277,5 +332,5 @@ document.getElementById("random")!.onclick = random;
 document.getElementById("clear")!.onclick = clear;
 document.getElementById("reset")!.onclick = reset;
 
-random();
+// random();
 reset();

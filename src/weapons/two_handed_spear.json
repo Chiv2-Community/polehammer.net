@@ -1,0 +1,48 @@
+{
+  "name": "Two Handed Spear",
+  "weaponTypes": [
+    "Spear",
+    "Two Handed"
+  ],
+  "damageType": "Chop",
+  "twoHanded": true,
+  "attacks": {
+    "horizontal": {
+      "range": 39,
+      "altRange": 36,
+      "light": {
+        "windup": 800,
+        "damage": 40
+      },
+      "heavy": {
+        "damage": 60
+      }
+    },
+    "overhead": {
+      "range": 28,
+      "altRange": 34,
+      "light": {
+        "windup": 667,
+        "damage": 30
+      },
+      "heavy": {
+        "damage": 50
+      }
+    },
+    "stab": {
+      "range": 40,
+      "altRange": 41,
+      "light": {
+        "windup": 800,
+        "damage": 50
+      },
+      "heavy": {
+        "damage": 70
+      }
+    }
+  },
+  "specialAttack": {
+    "windup": 400,
+    "damage": 0
+  }
+}

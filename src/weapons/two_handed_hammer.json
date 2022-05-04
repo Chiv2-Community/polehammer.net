@@ -1,26 +1,29 @@
 {
-  "name": "Falchion",
-  "weaponType": ["Sword"],
-  "damageType": "Cut",
-  "twoHanded": false,
+  "name": "Two Handed Hammer",
+  "weaponTypes": [
+    "Hammer",
+    "Two Handed"
+  ],
+  "damageType": "Chop",
+  "twoHanded": true,
   "attacks": {
     "horizontal": {
-      "range": 20,
-      "altRange": 700,
+      "range": 25,
+      "altRange": 25,
       "light": {
-        "windup": 21,
-        "damage": 50
+        "windup": 800,
+        "damage": 40
       },
       "heavy": {
-        "damage": 65
+        "damage": 60
       }
     },
     "overhead": {
-      "range": 19,
+      "range": 23,
       "altRange": 20,
       "light": {
-        "windup": 633,
-        "damage": 55
+        "windup": 733,
+        "damage": 50
       },
       "heavy": {
         "damage": 70
@@ -28,9 +31,9 @@
     },
     "stab": {
       "range": 23,
-      "altRange": 24,
+      "altRange": 23,
       "light": {
-        "windup": 633,
+        "windup": 767,
         "damage": 40
       },
       "heavy": {
@@ -39,7 +42,7 @@
     }
   },
   "specialAttack": {
-    "windup": 966,
+    "windup": 1300,
     "damage": 80
   }
 }

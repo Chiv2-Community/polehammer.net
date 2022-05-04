@@ -1,45 +1,48 @@
 {
-  "name": "Knife",
-  "weaponType": ["Sword"],
-  "damageType": "Cut",
+  "name": "Throwing Axe",
+  "weaponTypes": [
+    "Axe",
+    "One Handed"
+  ],
+  "damageType": "Chop",
   "twoHanded": false,
   "attacks": {
     "horizontal": {
-      "range": 11,
-      "altRange": 12,
+      "range": 10,
+      "altRange": 11,
       "light": {
-        "windup": 567,
+        "windup": 633,
         "damage": 35
       },
       "heavy": {
-        "damage": 45
+        "damage": 55
       }
     },
     "overhead": {
       "range": 10,
       "altRange": 12,
       "light": {
-        "windup": 500,
-        "damage": 45
-      },
-      "heavy": {
-        "damage": 55
-      }
-    },
-    "stab": {
-      "range": 14,
-      "altRange": 16,
-      "light": {
-        "windup": 633,
+        "windup": 567,
         "damage": 40
       },
       "heavy": {
         "damage": 50
       }
+    },
+    "stab": {
+      "range": 13,
+      "altRange": 14,
+      "light": {
+        "windup": 633,
+        "damage": 35
+      },
+      "heavy": {
+        "damage": 45
+      }
     }
   },
   "specialAttack": {
-    "windup": 767,
+    "windup": 933,
     "damage": 60
   }
 }

@@ -1,0 +1,48 @@
+{
+  "name": "Shovel",
+  "weaponTypes": [
+    "Tool",
+    "Two Handed"
+  ],
+  "damageType": "Blunt",
+  "twoHanded": true,
+  "attacks": {
+    "horizontal": {
+      "range": 16,
+      "altRange": 16,
+      "light": {
+        "windup": 700,
+        "damage": 30
+      },
+      "heavy": {
+        "damage": 50
+      }
+    },
+    "overhead": {
+      "range": 18,
+      "altRange": 13,
+      "light": {
+        "windup": 633,
+        "damage": 45
+      },
+      "heavy": {
+        "damage": 65
+      }
+    },
+    "stab": {
+      "range": 18,
+      "altRange": 18,
+      "light": {
+        "windup": 600,
+        "damage": 45
+      },
+      "heavy": {
+        "damage": 55
+      }
+    }
+  },
+  "specialAttack": {
+    "windup": 1000,
+    "damage": 70
+  }
+}

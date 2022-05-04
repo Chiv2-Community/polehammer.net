@@ -1,14 +1,16 @@
 {
-  "name": "Rapier",
-  "weaponType": ["Sword"],
+  "name": "Javelin",
+  "weaponTypes": [
+    "Spear"
+  ],
   "damageType": "Cut",
   "twoHanded": false,
   "attacks": {
     "horizontal": {
-      "range": 22,
-      "altRange": 21,
+      "range": 28,
+      "altRange": 29,
       "light": {
-        "windup": 633,
+        "windup": 700,
         "damage": 30
       },
       "heavy": {
@@ -16,10 +18,10 @@
       }
     },
     "overhead": {
-      "range": 21,
-      "altRange": 22,
+      "range": 26,
+      "altRange": 23,
       "light": {
-        "windup": 500,
+        "windup": 667,
         "damage": 35
       },
       "heavy": {
@@ -27,19 +29,19 @@
       }
     },
     "stab": {
-      "range": 25,
-      "altRange": 26,
+      "range": 29,
+      "altRange": 33,
       "light": {
-        "windup": 633,
-        "damage": 50
+        "windup": 700,
+        "damage": 40
       },
       "heavy": {
-        "damage": 70
+        "damage": 60
       }
     }
   },
   "specialAttack": {
-    "windup": 700,
-    "damage": 55
+    "windup": 867,
+    "damage": 50
   }
 }

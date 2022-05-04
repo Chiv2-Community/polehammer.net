@@ -14,7 +14,7 @@ export function generateMetrics(weapons: Weapon[]): WeaponStats {
   // Need to invert the windups range (because higher is bad), so we need to figure out the range before hand.
   const windups: number[] = weapons.flatMap(wep => WINDUP_METRICS.map(metric => wep.extractNumber(metric)));
   const maxWindup = Math.max(...windups);
-  const minWindup = Math.min(...windups);
+  const minWindup = 0; //Math.min(...windups);
 
   const metricGenerators = [
     // Windups

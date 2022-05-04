@@ -1,45 +1,45 @@
 {
-  "name": "Knife",
-  "weaponType": ["Sword"],
-  "damageType": "Cut",
+  "name": "Cudgel",
+  "weaponType": ["Hammer"],
+  "damageType": "Blunt",
   "twoHanded": false,
   "attacks": {
     "horizontal": {
-      "range": 11,
-      "altRange": 12,
+      "range": 15,
+      "altRange": 16,
       "light": {
         "windup": 567,
-        "damage": 35
+        "damage": 30
       },
       "heavy": {
         "damage": 45
       }
     },
     "overhead": {
-      "range": 10,
-      "altRange": 12,
+      "range": 13,
+      "altRange": 15,
       "light": {
-        "windup": 500,
-        "damage": 45
+        "windup": 567,
+        "damage": 30
       },
       "heavy": {
-        "damage": 55
+        "damage": 45
       }
     },
     "stab": {
-      "range": 14,
-      "altRange": 16,
+      "range": 18,
+      "altRange": 20,
       "light": {
         "windup": 633,
-        "damage": 40
+        "damage": 25
       },
       "heavy": {
-        "damage": 50
+        "damage": 35
       }
     }
   },
   "specialAttack": {
-    "windup": 767,
-    "damage": 60
+    "windup": 933,
+    "damage": 55
   }
 }

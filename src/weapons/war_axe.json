@@ -1,14 +1,17 @@
 {
-  "name": "Maul",
-  "weaponType": ["Hammer"],
-  "damageType": "Blunt",
+  "name": "War Axe",
+  "weaponTypes": [
+    "Axe",
+    "Two Handed"
+  ],
+  "damageType": "Chop",
   "twoHanded": true,
   "attacks": {
     "horizontal": {
-      "range": 22,
-      "altRange": 22,
+      "range": 25,
+      "altRange": 25,
       "light": {
-        "windup": 900,
+        "windup": 833,
         "damage": 50
       },
       "heavy": {
@@ -16,10 +19,10 @@
       }
     },
     "overhead": {
-      "range": 21,
-      "altRange": 21,
+      "range": 23,
+      "altRange": 20,
       "light": {
-        "windup": 833,
+        "windup": 733,
         "damage": 60
       },
       "heavy": {
@@ -27,19 +30,19 @@
       }
     },
     "stab": {
-      "range": 20,
-      "altRange": 20,
+      "range": 23,
+      "altRange": 23,
       "light": {
         "windup": 800,
-        "damage": 30
+        "damage": 35
       },
       "heavy": {
-        "damage": 40
+        "damage": 55
       }
     }
   },
   "specialAttack": {
-    "windup": 1500,
-    "damage": 120
+    "windup": 1233,
+    "damage": 90
   }
 }

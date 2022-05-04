@@ -1,45 +1,45 @@
 {
-  "name": "Dane Axe",
+  "name": "Executioner's Axe",
   "weaponType": ["Axe"],
   "damageType": "Chop",
   "twoHanded": true,
   "attacks": {
     "horizontal": {
-      "range": 21,
-      "altRange": 21,
       "light": {
-        "windup": 767,
-        "damage": 50
+        "windup": 833,
+        "damage": 45
       },
+      "range": 27,
+      "altRange": 27,
       "heavy": {
         "damage": 70
       }
     },
     "overhead": {
-      "range": 20,
-      "altRange": 16,
       "light": {
-        "windup": 633,
+        "windup": 733,
         "damage": 60
       },
+      "range": 24,
+      "altRange": 21,
       "heavy": {
-        "damage": 80
+        "damage": 70
       }
     },
     "stab": {
-      "range": 19,
-      "altRange": 19,
       "light": {
         "windup": 767,
-        "damage": 40
+        "damage": 30
       },
+      "range": 26,
+      "altRange": 26,
       "heavy": {
-        "damage": 60
+        "damage": 50
       }
     }
   },
   "specialAttack": {
-    "windup": 1033,
-    "damage": 85
+    "windup": 1233,
+    "damage": 80
   }
 }

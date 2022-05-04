@@ -1,14 +1,16 @@
 {
-  "name": "Sword",
-  "weaponType": ["Sword"],
+  "name": "One Handed Spear",
+  "weaponTypes": [
+    "Spear"
+  ],
   "damageType": "Cut",
   "twoHanded": false,
   "attacks": {
     "horizontal": {
-      "range": 22,
-      "altRange": 23,
+      "range": 29,
+      "altRange": 30,
       "light": {
-        "windup": 633,
+        "windup": 700,
         "damage": 40
       },
       "heavy": {
@@ -16,30 +18,30 @@
       }
     },
     "overhead": {
-      "range": 22,
-      "altRange": 23,
+      "range": 28,
+      "altRange": 25,
       "light": {
-        "windup": 567,
-        "damage": 50
+        "windup": 633,
+        "damage": 30
       },
       "heavy": {
         "damage": 65
       }
     },
     "stab": {
-      "range": 25,
-      "altRange": 27,
+      "range": 30,
+      "altRange": 34,
       "light": {
-        "windup": 667,
-        "damage": 45
+        "windup": 700,
+        "damage": 50
       },
       "heavy": {
-        "damage": 60
+        "damage": 70
       }
     }
   },
   "specialAttack": {
-    "windup": 933,
-    "damage": 70
+    "windup": 1067,
+    "damage": 80
   }
 }

@@ -1,36 +1,38 @@
 {
-  "name": "Falchion",
-  "weaponType": ["Sword"],
-  "damageType": "Cut",
-  "twoHanded": false,
+  "name": "Heavy Mace",
+  "weaponTypes": [
+    "Club"
+  ],
+  "damageType": "Chop",
+  "twoHanded": true,
   "attacks": {
     "horizontal": {
-      "range": 20,
-      "altRange": 700,
+      "range": 26,
+      "altRange": 26,
       "light": {
-        "windup": 21,
-        "damage": 50
+        "windup": 767,
+        "damage": 40
       },
       "heavy": {
-        "damage": 65
+        "damage": 60
       }
     },
     "overhead": {
-      "range": 19,
-      "altRange": 20,
+      "range": 24,
+      "altRange": 21,
       "light": {
-        "windup": 633,
-        "damage": 55
+        "windup": 700,
+        "damage": 50
       },
       "heavy": {
         "damage": 70
       }
     },
     "stab": {
-      "range": 23,
+      "range": 24,
       "altRange": 24,
       "light": {
-        "windup": 633,
+        "windup": 767,
         "damage": 40
       },
       "heavy": {
@@ -39,7 +41,7 @@
     }
   },
   "specialAttack": {
-    "windup": 966,
+    "windup": 1167,
     "damage": 80
   }
 }

@@ -1,6 +1,6 @@
 {
   "name": "Greatsword",
-  "weaponType": "Sword",
+  "weaponType": ["Sword"],
   "damageType": "Cut",
   "twoHanded": true,
   "attacks": {

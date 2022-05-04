@@ -1,6 +1,6 @@
 {
   "name": "Polehammer",
-  "weaponType": "Hammer",
+  "weaponType": ["Hammer"],
   "damageType": "Blunt",
   "twoHanded": true,
   "attacks": {
