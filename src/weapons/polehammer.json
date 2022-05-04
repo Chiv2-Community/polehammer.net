@@ -1,6 +1,6 @@
 {
   "name": "Polehammer",
-  "weaponTypes": ["Hammer", "Polearm", "Two Handed",
+  "weaponTypes": ["Hammer", "Polearm", "Two Handed"],
   "damageType": "Blunt",
   "attacks": {
     "horizontal": {
