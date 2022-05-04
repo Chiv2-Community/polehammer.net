@@ -7,17 +7,9 @@ import { NORMALIZED_RATINGS } from "./weapon";
 
 let selectedTarget = Target.VANGUARD_ARCHER;
 
-let selectedWeapons = new Set<Weapon>([
-  Weapon.LONGSWORD,
-  Weapon.POLEHAMMER,
-  Weapon.RAPIER,
-]);
+let selectedWeapons = new Set<Weapon>([]);
 
-let selectedCategories = new Set<Rating>([
-  Rating.RANGE_AVERAGE,
-  Rating.SPEED_AVERAGE,
-  Rating.DAMAGE_AVERAGE,
-]);
+let selectedCategories = new Set<Rating>([]);
 
 const SATURATION = "85%";
 const LIGHTNESS = "45%";
@@ -145,7 +137,7 @@ Object.values(Weapon).map((w) => {
   label.htmlFor = w;
   label.innerText = w;
   label.style.padding = "0.2em";
-  label.style.border = `3px ${weaponDash(w)} ${weaponColor(w)}`;
+  // label.style.border = `3px ${weaponDash(w)} ${weaponColor(w)}`;
   div.appendChild(label);
 
   weapons.appendChild(div);
@@ -184,18 +176,10 @@ Object.values(Rating).map((r) => {
 });
 
 // Link up target radio buttons
-(document.getElementById("vanguard_archer") as HTMLInputElement).onclick =
-  () => {
-    selectedTarget = Target.VANGUARD_ARCHER;
+Object.values(Target).map((t) => {
+  const radio = document.getElementById(t) as HTMLInputElement;
+  radio.onclick = () => {
+    selectedTarget = t;
     redraw();
   };
-
-(document.getElementById("footman") as HTMLInputElement).onclick = () => {
-  selectedTarget = Target.FOOTMAN;
-  redraw();
-};
-
-(document.getElementById("knight") as HTMLInputElement).onclick = () => {
-  selectedTarget = Target.KNIGHT;
-  redraw();
-};
+});
