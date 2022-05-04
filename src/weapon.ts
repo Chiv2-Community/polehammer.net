@@ -11,6 +11,12 @@ import MESSER from "./weapons/messer";
 import HIGHLAND_SWORD from "./weapons/highland_sword";
 import FALCHION from "./weapons/falchion";
 import SWORD from "./weapons/sword";
+import DAGGER from "./weapons/dagger";
+import JAVELIN from "./weapons/javelin";
+import ONE_HANDED_SPEAR from "./weapons/one_handed_spear";
+import SHORT_SWORD from "./weapons/short_sword";
+import TWO_HANDED_SPEAR from "./weapons/two_handed_spear";
+
 import { hasBonus } from "./main";
 
 enum DamageType {
@@ -31,6 +37,11 @@ export enum Weapon {
   POLEHAMMER = "Polehammer",
   RAPIER = "Rapier",
   SWORD = "Sword",
+  DAGGER = "Dagger",
+  JAVELIN = "Javelin",
+  ONE_HANDED_SPEAR = "One-Handed Spear",
+  SHORT_SWORD = "Short Sword",
+  TWO_HANDED_SPEAR = "Two-Handed Spear",
 }
 
 const DAMAGE_TYPES = new Map<Weapon, DamageType>([
@@ -45,6 +56,11 @@ const DAMAGE_TYPES = new Map<Weapon, DamageType>([
   [Weapon.POLEHAMMER, DamageType.BLUNT],
   [Weapon.RAPIER, DamageType.CUT],
   [Weapon.SWORD, DamageType.CUT],
+  [Weapon.DAGGER, DamageType.CUT],
+  [Weapon.JAVELIN, DamageType.CUT],
+  [Weapon.ONE_HANDED_SPEAR, DamageType.CUT],
+  [Weapon.SHORT_SWORD, DamageType.CUT],
+  [Weapon.TWO_HANDED_SPEAR, DamageType.CUT],
 ]);
 
 function average(derived: DerivedRatings, ratings: Array<Rating>): number {
@@ -221,6 +237,11 @@ const ratings = new Map([
   [Weapon.POLEHAMMER, toDerived(POLEHAMMER)],
   [Weapon.RAPIER, toDerived(RAPIER)],
   [Weapon.SWORD, toDerived(SWORD)],
+  [Weapon.DAGGER, toDerived(DAGGER)],
+  [Weapon.JAVELIN, toDerived(JAVELIN)],
+  [Weapon.ONE_HANDED_SPEAR, toDerived(ONE_HANDED_SPEAR)],
+  [Weapon.SHORT_SWORD, toDerived(SHORT_SWORD)],
+  [Weapon.TWO_HANDED_SPEAR, toDerived(TWO_HANDED_SPEAR)],
 ]);
 
 export const NORMALIZED_RATINGS = normalize(ratings);
