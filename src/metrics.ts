@@ -24,11 +24,11 @@ export enum MetricPath {
 }
 
 export enum MetricLabel {
-  WINDUP_HORIZONTAL = "Windup - Horizontal",
-  WINDUP_OVERHEAD = "Windup - Overhead",
-  WINDUP_STAB = "Windup - Stab",
-  WINDUP_SPECIAL = "Windup - Special",
-  WINDUP_AVERAGE = "Windup - Average*",
+  SPEED_HORIZONTAL = "Speed - Horizontal",
+  SPEED_OVERHEAD = "Speed - Overhead",
+  SPEED_STAB = "Speed - Stab",
+  SPEED_SPECIAL = "Speed - Special",
+  SPEED_AVERAGE = "Speed - Average*",
 
   RANGE_HORIZONTAL = "Range - Horizontal",
   RANGE_ALT_HORIZONTAL = "Range - Alt. Horizontal",
