@@ -2,16 +2,12 @@ import Chart from "chart.js/auto";
 import { Rating } from "./rating";
 import "./style.css";
 import { Target } from "./target";
-import { bonusMult, Weapon } from "./weapon";
+import { hasBonus, Weapon, ALL_WEAPONS } from "./weapon";
 import { NORMALIZED_RATINGS } from "./weapon";
 
 let selectedTarget = Target.VANGUARD_ARCHER;
 
-let selectedWeapons = new Set<Weapon>([
-  Weapon.LONGSWORD,
-  Weapon.POLEHAMMER,
-  Weapon.RAPIER,
-]);
+let selectedWeapons = new Set<Weapon>(ALL_WEAPONS.slice(0,3))
 
 let selectedCategories = new Set<Rating>([
   Rating.RANGE_AVERAGE,
@@ -27,9 +23,6 @@ function weaponColor(weapon: Weapon) {
   return `hsl(${(idx / totalWeapons) * 360}deg, 100%, 50%, ${OPACITY})`;
 }
 
-export function hasBonus(category: Rating) {
-  return category.startsWith("Damage");
-}
 
 function chartData() {
   return {
@@ -40,7 +33,7 @@ function chartData() {
         data: [...selectedCategories].map((c) => {
           const baseRating = NORMALIZED_RATINGS.get(w)!.get(c)!;
           if (hasBonus(c)) {
-            return bonusMult(w, selectedTarget) * baseRating;
+            return w.bonusMult(selectedTarget) * baseRating;
           } else {
             return baseRating;
           }
