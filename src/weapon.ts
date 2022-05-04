@@ -16,6 +16,16 @@ import JAVELIN from "./weapons/javelin";
 import ONE_HANDED_SPEAR from "./weapons/one_handed_spear";
 import SHORT_SWORD from "./weapons/short_sword";
 import TWO_HANDED_SPEAR from "./weapons/two_handed_spear";
+import AXE from "./weapons/axe";
+import BATTLE_AXE from "./weapons/battle_axe";
+import EXECUTIONERS_AXE from "./weapons/executioners_axe";
+import GLAIVE from "./weapons/glaive";
+import HALBERD from "./weapons/halberd";
+import HATCHET from "./weapons/hatchet";
+import PICKAXE from "./weapons/pickaxe";
+import POLEAXE from "./weapons/poleaxe";
+import THROWING_AXE from "./weapons/throwing_axe";
+import WAR_AXE from "./weapons/war_axe";
 
 import { hasBonus } from "./main";
 
@@ -42,6 +52,16 @@ export enum Weapon {
   ONE_HANDED_SPEAR = "One-Handed Spear",
   SHORT_SWORD = "Short Sword",
   TWO_HANDED_SPEAR = "Two-Handed Spear",
+  AXE = "Axe",
+  BATTLE_AXE = "Battle Axe",
+  EXECUTIONERS_AXE = "Executioner's Axe",
+  GLAIVE = "Glaive",
+  HALBERD = "Halberd",
+  HATCHET = "Hatchet",
+  PICKAXE = "Pickaxe",
+  POLEAXE = "Poleaxe",
+  THROWING_AXE = "Throwing Axe",
+  WAR_AXE = "War Axe",
 }
 
 const DAMAGE_TYPES = new Map<Weapon, DamageType>([
@@ -61,6 +81,16 @@ const DAMAGE_TYPES = new Map<Weapon, DamageType>([
   [Weapon.ONE_HANDED_SPEAR, DamageType.CUT],
   [Weapon.SHORT_SWORD, DamageType.CUT],
   [Weapon.TWO_HANDED_SPEAR, DamageType.CUT],
+  [Weapon.AXE, DamageType.CHOP],
+  [Weapon.BATTLE_AXE, DamageType.CHOP],
+  [Weapon.EXECUTIONERS_AXE, DamageType.CHOP],
+  [Weapon.GLAIVE, DamageType.CHOP],
+  [Weapon.HALBERD, DamageType.CHOP],
+  [Weapon.HATCHET, DamageType.CHOP],
+  [Weapon.PICKAXE, DamageType.CHOP],
+  [Weapon.POLEAXE, DamageType.CHOP],
+  [Weapon.THROWING_AXE, DamageType.CHOP],
+  [Weapon.WAR_AXE, DamageType.CHOP],
 ]);
 
 function average(derived: DerivedRatings, ratings: Array<Rating>): number {
@@ -242,6 +272,16 @@ const ratings = new Map([
   [Weapon.ONE_HANDED_SPEAR, toDerived(ONE_HANDED_SPEAR)],
   [Weapon.SHORT_SWORD, toDerived(SHORT_SWORD)],
   [Weapon.TWO_HANDED_SPEAR, toDerived(TWO_HANDED_SPEAR)],
+  [Weapon.AXE, toDerived(AXE)],
+  [Weapon.BATTLE_AXE, toDerived(BATTLE_AXE)],
+  [Weapon.EXECUTIONERS_AXE, toDerived(EXECUTIONERS_AXE)],
+  [Weapon.GLAIVE, toDerived(GLAIVE)],
+  [Weapon.HALBERD, toDerived(HALBERD)],
+  [Weapon.HATCHET, toDerived(HATCHET)],
+  [Weapon.PICKAXE, toDerived(PICKAXE)],
+  [Weapon.POLEAXE, toDerived(POLEAXE)],
+  [Weapon.THROWING_AXE, toDerived(THROWING_AXE)],
+  [Weapon.WAR_AXE, toDerived(WAR_AXE)],
 ]);
 
 export const NORMALIZED_RATINGS = normalize(ratings);
