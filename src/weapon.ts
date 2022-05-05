@@ -23,7 +23,7 @@ export function maxPossibleBonus(weapon: Weapon): number {
 }
 
 export function extractNumber(weapon: Weapon, path: string): number {
-  let current: any = weapon; // es-lint-disable-line
+  let current: any = weapon; // eslint-disable-line
   const parts = path.split(".");
   for (const part of parts) {
     if (part in current) {
