@@ -10,22 +10,14 @@ import { Weapon } from "./weapon";
 
 Chart.register(...registerables); // the auto import stuff was making typescript angry.
 
-let WEAPONS_BY_NAME: Map<string, Weapon> = new Map(
-  ALL_WEAPONS.map((x) => [x.name, x])
-);
-
-let STATS: WeaponStats = generateMetrics(ALL_WEAPONS);
-let NORMALIZED_STATS: WeaponStats = normalize(STATS);
+const STATS: WeaponStats = generateMetrics(ALL_WEAPONS);
+const NORMALIZED_STATS: WeaponStats = normalize(STATS);
 
 let selectedTarget = Target.VANGUARD_ARCHER;
 
-let selectedWeapons = new Set<Weapon>([
-  WEAPONS_BY_NAME.get("Polehammer")!,
-  WEAPONS_BY_NAME.get("Dane Axe")!,
-  WEAPONS_BY_NAME.get("Messer")!,
-]);
+const selectedWeapons = new Set<Weapon>();
 
-let selectedCategories = new Set<MetricLabel>();
+const selectedCategories = new Set<MetricLabel>();
 
 function chartData(dataset: WeaponStats) {
   return {
