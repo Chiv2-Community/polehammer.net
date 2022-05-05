@@ -43,9 +43,7 @@ import WAR_AXE from "./weapons/war_axe.json";
 import WAR_CLUB from "./weapons/war_club.json";
 import WARHAMMER from "./weapons/warhammer.json";
 
-
-
-Chart.register(...registerables) // the auto import stuff was making typescript angry.
+Chart.register(...registerables); // the auto import stuff was making typescript angry.
 
 function weaponFromJson(obj: AnyObject): Weapon {
   return Object.setPrototypeOf(obj, Weapon.prototype);
@@ -87,10 +85,12 @@ let ALL_WEAPONS: Weapon[] = [
   weaponFromJson(TWO_HANDED_SPEAR),
   weaponFromJson(WAR_AXE),
   weaponFromJson(WAR_CLUB),
-  weaponFromJson(WARHAMMER)
-]
+  weaponFromJson(WARHAMMER),
+];
 
-let WEAPONS_BY_NAME: Map<string, Weapon> = new Map(ALL_WEAPONS.map(x => [x.name, x]))
+let WEAPONS_BY_NAME: Map<string, Weapon> = new Map(
+  ALL_WEAPONS.map((x) => [x.name, x])
+);
 
 let STATS: WeaponStats = generateMetrics(ALL_WEAPONS);
 let NORMALIZED_STATS: WeaponStats = normalize(STATS);
@@ -98,9 +98,9 @@ let NORMALIZED_STATS: WeaponStats = normalize(STATS);
 let selectedTarget = Target.VANGUARD_ARCHER;
 
 let selectedWeapons = new Set<Weapon>([
-  WEAPONS_BY_NAME.get("Polehammer")!, 
-  WEAPONS_BY_NAME.get("Dane Axe")!, 
-  WEAPONS_BY_NAME.get("Messer")!
+  WEAPONS_BY_NAME.get("Polehammer")!,
+  WEAPONS_BY_NAME.get("Dane Axe")!,
+  WEAPONS_BY_NAME.get("Messer")!,
 ]);
 
 let selectedCategories = new Set<MetricLabel>();
@@ -149,7 +149,6 @@ function borderDash(weapon: Weapon) {
   }
 }
 
-
 function chartData(dataset: WeaponStats) {
   return {
     labels: [...selectedCategories],
@@ -183,7 +182,7 @@ const chart = new Chart(document.getElementById("chart") as HTMLCanvasElement, {
     },
     responsive: true,
     maintainAspectRatio: false,
-    /*scales: {
+    scales: {
       radial: {
         min: 0,
         max: 1,
@@ -192,7 +191,7 @@ const chart = new Chart(document.getElementById("chart") as HTMLCanvasElement, {
           maxTicksLimit: 2,
         },
       },
-    },*/
+    },
   },
   data: chartData(NORMALIZED_STATS),
 });
@@ -220,7 +219,7 @@ function setWeapon(weapon: Weapon, enabled: boolean) {
 
 // Write all weapons we know about into the weapons list
 const weapons = document.getElementById("weapons") as HTMLFieldSetElement;
-ALL_WEAPONS.map(w => {
+ALL_WEAPONS.map((w) => {
   const div = document.createElement("div");
   div.style.display = "flex";
   div.style.alignItems = "center";
@@ -302,7 +301,7 @@ function clear() {
 }
 
 function updateWeaponCheckboxes() {
-  ALL_WEAPONS.map(w => {
+  ALL_WEAPONS.map((w) => {
     const checkbox = document.getElementById(w.name) as HTMLInputElement;
     checkbox.checked = Array.from(selectedWeapons).includes(w);
     const label = checkbox.nextSibling as HTMLLabelElement;
