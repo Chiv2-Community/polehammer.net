@@ -1,0 +1,47 @@
+{
+  "name": "Sledgehammer",
+  "weaponTypes": [
+    "Hammer",
+    "Two Handed"
+  ],
+  "damageType": "Blunt",
+  "attacks": {
+    "horizontal": {
+      "range": 18,
+      "altRange": 18,
+      "light": {
+        "windup": 700,
+        "damage": 40
+      },
+      "heavy": {
+        "damage": 60
+      }
+    },
+    "overhead": {
+      "range": 18,
+      "altRange": 13,
+      "light": {
+        "windup": 633,
+        "damage": 50
+      },
+      "heavy": {
+        "damage": 70
+      }
+    },
+    "stab": {
+      "range": 16,
+      "altRange": 16,
+      "light": {
+        "windup": 667,
+        "damage": 30
+      },
+      "heavy": {
+        "damage": 45
+      }
+    }
+  },
+  "specialAttack": {
+    "windup": 1100,
+    "damage": 60
+  }
+}

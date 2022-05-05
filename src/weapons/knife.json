@@ -1,0 +1,47 @@
+{
+  "name": "Knife",
+  "weaponTypes": [
+    "Dagger",
+    "One Handed"
+  ],
+  "damageType": "Cut",
+  "attacks": {
+    "horizontal": {
+      "range": 11,
+      "altRange": 12,
+      "light": {
+        "windup": 567,
+        "damage": 35
+      },
+      "heavy": {
+        "damage": 45
+      }
+    },
+    "overhead": {
+      "range": 10,
+      "altRange": 12,
+      "light": {
+        "windup": 500,
+        "damage": 45
+      },
+      "heavy": {
+        "damage": 55
+      }
+    },
+    "stab": {
+      "range": 14,
+      "altRange": 16,
+      "light": {
+        "windup": 633,
+        "damage": 40
+      },
+      "heavy": {
+        "damage": 50
+      }
+    }
+  },
+  "specialAttack": {
+    "windup": 767,
+    "damage": 60
+  }
+}

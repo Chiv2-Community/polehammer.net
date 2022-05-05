@@ -1,0 +1,45 @@
+{
+  "name": "Longsword",
+  "weaponTypes": ["Sword", "One Handed"],
+  "damageType": "Cut",
+  "twoHanded": false,
+  "attacks": {
+    "horizontal": {
+      "range": 23,
+      "altRange": 23,
+      "light": {
+        "windup": 733,
+        "damage": 40
+      },
+      "heavy": {
+        "damage": 60
+      }
+    },
+    "overhead": {
+      "range": 22,
+      "altRange": 23,
+      "light": {
+        "windup": 733,
+        "damage": 50
+      },
+      "heavy": {
+        "damage": 70
+      }
+    },
+    "stab": {
+      "range": 26,
+      "altRange": 27,
+      "light": {
+        "windup": 700,
+        "damage": 50
+      },
+      "heavy": {
+        "damage": 65
+      }
+    }
+  },
+  "specialAttack": {
+    "windup": 1000,
+    "damage": 80
+  }
+}

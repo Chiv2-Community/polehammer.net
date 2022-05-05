@@ -1,0 +1,45 @@
+{
+  "name": "Messer",
+  "weaponTypes": ["Sword", "Two Handed"],
+  "damageType": "Cut",
+  "twoHanded": true,
+  "attacks": {
+    "horizontal": {
+      "altRange": 25,
+      "range": 26,
+      "light": {
+        "windup": 833,
+        "damage": 50
+      },
+      "heavy": {
+        "damage": 70
+      }
+    },
+    "overhead": {
+      "range": 26,
+      "altRange": 27,
+      "light": {
+        "windup": 867,
+        "damage": 70
+      },
+      "heavy": {
+        "damage": 80
+      }
+    },
+    "stab": {
+      "range": 28,
+      "altRange": 28,
+      "light": {
+        "windup": 733,
+        "damage": 40
+      },
+      "heavy": {
+        "damage": 55
+      }
+    }
+  },
+  "specialAttack": {
+    "windup": 1267,
+    "damage": 90
+  }
+}

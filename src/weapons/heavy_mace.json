@@ -1,0 +1,44 @@
+{
+  "name": "Heavy Mace",
+  "weaponTypes": ["Club", "Two Handed"],
+  "damageType": "Chop",
+  "attacks": {
+    "horizontal": {
+      "range": 26,
+      "altRange": 26,
+      "light": {
+        "windup": 767,
+        "damage": 40
+      },
+      "heavy": {
+        "damage": 60
+      }
+    },
+    "overhead": {
+      "range": 24,
+      "altRange": 21,
+      "light": {
+        "windup": 700,
+        "damage": 50
+      },
+      "heavy": {
+        "damage": 70
+      }
+    },
+    "stab": {
+      "range": 24,
+      "altRange": 24,
+      "light": {
+        "windup": 767,
+        "damage": 40
+      },
+      "heavy": {
+        "damage": 60
+      }
+    }
+  },
+  "specialAttack": {
+    "windup": 1167,
+    "damage": 80
+  }
+}

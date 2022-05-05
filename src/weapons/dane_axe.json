@@ -1,0 +1,47 @@
+{
+  "name": "Dane Axe",
+  "weaponTypes": [
+    "Axe",
+    "Two Handed"
+  ],
+  "damageType": "Chop",
+  "attacks": {
+    "horizontal": {
+      "range": 21,
+      "altRange": 21,
+      "light": {
+        "windup": 767,
+        "damage": 50
+      },
+      "heavy": {
+        "damage": 70
+      }
+    },
+    "overhead": {
+      "range": 20,
+      "altRange": 16,
+      "light": {
+        "windup": 633,
+        "damage": 60
+      },
+      "heavy": {
+        "damage": 80
+      }
+    },
+    "stab": {
+      "range": 19,
+      "altRange": 19,
+      "light": {
+        "windup": 767,
+        "damage": 40
+      },
+      "heavy": {
+        "damage": 60
+      }
+    }
+  },
+  "specialAttack": {
+    "windup": 1033,
+    "damage": 85
+  }
+}

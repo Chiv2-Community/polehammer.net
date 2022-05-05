@@ -1,0 +1,47 @@
+{
+  "name": "Battle Axe",
+  "weaponTypes": [
+    "Axe",
+    "Two Handed"
+  ],
+  "damageType": "Chop",
+  "attacks": {
+    "horizontal": {
+      "range": 21,
+      "altRange": 21,
+      "light": {
+        "windup": 833,
+        "damage": 55
+      },
+      "heavy": {
+        "damage": 75
+      }
+    },
+    "overhead": {
+      "range": 20,
+      "altRange": 16,
+      "light": {
+        "windup": 800,
+        "damage": 65
+      },
+      "heavy": {
+        "damage": 85
+      }
+    },
+    "stab": {
+      "range": 19,
+      "altRange": 19,
+      "light": {
+        "windup": 800,
+        "damage": 40
+      },
+      "heavy": {
+        "damage": 60
+      }
+    }
+  },
+  "specialAttack": {
+    "windup": 1133,
+    "damage": 100
+  }
+}

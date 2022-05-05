@@ -1,0 +1,47 @@
+{
+  "name": "Two Handed Hammer",
+  "weaponTypes": [
+    "Hammer",
+    "Two Handed"
+  ],
+  "damageType": "Chop",
+  "attacks": {
+    "horizontal": {
+      "range": 25,
+      "altRange": 25,
+      "light": {
+        "windup": 800,
+        "damage": 40
+      },
+      "heavy": {
+        "damage": 60
+      }
+    },
+    "overhead": {
+      "range": 23,
+      "altRange": 20,
+      "light": {
+        "windup": 733,
+        "damage": 50
+      },
+      "heavy": {
+        "damage": 70
+      }
+    },
+    "stab": {
+      "range": 23,
+      "altRange": 23,
+      "light": {
+        "windup": 767,
+        "damage": 40
+      },
+      "heavy": {
+        "damage": 60
+      }
+    }
+  },
+  "specialAttack": {
+    "windup": 1300,
+    "damage": 80
+  }
+}

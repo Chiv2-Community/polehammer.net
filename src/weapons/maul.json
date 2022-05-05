@@ -1,0 +1,44 @@
+{
+  "name": "Maul",
+  "weaponTypes": ["Hammer", "Two Handed"],
+  "damageType": "Blunt",
+  "attacks": {
+    "horizontal": {
+      "range": 22,
+      "altRange": 22,
+      "light": {
+        "windup": 900,
+        "damage": 50
+      },
+      "heavy": {
+        "damage": 70
+      }
+    },
+    "overhead": {
+      "range": 21,
+      "altRange": 21,
+      "light": {
+        "windup": 833,
+        "damage": 60
+      },
+      "heavy": {
+        "damage": 80
+      }
+    },
+    "stab": {
+      "range": 20,
+      "altRange": 20,
+      "light": {
+        "windup": 800,
+        "damage": 30
+      },
+      "heavy": {
+        "damage": 40
+      }
+    }
+  },
+  "specialAttack": {
+    "windup": 1500,
+    "damage": 120
+  }
+}

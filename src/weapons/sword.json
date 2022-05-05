@@ -1,0 +1,44 @@
+{
+  "name": "Sword",
+  "weaponTypes": ["Sword", "One Handed"],
+  "damageType": "Cut",
+  "attacks": {
+    "horizontal": {
+      "range": 22,
+      "altRange": 23,
+      "light": {
+        "windup": 633,
+        "damage": 40
+      },
+      "heavy": {
+        "damage": 60
+      }
+    },
+    "overhead": {
+      "range": 22,
+      "altRange": 23,
+      "light": {
+        "windup": 567,
+        "damage": 50
+      },
+      "heavy": {
+        "damage": 65
+      }
+    },
+    "stab": {
+      "range": 25,
+      "altRange": 27,
+      "light": {
+        "windup": 667,
+        "damage": 45
+      },
+      "heavy": {
+        "damage": 60
+      }
+    }
+  },
+  "specialAttack": {
+    "windup": 933,
+    "damage": 70
+  }
+}

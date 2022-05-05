@@ -1,0 +1,47 @@
+{
+  "name": "Poleaxe",
+  "weaponTypes": [
+    "Axe",
+    "Two Handed"
+  ],
+  "damageType": "Chop",
+  "attacks": {
+    "horizontal": {
+      "range": 26,
+      "altRange": 20,
+      "light": {
+        "windup": 800,
+        "damage": 40
+      },
+      "heavy": {
+        "damage": 55
+      }
+    },
+    "overhead": {
+      "range": 28,
+      "altRange": 28,
+      "light": {
+        "windup": 667,
+        "damage": 50
+      },
+      "heavy": {
+        "damage": 70
+      }
+    },
+    "stab": {
+      "range": 27,
+      "altRange": 29,
+      "light": {
+        "windup": 767,
+        "damage": 50
+      },
+      "heavy": {
+        "damage": 70
+      }
+    }
+  },
+  "specialAttack": {
+    "windup": 1233,
+    "damage": 70
+  }
+}

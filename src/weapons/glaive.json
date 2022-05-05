@@ -1,0 +1,44 @@
+{
+  "name": "Glaive",
+  "weaponTypes": ["Polearm", "Axe", "Two Handed"],
+  "damageType": "Chop",
+  "attacks": {
+    "horizontal": {
+      "range": 36,
+      "altRange": 31,
+      "light": {
+        "windup": 733,
+        "damage": 30
+      },
+      "heavy": {
+        "damage": 50
+      }
+    },
+    "overhead": {
+      "range": 38,
+      "altRange": 38,
+      "light": {
+        "windup": 567,
+        "damage": 40
+      },
+      "heavy": {
+        "damage": 60
+      }
+    },
+    "stab": {
+      "range": 37,
+      "altRange": 39,
+      "light": {
+        "windup": 867,
+        "damage": 40
+      },
+      "heavy": {
+        "damage": 60
+      }
+    }
+  },
+  "specialAttack": {
+    "windup": 1100,
+    "damage": 60
+  }
+}

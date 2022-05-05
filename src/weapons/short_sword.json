@@ -1,0 +1,47 @@
+{
+  "name": "Short Sword",
+  "weaponTypes": [
+    "Sword",
+    "One Handed"
+  ],
+  "damageType": "Cut",
+  "attacks": {
+    "horizontal": {
+      "range": 20,
+      "altRange": 21,
+      "light": {
+        "windup": 633,
+        "damage": 35
+      },
+      "heavy": {
+        "damage": 50
+      }
+    },
+    "overhead": {
+      "range": 19,
+      "altRange": 20,
+      "light": {
+        "windup": 567,
+        "damage": 40
+      },
+      "heavy": {
+        "damage": 55
+      }
+    },
+    "stab": {
+      "range": 23,
+      "altRange": 24,
+      "light": {
+        "windup": 667,
+        "damage": 40
+      },
+      "heavy": {
+        "damage": 55
+      }
+    }
+  },
+  "specialAttack": {
+    "windup": 867,
+    "damage": 65
+  }
+}

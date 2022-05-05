@@ -1,0 +1,47 @@
+{
+  "name": "Cudgel",
+  "weaponTypes": [
+    "Club",
+    "One Handed"
+  ],
+  "damageType": "Blunt",
+  "attacks": {
+    "horizontal": {
+      "range": 15,
+      "altRange": 16,
+      "light": {
+        "windup": 567,
+        "damage": 30
+      },
+      "heavy": {
+        "damage": 45
+      }
+    },
+    "overhead": {
+      "range": 13,
+      "altRange": 15,
+      "light": {
+        "windup": 567,
+        "damage": 30
+      },
+      "heavy": {
+        "damage": 45
+      }
+    },
+    "stab": {
+      "range": 18,
+      "altRange": 20,
+      "light": {
+        "windup": 633,
+        "damage": 25
+      },
+      "heavy": {
+        "damage": 35
+      }
+    }
+  },
+  "specialAttack": {
+    "windup": 933,
+    "damage": 55
+  }
+}

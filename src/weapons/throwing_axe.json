@@ -1,0 +1,47 @@
+{
+  "name": "Throwing Axe",
+  "weaponTypes": [
+    "Axe",
+    "One Handed"
+  ],
+  "damageType": "Chop",
+  "attacks": {
+    "horizontal": {
+      "range": 10,
+      "altRange": 11,
+      "light": {
+        "windup": 633,
+        "damage": 35
+      },
+      "heavy": {
+        "damage": 55
+      }
+    },
+    "overhead": {
+      "range": 10,
+      "altRange": 12,
+      "light": {
+        "windup": 567,
+        "damage": 40
+      },
+      "heavy": {
+        "damage": 50
+      }
+    },
+    "stab": {
+      "range": 13,
+      "altRange": 14,
+      "light": {
+        "windup": 633,
+        "damage": 35
+      },
+      "heavy": {
+        "damage": 45
+      }
+    }
+  },
+  "specialAttack": {
+    "windup": 933,
+    "damage": 60
+  }
+}

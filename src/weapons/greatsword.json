@@ -1,0 +1,44 @@
+{
+  "name": "Greatsword",
+  "weaponTypes": ["Sword", "Two Handed"],
+  "damageType": "Cut",
+  "attacks": {
+    "horizontal": {
+      "range": 31,
+      "altRange": 26,
+      "light": {
+        "windup": 900,
+        "damage": 50
+      },
+      "heavy": {
+        "damage": 70
+      }
+    },
+    "overhead": {
+      "range": 27,
+      "altRange": 30,
+      "light": {
+        "windup": 833,
+        "damage": 70
+      },
+      "heavy": {
+        "damage": 90
+      }
+    },
+    "stab": {
+      "range": 26,
+      "altRange": 28,
+      "light": {
+        "windup": 800,
+        "damage": 50
+      },
+      "heavy": {
+        "damage": 70
+      }
+    }
+  },
+  "specialAttack": {
+    "windup": 1300,
+    "damage": 100
+  }
+}

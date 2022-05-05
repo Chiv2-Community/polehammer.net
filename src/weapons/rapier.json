@@ -1,0 +1,44 @@
+{
+  "name": "Rapier",
+  "weaponTypes": ["Sword", "One Handed"],
+  "damageType": "Cut",
+  "attacks": {
+    "horizontal": {
+      "range": 22,
+      "altRange": 21,
+      "light": {
+        "windup": 633,
+        "damage": 30
+      },
+      "heavy": {
+        "damage": 50
+      }
+    },
+    "overhead": {
+      "range": 21,
+      "altRange": 22,
+      "light": {
+        "windup": 500,
+        "damage": 35
+      },
+      "heavy": {
+        "damage": 55
+      }
+    },
+    "stab": {
+      "range": 25,
+      "altRange": 26,
+      "light": {
+        "windup": 633,
+        "damage": 50
+      },
+      "heavy": {
+        "damage": 70
+      }
+    }
+  },
+  "specialAttack": {
+    "windup": 700,
+    "damage": 55
+  }
+}

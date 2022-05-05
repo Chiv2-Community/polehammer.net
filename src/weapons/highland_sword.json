@@ -1,0 +1,44 @@
+{
+  "name": "Highland Sword",
+  "weaponTypes": ["Sword", "Two Handed"],
+  "damageType": "Cut",
+  "attacks": {
+    "horizontal": {
+      "range": 31,
+      "altRange": 31,
+      "light": {
+        "windup": 967,
+        "damage": 60
+      },
+      "heavy": {
+        "damage": 80
+      }
+    },
+    "overhead": {
+      "range": 29,
+      "altRange": 32,
+      "light": {
+        "windup": 933,
+        "damage": 85
+      },
+      "heavy": {
+        "damage": 100
+      }
+    },
+    "stab": {
+      "range": 26,
+      "altRange": 24,
+      "light": {
+        "windup": 1000,
+        "damage": 40
+      },
+      "heavy": {
+        "damage": 60
+      }
+    }
+  },
+  "specialAttack": {
+    "windup": 900,
+    "damage": 60
+  }
+}

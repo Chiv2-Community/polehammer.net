@@ -1,0 +1,47 @@
+{
+  "name": "Warhammer",
+  "weaponTypes": [
+    "Hammer",
+    "Two Handed"
+  ],
+  "damageType": "Blunt",
+  "attacks": {
+    "horizontal": {
+      "range": 16,
+      "altRange": 17,
+      "light": {
+        "windup": 700,
+        "damage": 50
+      },
+      "heavy": {
+        "damage": 70
+      }
+    },
+    "overhead": {
+      "range": 15,
+      "altRange": 16,
+      "light": {
+        "windup": 567,
+        "damage": 50
+      },
+      "heavy": {
+        "damage": 70
+      }
+    },
+    "stab": {
+      "range": 19,
+      "altRange": 20,
+      "light": {
+        "windup": 633,
+        "damage": 30
+      },
+      "heavy": {
+        "damage": 45
+      }
+    }
+  },
+  "specialAttack": {
+    "windup": 1100,
+    "damage": 80
+  }
+}
