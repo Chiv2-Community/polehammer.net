@@ -96,7 +96,7 @@ function setWeapon(weapon: Weapon, enabled: boolean) {
 
 // Write all weapons we know about into the weapons list
 const weapons = document.getElementById("weapons") as HTMLFieldSetElement;
-ALL_WEAPONS.map((w) => {
+ALL_WEAPONS.forEach((w) => {
   const div = document.createElement("div");
   div.style.display = "flex";
   div.style.alignItems = "center";
@@ -131,7 +131,7 @@ function setCategory(category: MetricLabel, enabled: boolean) {
 
 // Write all categories we know about into the categories list
 const categories = document.getElementById("categories") as HTMLFieldSetElement;
-Object.values(MetricLabel).map((r) => {
+Object.values(MetricLabel).forEach((r) => {
   const div = document.createElement("div");
 
   const input = document.createElement("input");
@@ -153,7 +153,7 @@ Object.values(MetricLabel).map((r) => {
 });
 
 // Link up target radio buttons
-Object.values(Target).map((t) => {
+Object.values(Target).forEach((t) => {
   const radio = document.getElementById(t) as HTMLInputElement;
   radio.onclick = () => {
     selectedTarget = t;
