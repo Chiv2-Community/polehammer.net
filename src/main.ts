@@ -5,6 +5,7 @@ import { generateMetrics, hasBonus, normalize, WeaponStats } from "./stats";
 import "./style.css";
 import { Target } from "./target";
 import { borderDash, weaponColor, weaponDash } from "./ui";
+import { shuffle } from "./util";
 import { Weapon } from "./weapon";
 
 Chart.register(...registerables); // the auto import stuff was making typescript angry.
@@ -161,15 +162,6 @@ Object.values(Target).forEach((t) => {
   };
 });
 
-function shuffle<T>(arr: T[]) {
-  const newArr = arr.slice();
-  for (let i = newArr.length - 1; i > 0; i--) {
-    const rand = Math.floor(Math.random() * (i + 1));
-    [newArr[i], newArr[rand]] = [newArr[rand], newArr[i]];
-  }
-  return newArr;
-}
-
 // Clear all weapon selections
 function clear() {
   selectedWeapons.clear();
@@ -190,7 +182,7 @@ function updateWeaponCheckboxes() {
 function random() {
   clear();
   const random = shuffle(ALL_WEAPONS);
-  random.slice(0, 3).map((w) => setWeapon(w, true));
+  random.slice(0, 3).forEach((w) => setWeapon(w, true));
 }
 
 // Reset to default category selections
