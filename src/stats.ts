@@ -126,11 +126,11 @@ export function normalize(stats: WeaponStats): WeaponStats {
   for (const rating of Object.values(MetricLabel)) {
     // Get min and max for this rating _across all weapons_
     // Scale max possible damage based on weapon's damage type
-    let values: number[] = [...stats.values()].map(
+    const values: number[] = [...stats.values()].map(
       (x: LabelledMetrics) => x.get(rating)!
     );
-    let min = Math.min(...values);
-    let max = Math.max(...values);
+    const min = Math.min(...values);
+    const max = Math.max(...values);
 
     // Scale by min and max
     for (const [weapon, derived] of normalized) {
