@@ -1,4 +1,4 @@
-import { Weapon } from "./weapon";
+import { extractNumber, maxPossibleBonus, Weapon } from "./weapon";
 import {
   MetricLabel,
   MetricPath,
@@ -22,7 +22,7 @@ function average(lst: number[]) {
 export function generateMetrics(weapons: Weapon[]): WeaponStats {
   // Need to invert the windups range (because higher is bad), so we need to figure out the range before hand.
   const windups: number[] = weapons.flatMap((wep) =>
-    WINDUP_METRICS.map((metric) => wep.extractNumber(metric))
+    WINDUP_METRICS.map((metric) => extractNumber(wep, metric))
   );
   const maxWindup = Math.max(...windups);
   const minWindup = 0; //Math.min(...windups);
@@ -136,7 +136,7 @@ export function normalize(stats: WeaponStats): WeaponStats {
     for (const [weapon, derived] of normalized) {
       let div = 1.0;
       if (hasBonus(rating)) {
-        div = weapon.maxPossibleBonus();
+        div = maxPossibleBonus(weapon);
       }
       derived.set(rating, (derived.get(rating)! - min) / (max - min) / div);
     }

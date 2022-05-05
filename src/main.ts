@@ -6,7 +6,7 @@ import "./style.css";
 import { Target } from "./target";
 import { borderDash, weaponColor, weaponDash } from "./ui";
 import { shuffle } from "./util";
-import { Weapon } from "./weapon";
+import { bonusMult, Weapon } from "./weapon";
 
 Chart.register(...registerables); // the auto import stuff was making typescript angry.
 
@@ -28,7 +28,7 @@ function chartData(dataset: WeaponStats) {
         data: [...selectedCategories].map((c) => {
           const baseMetricLabel = dataset.get(w)!.get(c)!;
           if (hasBonus(c)) {
-            return w.bonusMult(selectedTarget) * baseMetricLabel;
+            return bonusMult(selectedTarget, w.damageType) * baseMetricLabel;
           } else {
             return baseMetricLabel;
           }

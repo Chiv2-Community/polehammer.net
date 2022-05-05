@@ -38,11 +38,9 @@
     }
   },
   "rangedAttack": {
-    "projectileSpeed": null,
-    "windup": null,
     "damage": {
       "legs": 26,
-      "body": 35,
+      "torso": 35,
       "head": 43
     }
   },

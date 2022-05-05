@@ -1,4 +1,4 @@
-import { Weapon } from "./weapon";
+import { extractNumber, Weapon } from "./weapon";
 
 export enum MetricPath {
   WINDUP_HORIZONTAL = "attacks.horizontal.light.windup",
@@ -89,7 +89,7 @@ export class AggregateMetric extends Metric {
 
   calculate(weapon: Weapon): number {
     return this.aggregateFunction(
-      this.paths.map((prop) => weapon.extractNumber(prop))
+      this.paths.map((prop) => extractNumber(weapon, prop))
     );
   }
 }
@@ -103,7 +103,7 @@ export class BasicMetric extends Metric {
   }
 
   calculate(weapon: Weapon): number {
-    return weapon.extractNumber(this.path);
+    return extractNumber(weapon, this.path);
   }
 }
 
@@ -125,7 +125,7 @@ export class InverseMetric extends Metric {
   }
 
   calculate(weapon: Weapon): number {
-    return this.metricMax + this.metricMin - weapon.extractNumber(this.path);
+    return this.metricMax + this.metricMin - extractNumber(weapon, this.path);
   }
 }
 
@@ -152,7 +152,7 @@ export class AggregateInverseMetric extends Metric {
   calculate(weapon: Weapon): number {
     const minPlusMax = this.metricMax + this.metricMin;
     return this.aggregateFunction(
-      this.paths.map((prop) => minPlusMax - weapon.extractNumber(prop))
+      this.paths.map((prop) => minPlusMax - extractNumber(weapon, prop))
     );
   }
 }
