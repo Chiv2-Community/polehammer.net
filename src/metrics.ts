@@ -20,7 +20,7 @@ export enum MetricPath {
   DAMAGE_OVERHEAD_HEAVY = "attacks.overhead.heavy.damage",
   DAMAGE_STAB_LIGHT = "attacks.stab.light.damage",
   DAMAGE_STAB_HEAVY = "attacks.stab.heavy.damage",
-  DAMAGE_SPECIAL = "specialAttack.damage"
+  DAMAGE_SPECIAL = "specialAttack.damage",
 }
 
 export enum MetricLabel {
@@ -49,25 +49,23 @@ export enum MetricLabel {
   DAMAGE_AVERAGE = "Damage - Average*",
 }
 
-export const DAMAGE_METRICS = 
-  Object.values(MetricPath)
-    .filter((m) => m.includes(".damage"))
+export const DAMAGE_METRICS = Object.values(MetricPath).filter((m) =>
+  m.includes(".damage")
+);
 
-export const RANGE_METRICS = 
-  Object.values(MetricPath)
-    .filter((m) => m.includes(".range") || m.includes(".altRange"))
+export const RANGE_METRICS = Object.values(MetricPath).filter(
+  (m) => m.includes(".range") || m.includes(".altRange")
+);
 
-export const WINDUP_METRICS = 
-  Object.values(MetricPath)
-    .filter((m) => m.includes(".windup"))
-
+export const WINDUP_METRICS = Object.values(MetricPath).filter((m) =>
+  m.includes(".windup")
+);
 
 export type LabelledMetrics = Map<MetricLabel, number>;
 
-
 export abstract class Metric {
-  name!: MetricLabel
-  
+  name!: MetricLabel;
+
   constructor(name: MetricLabel) {
     this.name = name;
   }
@@ -79,27 +77,33 @@ export class AggregateMetric extends Metric {
   paths!: MetricPath[];
   aggregateFunction!: (nums: number[]) => number;
 
-  constructor(name: MetricLabel, paths: MetricPath[], aggregateFunc: (nums: number[]) => number) {
+  constructor(
+    name: MetricLabel,
+    paths: MetricPath[],
+    aggregateFunc: (nums: number[]) => number
+  ) {
     super(name);
     this.paths = paths;
     this.aggregateFunction = aggregateFunc;
   }
 
   calculate(weapon: Weapon): number {
-    return this.aggregateFunction(this.paths.map((prop) => weapon.extractNumber(prop)))
+    return this.aggregateFunction(
+      this.paths.map((prop) => weapon.extractNumber(prop))
+    );
   }
 }
 
 export class BasicMetric extends Metric {
   path!: string;
-  
+
   constructor(name: MetricLabel, path: MetricPath) {
     super(name);
     this.path = path;
   }
 
   calculate(weapon: Weapon): number {
-    return weapon.extractNumber(this.path)
+    return weapon.extractNumber(this.path);
   }
 }
 
@@ -108,7 +112,12 @@ export class InverseMetric extends Metric {
   metricMin!: number;
   metricMax!: number;
 
-  constructor(name: MetricLabel, path: MetricPath, metricMin: number, metricMax: number) {
+  constructor(
+    name: MetricLabel,
+    path: MetricPath,
+    metricMin: number,
+    metricMax: number
+  ) {
     super(name);
     this.path = path;
     this.metricMin = metricMin;
@@ -116,7 +125,7 @@ export class InverseMetric extends Metric {
   }
 
   calculate(weapon: Weapon): number {
-    return this.metricMax + this.metricMin - weapon.extractNumber(this.path)
+    return this.metricMax + this.metricMin - weapon.extractNumber(this.path);
   }
 }
 
@@ -126,7 +135,13 @@ export class AggregateInverseMetric extends Metric {
   metricMax!: number;
   aggregateFunction!: (n: number[]) => number;
 
-  constructor(name: MetricLabel, paths: MetricPath[], metricMin: number, metricMax: number, aggregateFunc: (n: number[]) => number) {
+  constructor(
+    name: MetricLabel,
+    paths: MetricPath[],
+    metricMin: number,
+    metricMax: number,
+    aggregateFunc: (n: number[]) => number
+  ) {
     super(name);
     this.paths = paths;
     this.metricMin = metricMin;
@@ -135,8 +150,9 @@ export class AggregateInverseMetric extends Metric {
   }
 
   calculate(weapon: Weapon): number {
-    const minPlusMax = this.metricMax + this.metricMin
-    return this.aggregateFunction(this.paths.map((prop) => minPlusMax - weapon.extractNumber(prop)))
+    const minPlusMax = this.metricMax + this.metricMin;
+    return this.aggregateFunction(
+      this.paths.map((prop) => minPlusMax - weapon.extractNumber(prop))
+    );
   }
 }
-

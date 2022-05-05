@@ -8,13 +8,20 @@ export class Weapon {
   specialAttack?: SpecialAttack;
   rangedAttack?: RangedAttack;
 
-  constructor( name: string, weaponTypes: WeaponType[], damageType: DamageType, attacks: Map<SwingType, Swing>, specialAttack: SpecialAttack, rangedAttack: RangedAttack) {
-    this.name = name,
-    this.weaponTypes = weaponTypes,
-    this.damageType = damageType,
-    this.attacks = attacks,
-    this.specialAttack = specialAttack,
-    this.rangedAttack = rangedAttack
+  constructor(
+    name: string,
+    weaponTypes: WeaponType[],
+    damageType: DamageType,
+    attacks: Map<SwingType, Swing>,
+    specialAttack: SpecialAttack,
+    rangedAttack: RangedAttack
+  ) {
+    (this.name = name),
+      (this.weaponTypes = weaponTypes),
+      (this.damageType = damageType),
+      (this.attacks = attacks),
+      (this.specialAttack = specialAttack),
+      (this.rangedAttack = rangedAttack);
   }
 
   bonusMult(target: Target): number {
@@ -39,10 +46,10 @@ export class Weapon {
   }
 
   extractNumber(path: string): number {
-    var current:any = this;
+    var current: any = this;
     let parts = path.split(".");
-    for(let part of parts) {
-      if(part in current) {
+    for (let part of parts) {
+      if (part in current) {
         current = current[part];
       } else {
         throw Error("Invalid stat path specified. " + path);
@@ -53,16 +60,15 @@ export class Weapon {
 }
 
 export class SpecialAttack {
-  range!: number
-  windup!: number
-  damage!: number
+  range!: number;
+  windup!: number;
+  damage!: number;
 
   constructor(range: number, windup: number, damage: number) {
     this.range = range;
     this.windup = windup;
     this.damage = damage;
   }
-
 }
 
 export class Swing {
@@ -70,10 +76,15 @@ export class Swing {
   altRange!: number;
 
   // TODO: Create AttackDuration class containing windup/active hitbox/cooldown
-  light!: MeleeAttack
-  heavy!: MeleeAttack
+  light!: MeleeAttack;
+  heavy!: MeleeAttack;
 
-  constructor(range: number, altRange: number, light: MeleeAttack, heavy: MeleeAttack) {
+  constructor(
+    range: number,
+    altRange: number,
+    light: MeleeAttack,
+    heavy: MeleeAttack
+  ) {
     this.range = range;
     this.altRange = altRange;
     this.light = light;
@@ -84,9 +95,13 @@ export class Swing {
 export class RangedAttack {
   projectileSpeed?: number; // probably not measured yet
   windup?: number; // milliseconds
-  damage!: ProjectileDamage
+  damage!: ProjectileDamage;
 
-  constructor(projectileSpeed: number, windup: number, damage: ProjectileDamage) {
+  constructor(
+    projectileSpeed: number,
+    windup: number,
+    damage: ProjectileDamage
+  ) {
     this.projectileSpeed = projectileSpeed;
     this.windup = windup;
     this.damage = damage;
@@ -95,7 +110,7 @@ export class RangedAttack {
 
 export class MeleeAttack {
   windup!: number;
-  damage!: number; 
+  damage!: number;
 
   constructor(windup: number, damage: number) {
     this.windup = windup;
@@ -107,11 +122,11 @@ export class ProjectileDamage {
   head!: number;
   torso!: number;
   legs!: number;
-  
+
   constructor(head: number, torso: number, legs: number) {
     this.head = head;
     this.torso = torso;
-    this.legs = legs
+    this.legs = legs;
   }
 }
 
@@ -132,11 +147,11 @@ export enum WeaponType {
   Dagger = "Dagger",
   BOW = "Bow",
   TWO_HANDED = "Two Handed",
-  ONE_HANDED = "One Handed"
+  ONE_HANDED = "One Handed",
 }
 
 export enum SwingType {
   HORIZONTAL = "horizontal",
   OVERHEAD = "overhead",
-  STAB = "stab"
+  STAB = "stab",
 }
