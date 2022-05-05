@@ -64,7 +64,7 @@ export const WINDUP_METRICS = Object.values(MetricPath).filter((m) =>
 export type LabelledMetrics = Map<MetricLabel, number>;
 
 export abstract class Metric {
-  name!: MetricLabel;
+  name: MetricLabel;
 
   constructor(name: MetricLabel) {
     this.name = name;
@@ -74,8 +74,8 @@ export abstract class Metric {
 }
 
 export class AggregateMetric extends Metric {
-  paths!: MetricPath[];
-  aggregateFunction!: (nums: number[]) => number;
+  paths: MetricPath[];
+  aggregateFunction: (nums: number[]) => number;
 
   constructor(
     name: MetricLabel,
@@ -95,7 +95,7 @@ export class AggregateMetric extends Metric {
 }
 
 export class BasicMetric extends Metric {
-  path!: string;
+  path: string;
 
   constructor(name: MetricLabel, path: MetricPath) {
     super(name);
@@ -108,9 +108,9 @@ export class BasicMetric extends Metric {
 }
 
 export class InverseMetric extends Metric {
-  path!: string;
-  metricMin!: number;
-  metricMax!: number;
+  path: string;
+  metricMin: number;
+  metricMax: number;
 
   constructor(
     name: MetricLabel,
@@ -130,10 +130,10 @@ export class InverseMetric extends Metric {
 }
 
 export class AggregateInverseMetric extends Metric {
-  paths!: MetricPath[];
-  metricMin!: number;
-  metricMax!: number;
-  aggregateFunction!: (n: number[]) => number;
+  paths: MetricPath[];
+  metricMin: number;
+  metricMax: number;
+  aggregateFunction: (n: number[]) => number;
 
   constructor(
     name: MetricLabel,

@@ -14,9 +14,7 @@ const STATS: WeaponStats = generateMetrics(ALL_WEAPONS);
 const NORMALIZED_STATS: WeaponStats = normalize(STATS);
 
 let selectedTarget = Target.VANGUARD_ARCHER;
-
 const selectedWeapons = new Set<Weapon>();
-
 const selectedCategories = new Set<MetricLabel>();
 
 function chartData(dataset: WeaponStats) {
