@@ -1,22 +1,17 @@
 import {
-  extractNumber,
-  maxPossibleBonus as maxPossibleDamageBonus,
-  Weapon,
-} from "./weapon";
-import {
+  AggregateInverseMetric,
+  AggregateMetric,
+  BasicMetric,
+  DAMAGE_METRICS,
+  InverseMetric,
+  LabelledMetrics,
   MetricLabel,
   MetricPath,
-  LabelledMetrics,
-  InverseMetric,
-  BasicMetric,
-  AggregateMetric,
-  AggregateInverseMetric,
-  DAMAGE_METRICS,
   RANGE_METRICS,
   SPEED_METRICS,
-  Metric,
   Unit,
 } from "./metrics";
+import { maxPossibleBonus as maxPossibleDamageBonus, Weapon } from "./weapon";
 
 export type WeaponStats = Map<Weapon, LabelledMetrics>;
 
