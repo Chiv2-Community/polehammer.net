@@ -5,7 +5,7 @@
   "attacks": {
     "horizontal": {
       "range": 20,
-      "altRange": 700,
+      "altRange": 21,
       "light": {
         "windup": 21,
         "damage": 50
