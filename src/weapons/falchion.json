@@ -7,7 +7,7 @@
       "range": 20,
       "altRange": 21,
       "light": {
-        "windup": 21,
+        "windup": 700,
         "damage": 50
       },
       "heavy": {
