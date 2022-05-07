@@ -1,4 +1,8 @@
-import { extractNumber, maxPossibleBonus, Weapon } from "./weapon";
+import {
+  extractNumber,
+  maxPossibleBonus as maxPossibleDamageBonus,
+  Weapon,
+} from "./weapon";
 import {
   MetricLabel,
   MetricPath,
@@ -111,7 +115,10 @@ export function unitGroupStats(weaponStats: WeaponStats) {
     // Across each stat
     for (const [, metric] of stats) {
       const existing = unitGroupStats.get(metric.unit);
-      const maxPossible = metric.value * maxPossibleBonus(weapon);
+      const maxPossible =
+        metric.unit === Unit.DAMAGE
+          ? metric.value * maxPossibleDamageBonus(weapon)
+          : metric.value;
       if (existing === undefined) {
         unitGroupStats.set(metric.unit, {
           min: metric.value,
