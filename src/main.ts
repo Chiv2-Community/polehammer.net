@@ -1,7 +1,13 @@
-import { Chart, registerables } from "chart.js";
+import { Chart, ChartData, registerables } from "chart.js";
 import ALL_WEAPONS from "./all_weapons";
-import { MetricLabel } from "./metrics";
-import { generateMetrics, hasBonus, normalize, WeaponStats } from "./stats";
+import { MetricLabel, Unit } from "./metrics";
+import {
+  generateMetrics,
+  hasBonus,
+  unitGroupStats,
+  UnitStats,
+  WeaponStats,
+} from "./stats";
 import "./style.css";
 import { Target } from "./target";
 import { borderDash, weaponColor, weaponDash } from "./ui";
@@ -11,25 +17,30 @@ import { bonusMult, Weapon } from "./weapon";
 Chart.register(...registerables); // the auto import stuff was making typescript angry.
 
 const STATS: WeaponStats = generateMetrics(ALL_WEAPONS);
-const NORMALIZED_STATS: WeaponStats = normalize(STATS);
+const UNIT_STATS: UnitStats = unitGroupStats(STATS);
 
 let selectedTarget = Target.VANGUARD_ARCHER;
 const selectedWeapons = new Set<Weapon>();
 const selectedCategories = new Set<MetricLabel>();
 
-function chartData(dataset: WeaponStats) {
+function chartData(dataset: WeaponStats): ChartData {
   return {
     labels: [...selectedCategories],
     datasets: [...selectedWeapons].map((w) => {
       return {
         label: w.name,
         data: [...selectedCategories].map((c) => {
-          const baseMetricLabel = dataset.get(w)!.get(c)!;
+          const metric = dataset.get(w)!.get(c)!;
+          let value = metric.value;
           if (hasBonus(c)) {
-            return bonusMult(selectedTarget, w.damageType) * baseMetricLabel;
-          } else {
-            return baseMetricLabel;
+            value *= bonusMult(selectedTarget, w.damageType);
           }
+
+          const unitMin = UNIT_STATS.get(metric.unit)!.min;
+          const unitMax = UNIT_STATS.get(metric.unit)!.max;
+
+          // Normalize
+          return (value - unitMin) / (unitMax - unitMin);
         }),
         backgroundColor: "transparent",
         borderColor: weaponColor(w),
@@ -61,11 +72,11 @@ const chart = new Chart(document.getElementById("chart") as HTMLCanvasElement, {
       },
     },
   },
-  data: chartData(NORMALIZED_STATS),
+  data: chartData(STATS),
 });
 
 function redraw() {
-  chart.data = chartData(NORMALIZED_STATS);
+  chart.data = chartData(STATS);
   chart.update();
 }
 
@@ -150,6 +161,7 @@ Object.values(Target).forEach((t) => {
     selectedTarget = t;
     redraw();
   };
+  radio.checked = selectedTarget === t;
 });
 
 // Clear all weapon selections

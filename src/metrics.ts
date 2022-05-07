@@ -23,6 +23,14 @@ export enum MetricPath {
   DAMAGE_SPECIAL = "specialAttack.damage",
 }
 
+// Metric Groups share the same units (damage/hitpoints, milliseconds, etc.)
+// and are used to determine consistent min/max scales for normalization across categories
+export enum Unit {
+  SPEED = "Attacks Per Second",
+  RANGE = "Knockbacks",
+  DAMAGE = "Hitpoints",
+}
+
 export enum MetricLabel {
   SPEED_HORIZONTAL = "Speed - Horizontal",
   SPEED_OVERHEAD = "Speed - Overhead",
@@ -49,25 +57,44 @@ export enum MetricLabel {
   DAMAGE_AVERAGE = "Damage - Average*",
 }
 
-export const DAMAGE_METRICS = Object.values(MetricPath).filter((m) =>
-  m.includes(".damage")
+export function unitGroup(path: MetricPath) {
+  if (path.includes(".damage")) {
+    return Unit.DAMAGE;
+  } else if (path.includes(".windup")) {
+    return Unit.SPEED;
+  } else if (path.includes(".range") || path.includes(".altRange")) {
+    return Unit.RANGE;
+  }
+  throw `Invalid path: ${path}`;
+}
+
+export const DAMAGE_METRICS = Object.values(MetricPath).filter(
+  (m) => unitGroup(m) === Unit.DAMAGE
 );
 
 export const RANGE_METRICS = Object.values(MetricPath).filter(
-  (m) => m.includes(".range") || m.includes(".altRange")
+  (m) => unitGroup(m) === Unit.RANGE
 );
 
-export const WINDUP_METRICS = Object.values(MetricPath).filter((m) =>
-  m.includes(".windup")
+export const SPEED_METRICS = Object.values(MetricPath).filter(
+  (m) => unitGroup(m) === Unit.SPEED
 );
 
-export type LabelledMetrics = Map<MetricLabel, number>;
+export type LabelledMetrics = Map<
+  MetricLabel,
+  {
+    unit: Unit;
+    value: number;
+  }
+>;
 
 export abstract class Metric {
   name: MetricLabel;
+  unit: Unit;
 
-  constructor(name: MetricLabel) {
+  constructor(name: MetricLabel, unit: Unit) {
     this.name = name;
+    this.unit = unit;
   }
 
   abstract calculate(weapon: Weapon): number;
@@ -82,7 +109,7 @@ export class AggregateMetric extends Metric {
     paths: MetricPath[],
     aggregateFunc: (nums: number[]) => number
   ) {
-    super(name);
+    super(name, unitGroup(paths[0]));
     this.paths = paths;
     this.aggregateFunction = aggregateFunc;
   }
@@ -98,7 +125,7 @@ export class BasicMetric extends Metric {
   path: string;
 
   constructor(name: MetricLabel, path: MetricPath) {
-    super(name);
+    super(name, unitGroup(path));
     this.path = path;
   }
 
@@ -109,50 +136,34 @@ export class BasicMetric extends Metric {
 
 export class InverseMetric extends Metric {
   path: string;
-  metricMin: number;
-  metricMax: number;
 
-  constructor(
-    name: MetricLabel,
-    path: MetricPath,
-    metricMin: number,
-    metricMax: number
-  ) {
-    super(name);
+  constructor(name: MetricLabel, path: MetricPath) {
+    super(name, unitGroup(path));
     this.path = path;
-    this.metricMin = metricMin;
-    this.metricMax = metricMax;
   }
 
   calculate(weapon: Weapon): number {
-    return this.metricMax + this.metricMin - extractNumber(weapon, this.path);
+    return 1000 / extractNumber(weapon, this.path);
   }
 }
 
 export class AggregateInverseMetric extends Metric {
   paths: MetricPath[];
-  metricMin: number;
-  metricMax: number;
   aggregateFunction: (n: number[]) => number;
 
   constructor(
     name: MetricLabel,
     paths: MetricPath[],
-    metricMin: number,
-    metricMax: number,
     aggregateFunc: (n: number[]) => number
   ) {
-    super(name);
+    super(name, unitGroup(paths[0]));
     this.paths = paths;
-    this.metricMin = metricMin;
-    this.metricMax = metricMax;
     this.aggregateFunction = aggregateFunc;
   }
 
   calculate(weapon: Weapon): number {
-    const minPlusMax = this.metricMax + this.metricMin;
     return this.aggregateFunction(
-      this.paths.map((prop) => minPlusMax - extractNumber(weapon, prop))
+      this.paths.map((prop) => 1000 / extractNumber(weapon, prop))
     );
   }
 }

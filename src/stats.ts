@@ -9,10 +9,14 @@ import {
   AggregateInverseMetric,
   DAMAGE_METRICS,
   RANGE_METRICS,
-  WINDUP_METRICS,
+  SPEED_METRICS,
+  Metric,
+  Unit,
 } from "./metrics";
 
 export type WeaponStats = Map<Weapon, LabelledMetrics>;
+
+export type UnitStats = Map<Unit, { min: number; max: number }>;
 
 function average(lst: number[]) {
   if (lst.length > 0) return lst.reduce((a, b) => a + b) / lst.length;
@@ -20,45 +24,19 @@ function average(lst: number[]) {
 }
 
 export function generateMetrics(weapons: Weapon[]): WeaponStats {
-  // Need to invert the windups range (because higher is bad), so we need to figure out the range before hand.
-  const windups: number[] = weapons.flatMap((wep) =>
-    WINDUP_METRICS.map((metric) => extractNumber(wep, metric))
-  );
-  const maxWindup = Math.max(...windups);
-  const minWindup = 0; //Math.min(...windups);
-
   const metricGenerators = [
-    // Windups
+    // Speeds
     // Note that we invert each value within its range, because lower is better.
     new InverseMetric(
       MetricLabel.SPEED_HORIZONTAL,
-      MetricPath.WINDUP_HORIZONTAL,
-      minWindup,
-      maxWindup
+      MetricPath.WINDUP_HORIZONTAL
     ),
-    new InverseMetric(
-      MetricLabel.SPEED_OVERHEAD,
-      MetricPath.WINDUP_OVERHEAD,
-      minWindup,
-      maxWindup
-    ),
-    new InverseMetric(
-      MetricLabel.SPEED_STAB,
-      MetricPath.WINDUP_STAB,
-      minWindup,
-      maxWindup
-    ),
-    new InverseMetric(
-      MetricLabel.SPEED_SPECIAL,
-      MetricPath.WINDUP_SPECIAL,
-      minWindup,
-      maxWindup
-    ),
+    new InverseMetric(MetricLabel.SPEED_OVERHEAD, MetricPath.WINDUP_OVERHEAD),
+    new InverseMetric(MetricLabel.SPEED_STAB, MetricPath.WINDUP_STAB),
+    new InverseMetric(MetricLabel.SPEED_SPECIAL, MetricPath.WINDUP_SPECIAL),
     new AggregateInverseMetric(
       MetricLabel.SPEED_AVERAGE,
-      WINDUP_METRICS,
-      minWindup,
-      maxWindup,
+      SPEED_METRICS,
       average
     ),
 
@@ -110,9 +88,45 @@ export function generateMetrics(weapons: Weapon[]): WeaponStats {
   return new Map(
     weapons.map((w) => [
       w,
-      new Map(metricGenerators.map((m) => [m.name, m.calculate(w)])),
+      new Map(
+        metricGenerators.map((m) => [
+          m.name,
+          {
+            value: m.calculate(w),
+            unit: m.unit,
+          },
+        ])
+      ),
     ])
   );
+}
+
+// Across given weapon stats, calculate min and max (at max possible bonus)
+// values for use in normalizing results for chart display
+export function unitGroupStats(weaponStats: WeaponStats) {
+  const unitGroupStats = new Map<Unit, { min: number; max: number }>();
+
+  // Across each weapon
+  for (const [weapon, stats] of weaponStats) {
+    // Across each stat
+    for (const [, metric] of stats) {
+      const existing = unitGroupStats.get(metric.unit);
+      const maxPossible = metric.value * maxPossibleBonus(weapon);
+      if (existing === undefined) {
+        unitGroupStats.set(metric.unit, {
+          min: metric.value,
+          max: maxPossible,
+        });
+      } else {
+        unitGroupStats.set(metric.unit, {
+          min: Math.min(existing.min, metric.value),
+          max: Math.max(existing.max, maxPossible),
+        });
+      }
+    }
+  }
+
+  return unitGroupStats;
 }
 
 export function hasBonus(category: MetricLabel) {
@@ -121,25 +135,25 @@ export function hasBonus(category: MetricLabel) {
 
 export type WeaponMetricLabels = Map<string, MetricLabel>;
 
-export function normalize(stats: WeaponStats): WeaponStats {
-  const normalized = new Map(stats);
-  for (const rating of Object.values(MetricLabel)) {
-    // Get min and max for this rating _across all weapons_
-    // Scale max possible damage based on weapon's damage type
-    const values: number[] = [...stats.values()].map(
-      (x: LabelledMetrics) => x.get(rating)!
-    );
-    const min = Math.min(...values);
-    const max = Math.max(...values);
+// export function normalize(stats: WeaponStats): WeaponStats {
+//   const normalized = new Map(stats);
+//   for (const rating of Object.values(MetricLabel)) {
+//     // Get min and max for this rating _across all weapons_
+//     // Scale max possible damage based on weapon's damage type
+//     const values: number[] = [...stats.values()].map(
+//       (x: LabelledMetrics) => x.get(rating)!
+//     );
+//     const min = Math.min(...values);
+//     const max = Math.max(...values);
 
-    // Scale by min and max
-    for (const [weapon, derived] of normalized) {
-      let div = 1.0;
-      if (hasBonus(rating)) {
-        div = maxPossibleBonus(weapon);
-      }
-      derived.set(rating, (derived.get(rating)! - min) / (max - min) / div);
-    }
-  }
-  return normalized;
-}
+//     // Scale by min and max
+//     for (const [weapon, derived] of normalized) {
+//       let div = 1.0;
+//       if (hasBonus(rating)) {
+//         div = maxPossibleBonus(weapon);
+//       }
+//       derived.set(rating, (derived.get(rating)! - min) / (max - min) / div);
+//     }
+//   }
+//   return normalized;
+// }
