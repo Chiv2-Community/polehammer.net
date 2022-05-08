@@ -117,6 +117,7 @@ ALL_WEAPONS.forEach((w) => {
   label.htmlFor = w.name;
   label.innerText = w.name;
   label.style.padding = "0.2em";
+  label.style.border = `3px solid transparent`;
   div.appendChild(label);
 
   weapons.appendChild(div);
