@@ -12,3 +12,7 @@ fieldset {
 fieldset div {
   margin: 0.5em;
 }
+
+button {
+  font-size: inherit;
+}
