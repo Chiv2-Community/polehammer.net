@@ -124,6 +124,9 @@ ALL_WEAPONS.forEach((w) => {
 });
 
 function setCategory(category: MetricLabel, enabled: boolean) {
+  const checkbox = document.getElementById(category) as HTMLInputElement;
+  checkbox.checked = enabled;
+
   if (enabled) {
     selectedCategories.add(category);
   } else {
