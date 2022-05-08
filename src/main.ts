@@ -1,5 +1,5 @@
 import { Chart, ChartData, registerables } from "chart.js";
-import ALL_WEAPONS from "./all_weapons";
+import ALL_WEAPONS, { weaponByName } from "./all_weapons";
 import { MetricLabel } from "./metrics";
 import {
   generateMetrics,
@@ -78,6 +78,13 @@ const chart = new Chart(document.getElementById("chart") as HTMLCanvasElement, {
 function redraw() {
   chart.data = chartData(STATS);
   chart.update();
+
+  // Update content of location string so we can share
+  const params = new URLSearchParams();
+  params.set("target", selectedTarget);
+  [...selectedWeapons].map((w) => params.append("weapon", w.name));
+  [...selectedCategories].map((c) => params.append("category", c));
+  window.history.replaceState(null, "", `?${params.toString()}`);
 }
 
 function setWeapon(weapon: Weapon, enabled: boolean) {
@@ -158,16 +165,6 @@ Object.values(MetricLabel).forEach((r) => {
   categories.appendChild(div);
 });
 
-// Link up target radio buttons
-Object.values(Target).forEach((t) => {
-  const radio = document.getElementById(t) as HTMLInputElement;
-  radio.onclick = () => {
-    selectedTarget = t;
-    redraw();
-  };
-  radio.checked = selectedTarget === t;
-});
-
 // Clear all weapon selections
 function clear() {
   selectedWeapons.clear();
@@ -210,5 +207,39 @@ document.getElementById("random")!.onclick = random;
 document.getElementById("clear")!.onclick = clear;
 document.getElementById("reset")!.onclick = reset;
 
-random();
-reset();
+// Link up Share button
+document.getElementById("share")!.onclick = () => {
+  navigator.clipboard.writeText(window.location.toString());
+  alert("Copied to clipboard!");
+};
+
+// Use query string to init values if possible
+const params = new URLSearchParams(location.search);
+if (params.get("target")) {
+  selectedTarget = params.get("target") as Target;
+}
+
+if (params.getAll("weapon").length) {
+  params.getAll("weapon").map((name) => {
+    const weapon = weaponByName(name);
+    if (weapon) setWeapon(weapon, true);
+  });
+} else {
+  random();
+}
+
+if (params.getAll("category").length) {
+  params.getAll("category").map((c) => setCategory(c as MetricLabel, true));
+} else {
+  reset();
+}
+
+// Link up target radio buttons
+Object.values(Target).forEach((t) => {
+  const radio = document.getElementById(t) as HTMLInputElement;
+  radio.onclick = () => {
+    selectedTarget = t;
+    redraw();
+  };
+  radio.checked = selectedTarget === t;
+});
