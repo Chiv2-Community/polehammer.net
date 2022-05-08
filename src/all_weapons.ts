@@ -75,4 +75,8 @@ const ALL_WEAPONS: Weapon[] = [
   WARHAMMER,
 ].map((w) => w as Weapon);
 
+export function weaponByName(name: string) {
+  return ALL_WEAPONS.find((w) => w.name === name);
+}
+
 export default ALL_WEAPONS;
