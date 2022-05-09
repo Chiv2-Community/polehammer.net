@@ -16,3 +16,7 @@ fieldset div {
 button {
   font-size: inherit;
 }
+
+a {
+  color: black;
+}
