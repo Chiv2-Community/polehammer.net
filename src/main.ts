@@ -23,7 +23,7 @@ let selectedTarget = Target.VANGUARD_ARCHER;
 const selectedWeapons = new Set<Weapon>();
 const selectedCategories = new Set<MetricLabel>();
 
-function chartData(dataset: WeaponStats): ChartData {
+function chartData(dataset: WeaponStats, normalize: boolean, setBgColor: boolean): ChartData {
   return {
     labels: [...selectedCategories],
     datasets: [...selectedWeapons].map((w) => {
@@ -35,14 +35,17 @@ function chartData(dataset: WeaponStats): ChartData {
           if (hasBonus(c)) {
             value *= bonusMult(selectedTarget, w.damageType);
           }
+          
+          if(normalize) {
+            const unitMin = UNIT_STATS.get(metric.unit)!.min;
+            const unitMax = UNIT_STATS.get(metric.unit)!.max;
 
-          const unitMin = UNIT_STATS.get(metric.unit)!.min;
-          const unitMax = UNIT_STATS.get(metric.unit)!.max;
-
-          // Normalize
-          return (value - unitMin) / (unitMax - unitMin);
+            // Normalize
+            return (value - unitMin) / (unitMax - unitMin);
+          }
+          return value;
         }),
-        backgroundColor: "transparent",
+        backgroundColor: setBgColor ? weaponColor(w) : "transparent",
         borderColor: weaponColor(w),
         borderDash: borderDash(w),
       };
@@ -50,7 +53,7 @@ function chartData(dataset: WeaponStats): ChartData {
   };
 }
 
-const chart = new Chart(document.getElementById("radar") as HTMLCanvasElement, {
+const radar = new Chart(document.getElementById("radar") as HTMLCanvasElement, {
   type: "radar",
   options: {
     animation: false,
@@ -72,13 +75,30 @@ const chart = new Chart(document.getElementById("radar") as HTMLCanvasElement, {
       },
     },
   },
-  data: chartData(STATS),
+  data: chartData(STATS, true, false),
+});
+
+const bar = new Chart(document.getElementById("bar") as HTMLCanvasElement, {
+  type: "bar",
+  options: {
+    animation: false,
+    plugins: {
+      legend: {
+        display: false,
+      },
+    },
+    responsive: true,
+    maintainAspectRatio: false,
+  },
+  data: chartData(STATS, false, true),
 });
 
 function redraw() {
-  chart.data = chartData(STATS);
-  chart.update();
+  radar.data = chartData(STATS, true, false);
+  radar.update();
 
+  bar.data = chartData(STATS, false, true);
+  bar.update();
   // Update content of location string so we can share
   const params = new URLSearchParams();
   params.set("target", selectedTarget);
