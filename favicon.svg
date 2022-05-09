@@ -1,15 +1,87 @@
-<svg width="410" height="404" viewBox="0 0 410 404" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M399.641 59.5246L215.643 388.545C211.844 395.338 202.084 395.378 198.228 388.618L10.5817 59.5563C6.38087 52.1896 12.6802 43.2665 21.0281 44.7586L205.223 77.6824C206.398 77.8924 207.601 77.8904 208.776 77.6763L389.119 44.8058C397.439 43.2894 403.768 52.1434 399.641 59.5246Z" fill="url(#paint0_linear)"/>
-<path d="M292.965 1.5744L156.801 28.2552C154.563 28.6937 152.906 30.5903 152.771 32.8664L144.395 174.33C144.198 177.662 147.258 180.248 150.51 179.498L188.42 170.749C191.967 169.931 195.172 173.055 194.443 176.622L183.18 231.775C182.422 235.487 185.907 238.661 189.532 237.56L212.947 230.446C216.577 229.344 220.065 232.527 219.297 236.242L201.398 322.875C200.278 328.294 207.486 331.249 210.492 326.603L212.5 323.5L323.454 102.072C325.312 98.3645 322.108 94.137 318.036 94.9228L279.014 102.454C275.347 103.161 272.227 99.746 273.262 96.1583L298.731 7.86689C299.767 4.27314 296.636 0.855181 292.965 1.5744Z" fill="url(#paint1_linear)"/>
-<defs>
-<linearGradient id="paint0_linear" x1="6.00017" y1="32.9999" x2="235" y2="344" gradientUnits="userSpaceOnUse">
-<stop stop-color="#41D1FF"/>
-<stop offset="1" stop-color="#BD34FE"/>
-</linearGradient>
-<linearGradient id="paint1_linear" x1="194.651" y1="8.81818" x2="236.076" y2="292.989" gradientUnits="userSpaceOnUse">
-<stop stop-color="#FFEA83"/>
-<stop offset="0.0833333" stop-color="#FFDD35"/>
-<stop offset="1" stop-color="#FFA800"/>
-</linearGradient>
-</defs>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="353.28pt"
+   height="362.89001pt"
+   id="svg5727"
+   sodipodi:version="0.32"
+   inkscape:version="1.1.2 (b8e25be8, 2022-02-05)"
+   sodipodi:docname="favicon.svg"
+   version="1.0"
+   inkscape:output_extension="org.inkscape.output.svg.inkscape"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <defs
+     id="defs5729" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.31579701"
+     inkscape:cx="600.06901"
+     inkscape:cy="302.40945"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     inkscape:window-width="1280"
+     inkscape:window-height="747"
+     inkscape:window-x="0"
+     inkscape:window-y="25"
+     showguides="true"
+     inkscape:guide-bbox="true"
+     borderlayer="top"
+     inkscape:pagecheckerboard="0"
+     showgrid="false"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata5732">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title>Black hammer</dc:title>
+        <dc:creator>
+          <cc:Agent>
+            <dc:title>Alexandre Saint</dc:title>
+          </cc:Agent>
+        </dc:creator>
+        <dc:rights>
+          <cc:Agent>
+            <dc:title />
+          </cc:Agent>
+        </dc:rights>
+        <dc:description>Black hammer</dc:description>
+        <cc:license
+           rdf:resource="http://web.resource.org/cc/PublicDomain" />
+      </cc:Work>
+      <cc:License
+         rdf:about="http://web.resource.org/cc/PublicDomain">
+        <cc:permits
+           rdf:resource="http://web.resource.org/cc/Reproduction" />
+        <cc:permits
+           rdf:resource="http://web.resource.org/cc/Distribution" />
+        <cc:permits
+           rdf:resource="http://web.resource.org/cc/DerivativeWorks" />
+      </cc:License>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Calque 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <path
+       style="opacity:1;fill:#d4115a;fill-opacity:1;stroke:none;stroke-width:5.01834;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="m 465.50681,169.03168 c -2.44677,-10.76199 -11.53723,-20.21793 -21.51905,-24.46885 -9.78234,-3.05009 -18.98359,3.63083 -23.84021,11.55742 -8.43185,7.79395 -21.38475,3.20567 -27.17687,-5.46439 -11.59472,-10.2258 -21.07814,-26.55738 -13.54008,-41.78081 2.75347,-7.62014 9.81767,-12.54286 13.68515,-19.246251 C 388.32829,77.901745 374.90339,72.939917 367.70849,62.82161 347.99413,41.451452 321.18916,28.194106 294.66185,17.419762 246.4445,-1.1864719 186.88907,-2.032425 144.31682,30.390957 c -6.42753,2.588491 -7.2469,12.054058 1.40236,9.091195 35.14655,-3.188588 73.89799,-0.801882 104.30696,18.95611 20.33783,12.575792 27.59239,38.53353 22.55957,61.004178 -3.42513,19.38161 -11.42286,38.85842 -27.58874,51.33011 C 177.95136,237 111.62321,304.41424 44.652171,370.68213 c -7.238108,-3.5278 -15.707094,-3.45027 -22.002627,2.12773 -11.867902,11.28602 -22.55199859,23.74336 -34.623914,34.91406 -72.738848,73.33299 -147.0466,145.29315 -218.52726,219.73612 -6.48129,11.88131 3.55988,23.88656 12.95979,30.22339 10.09564,9.3836 18.67974,25.19831 33.94691,25.96794 15.66038,-2.80809 22.35923,-19.49073 34.24374,-28.29572 C -72.79128,578.10812 5.417357,502.33841 80.726807,423.97201 83.95778,418.27964 82.286253,411.31894 79.566229,405.78962 149.00995,335.36255 219.02283,265.43537 289.43899,195.81128 c 9.29115,-11.02659 22.46251,-20.84387 37.71724,-17.64004 13.3018,2.36355 23.64839,12.9457 31.52904,23.21156 6.15369,8.25149 -0.30389,17.77249 -7.33232,22.80669 -8.31996,6.44328 -9.83879,19.02926 -2.14574,26.66295 7.05341,8.98005 19.50319,19.4436 31.09383,11.41235 11.85063,-9.1145 20.47425,-21.69687 31.93027,-31.40643 17.66125,-18.15822 37.18985,-34.89178 52.50179,-54.95992 0.77617,-2.18723 1.05391,-4.55957 0.77371,-6.86676 z"
+       id="rect1644" />
+  </g>
 </svg>
