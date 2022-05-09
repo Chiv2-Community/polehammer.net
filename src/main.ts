@@ -20,16 +20,16 @@ const STATS: WeaponStats = generateMetrics(ALL_WEAPONS);
 const UNIT_STATS: UnitStats = unitGroupStats(STATS);
 
 let selectedTarget = Target.VANGUARD_ARCHER;
-const selectedWeapons = new Set<Weapon>();
-const selectedCategories = new Set<MetricLabel>();
+const selectedWeapons: Set<Weapon> = new Set<Weapon>();
+const selectedCategories: Set<MetricLabel> = new Set<MetricLabel>();
 
-function chartData(dataset: WeaponStats, normalize: boolean, setBgColor: boolean): ChartData {
+function chartData(dataset: WeaponStats, categories: Set<MetricLabel>, normalize: boolean, setBgColor: boolean): ChartData {
   return {
-    labels: [...selectedCategories],
+    labels: [...categories],
     datasets: [...selectedWeapons].map((w) => {
       return {
         label: w.name,
-        data: [...selectedCategories].map((c) => {
+        data: [...categories].map((c) => {
           const metric = dataset.get(w)!.get(c)!;
           let value = metric.value;
           if (hasBonus(c)) {
@@ -53,13 +53,13 @@ function chartData(dataset: WeaponStats, normalize: boolean, setBgColor: boolean
   };
 }
 
-const radar = new Chart(document.getElementById("radar") as HTMLCanvasElement, {
+const radar: Chart = new Chart(document.getElementById("radar") as HTMLCanvasElement, {
   type: "radar",
   options: {
     animation: false,
     plugins: {
       legend: {
-        display: false,
+        display: true,
       },
     },
     responsive: true,
@@ -75,30 +75,56 @@ const radar = new Chart(document.getElementById("radar") as HTMLCanvasElement, {
       },
     },
   },
-  data: chartData(STATS, true, false),
+  data: chartData(STATS, selectedCategories, true, false),
 });
 
-const bar = new Chart(document.getElementById("bar") as HTMLCanvasElement, {
-  type: "bar",
-  options: {
-    animation: false,
-    plugins: {
-      legend: {
-        display: false,
+
+const bars: Array<Chart> = Array()
+
+function createBarChart(element: HTMLCanvasElement, category: MetricLabel) {
+  return new Chart(element as HTMLCanvasElement, {
+    type: "bar",
+    options: {
+      animation: false,
+      plugins: {
+        legend: {
+          display: false,
+        },
       },
+      responsive: true,
+      maintainAspectRatio: false,
     },
-    responsive: true,
-    maintainAspectRatio: false,
-  },
-  data: chartData(STATS, false, true),
-});
+    data: chartData(STATS, new Set([category]), false, true),
+  });
+}
+
+function redrawBars() {
+  let barsElem = document.getElementById("bars")!;
+  bars.forEach(b => b.destroy());
+  while(barsElem.firstChild) {
+    barsElem.removeChild(barsElem.firstChild);
+  }
+
+  bars.splice(0, bars.length);
+
+  selectedCategories.forEach(c => {
+      let outer = document.createElement("div");
+      outer.className = "col-md-6";
+      outer.id = c;
+      let elem = document.createElement("canvas");
+      outer.appendChild(elem);
+      barsElem.appendChild(outer);
+      console.log(c);
+      bars.push(createBarChart(elem, c));
+  });
+}
 
 function redraw() {
-  radar.data = chartData(STATS, true, false);
+  radar.data = chartData(STATS, selectedCategories, true, false);
   radar.update();
 
-  bar.data = chartData(STATS, false, true);
-  bar.update();
+  redrawBars();
+
   // Update content of location string so we can share
   const params = new URLSearchParams();
   params.set("target", selectedTarget);
@@ -215,11 +241,11 @@ function reset() {
   selectedCategories.add(MetricLabel.SPEED_AVERAGE);
   selectedCategories.add(MetricLabel.RANGE_AVERAGE);
   selectedCategories.add(MetricLabel.DAMAGE_AVERAGE);
-  redraw();
   Object.values(MetricLabel).map((r) => {
     const checkbox = document.getElementById(r) as HTMLInputElement;
     checkbox.checked = selectedCategories.has(r);
   });
+  redraw();
 }
 
 // Link up to buttons
