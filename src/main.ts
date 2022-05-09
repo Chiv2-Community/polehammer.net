@@ -61,6 +61,7 @@ const radar: Chart = new Chart(document.getElementById("radar") as HTMLCanvasEle
     plugins: {
       legend: {
         display: true,
+        position: 'bottom'
       },
     },
     responsive: true,
