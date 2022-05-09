@@ -35,17 +35,8 @@
           <button id="random">Random</button>
         </fieldset>
       </div>
-      <div
-        style="flex: 1; height: 100vh; display: flex; flex-direction: column"
-      >
-        <div style="flex: 1; padding: 1em">
-          <canvas id="chart"></canvas>
-        </div>
-        <div style="margin: auto; padding-bottom: 1em">
-          <a href="https://github.com/aardvarkk/polehammer" target="_blank"
-            >Source Code & Credits</a
-          >
-        </div>
+      <div style="flex: 1; height: 100vh; padding: 2em; box-sizing: border-box">
+        <canvas id="chart"></canvas>
       </div>
       <div style="width: 20em">
         <fieldset id="categories">
@@ -54,6 +45,13 @@
         </fieldset>
         <button style="margin-left: 1em" id="share">Share</button>
       </div>
+    </div>
+    <div
+      style="position: fixed; left: 50%; bottom: 0; transform: translateX(-50%)"
+    >
+      <a href="https://github.com/aardvarkk/polehammer" target="_blank"
+        >Source Code & Credits</a
+      >
     </div>
     <script type="module" src="/src/main.ts"></script>
   </body>
