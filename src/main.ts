@@ -118,7 +118,6 @@ function redrawBars() {
       let elem = document.createElement("canvas");
       outer.appendChild(elem);
       barsElem.appendChild(outer);
-      console.log(c);
       bars.push(createBarChart(elem, c));
   });
 }
