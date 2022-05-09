@@ -1,6 +1,6 @@
 import { Chart, ChartData, registerables } from "chart.js";
 import ALL_WEAPONS, { weaponByName } from "./all_weapons";
-import { MetricLabel } from "./metrics";
+import { MetricLabel, Unit } from "./metrics";
 import {
   generateMetrics,
   hasBonus,
@@ -23,7 +23,7 @@ let selectedTarget = Target.VANGUARD_ARCHER;
 const selectedWeapons: Set<Weapon> = new Set<Weapon>();
 const selectedCategories: Set<MetricLabel> = new Set<MetricLabel>();
 
-function chartData(dataset: WeaponStats, categories: Set<MetricLabel>, normalize: boolean, setBgColor: boolean): ChartData {
+function chartData(dataset: WeaponStats, categories: Set<MetricLabel>, normalizationStats: UnitStats, setBgColor: boolean): ChartData {
   return {
     labels: [...categories],
     datasets: [...selectedWeapons].map((w) => {
@@ -36,9 +36,10 @@ function chartData(dataset: WeaponStats, categories: Set<MetricLabel>, normalize
             value *= bonusMult(selectedTarget, w.damageType);
           }
           
-          if(normalize) {
-            const unitMin = UNIT_STATS.get(metric.unit)!.min;
-            const unitMax = UNIT_STATS.get(metric.unit)!.max;
+          let maybeUnitStats = normalizationStats.get(metric.unit);
+          if(maybeUnitStats) {
+            const unitMin = maybeUnitStats!.min;
+            const unitMax = maybeUnitStats!.max;
 
             // Normalize
             return (value - unitMin) / (unitMax - unitMin);
@@ -75,13 +76,16 @@ const radar: Chart = new Chart(document.getElementById("radar") as HTMLCanvasEle
       },
     },
   },
-  data: chartData(STATS, selectedCategories, true, false),
+  data: chartData(STATS, selectedCategories, UNIT_STATS, false),
 });
 
 
 const bars: Array<Chart> = Array()
 
 function createBarChart(element: HTMLCanvasElement, category: MetricLabel) {
+  let stats: UnitStats = new Map()
+  stats.set(Unit.SPEED, UNIT_STATS.get(Unit.SPEED)!);
+
   return new Chart(element as HTMLCanvasElement, {
     type: "bar",
     options: {
@@ -94,7 +98,7 @@ function createBarChart(element: HTMLCanvasElement, category: MetricLabel) {
       responsive: true,
       maintainAspectRatio: false,
     },
-    data: chartData(STATS, new Set([category]), false, true),
+    data: chartData(STATS, new Set([category]), stats, true),
   });
 }
 
@@ -120,7 +124,7 @@ function redrawBars() {
 }
 
 function redraw() {
-  radar.data = chartData(STATS, selectedCategories, true, false);
+  radar.data = chartData(STATS, selectedCategories, UNIT_STATS, false);
   radar.update();
 
   redrawBars();
