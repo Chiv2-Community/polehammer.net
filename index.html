@@ -1,51 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Polehammer: Chivalry II Weapon Comparisons</title>
   </head>
   <body>
-    <div style="display: flex">
-      <div style="width: 20em">
-        <fieldset id="target">
-          <legend>Target</legend>
-          <div>
-            <input type="radio" name="target" id="Vanguard / Archer" /><label
-              for="Vanguard / Archer"
-              >Vanguard / Archer</label
-            ><br />
+    <div class="container">
+      <div class="row align-items-start">
+        <div class="col-md-2" style="background-color:light-gray;">
+          <fieldset id="weapons">
+            <legend>Weapons</legend>
+            <button id="clear">Clear</button>
+            <button id="random">Random</button>
+          </fieldset>
+        </div>
+        <div class="col-lg-8">
+          <div class="row">
+            <canvas id="radar"></canvas>
           </div>
-          <div>
-            <input type="radio" name="target" id="Footman" /><label
-              for="Footman"
-              >Footman</label
-            >
-          </div>
-          <div>
-            <input type="radio" name="target" id="Knight" /><label for="Knight"
-              >Knight</label
-            >
-          </div>
-        </fieldset>
-        <fieldset id="weapons">
-          <legend>Weapons</legend>
-          <button id="clear">Clear</button>
-          <button id="random">Random</button>
-        </fieldset>
-      </div>
-      <div style="flex: 1; height: 100vh; padding: 1em">
-        <canvas id="chart"></canvas>
-      </div>
-      <div style="width: 20em">
-        <fieldset id="categories">
-          <legend>Categories</legend>
-          <button id="reset">Reset</button>
-        </fieldset>
-        <button style="margin-left: 1em" id="share">Share</button>
+        </div>
+        <div class="col-md-2">
+          <fieldset id="target">
+            <legend>Target</legend>
+            <div class="">
+              <input type="radio" name="target" id="Vanguard / Archer" class="form-check-input flex-shrink-0" />
+              <span>
+                Vanguard / Archer
+                <small class="d-block text-muted">No damage bonus for any attack type.</small>
+              </span>
+            </div>
+            <div>
+              <input type="radio" name="target" id="Footman" class="form-check-input flex-shrink-0" />
+              <span>
+                Footman
+                <small class="d-block text-muted">Damage x1.175 with Chop / x1.25 with Blunt</small>
+              </span>
+            </div>
+            <div>
+              <input type="radio" name="target" id="Knight" class="form-check-input flex-shrink-0" />
+              <span>
+                Knight
+                <small class="d-block text-muted">Damage x1.35 with Chop / x1.5 with Blunt</small>
+              </span>
+            </div>
+          </fieldset>
+          <fieldset id="categories">
+            <legend>Categories</legend>
+            <button id="reset">Reset</button>
+          </fieldset>
+          <button style="margin-left: 1em" id="share">Share</button>
+        </div>
       </div>
     </div>
     <script type="module" src="/src/main.ts"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
   </body>
 </html>

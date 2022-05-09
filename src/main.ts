@@ -50,7 +50,7 @@ function chartData(dataset: WeaponStats): ChartData {
   };
 }
 
-const chart = new Chart(document.getElementById("chart") as HTMLCanvasElement, {
+const chart = new Chart(document.getElementById("radar") as HTMLCanvasElement, {
   type: "radar",
   options: {
     animation: false,
