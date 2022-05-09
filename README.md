@@ -12,11 +12,11 @@
 
 # Credits
 
-Jacoby6000 - JSON Data Model
-KingLouie - Damage stats
-Municipalis - Damage stats
-Bungee - Damage stats
-Platyplysm - Range stats
-PolehammerSupremacy - Windup stats
-Oswaldicus - Throwing damage stats
-HowlingWolf067 - Throwing damage stats
+* Jacoby6000 - JSON Data Model
+* KingLouie - Damage stats
+* Municipalis - Damage stats
+* Bungee - Damage stats
+* Platyplysm - Range stats
+* PolehammerSupremacy - Windup stats
+* Oswaldicus - Throwing damage stats
+* HowlingWolf067 - Throwing damage stats
