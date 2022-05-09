@@ -56,7 +56,7 @@ const chart = new Chart(document.getElementById("chart") as HTMLCanvasElement, {
     animation: false,
     plugins: {
       legend: {
-        display: false,
+        display: true,
       },
     },
     responsive: true,
