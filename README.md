@@ -9,3 +9,14 @@
 * Please submit pull requests for weapon stats that are incorrect as the game is updated or as weapons are added!
 
 <img width="640" alt="Screen Shot 2022-05-07 at 11 38 28 PM" src="https://user-images.githubusercontent.com/1251092/167284969-6cd0db27-0a98-4aff-99fc-f084237387f9.png">
+
+# Credits
+
+Jacoby6000 - JSON Data Model
+KingLouie - Damage stats
+Municipalis - Damage stats
+Bungee - Damage stats
+Platyplysm - Range stats
+PolehammerSupremacy - Windup stats
+Oswaldicus - Throwing damage stats
+HowlingWolf067 - Throwing damage stats
