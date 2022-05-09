@@ -1,6 +1,11 @@
 import { Target } from "./target";
 
 export function bonusMult(target: Target, type: DamageType): number {
+  if (target === Target.AVERAGE) {
+    let sum = bonusMult(Target.VANGUARD_ARCHER, type) + bonusMult(Target.FOOTMAN, type) + bonusMult(Target.KNIGHT, type)
+    return sum/3;
+  }
+
   if (target === Target.VANGUARD_ARCHER) {
     return 1;
   }

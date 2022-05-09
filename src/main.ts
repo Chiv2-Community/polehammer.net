@@ -19,7 +19,7 @@ Chart.register(...registerables); // the auto import stuff was making typescript
 const STATS: WeaponStats = generateMetrics(ALL_WEAPONS);
 const UNIT_STATS: UnitStats = unitGroupStats(STATS);
 
-let selectedTarget = Target.VANGUARD_ARCHER;
+let selectedTarget = Target.AVERAGE
 const selectedWeapons: Set<Weapon> = new Set<Weapon>();
 const selectedCategories: Set<MetricLabel> = new Set<MetricLabel>();
 
