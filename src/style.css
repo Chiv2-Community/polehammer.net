@@ -23,13 +23,60 @@ body {
 
 
 fieldset div {
-  margin: 0.5em;
+  margin: 0.5em 0;
 }
 
 button {
   font-size: inherit;
 }
 
+input {
+  font-size: inherit;
+}
+
 a {
   color: black;
+}
+
+.searchResult {
+  width: 100%;
+  border: none;
+  background: white;
+  padding: 0.5em;
+  text-align: left;
+}
+
+.searchResult:hover {
+  background-color: lightgray;
+  cursor: pointer;
+}
+
+.fieldsetButtons {
+  display: flex;
+}
+
+.fieldsetButtons button {
+  flex: 1;
+  margin: 0 0.25em;
+}
+
+.fieldsetButtons button:first-child {
+  margin-left: 0;
+}
+
+.fieldsetButtons button:last-child {
+  margin-right: 0;
+}
+
+.weapon-search {
+  position: absolute;
+  width: 100%;
+  margin: 0;
+  top: 0;
+  left: 0;
+  background-color: white;
+  border: 1px solid darkgrey;
+  box-shadow: 8px 8px 16px lightgray;
+  display: none;
+  box-sizing: border-box;
 }

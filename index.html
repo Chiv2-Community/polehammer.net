@@ -13,8 +13,21 @@
         <div class="col-sm-2" style="background-color:light-gray;">
           <fieldset id="weapons">
             <legend>Weapons</legend>
-            <button id="clear">Clear</button>
-            <button id="random">Random</button>
+            <div class="fieldsetButtons">
+              <button id="clear">Clear</button>
+              <button id="random">Random</button>
+              <button id="all">All</button>
+            </div>
+            <input
+              type="text"
+              id="weaponSearch"
+              placeholder="Search"
+              style="width: 100%; box-sizing: border-box; margin-top: 1em"
+            />
+            <div style="position: relative; height: 0; margin: 0">
+              <div id="weaponSearchResults" class="weapon-search"></div>
+            </div>
+            <div id="displayedWeapons"></div>
           </fieldset>
         </div>
         <div class="col-xl-7">
