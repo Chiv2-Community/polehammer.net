@@ -39,6 +39,30 @@
           <legend>Weapons</legend>
           <button id="clear">Clear</button>
           <button id="random">Random</button>
+          <input
+            type="text"
+            id="weaponSearch"
+            placeholder="Search"
+            style="width: 100%; box-sizing: border-box; margin-top: 1em"
+          />
+          <div style="position: relative; height: 0; margin: 0">
+            <div
+              id="weaponSearchResults"
+              style="
+                position: absolute;
+                width: 100%;
+                margin: 0;
+                top: 0;
+                left: 0;
+                background-color: white;
+                border: 1px solid darkgrey;
+                box-shadow: 8px 8px 16px lightgray;
+                display: none;
+                box-sizing: border-box;
+              "
+            ></div>
+          </div>
+          <div id="displayedWeapons"></div>
         </fieldset>
       </div>
       <div style="flex: 1; height: 100vh; padding: 2em; box-sizing: border-box">

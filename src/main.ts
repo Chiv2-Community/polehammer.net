@@ -21,7 +21,15 @@ const UNIT_STATS: UnitStats = unitGroupStats(STATS);
 
 let selectedTarget = Target.AVERAGE;
 const selectedWeapons = new Set<Weapon>();
+const searchResults = new Set<Weapon>();
 const selectedCategories = new Set<MetricLabel>();
+
+const weaponSearchResults = document.getElementById(
+  "weaponSearchResults"
+) as HTMLDivElement;
+const displayedWeapons = document.getElementById(
+  "displayedWeapons"
+) as HTMLFieldSetElement;
 
 function chartData(dataset: WeaponStats): ChartData {
   return {
@@ -87,48 +95,61 @@ function redraw() {
   window.history.replaceState(null, "", `?${params.toString()}`);
 }
 
-function setWeapon(weapon: Weapon, enabled: boolean) {
-  const checkbox = document.getElementById(weapon.name) as HTMLInputElement;
-  checkbox.checked = enabled;
-
-  if (enabled) {
-    selectedWeapons.add(weapon);
-    const label = checkbox.nextSibling as HTMLLabelElement;
-    label.style.border = `3px ${weaponDash(weapon)} ${weaponColor(weapon)}`;
-  } else {
-    selectedWeapons.delete(weapon);
-    const label = checkbox.nextSibling as HTMLLabelElement;
-    label.style.border = `3px solid transparent`;
-  }
-  redraw();
-}
-
-// Write all weapons we know about into the weapons list
-const weapons = document.getElementById("weapons") as HTMLFieldSetElement;
-ALL_WEAPONS.forEach((w) => {
+// Add an input checkbox with a border to show the weapon has been added
+// Allow the weapon to be removed by unchecking the checkbox
+function addWeapon(weapon: Weapon) {
   const div = document.createElement("div");
+  div.id = weapon.name;
   div.style.display = "flex";
   div.style.alignItems = "center";
 
   const input = document.createElement("input");
-  input.id = w.name;
-  input.checked = selectedWeapons.has(w);
-  input.setAttribute("type", "checkbox");
-  input.onclick = (ev) => {
-    const enabled = (ev.target as HTMLInputElement).checked;
-    setWeapon(w, enabled);
+  input.id = `input-${weapon.name}`;
+  input.checked = true;
+  input.type = "checkbox";
+  input.onchange = () => {
+    removeWeapon(weapon);
   };
   div.appendChild(input);
 
   const label = document.createElement("label");
-  label.htmlFor = w.name;
-  label.innerText = w.name;
+  label.htmlFor = `input-${weapon.name}`;
+  label.innerText = weapon.name;
   label.style.padding = "0.2em";
-  label.style.border = `3px solid transparent`;
+  label.style.border = `3px ${weaponDash(weapon)} ${weaponColor(weapon)}`;
   div.appendChild(label);
 
-  weapons.appendChild(div);
-});
+  displayedWeapons.appendChild(div);
+
+  selectedWeapons.add(weapon);
+  redraw();
+
+  updateSearchResults();
+}
+
+function removeWeapon(weapon: Weapon) {
+  displayedWeapons.removeChild(document.getElementById(weapon.name)!);
+
+  selectedWeapons.delete(weapon);
+  redraw();
+
+  updateSearchResults();
+}
+
+const weaponSearch = document.getElementById(
+  "weaponSearch"
+) as HTMLInputElement;
+weaponSearch.onfocus = () => {
+  weaponSearchResults.style.display = "initial";
+};
+weaponSearch.onblur = () => {
+  // Clear search when clicking out
+  weaponSearch.value = "";
+  updateSearchResults();
+
+  weaponSearchResults.style.display = "none";
+};
+weaponSearch.oninput = updateSearchResults;
 
 function setCategory(category: MetricLabel, enabled: boolean) {
   const checkbox = document.getElementById(category) as HTMLInputElement;
@@ -169,23 +190,19 @@ Object.values(MetricLabel).forEach((r) => {
 function clear() {
   selectedWeapons.clear();
   redraw();
-  updateWeaponCheckboxes();
-}
 
-function updateWeaponCheckboxes() {
-  ALL_WEAPONS.map((w) => {
-    const checkbox = document.getElementById(w.name) as HTMLInputElement;
-    checkbox.checked = Array.from(selectedWeapons).includes(w);
-    const label = checkbox.nextSibling as HTMLLabelElement;
-    label.style.border = `3px solid transparent`;
-  });
+  while (displayedWeapons.firstChild) {
+    displayedWeapons.removeChild(displayedWeapons.firstChild);
+  }
+
+  updateSearchResults();
 }
 
 // Choose 3 random weapons
 function random() {
   clear();
   const random = shuffle(ALL_WEAPONS);
-  random.slice(0, 3).forEach((w) => setWeapon(w, true));
+  random.slice(0, 3).forEach((w) => addWeapon(w));
 }
 
 // Reset to default category selections
@@ -222,7 +239,7 @@ if (params.get("target")) {
 if (params.getAll("weapon").length) {
   params.getAll("weapon").map((name) => {
     const weapon = weaponByName(name);
-    if (weapon) setWeapon(weapon, true);
+    if (weapon) addWeapon(weapon);
   });
 } else {
   random();
@@ -243,3 +260,44 @@ Object.values(Target).forEach((t) => {
   };
   radio.checked = selectedTarget === t;
 });
+
+// - Take into account weapons that are already selected
+// - Take into account any filters that are applied
+// - Clear out existing buttons and write new ones depending on the results
+// - If no results, have special entry
+function updateSearchResults() {
+  // Start assuming no search results
+  searchResults.clear();
+
+  // Take search text into account
+  const searchText = weaponSearch.value?.toLowerCase();
+  if (searchText) {
+    ALL_WEAPONS.forEach((w) => {
+      if (w.name.toLowerCase().includes(searchText)) {
+        searchResults.add(w);
+      }
+    });
+  } else {
+    ALL_WEAPONS.forEach((w) => searchResults.add(w));
+  }
+
+  // Remove any we already have selected
+  selectedWeapons.forEach((w) => searchResults.delete(w));
+
+  // Clear existing buttons
+  while (weaponSearchResults.firstChild) {
+    weaponSearchResults.removeChild(weaponSearchResults.firstChild);
+  }
+
+  // Add a button for each search result
+  searchResults.forEach((w) => {
+    const button = document.createElement("button");
+    button.className = "searchResult";
+    button.innerText = w.name;
+    button.onmousedown = (ev) => ev.preventDefault(); // Stop the blur from occurring that will hide the button itself
+    button.onclick = () => addWeapon(w);
+    weaponSearchResults.appendChild(button);
+  });
+}
+
+updateSearchResults();

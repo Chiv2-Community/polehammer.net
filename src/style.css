@@ -17,6 +17,23 @@ button {
   font-size: inherit;
 }
 
+input {
+  font-size: inherit;
+}
+
 a {
   color: black;
+}
+
+.searchResult {
+  width: 100%;
+  border: none;
+  background: white;
+  padding: 0.5em;
+  text-align: left;
+}
+
+.searchResult:hover {
+  background-color: lightgray;
+  cursor: pointer;
 }
