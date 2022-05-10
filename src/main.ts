@@ -95,9 +95,7 @@ function redraw() {
   window.history.replaceState(null, "", `?${params.toString()}`);
 }
 
-// Add an input checkbox with a border to show the weapon has been added
-// Allow the weapon to be removed by unchecking the checkbox
-function addWeapon(weapon: Weapon) {
+function addWeaponDiv(weapon: Weapon) {
   const div = document.createElement("div");
   div.id = weapon.name;
   div.style.display = "flex";
@@ -120,6 +118,12 @@ function addWeapon(weapon: Weapon) {
   div.appendChild(label);
 
   displayedWeapons.appendChild(div);
+}
+
+// Add an input checkbox with a border to show the weapon has been added
+// Allow the weapon to be removed by unchecking the checkbox
+function addWeapon(weapon: Weapon) {
+  addWeaponDiv(weapon);
 
   selectedWeapons.add(weapon);
   redraw();
@@ -202,7 +206,18 @@ function clear() {
 function random() {
   clear();
   const random = shuffle(ALL_WEAPONS);
-  random.slice(0, 3).forEach((w) => addWeapon(w));
+  random.slice(0, 3).forEach(addWeapon);
+}
+
+// Choose all weapons
+function all() {
+  clear();
+  ALL_WEAPONS.forEach((w) => {
+    selectedWeapons.add(w);
+    addWeaponDiv(w);
+  });
+  updateSearchResults();
+  redraw();
 }
 
 // Reset to default category selections
@@ -220,8 +235,9 @@ function reset() {
 }
 
 // Link up to buttons
-document.getElementById("random")!.onclick = random;
 document.getElementById("clear")!.onclick = clear;
+document.getElementById("random")!.onclick = random;
+document.getElementById("all")!.onclick = all;
 document.getElementById("reset")!.onclick = reset;
 
 // Link up Share button
