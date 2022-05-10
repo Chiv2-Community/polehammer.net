@@ -10,13 +10,46 @@
   <body>
     <div class="container main-content">
       <div class="row">
-        <div class="col-sm-2" style="background-color:light-gray;">
-          <fieldset id="weapons">
+        <div class="col-sm-2 p-1">
+          <div class="border rounded p-2 mb-2">
+            <fieldset id="target">
+              <legend>Target</legend>
+              <div class="pb-1">
+                <input type="radio" name="target" id="Average" class="flex-shrink-0" />
+                <span>
+                  Average
+                <small class="d-block text-muted">Average damage output for a random target</small>
+                </span>
+              </div>
+              <div class="pb-1">
+                <input type="radio" name="target" id="Vanguard / Archer" class="form-check-input flex-shrink-0" />
+                <span>
+                  Vanguard / Archer
+                  <small class="d-block text-muted">No damage bonus for any attack type.</small>
+                </span>
+              </div>
+              <div class="pb-1">
+                <input type="radio" name="target" id="Footman" class="form-check-input flex-shrink-0" />
+                <span>
+                  Footman
+                  <small class="d-block text-muted">Damage x1.175 Chop / x1.25 Blunt</small>
+                </span>
+              </div>
+              <div>
+                <input type="radio" name="target" id="Knight" class="form-check-input flex-shrink-0" />
+                <span>
+                  Knight
+                  <small class="d-block text-muted">Damage x1.35 Chop / x1.5 Blunt</small>
+                </span>
+              </div>
+            </fieldset>
+          </div>
+          <fieldset id="weapons" class="border rounded p-1">
             <legend>Weapons</legend>
             <div class="fieldsetButtons">
-              <button id="clear">Clear</button>
-              <button id="random">Random</button>
-              <button id="all">All</button>
+              <button id="clear" class="btn btn-sm btn-outline-secondary">Clear</button>
+              <button id="random" class="btn btn-sm btn-outline-secondary">Random</button>
+              <button id="all" class="btn btn-sm btn-outline-secondary">All</button>
             </div>
             <input
               type="text"
@@ -29,8 +62,9 @@
             </div>
             <div id="displayedWeapons"></div>
           </fieldset>
+          <button id="share" class="btn btn-sm btn-outline-primary mt-2">Share</button>
         </div>
-        <div class="col-xl-7">
+        <div class="col-xl-8 p-1">
           <ul class="nav nav-tabs" id="graph-tabs" role="tablist">
             <li class="nav-item" role="presentation">
               <button class="nav-link active" id="radar-content-tab" data-bs-toggle="tab" data-bs-target="#radar-content" type="button" role="tab" aria-controls="radar-content" aria-selected="true">Radar Chart</button>
@@ -43,48 +77,17 @@
             <div class="tab-pane fade show active" id="radar-content" role="tabpanel" aria-labelledby="radar-content-tab">
               <canvas id="radar"></canvas>
             </div>
-            <div class="tab-pane fade row" id="bars-content" role="tabpanel" aria-labelledby="bars-content-tab">
+            <div class="tab-pane fade" id="bars-content" role="tabpanel" aria-labelledby="bars-content-tab">
               <div id="bars" class="row"></div>
             </div>
           </div>
         </div>
-        <div class="col-sm-3">
-          <fieldset id="target">
-            <legend>Target</legend>
-            <div>
-              <input type="radio" name="target" id="Average" class="form-check-input flex-shrink-0" />
-              <span>
-                Average
-                <small class="d-block text-muted">Damage output on average, provided a random target</small>
-              </span>
-            </div>
-            <div>
-              <input type="radio" name="target" id="Vanguard / Archer" class="form-check-input flex-shrink-0" />
-              <span>
-                Vanguard / Archer
-                <small class="d-block text-muted">No damage bonus for any attack type.</small>
-              </span>
-            </div>
-            <div>
-              <input type="radio" name="target" id="Footman" class="form-check-input flex-shrink-0" />
-              <span>
-                Footman
-                <small class="d-block text-muted">Damage x1.175 with Chop / x1.25 with Blunt</small>
-              </span>
-            </div>
-            <div>
-              <input type="radio" name="target" id="Knight" class="form-check-input flex-shrink-0" />
-              <span>
-                Knight
-                <small class="d-block text-muted">Damage x1.35 with Chop / x1.5 with Blunt</small>
-              </span>
-            </div>
+        <div class="col-sm-2 p-1">
+          <fieldset id="categories" class="border rounded p-2">
+              <legend>Categories</legend>
+              <button id="reset" class="btn btn-sm btn-outline-secondary">Reset</button>
+              <div id="category-selection"></div>
           </fieldset>
-          <fieldset id="categories">
-            <legend>Categories</legend>
-            <button id="reset">Reset</button>
-          </fieldset>
-          <button style="margin-left: 1em" id="share">Share</button>
         </div>
       </div>
     </div>

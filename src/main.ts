@@ -31,6 +31,9 @@ const displayedWeapons = document.getElementById(
   "displayedWeapons"
 ) as HTMLFieldSetElement;
 
+// Normalization will only occur for stat types that have a unit present in the provided normalizationStats.
+// This allows for selective normalization, like for bar charts where we wan't mostly raw data, except for 
+// "speed" (or other inverse metrics) which only make sense as a normalized value
 function chartData(dataset: WeaponStats, categories: Set<MetricLabel>, normalizationStats: UnitStats, setBgColor: boolean): ChartData {
   return {
     labels: [...categories],
@@ -122,7 +125,7 @@ function redrawBars() {
 
   selectedCategories.forEach(c => {
       let outer = document.createElement("div");
-      outer.className = "col-md-6";
+      outer.className = "col-md-4";
       outer.id = c;
       let elem = document.createElement("canvas");
       outer.appendChild(elem);
@@ -148,6 +151,7 @@ function redraw() {
 function addWeaponDiv(weapon: Weapon) {
   const div = document.createElement("div");
   div.id = weapon.name;
+  div.className = "labelled-checkbox";
   div.style.display = "flex";
   div.style.alignItems = "center";
 
@@ -218,7 +222,7 @@ function setCategory(category: MetricLabel, enabled: boolean) {
 }
 
 // Write all categories we know about into the categories list
-const categories = document.getElementById("categories") as HTMLFieldSetElement;
+const categories = document.getElementById("category-selection") as HTMLFieldSetElement;
 Object.values(MetricLabel).forEach((r) => {
   const div = document.createElement("div");
 
@@ -230,6 +234,7 @@ Object.values(MetricLabel).forEach((r) => {
     const enabled = (ev.target as HTMLInputElement).checked;
     setCategory(r, enabled);
   };
+  div.className = "labelled-checkbox";
   div.appendChild(input);
 
   const label = document.createElement("label");

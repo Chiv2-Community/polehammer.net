@@ -21,19 +21,6 @@ body {
     margin-bottom: 0;
 }
 
-
-fieldset div {
-  margin: 0.5em 0;
-}
-
-button {
-  font-size: inherit;
-}
-
-input {
-  font-size: inherit;
-}
-
 a {
   color: black;
 }
@@ -79,4 +66,12 @@ a {
   box-shadow: 8px 8px 16px lightgray;
   display: none;
   box-sizing: border-box;
+}
+
+.labelled-checkbox {
+  padding: 0.25em 0.25em 0.25em 0;
+}
+
+.labelled-checkbox input {
+  margin-right: 0.5em;
 }
