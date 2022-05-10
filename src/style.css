@@ -4,10 +4,23 @@ body {
   font-size: 8pt;
 }
 
-fieldset {
-  margin: 1em;
-  padding: 0.5em;
+.main-content {
+  margin-top: 1em;
+  padding-top: 0.5em;
 }
+
+.tab-pane {
+    border-left: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    border-radius: 0px 0px 5px 5px;
+    padding: 10px;
+}
+
+.nav-tabs {
+    margin-bottom: 0;
+}
+
 
 fieldset div {
   margin: 0.5em;

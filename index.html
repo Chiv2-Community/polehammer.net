@@ -8,23 +8,34 @@
     <title>Polehammer: Chivalry II Weapon Comparisons</title>
   </head>
   <body>
-    <div class="container">
+    <div class="container main-content">
       <div class="row">
-        <div class="col-md-2" style="background-color:light-gray;">
+        <div class="col-sm-2" style="background-color:light-gray;">
           <fieldset id="weapons">
             <legend>Weapons</legend>
             <button id="clear">Clear</button>
             <button id="random">Random</button>
           </fieldset>
         </div>
-        <div class="col-lg-7">
-          <div class="row">
-            <canvas id="radar"></canvas>
-          </div>
-          <div class="row" id="bars">
+        <div class="col-xl-7">
+          <ul class="nav nav-tabs" id="graph-tabs" role="tablist">
+            <li class="nav-item" role="presentation">
+              <button class="nav-link active" id="radar-content-tab" data-bs-toggle="tab" data-bs-target="#radar-content" type="button" role="tab" aria-controls="radar-content" aria-selected="true">Radar Chart</button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" id="bars-content-tab" data-bs-toggle="tab" data-bs-target="#bars-content" type="button" role="tab" aria-controls="bars-content" aria-selected="false">Bar Graphs</button>
+            </li>
+          </ul>
+          <div class="tab-content " id="visualization-content">
+            <div class="tab-pane fade show active" id="radar-content" role="tabpanel" aria-labelledby="radar-content-tab">
+              <canvas id="radar"></canvas>
+            </div>
+            <div class="tab-pane fade row" id="bars-content" role="tabpanel" aria-labelledby="bars-content-tab">
+              <div id="bars" class="row"></div>
+            </div>
           </div>
         </div>
-        <div class="col-md-3">
+        <div class="col-sm-3">
           <fieldset id="target">
             <legend>Target</legend>
             <div>
