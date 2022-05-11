@@ -32,12 +32,16 @@ export enum Unit {
 }
 
 export enum MetricLabel {
-  SPEED_HORIZONTAL = "Speed - Horizontal",
-  SPEED_OVERHEAD = "Speed - Overhead",
-  SPEED_STAB = "Speed - Stab",
-  SPEED_SPECIAL = "Speed - Special",
-  SPEED_AVERAGE = "Speed - Average*",
-  SPEED_MAX = "Speed - Max",
+  DAMAGE_HORIZONTAL_LIGHT = "Damage - Horizontal (Light)",
+  DAMAGE_HORIZONTAL_HEAVY = "Damage - Horizontal (Heavy)",
+  DAMAGE_OVERHEAD_LIGHT = "Damage - Overhead (Light)",
+  DAMAGE_OVERHEAD_HEAVY = "Damage - Overhead (Heavy)",
+  DAMAGE_STAB_LIGHT = "Damage - Stab (Light)",
+  DAMAGE_STAB_HEAVY = "Damage - Stab (Heavy)",
+  DAMAGE_SPECIAL = "Damage - Special",
+  DAMAGE_AVERAGE = "Damage - Average*",
+  DAMAGE_MAX_LIGHT = "Damage - Max (Light)",
+  DAMAGE_MAX_HEAVY = "Damage - Max (Heavy)",
 
   RANGE_HORIZONTAL = "Range - Horizontal",
   RANGE_ALT_HORIZONTAL = "Range - Alt. Horizontal",
@@ -49,16 +53,12 @@ export enum MetricLabel {
   RANGE_AVERAGE = "Range - Average*",
   RANGE_MAX = "Range - Max",
 
-  DAMAGE_HORIZONTAL_LIGHT = "Damage - Horizontal (Light)",
-  DAMAGE_HORIZONTAL_HEAVY = "Damage - Horizontal (Heavy)",
-  DAMAGE_OVERHEAD_LIGHT = "Damage - Overhead (Light)",
-  DAMAGE_OVERHEAD_HEAVY = "Damage - Overhead (Heavy)",
-  DAMAGE_STAB_LIGHT = "Damage - Stab (Light)",
-  DAMAGE_STAB_HEAVY = "Damage - Stab (Heavy)",
-  DAMAGE_SPECIAL = "Damage - Special",
-  DAMAGE_AVERAGE = "Damage - Average*",
-  DAMAGE_MAX_LIGHT = "Damage - Max (Light)",
-  DAMAGE_MAX_HEAVY = "Damage - Max (Heavy)",
+  SPEED_HORIZONTAL = "Speed - Horizontal",
+  SPEED_OVERHEAD = "Speed - Overhead",
+  SPEED_STAB = "Speed - Stab",
+  SPEED_SPECIAL = "Speed - Special",
+  SPEED_AVERAGE = "Speed - Average*",
+  SPEED_MAX = "Speed - Max",
 }
 
 export function unitGroup(path: MetricPath) {
