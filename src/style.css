@@ -10,15 +10,15 @@ body {
 }
 
 .tab-pane {
-    border-left: 1px solid #ddd;
-    border-right: 1px solid #ddd;
-    border-bottom: 1px solid #ddd;
-    border-radius: 0px 0px 5px 5px;
-    padding: 10px;
+  border-left: 1px solid #ddd;
+  border-right: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+  border-radius: 0px 0px 5px 5px;
+  padding: 10px;
 }
 
 .nav-tabs {
-    margin-bottom: 0;
+  margin-bottom: 0;
 }
 
 a {
@@ -68,10 +68,10 @@ a {
   box-sizing: border-box;
 }
 
-.labelled-checkbox {
+.labelled-input {
   padding: 0.25em 0.25em 0.25em 0;
 }
 
-.labelled-checkbox input {
+.labelled-input input {
   margin-right: 0.5em;
 }

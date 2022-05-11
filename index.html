@@ -19,7 +19,7 @@
           <div class="border rounded p-2 mb-2">
             <fieldset id="target">
               <legend>Target</legend>
-              <div class="pb-1">
+              <div style="display: flex" class="labelled-input">
                 <input
                   type="radio"
                   name="target"
@@ -27,11 +27,11 @@
                   class="flex-shrink-0"
                 />
                 <label for="Average">Average</label>
-                <small class="d-block text-muted"
-                  >Average damage output for a random target</small
-                >
               </div>
-              <div class="pb-1">
+              <small class="d-block text-muted pb-1"
+                >Average damage output for a random target</small
+              >
+              <div style="display: flex" class="labelled-input">
                 <input
                   type="radio"
                   name="target"
@@ -39,11 +39,11 @@
                   class="form-check-input flex-shrink-0"
                 />
                 <label for="Vanguard / Archer">Vanguard / Archer</label>
-                <small class="d-block text-muted"
-                  >No damage bonus for any attack type.</small
-                >
               </div>
-              <div class="pb-1">
+              <small class="d-block text-muted pb-1"
+                >No damage bonus for any attack type.</small
+              >
+              <div style="display: flex" class="labelled-input">
                 <input
                   type="radio"
                   name="target"
@@ -51,11 +51,11 @@
                   class="form-check-input flex-shrink-0"
                 />
                 <label for="Footman">Footman</label>
-                <small class="d-block text-muted"
-                  >Damage x1.175 Chop / x1.25 Blunt</small
-                >
               </div>
-              <div>
+              <small class="d-block text-muted pb-1"
+                >Damage x1.175 Chop / x1.25 Blunt</small
+              >
+              <div style="display: flex" class="labelled-input">
                 <input
                   type="radio"
                   name="target"
@@ -63,10 +63,10 @@
                   class="form-check-input flex-shrink-0"
                 />
                 <label for="Knight">Knight</label>
-                <small class="d-block text-muted"
-                  >Damage x1.35 Chop / x1.5 Blunt</small
-                >
               </div>
+              <small class="d-block text-muted pb-1"
+                >Damage x1.35 Chop / x1.5 Blunt</small
+              >
             </fieldset>
           </div>
           <fieldset id="weapons" class="border rounded p-1">
