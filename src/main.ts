@@ -83,7 +83,7 @@ const radar: Chart = new Chart(
         },
       },
       responsive: true,
-      maintainAspectRatio: false,
+      maintainAspectRatio: true,
       scales: {
         radial: {
           min: 0,
