@@ -1,12 +1,13 @@
 import { Target } from "./target";
 
 export function bonusMult(target: Target, type: DamageType): number {
+  // Multiply Vanguard / Archer by 2 assuming equal distribution of target classes
   if (target === Target.AVERAGE) {
     const sum =
-      bonusMult(Target.VANGUARD_ARCHER, type) +
+      2 * bonusMult(Target.VANGUARD_ARCHER, type) +
       bonusMult(Target.FOOTMAN, type) +
       bonusMult(Target.KNIGHT, type);
-    return sum / 3;
+    return sum / 4;
   }
 
   if (target === Target.VANGUARD_ARCHER) {
