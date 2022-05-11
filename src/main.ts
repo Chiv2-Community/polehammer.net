@@ -32,6 +32,14 @@ const displayedWeapons = document.getElementById(
   "displayedWeapons"
 ) as HTMLFieldSetElement;
 
+function toId(str: string) {
+  return str
+    .replaceAll(" ", "_")
+    .replaceAll("/", "-")
+    .replaceAll("(", ":")
+    .replaceAll(")", ":");
+}
+
 // Normalization will only occur for stat types that have a unit present in the provided normalizationStats.
 // This allows for selective normalization, like for bar charts where we wan't mostly raw data, except for
 // "speed" (or other inverse metrics) which only make sense as a normalized value
