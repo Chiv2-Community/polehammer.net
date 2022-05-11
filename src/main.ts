@@ -336,6 +336,11 @@ if (params.getAll("weapon").length) {
 
 if (params.getAll("category").length) {
   params.getAll("category").map((c) => setCategory(c as MetricLabel, true));
+
+  // Setting them failed, so just default
+  if (!selectedCategories.size) {
+    reset();
+  }
 } else {
   reset();
 }
