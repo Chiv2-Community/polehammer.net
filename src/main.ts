@@ -226,7 +226,13 @@ weaponSearch.onblur = () => {
 weaponSearch.oninput = updateSearchResults;
 
 function setCategory(category: MetricLabel, enabled: boolean) {
-  const checkbox = document.getElementById(category) as HTMLInputElement;
+  const checkbox = document.getElementById(toId(category)) as HTMLInputElement;
+
+  // Manually typing into URL, or old URL and we've changed category names
+  if (!checkbox) {
+    return;
+  }
+
   checkbox.checked = enabled;
 
   if (enabled) {
@@ -238,14 +244,13 @@ function setCategory(category: MetricLabel, enabled: boolean) {
 }
 
 // Write all categories we know about into the categories list
-const categories = document.getElementById(
-  "category-selection"
-) as HTMLFieldSetElement;
 Object.values(MetricLabel).forEach((r) => {
+  const [group, name] = r.split(" - ");
+
   const div = document.createElement("div");
 
   const input = document.createElement("input");
-  input.id = r;
+  input.id = toId(r);
   input.checked = selectedCategories.has(r);
   input.setAttribute("type", "checkbox");
   input.onclick = (ev) => {
@@ -256,11 +261,14 @@ Object.values(MetricLabel).forEach((r) => {
   div.appendChild(input);
 
   const label = document.createElement("label");
-  label.htmlFor = r;
-  label.innerText = r;
+  label.htmlFor = toId(r);
+  label.innerText = name;
   div.appendChild(label);
 
-  categories.appendChild(div);
+  const categoryGroup = document.getElementById(
+    `category-${group.toLowerCase()}`
+  ) as HTMLFieldSetElement;
+  categoryGroup.appendChild(div);
 });
 
 // Clear all weapon selections
@@ -301,7 +309,7 @@ function reset() {
   selectedCategories.add(MetricLabel.RANGE_AVERAGE);
   selectedCategories.add(MetricLabel.DAMAGE_AVERAGE);
   Object.values(MetricLabel).map((r) => {
-    const checkbox = document.getElementById(r) as HTMLInputElement;
+    const checkbox = document.getElementById(toId(r)) as HTMLInputElement;
     checkbox.checked = selectedCategories.has(r);
   });
   redraw();
@@ -347,7 +355,7 @@ if (params.getAll("category").length) {
 
 // Link up target radio buttons
 Object.values(Target).forEach((t) => {
-  const radio = document.getElementById(t) as HTMLInputElement;
+  const radio = document.getElementById(toId(t)) as HTMLInputElement;
   radio.onclick = () => {
     selectedTarget = t;
     redraw();

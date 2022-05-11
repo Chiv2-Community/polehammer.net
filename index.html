@@ -15,11 +15,11 @@
   <body>
     <div class="container main-content">
       <div class="row">
-        <div class="col-sm-2 p-1">
+        <div class="col-md-6 col-lg-3 col-xl-2 p-1">
           <div class="border rounded p-2 mb-2">
             <fieldset id="target">
               <legend>Target</legend>
-              <div style="display: flex" class="labelled-input">
+              <div class="labelled-input">
                 <input
                   type="radio"
                   name="target"
@@ -28,22 +28,17 @@
                 />
                 <label for="Average">Average</label>
               </div>
-              <small class="d-block text-muted pb-1"
-                >Average damage output for a random target</small
-              >
-              <div style="display: flex" class="labelled-input">
+              <div class="labelled-input">
                 <input
                   type="radio"
                   name="target"
-                  id="Vanguard / Archer"
+                  id="Vanguard_-_Archer"
                   class="form-check-input flex-shrink-0"
                 />
-                <label for="Vanguard / Archer">Vanguard / Archer</label>
+                <label for="Vanguard_-_Archer">Vanguard / Archer</label>
               </div>
-              <small class="d-block text-muted pb-1"
-                >No damage bonus for any attack type.</small
-              >
-              <div style="display: flex" class="labelled-input">
+              <small>+0%</small>
+              <div class="labelled-input">
                 <input
                   type="radio"
                   name="target"
@@ -52,10 +47,8 @@
                 />
                 <label for="Footman">Footman</label>
               </div>
-              <small class="d-block text-muted pb-1"
-                >Damage x1.175 Chop / x1.25 Blunt</small
-              >
-              <div style="display: flex" class="labelled-input">
+              <small>+17.5% Chop<br />+25% Blunt</small>
+              <div class="labelled-input">
                 <input
                   type="radio"
                   name="target"
@@ -64,40 +57,44 @@
                 />
                 <label for="Knight">Knight</label>
               </div>
-              <small class="d-block text-muted pb-1"
-                >Damage x1.35 Chop / x1.5 Blunt</small
-              >
+              <small>+35% Chop<br />+50% Blunt</small>
             </fieldset>
           </div>
-          <fieldset id="weapons" class="border rounded p-1">
+          <fieldset id="weapons" class="border rounded p-2">
             <legend>Weapons</legend>
-            <div class="fieldsetButtons">
-              <button id="clear" class="btn btn-sm btn-outline-secondary">
-                Clear
-              </button>
-              <button id="random" class="btn btn-sm btn-outline-secondary">
+            <div class="btn-group w-100 my-1" role="group">
+              <button id="clear" class="btn btn-outline-primary">Clear</button>
+              <button id="random" class="btn btn-outline-primary">
                 Random
               </button>
-              <button id="all" class="btn btn-sm btn-outline-secondary">
-                All
-              </button>
+              <button id="all" class="btn btn-outline-primary">All</button>
             </div>
             <input
               type="text"
               id="weaponSearch"
               placeholder="Search"
-              style="width: 100%; box-sizing: border-box; margin-top: 1em"
+              style="width: 100%; box-sizing: border-box"
+              class="my-2 p-2"
             />
             <div style="position: relative; height: 0; margin: 0">
               <div id="weaponSearchResults" class="weapon-search"></div>
             </div>
             <div id="displayedWeapons"></div>
           </fieldset>
-          <button id="share" class="btn btn-sm btn-outline-primary mt-2">
-            Share
-          </button>
+          <div>
+            <button id="share" class="btn btn-outline-primary my-2 w-100">
+              Share
+            </button>
+          </div>
+          <div class="text-center">
+            <small
+              ><a href="https://github.com/aardvarkk/polehammer" target="_blank"
+                >Source Code & Credits</a
+              ></small
+            >
+          </div>
         </div>
-        <div class="col-xl-8 p-1">
+        <div class="col-md-6 col-lg-6 col-xl-8 p-1">
           <ul class="nav nav-tabs" id="graph-tabs" role="tablist">
             <li class="nav-item" role="presentation">
               <button
@@ -147,23 +144,24 @@
             </div>
           </div>
         </div>
-        <div class="col-sm-2 p-1">
+        <div class="col-md-12 col-lg-3 col-xl-2 p-1">
           <fieldset id="categories" class="border rounded p-2">
             <legend>Categories</legend>
-            <button id="reset" class="btn btn-sm btn-outline-secondary">
-              Reset
-            </button>
-            <div id="category-selection"></div>
+            <div class="btn-group w-100 my-1" role="group">
+              <button id="reset" class="btn btn-outline-primary">Reset</button>
+            </div>
+            <div id="category-damage">
+              <div class="category-group">Damage</div>
+            </div>
+            <div id="category-range">
+              <div class="category-group">Range</div>
+            </div>
+            <div id="category-speed">
+              <div class="category-group">Speed</div>
+            </div>
           </fieldset>
         </div>
       </div>
-    </div>
-    <div
-      style="position: fixed; left: 50%; bottom: 0; transform: translateX(-50%)"
-    >
-      <a href="https://github.com/aardvarkk/polehammer" target="_blank"
-        >Source Code & Credits</a
-      >
     </div>
     <script type="module" src="/src/main.ts"></script>
     <script
