@@ -19,7 +19,7 @@ Chart.register(...registerables); // the auto import stuff was making typescript
 const STATS: WeaponStats = generateMetrics(ALL_WEAPONS);
 const UNIT_STATS: UnitStats = unitGroupStats(STATS);
 
-let selectedTarget = Target.AVERAGE
+let selectedTarget = Target.AVERAGE;
 const selectedWeapons: Set<Weapon> = new Set<Weapon>();
 const selectedCategories: Set<MetricLabel> = new Set<MetricLabel>();
 const searchResults: Set<Weapon> = new Set<Weapon>();
@@ -32,9 +32,14 @@ const displayedWeapons = document.getElementById(
 ) as HTMLFieldSetElement;
 
 // Normalization will only occur for stat types that have a unit present in the provided normalizationStats.
-// This allows for selective normalization, like for bar charts where we wan't mostly raw data, except for 
+// This allows for selective normalization, like for bar charts where we wan't mostly raw data, except for
 // "speed" (or other inverse metrics) which only make sense as a normalized value
-function chartData(dataset: WeaponStats, categories: Set<MetricLabel>, normalizationStats: UnitStats, setBgColor: boolean): ChartData {
+function chartData(
+  dataset: WeaponStats,
+  categories: Set<MetricLabel>,
+  normalizationStats: UnitStats,
+  setBgColor: boolean
+): ChartData {
   return {
     labels: [...categories],
     datasets: [...selectedWeapons].map((w) => {
@@ -46,9 +51,9 @@ function chartData(dataset: WeaponStats, categories: Set<MetricLabel>, normaliza
           if (hasBonus(c)) {
             value *= bonusMult(selectedTarget, w.damageType);
           }
-          
-          let maybeUnitStats = normalizationStats.get(metric.unit);
-          if(maybeUnitStats) {
+
+          const maybeUnitStats = normalizationStats.get(metric.unit);
+          if (maybeUnitStats) {
             const unitMin = maybeUnitStats!.min;
             const unitMax = maybeUnitStats!.max;
 
@@ -65,37 +70,39 @@ function chartData(dataset: WeaponStats, categories: Set<MetricLabel>, normaliza
   };
 }
 
-const radar: Chart = new Chart(document.getElementById("radar") as HTMLCanvasElement, {
-  type: "radar",
-  options: {
-    animation: false,
-    plugins: {
-      legend: {
-        display: false,
-        position: 'bottom'
-      },
-    },
-    responsive: true,
-    maintainAspectRatio: false,
-    scales: {
-      radial: {
-        min: 0,
-        max: 1,
-        ticks: {
+const radar: Chart = new Chart(
+  document.getElementById("radar") as HTMLCanvasElement,
+  {
+    type: "radar",
+    options: {
+      animation: false,
+      plugins: {
+        legend: {
           display: false,
-          maxTicksLimit: 2,
+          position: "bottom",
+        },
+      },
+      responsive: true,
+      maintainAspectRatio: false,
+      scales: {
+        radial: {
+          min: 0,
+          max: 1,
+          ticks: {
+            display: false,
+            maxTicksLimit: 2,
+          },
         },
       },
     },
-  },
-  data: chartData(STATS, selectedCategories, UNIT_STATS, false),
-});
+    data: chartData(STATS, selectedCategories, UNIT_STATS, false),
+  }
+);
 
-
-const bars: Array<Chart> = Array()
+const bars = new Array<Chart>();
 
 function createBarChart(element: HTMLCanvasElement, category: MetricLabel) {
-  let stats: UnitStats = new Map()
+  const stats: UnitStats = new Map();
   stats.set(Unit.SPEED, UNIT_STATS.get(Unit.SPEED)!);
 
   return new Chart(element as HTMLCanvasElement, {
@@ -115,22 +122,22 @@ function createBarChart(element: HTMLCanvasElement, category: MetricLabel) {
 }
 
 function redrawBars() {
-  let barsElem = document.getElementById("bars")!;
-  bars.forEach(b => b.destroy());
-  while(barsElem.firstChild) {
+  const barsElem = document.getElementById("bars")!;
+  bars.forEach((b) => b.destroy());
+  while (barsElem.firstChild) {
     barsElem.removeChild(barsElem.firstChild);
   }
 
   bars.splice(0, bars.length);
 
-  selectedCategories.forEach(c => {
-      let outer = document.createElement("div");
-      outer.className = "col-md-4";
-      outer.id = c;
-      let elem = document.createElement("canvas");
-      outer.appendChild(elem);
-      barsElem.appendChild(outer);
-      bars.push(createBarChart(elem, c));
+  selectedCategories.forEach((c) => {
+    const outer = document.createElement("div");
+    outer.className = "col-md-4";
+    outer.id = c;
+    const elem = document.createElement("canvas");
+    outer.appendChild(elem);
+    barsElem.appendChild(outer);
+    bars.push(createBarChart(elem, c));
   });
 }
 
@@ -151,7 +158,7 @@ function redraw() {
 function addWeaponDiv(weapon: Weapon) {
   const div = document.createElement("div");
   div.id = weapon.name;
-  div.className = "labelled-checkbox";
+  div.className = "labelled-input";
   div.style.display = "flex";
   div.style.alignItems = "center";
 
@@ -222,7 +229,9 @@ function setCategory(category: MetricLabel, enabled: boolean) {
 }
 
 // Write all categories we know about into the categories list
-const categories = document.getElementById("category-selection") as HTMLFieldSetElement;
+const categories = document.getElementById(
+  "category-selection"
+) as HTMLFieldSetElement;
 Object.values(MetricLabel).forEach((r) => {
   const div = document.createElement("div");
 
@@ -234,7 +243,7 @@ Object.values(MetricLabel).forEach((r) => {
     const enabled = (ev.target as HTMLInputElement).checked;
     setCategory(r, enabled);
   };
-  div.className = "labelled-checkbox";
+  div.className = "labelled-input";
   div.appendChild(input);
 
   const label = document.createElement("label");
