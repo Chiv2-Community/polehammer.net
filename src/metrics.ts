@@ -40,8 +40,8 @@ export enum MetricLabel {
   DAMAGE_STAB_HEAVY = "Damage - Stab (Heavy)",
   DAMAGE_SPECIAL = "Damage - Special",
   DAMAGE_AVERAGE = "Damage - Average*",
-  DAMAGE_MAX_LIGHT = "Damage - Max (Light)",
-  DAMAGE_MAX_HEAVY = "Damage - Max (Heavy)",
+  // DAMAGE_MAX_LIGHT = "Damage - Max (Light)",
+  // DAMAGE_MAX_HEAVY = "Damage - Max (Heavy)",
 
   RANGE_HORIZONTAL = "Range - Horizontal",
   RANGE_ALT_HORIZONTAL = "Range - Alt. Horizontal",
@@ -51,14 +51,14 @@ export enum MetricLabel {
   RANGE_ALT_STAB = "Range - Alt. Stab",
   // RANGE_SPECIAL = "Range - Special", TODO
   RANGE_AVERAGE = "Range - Average*",
-  RANGE_MAX = "Range - Max",
+  // RANGE_MAX = "Range - Max",
 
   SPEED_HORIZONTAL = "Speed - Horizontal",
   SPEED_OVERHEAD = "Speed - Overhead",
   SPEED_STAB = "Speed - Stab",
   SPEED_SPECIAL = "Speed - Special",
   SPEED_AVERAGE = "Speed - Average*",
-  SPEED_MAX = "Speed - Max",
+  // SPEED_MAX = "Speed - Max",
 }
 
 export function unitGroup(path: MetricPath) {
