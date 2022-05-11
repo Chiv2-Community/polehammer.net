@@ -14,6 +14,7 @@ import { borderDash, weaponColor, weaponDash } from "./ui";
 import { shuffle } from "./util";
 import { bonusMult, Weapon } from "./weapon";
 
+Chart.defaults.font.family = "'Lato', sans-serif";
 Chart.register(...registerables); // the auto import stuff was making typescript angry.
 
 const STATS: WeaponStats = generateMetrics(ALL_WEAPONS);
