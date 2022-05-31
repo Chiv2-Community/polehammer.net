@@ -39,6 +39,6 @@
   },
   "specialAttack": {
     "windup": 900,
-    "damage": 60
+    "damage": 55
   }
 }
