@@ -1,0 +1,14 @@
+name: Code Review
+on: [pull_request]
+jobs:
+  tsc:
+    name: Review Dog
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: EPMatt/reviewdog-action-tsc@v1
+        with:
+          github_token: ${{ secrets.github_token }}
+          reporter: github-pr-review
+          level: warning
+          filter_mode: diff_context
