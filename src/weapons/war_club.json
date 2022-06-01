@@ -4,7 +4,7 @@
     "Club",
     "Two Handed"
   ],
-  "damageType": "Chop",
+  "damageType": "Blunt",
   "attacks": {
     "horizontal": {
       "range": 30,
@@ -43,5 +43,11 @@
   "specialAttack": {
     "windup": 1067,
     "damage": 65
+}, 
+  "chargeAttack": {
+    "damage": 40
+  },
+  "leapAttack":   {
+    "damage": 75
   }
 }
