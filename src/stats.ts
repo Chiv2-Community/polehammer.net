@@ -2,7 +2,6 @@ import {
   AggregateInverseMetric,
   AggregateMetric,
   BasicMetric,
-  DAMAGE_METRICS,
   InverseMetric,
   LabelledMetrics,
   MetricLabel,
