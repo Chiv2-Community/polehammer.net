@@ -34,7 +34,8 @@ export enum Unit {
 }
 
 export enum MetricLabel {
-  DAMAGE_AVERAGE = "Damage - Average*",
+  DAMAGE_LIGHT_AVERAGE = "Damage - Average (Light)",
+  DAMAGE_HEAVY_AVERAGE = "Damage - Average (Heavy)",
   DAMAGE_HORIZONTAL_LIGHT = "Damage - Horizontal (Light)",
   DAMAGE_HORIZONTAL_HEAVY = "Damage - Horizontal (Heavy)",
   DAMAGE_OVERHEAD_LIGHT = "Damage - Overhead (Light)",
@@ -44,8 +45,6 @@ export enum MetricLabel {
   DAMAGE_SPECIAL = "Damage - Special",
   DAMAGE_CHARGE = "Damage - Charge",
   DAMAGE_LEAP = "Damage - Leap",
-  // DAMAGE_MAX_LIGHT = "Damage - Max (Light)",
-  // DAMAGE_MAX_HEAVY = "Damage - Max (Heavy)",
 
   RANGE_AVERAGE = "Range - Average*",
   RANGE_HORIZONTAL = "Range - Horizontal",

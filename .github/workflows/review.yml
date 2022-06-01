@@ -11,4 +11,4 @@ jobs:
           github_token: ${{ secrets.github_token }}
           reporter: github-pr-review
           level: warning
-          filter_mode: diff_context
+          filter_mode: file
