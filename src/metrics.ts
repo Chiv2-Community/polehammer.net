@@ -21,6 +21,8 @@ export enum MetricPath {
   DAMAGE_STAB_LIGHT = "attacks.stab.light.damage",
   DAMAGE_STAB_HEAVY = "attacks.stab.heavy.damage",
   DAMAGE_SPECIAL = "specialAttack.damage",
+  DAMAGE_CHARGE = "chargeAttack.damage",
+  DAMAGE_LEAP = "leapAttack.damage",
 }
 
 // Metric Groups share the same units (damage/hitpoints, milliseconds, etc.)
@@ -40,6 +42,8 @@ export enum MetricLabel {
   DAMAGE_STAB_LIGHT = "Damage - Stab (Light)",
   DAMAGE_STAB_HEAVY = "Damage - Stab (Heavy)",
   DAMAGE_SPECIAL = "Damage - Special",
+  DAMAGE_CHARGE = "Damage - Charge",
+  DAMAGE_LEAP = "Damage - Leap",
   // DAMAGE_MAX_LIGHT = "Damage - Max (Light)",
   // DAMAGE_MAX_HEAVY = "Damage - Max (Heavy)",
 
