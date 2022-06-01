@@ -38,11 +38,6 @@ export function generateMetrics(weapons: Weapon[]): WeaponStats {
       SPEED_METRICS,
       average
     ),
-    // new AggregateInverseMetric(
-    //   MetricLabel.SPEED_MAX,
-    //   SPEED_METRICS,
-    //   n => Math.max(...n)
-    // ),
 
     // Ranges
     new BasicMetric(MetricLabel.RANGE_HORIZONTAL, MetricPath.RANGE_HORIZONTAL),
@@ -59,7 +54,6 @@ export function generateMetrics(weapons: Weapon[]): WeaponStats {
     new BasicMetric(MetricLabel.RANGE_ALT_STAB, MetricPath.RANGE_ALT_STAB),
     //new BasicMetric(MetricLabel.RANGE_SPECIAL, MetricPath.RANGE_SPECIAL), TODO
     new AggregateMetric(MetricLabel.RANGE_AVERAGE, RANGE_METRICS, average),
-    // new AggregateMetric(MetricLabel.RANGE_MAX, RANGE_METRICS, n => Math.max(...n)),
 
     // Damages
     new BasicMetric(
@@ -89,17 +83,16 @@ export function generateMetrics(weapons: Weapon[]): WeaponStats {
     new BasicMetric(MetricLabel.DAMAGE_SPECIAL, MetricPath.DAMAGE_SPECIAL),
     new BasicMetric(MetricLabel.DAMAGE_CHARGE, MetricPath.DAMAGE_CHARGE),
     new BasicMetric(MetricLabel.DAMAGE_LEAP, MetricPath.DAMAGE_LEAP),
-    new AggregateMetric(MetricLabel.DAMAGE_AVERAGE, DAMAGE_METRICS, average),
-    // new AggregateMetric(MetricLabel.DAMAGE_MAX_HEAVY, [
-    //   MetricPath.DAMAGE_STAB_HEAVY,
-    //   MetricPath.DAMAGE_OVERHEAD_HEAVY,
-    //   MetricPath.DAMAGE_HORIZONTAL_HEAVY
-    // ], x => Math.max(...x)),
-    // new AggregateMetric(MetricLabel.DAMAGE_MAX_LIGHT, [
-    //   MetricPath.DAMAGE_STAB_LIGHT,
-    //   MetricPath.DAMAGE_OVERHEAD_LIGHT,
-    //   MetricPath.DAMAGE_HORIZONTAL_LIGHT
-    // ], x => Math.max(...x)),
+    new AggregateMetric(
+      MetricLabel.DAMAGE_LIGHT_AVERAGE, 
+      [MetricPath.DAMAGE_STAB_LIGHT, MetricPath.DAMAGE_OVERHEAD_LIGHT, MetricPath.DAMAGE_HORIZONTAL_LIGHT], 
+      average
+    ),
+    new AggregateMetric(
+      MetricLabel.DAMAGE_HEAVY_AVERAGE, 
+      [MetricPath.DAMAGE_STAB_HEAVY, MetricPath.DAMAGE_OVERHEAD_HEAVY, MetricPath.DAMAGE_HORIZONTAL_HEAVY], 
+      average
+    ),
   ];
 
   return new Map(
