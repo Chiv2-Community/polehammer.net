@@ -88,6 +88,7 @@ export function generateMetrics(weapons: Weapon[]): WeaponStats {
     ),
     new BasicMetric(MetricLabel.DAMAGE_SPECIAL, MetricPath.DAMAGE_SPECIAL),
     new BasicMetric(MetricLabel.DAMAGE_CHARGE, MetricPath.DAMAGE_CHARGE),
+    new BasicMetric(MetricLabel.DAMAGE_LEAP, MetricPath.DAMAGE_LEAP),
     new AggregateMetric(MetricLabel.DAMAGE_AVERAGE, DAMAGE_METRICS, average),
     // new AggregateMetric(MetricLabel.DAMAGE_MAX_HEAVY, [
     //   MetricPath.DAMAGE_STAB_HEAVY,
