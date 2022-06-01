@@ -21,4 +21,4 @@
 * PolehammerSupremacy - Windup stats, stat aggregation
 * Oswaldicus - Throwing damage stats
 * HowlingWolf067 - Throwing damage stats
-* Mario - Leap and Charge attack stats, all stats audit
+* Mario - Leap and Charge attack damage stats, all stats audit
