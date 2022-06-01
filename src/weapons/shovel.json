@@ -43,5 +43,11 @@
   "specialAttack": {
     "windup": 1000,
     "damage": 70
+}, 
+  "chargeAttack": {
+    "damage": 40
+  },
+  "leapAttack":   {
+    "damage": 70
   }
 }

@@ -1,7 +1,7 @@
 {
   "name": "Heavy Mace",
   "weaponTypes": ["Club", "Two Handed"],
-  "damageType": "Chop",
+  "damageType": "Blunt",
   "attacks": {
     "horizontal": {
       "range": 26,
@@ -40,5 +40,11 @@
   "specialAttack": {
     "windup": 1167,
     "damage": 80
+}, 
+  "chargeAttack": {
+    "damage": 65
+  },
+  "leapAttack":   {
+    "damage": 40
   }
 }

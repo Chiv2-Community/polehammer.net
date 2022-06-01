@@ -4,7 +4,7 @@
     "Hammer",
     "Two Handed"
   ],
-  "damageType": "Chop",
+  "damageType": "Blunt",
   "attacks": {
     "horizontal": {
       "range": 25,
@@ -43,5 +43,11 @@
   "specialAttack": {
     "windup": 1300,
     "damage": 80
+}, 
+  "chargeAttack": {
+    "damage": 50
+  },
+  "leapAttack":   {
+    "damage": 90
   }
 }
