@@ -56,10 +56,10 @@ export enum MetricLabel {
   // RANGE_SPECIAL = "Range - Special", TODO
   // RANGE_MAX = "Range - Max",
 
-  SPEED_AVERAGE = "Speed - Average*",
-  SPEED_HORIZONTAL = "Speed - Horizontal",
-  SPEED_OVERHEAD = "Speed - Overhead",
-  SPEED_STAB = "Speed - Stab",
+  SPEED_AVERAGE = "Speed - Average (Light)",
+  SPEED_HORIZONTAL = "Speed - Horizontal (Light)",
+  SPEED_OVERHEAD = "Speed - Overhead (Light)",
+  SPEED_STAB = "Speed - Stab (Light)",
   SPEED_SPECIAL = "Speed - Special",
   // SPEED_MAX = "Speed - Max",
 }
