@@ -38,7 +38,8 @@ export function extractNumber(weapon: Weapon, path: string): number {
     if (part in current) {
       current = current[part];
     } else {
-      throw Error(`Invalid stat path specified: ${path}`);
+      console.warn(`Invalid stat ${weapon.name} path specified: ${path}`);
+      return 0;
     }
   }
   return current as unknown as number;
