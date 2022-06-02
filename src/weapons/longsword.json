@@ -38,6 +38,13 @@
       }
     }
   },
+"rangedAttack": {
+    "damage": {
+      "legs": 37,
+      "torso": 50,
+      "head": 62
+    }
+  },
   "specialAttack": {
     "windup": 1000,
     "damage": 80
