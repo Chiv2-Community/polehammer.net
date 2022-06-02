@@ -307,7 +307,8 @@ function reset() {
   selectedCategories.clear();
   selectedCategories.add(MetricLabel.SPEED_AVERAGE);
   selectedCategories.add(MetricLabel.RANGE_AVERAGE);
-  selectedCategories.add(MetricLabel.DAMAGE_AVERAGE);
+  selectedCategories.add(MetricLabel.DAMAGE_LIGHT_AVERAGE);
+  selectedCategories.add(MetricLabel.DAMAGE_HEAVY_AVERAGE);
   Object.values(MetricLabel).map((r) => {
     const checkbox = document.getElementById(toId(r)) as HTMLInputElement;
     checkbox.checked = selectedCategories.has(r);

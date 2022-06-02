@@ -21,6 +21,8 @@ export enum MetricPath {
   DAMAGE_STAB_LIGHT = "attacks.stab.light.damage",
   DAMAGE_STAB_HEAVY = "attacks.stab.heavy.damage",
   DAMAGE_SPECIAL = "specialAttack.damage",
+  DAMAGE_CHARGE = "chargeAttack.damage",
+  DAMAGE_LEAP = "leapAttack.damage",
 }
 
 // Metric Groups share the same units (damage/hitpoints, milliseconds, etc.)
@@ -32,7 +34,8 @@ export enum Unit {
 }
 
 export enum MetricLabel {
-  DAMAGE_AVERAGE = "Damage - Average*",
+  DAMAGE_LIGHT_AVERAGE = "Damage - Average (Light)",
+  DAMAGE_HEAVY_AVERAGE = "Damage - Average (Heavy)",
   DAMAGE_HORIZONTAL_LIGHT = "Damage - Horizontal (Light)",
   DAMAGE_HORIZONTAL_HEAVY = "Damage - Horizontal (Heavy)",
   DAMAGE_OVERHEAD_LIGHT = "Damage - Overhead (Light)",
@@ -40,8 +43,8 @@ export enum MetricLabel {
   DAMAGE_STAB_LIGHT = "Damage - Stab (Light)",
   DAMAGE_STAB_HEAVY = "Damage - Stab (Heavy)",
   DAMAGE_SPECIAL = "Damage - Special",
-  // DAMAGE_MAX_LIGHT = "Damage - Max (Light)",
-  // DAMAGE_MAX_HEAVY = "Damage - Max (Heavy)",
+  DAMAGE_CHARGE = "Damage - Charge",
+  DAMAGE_LEAP = "Damage - Leap",
 
   RANGE_AVERAGE = "Range - Average*",
   RANGE_HORIZONTAL = "Range - Horizontal",
@@ -53,10 +56,10 @@ export enum MetricLabel {
   // RANGE_SPECIAL = "Range - Special", TODO
   // RANGE_MAX = "Range - Max",
 
-  SPEED_AVERAGE = "Speed - Average*",
-  SPEED_HORIZONTAL = "Speed - Horizontal",
-  SPEED_OVERHEAD = "Speed - Overhead",
-  SPEED_STAB = "Speed - Stab",
+  SPEED_AVERAGE = "Speed - Average (Light)",
+  SPEED_HORIZONTAL = "Speed - Horizontal (Light)",
+  SPEED_OVERHEAD = "Speed - Overhead (Light)",
+  SPEED_STAB = "Speed - Stab (Light)",
   SPEED_SPECIAL = "Speed - Special",
   // SPEED_MAX = "Speed - Max",
 }

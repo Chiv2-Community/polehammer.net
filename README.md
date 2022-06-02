@@ -12,11 +12,13 @@
 
 # Credits
 
+* Aardvarkk - Website Design, Application Design, Radar Graphs
 * Jacoby6000 - JSON Data Model, Responsive Design, Bar Graphs
 * KingLouie - Damage stats
 * Municipalis - Damage stats
 * Bungee - Damage stats
 * Platyplysm - Range stats
-* PolehammerSupremacy - Windup stats
+* PolehammerSupremacy - Windup stats, stat aggregation
 * Oswaldicus - Throwing damage stats
 * HowlingWolf067 - Throwing damage stats
+* Mario - Leap and Charge attack damage stats, all stats audit
