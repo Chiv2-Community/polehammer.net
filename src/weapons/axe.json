@@ -39,6 +39,12 @@
       "heavy": {
         "damage": 50
       }
+    },
+"rangedAttack": {
+    "damage": {
+      "legs": 41,
+      "torso": 55,
+      "head": 68
     }
   },
   "specialAttack": {
