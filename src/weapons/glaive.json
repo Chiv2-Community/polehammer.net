@@ -1,6 +1,10 @@
 {
   "name": "Glaive",
-  "weaponTypes": ["Polearm", "Axe", "Two Handed"],
+  "weaponTypes": [
+    "Polearm",
+    "Axe",
+    "Two Handed"
+  ],
   "damageType": "Chop",
   "attacks": {
     "horizontal": {
@@ -37,14 +41,21 @@
       }
     }
   },
+  "rangedAttack": {
+    "damage": {
+      "legs": 41,
+      "torso": 55,
+      "head": 68
+    }
+  },
   "specialAttack": {
     "windup": 1100,
     "damage": 60
-}, 
+  },
   "chargeAttack": {
     "damage": 68
   },
-  "leapAttack":   {
+  "leapAttack": {
     "damage": 60
   }
 }

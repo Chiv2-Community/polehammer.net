@@ -1,6 +1,9 @@
 {
   "name": "Javelin",
-  "weaponTypes": ["Spear", "One Handed"],
+  "weaponTypes": [
+    "Spear",
+    "One Handed"
+  ],
   "damageType": "Cut",
   "attacks": {
     "horizontal": {
@@ -37,14 +40,21 @@
       }
     }
   },
+  "rangedAttack": {
+    "damage": {
+      "legs": 63,
+      "torso": 85,
+      "head": 106
+    }
+  },
   "specialAttack": {
     "windup": 867,
     "damage": 50
-}, 
+  },
   "chargeAttack": {
     "damage": 50
   },
-  "leapAttack":   {
+  "leapAttack": {
     "damage": 65
   }
 }

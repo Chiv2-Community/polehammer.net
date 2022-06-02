@@ -1,6 +1,9 @@
 {
   "name": "Falchion",
-  "weaponTypes": ["Sword", "One Handed"],
+  "weaponTypes": [
+    "Sword",
+    "One Handed"
+  ],
   "damageType": "Cut",
   "attacks": {
     "horizontal": {
@@ -37,14 +40,21 @@
       }
     }
   },
+  "rangedAttack": {
+    "damage": {
+      "legs": 30,
+      "torso": 40,
+      "head": 50
+    }
+  },
   "specialAttack": {
     "windup": 966,
     "damage": 80
-}, 
+  },
   "chargeAttack": {
     "damage": 55
   },
-  "leapAttack":   {
+  "leapAttack": {
     "damage": 80
   }
 }

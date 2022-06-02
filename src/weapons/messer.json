@@ -1,6 +1,9 @@
 {
   "name": "Messer",
-  "weaponTypes": ["Sword", "Two Handed"],
+  "weaponTypes": [
+    "Sword",
+    "Two Handed"
+  ],
   "damageType": "Cut",
   "twoHanded": true,
   "attacks": {
@@ -38,14 +41,21 @@
       }
     }
   },
+  "rangedAttack": {
+    "damage": {
+      "legs": 37,
+      "torso": 50,
+      "head": 62
+    }
+  },
   "specialAttack": {
     "windup": 1267,
     "damage": 90
-}, 
+  },
   "chargeAttack": {
     "damage": 68
   },
-  "leapAttack":   {
+  "leapAttack": {
     "damage": 90
   }
 }

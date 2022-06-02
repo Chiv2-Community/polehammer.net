@@ -40,14 +40,21 @@
       }
     }
   },
+  "rangedAttack": {
+    "damage": {
+      "legs": 37,
+      "torso": 50,
+      "head": 62
+    }
+  },
   "specialAttack": {
     "windup": 400,
     "damage": 0
-}, 
+  },
   "chargeAttack": {
     "damage": 93
   },
-  "leapAttack":   {
+  "leapAttack": {
     "damage": 70
   }
 }

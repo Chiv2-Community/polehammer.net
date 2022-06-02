@@ -40,14 +40,22 @@
       }
     }
   },
+  "rangedAttack": {
+    "damageTypeOverride": "Shovel",
+    "damage": {
+      "legs": 22,
+      "torso": 30,
+      "head": 37
+    }
+  },
   "specialAttack": {
     "windup": 1000,
     "damage": 70
-}, 
+  },
   "chargeAttack": {
     "damage": 40
   },
-  "leapAttack":   {
+  "leapAttack": {
     "damage": 70
   }
 }

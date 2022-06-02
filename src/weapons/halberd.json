@@ -1,6 +1,10 @@
 {
   "name": "Halberd",
-  "weaponTypes": ["Axe", "Polearm", "Two Handed"],
+  "weaponTypes": [
+    "Axe",
+    "Polearm",
+    "Two Handed"
+  ],
   "damageType": "Chop",
   "attacks": {
     "horizontal": {
@@ -37,14 +41,21 @@
       }
     }
   },
+  "rangedAttack": {
+    "damage": {
+      "legs": 48,
+      "torso": 65,
+      "head": 81
+    }
+  },
   "specialAttack": {
     "windup": 1300,
     "damage": 85
-}, 
+  },
   "chargeAttack": {
     "damage": 87
   },
-  "leapAttack":   {
+  "leapAttack": {
     "damage": 75
   }
 }
