@@ -1,6 +1,9 @@
 {
   "name": "Mace",
-  "weaponTypes": ["Club", "One Handed"],
+  "weaponTypes": [
+    "Club",
+    "One Handed"
+  ],
   "damageType": "Blunt",
   "attacks": {
     "horizontal": {
@@ -37,14 +40,21 @@
       }
     }
   },
+  "rangedAttack": {
+    "damage": {
+      "legs": 18,
+      "torso": 25,
+      "head": 31
+    }
+  },
   "specialAttack": {
     "windup": 967,
     "damage": 65
-}, 
+  },
   "chargeAttack": {
     "damage": 45
   },
-  "leapAttack":   {
+  "leapAttack": {
     "damage": 65
   }
 }

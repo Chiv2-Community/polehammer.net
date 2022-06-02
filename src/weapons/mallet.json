@@ -1,6 +1,9 @@
 {
   "name": "Mallet",
-  "weaponTypes": ["Hammer", "One Handed"],
+  "weaponTypes": [
+    "Hammer",
+    "One Handed"
+  ],
   "damageType": "Blunt",
   "attacks": {
     "horizontal": {
@@ -37,14 +40,21 @@
       }
     }
   },
+  "rangedAttack": {
+    "damage": {
+      "legs": 33,
+      "torso": 45,
+      "head": 56
+    }
+  },
   "specialAttack": {
     "windup": 933,
     "damage": 50
-}, 
+  },
   "chargeAttack": {
     "damage": 30
   },
-  "leapAttack":   {
+  "leapAttack": {
     "damage": 60
   }
 }

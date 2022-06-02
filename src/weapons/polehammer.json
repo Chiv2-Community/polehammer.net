@@ -1,6 +1,10 @@
 {
   "name": "Polehammer",
-  "weaponTypes": ["Hammer", "Polearm", "Two Handed"],
+  "weaponTypes": [
+    "Hammer",
+    "Polearm",
+    "Two Handed"
+  ],
   "damageType": "Blunt",
   "attacks": {
     "horizontal": {
@@ -47,14 +51,11 @@
   "specialAttack": {
     "windup": 1333,
     "damage": 100
-  }, 
+  },
   "chargeAttack": {
     "damage": 68
   },
-  "leapAttack":   {
+  "leapAttack": {
     "damage": 80
   }
-} 
-
-
-
+}
