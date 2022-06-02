@@ -41,7 +41,7 @@
     }
   },
   "rangedAttack": {
-    "damageTypeOverride": "Cut", 
+    "damageTypeOverride": "Cut",
     "damage": {
       "legs": 52,
       "torso": 70,
@@ -51,11 +51,11 @@
   "specialAttack": {
     "windup": 1133,
     "damage": 100
-  }, 
+  },
   "chargeAttack": {
     "damage": 40
   },
-  "leapAttack":   {
+  "leapAttack": {
     "damage": 80
   }
 }

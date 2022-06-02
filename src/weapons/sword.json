@@ -1,6 +1,9 @@
 {
   "name": "Sword",
-  "weaponTypes": ["Sword", "One Handed"],
+  "weaponTypes": [
+    "Sword",
+    "One Handed"
+  ],
   "damageType": "Cut",
   "attacks": {
     "horizontal": {
@@ -37,7 +40,7 @@
       }
     }
   },
-"rangedAttack": {
+  "rangedAttack": {
     "damage": {
       "legs": 30,
       "torso": 40,
@@ -47,11 +50,11 @@
   "specialAttack": {
     "windup": 933,
     "damage": 70
-}, 
+  },
   "chargeAttack": {
     "damage": 62
   },
-  "leapAttack":   {
+  "leapAttack": {
     "damage": 70
   }
 }

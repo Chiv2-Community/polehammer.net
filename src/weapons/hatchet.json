@@ -1,6 +1,9 @@
 {
   "name": "Hatchet",
-  "weaponTypes": ["Axe", "One Handed"],
+  "weaponTypes": [
+    "Axe",
+    "One Handed"
+  ],
   "damageType": "Chop",
   "attacks": {
     "horizontal": {
@@ -37,7 +40,7 @@
       }
     }
   },
-"rangedAttack": {
+  "rangedAttack": {
     "damage": {
       "legs": 37,
       "torso": 50,
@@ -47,11 +50,11 @@
   "specialAttack": {
     "windup": 900,
     "damage": 60
-}, 
+  },
   "chargeAttack": {
     "damage": 50
   },
-  "leapAttack":   {
+  "leapAttack": {
     "damage": 70
   }
 }

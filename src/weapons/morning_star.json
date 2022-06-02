@@ -1,6 +1,9 @@
 {
   "name": "Morning Star",
-  "weaponTypes": ["One Handed", "Club"],
+  "weaponTypes": [
+    "One Handed",
+    "Club"
+  ],
   "damageType": "Blunt",
   "twoHanded": false,
   "attacks": {
@@ -38,7 +41,7 @@
       }
     }
   },
-"rangedAttack": {
+  "rangedAttack": {
     "damage": {
       "legs": 18,
       "torso": 25,
@@ -48,11 +51,11 @@
   "specialAttack": {
     "windup": 1067,
     "damage": 65
-}, 
+  },
   "chargeAttack": {
     "damage": 50
   },
-  "leapAttack":   {
+  "leapAttack": {
     "damage": 65
   }
 }

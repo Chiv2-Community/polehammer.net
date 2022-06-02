@@ -39,7 +39,7 @@
       "heavy": {
         "damage": 50
       }
-    } 
+    }
   },
   "rangedAttack": {
     "damage": {
@@ -51,11 +51,11 @@
   "specialAttack": {
     "windup": 1000,
     "damage": 75
-  }, 
+  },
   "chargeAttack": {
     "damage": 40
   },
-  "leapAttack":   {
+  "leapAttack": {
     "damage": 75
   }
-} 
+}
