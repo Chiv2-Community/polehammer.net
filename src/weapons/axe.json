@@ -39,9 +39,9 @@
       "heavy": {
         "damage": 50
       }
-     } 
-    },
-"rangedAttack": {
+    } 
+  },
+  "rangedAttack": {
     "damage": {
       "legs": 41,
       "torso": 55,
