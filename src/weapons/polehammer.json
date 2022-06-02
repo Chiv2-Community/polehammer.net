@@ -34,8 +34,8 @@
       },
       "heavy": {
         "damage": 60
-    }
       }
+    }
   },
   "rangedAttack": {
     "damage": {
