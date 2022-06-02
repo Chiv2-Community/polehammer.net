@@ -1,6 +1,6 @@
 # Polehammer: Chivalry II Weapon Comparison Tool
 
-* Available at [https://polehammer.net](polehammer.net)
+* Available at [polehammer.net](https://polehammer.net)
 * Compare any combination of weapons using quantitative values for damage, range, and speed.
 * Visualize the damage output changes based on damage type against a given target (**Vanguard/Archer, Footman, Knight**).
 * Break down categories by attack type (**Horizontal, Overhead, Stab**) and strength (**Light, Heavy**) to see what changes.
