@@ -40,6 +40,14 @@
       }
     }
   },
+"rangedAttack": {
+    "damageTypeOverride": "Cut", 
+    "damage": {
+      "legs": 48,
+      "torso": 65,
+      "head": 81
+    }
+  },
   "specialAttack": {
     "windup": 1233,
     "damage": 90
