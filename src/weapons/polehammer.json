@@ -38,7 +38,6 @@
       }
   },
   "rangedAttack": {
-    "damageTypeOverride": "Blunt", 
     "damage": {
       "legs": 26,
       "torso": 35,
