@@ -49,12 +49,14 @@ function chartData(
   normalizationStats: UnitStats,
   setBgColor: boolean
 ): ChartData {
+  let sortedCategories = Array.from(categories);
+  sortedCategories.sort();
   return {
-    labels: [...categories],
+    labels: [...sortedCategories],
     datasets: [...selectedWeapons].map((w) => {
       return {
         label: w.name,
-        data: [...categories].map((c) => {
+        data: [...sortedCategories].map((c) => {
           const metric = dataset.get(w)!.get(c)!;
           let value = metric.value;
           if (hasBonus(c)) {
@@ -71,8 +73,8 @@ function chartData(
           }
           return value;
         }),
-        backgroundColor: setBgColor ? weaponColor(w) : "transparent",
-        borderColor: weaponColor(w),
+        backgroundColor: setBgColor ? weaponColor(w, 0.6) : weaponColor(w, 0.1),
+        borderColor: weaponColor(w, 0.6),
         borderDash: borderDash(w),
       };
     }),
@@ -184,7 +186,7 @@ function addWeaponDiv(weapon: Weapon) {
   label.htmlFor = `input-${weapon.name}`;
   label.innerText = weapon.name;
   label.style.padding = "0.2em";
-  label.style.border = `3px ${weaponDash(weapon)} ${weaponColor(weapon)}`;
+  label.style.border = `3px ${weaponDash(weapon)} ${weaponColor(weapon, 0.6)}`;
   div.appendChild(label);
 
   displayedWeapons.appendChild(div);
