@@ -4,6 +4,10 @@
   font-size: 10pt;
 }
 
+html.dark .border-top-0 {
+  border-top: 0px!important;
+}
+
 body {
   font-family: "Lato", sans-serif;
   margin: 0;
@@ -15,9 +19,9 @@ body {
 }
 
 .tab-pane {
-  border-left: 1px solid #ddd;
-  border-right: 1px solid #ddd;
-  border-bottom: 1px solid #ddd;
+  border-left: 1px;
+  border-right: 1px;
+  border-bottom: 1px;
   border-radius: 0px 0px 5px 5px;
   padding: 10px;
 }
@@ -26,20 +30,21 @@ body {
   margin-bottom: 0;
 }
 
+/*
 a {
   color: black;
 }
-
+*/
 .searchResult {
   width: 100%;
   border: none;
-  background: white;
+  /*background: white; */
   padding: 0.5em;
   text-align: left;
 }
 
 .searchResult:hover {
-  background-color: lightgray;
+  /*background-color: lightgray;*/
   cursor: pointer;
 }
 
@@ -49,9 +54,9 @@ a {
   margin: 0;
   top: 0;
   left: 0;
-  background-color: white;
-  border: 1px solid darkgrey;
-  box-shadow: 8px 8px 16px lightgray;
+/*  background-color: white; */
+  border: 1px solid; /*darkgrey;*/
+  box-shadow: 8px 8px 16px; /*lightgray;*/
   display: none;
   box-sizing: border-box;
   z-index: 1;

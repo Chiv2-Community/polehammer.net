@@ -8,7 +8,7 @@ import {
   UnitStats,
   WeaponStats,
 } from "./stats";
-import "./style.css";
+import "./style.scss";
 import { Target } from "./target";
 import { borderDash, weaponColor, weaponDash } from "./ui";
 import { shuffle } from "./util";
@@ -177,6 +177,7 @@ function addWeaponDiv(weapon: Weapon) {
   input.id = `input-${weapon.name}`;
   input.checked = true;
   input.type = "checkbox";
+  input.className = "form-check-input";
   input.onchange = () => {
     removeWeapon(weapon);
   };
@@ -254,6 +255,7 @@ Object.values(MetricLabel).forEach((r) => {
   const input = document.createElement("input");
   input.id = toId(r);
   input.checked = selectedCategories.has(r);
+  input.className = "form-check-input";
   input.setAttribute("type", "checkbox");
   input.onclick = (ev) => {
     const enabled = (ev.target as HTMLInputElement).checked;
@@ -268,7 +270,7 @@ Object.values(MetricLabel).forEach((r) => {
   div.appendChild(label);
 
   const categoryGroup = document.getElementById(
-    `category-${group.toLowerCase()}`
+    `category-${group.replaceAll(' ','-').toLowerCase()}`
   ) as HTMLFieldSetElement;
   categoryGroup.appendChild(div);
 });
@@ -404,5 +406,6 @@ function updateSearchResults() {
     weaponSearchResults.appendChild(button);
   });
 }
+
 
 updateSearchResults();

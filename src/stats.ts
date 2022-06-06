@@ -92,6 +92,15 @@ export function generateMetrics(weapons: Weapon[]): WeaponStats {
       [MetricPath.DAMAGE_STAB_HEAVY, MetricPath.DAMAGE_OVERHEAD_HEAVY, MetricPath.DAMAGE_HORIZONTAL_HEAVY], 
       average
     ),
+    
+    new AggregateMetric(
+      MetricLabel.DAMAGE_RANGED_AVERAGE, 
+      [MetricPath.DAMAGE_RANGED_HEAD, MetricPath.DAMAGE_RANGED_TORSO, MetricPath.DAMAGE_RANGED_LEGS], 
+      average
+    ),
+    new BasicMetric(MetricLabel.DAMAGE_RANGED_HEAD, MetricPath.DAMAGE_RANGED_HEAD),
+    new BasicMetric(MetricLabel.DAMAGE_RANGED_TORSO, MetricPath.DAMAGE_RANGED_TORSO),
+    new BasicMetric(MetricLabel.DAMAGE_RANGED_LEGS, MetricPath.DAMAGE_RANGED_LEGS),
   ];
 
   return new Map(
