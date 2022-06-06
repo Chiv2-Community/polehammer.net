@@ -175,7 +175,7 @@ function addWeaponDiv(weapon: Weapon) {
   input.id = `input-${weapon.name}`;
   input.checked = true;
   input.type = "checkbox";
-  input.class = "form-check-input";
+  input.className = "form-check-input";
   input.onchange = () => {
     removeWeapon(weapon);
   };
