@@ -130,7 +130,7 @@ export function unitGroupStats(weaponStats: WeaponStats) {
     for (const [, metric] of stats) {
       const existing = unitGroupStats.get(metric.unit);
       const maxPossible =
-        metric.unit === Unit.DAMAGE
+        (metric.unit === Unit.DAMAGE || metric.unit === Unit.RANGED_DAMAGE)
           ? metric.value * maxPossibleDamageBonus(weapon)
           : metric.value;
       if (existing === undefined) {
