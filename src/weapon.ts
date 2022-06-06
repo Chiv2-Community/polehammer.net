@@ -45,6 +45,14 @@ export function extractNumber(weapon: Weapon, path: string): number {
   return current as unknown as number;
 }
 
+export function damageType(weapon: Weapon, label: MetricLabel): DamageType {
+  console.log(weapon);
+  if(label.toLowerCase().includes("thrown") && "damageTypeOverride" in weapon.rangedAttack)
+    return weapon.rangedAttack.damageTypeOverride;
+  return weapon.damageType;
+    
+}
+
 export type Weapon = {
   name: string;
   weaponTypes: WeaponType[];
@@ -89,7 +97,7 @@ export type ProjectileDamage = {
 export enum DamageType {
   CUT = "Cut",
   CHOP = "Chop",
-  BLUNT = "Blunt",
+  BLUNT = "Blunt"
 }
 
 export enum WeaponType {
