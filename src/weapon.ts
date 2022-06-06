@@ -46,7 +46,6 @@ export function extractNumber(weapon: Weapon, path: string): number {
 }
 
 export function damageType(weapon: Weapon, label: MetricLabel): DamageType {
-  console.log(weapon);
   if(label.toLowerCase().includes("thrown") && "damageTypeOverride" in weapon.rangedAttack)
     return weapon.rangedAttack.damageTypeOverride;
   return weapon.damageType;
