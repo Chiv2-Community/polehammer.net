@@ -41,11 +41,10 @@
     }
   },
   "rangedAttack": {
-    "damageTypeOverride": "Shovel",
     "damage": {
-      "legs": 22,
-      "torso": 30,
-      "head": 37
+      "legs": 26,
+      "torso": 35,
+      "head": 43
     }
   },
   "specialAttack": {
