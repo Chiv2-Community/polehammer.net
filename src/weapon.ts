@@ -1,4 +1,5 @@
 import { Target } from "./target";
+import { MetricLabel } from "./metrics";
 
 export function bonusMult(target: Target, type: DamageType): number {
   // Multiply Vanguard / Archer by 2 assuming equal distribution of target classes
@@ -45,6 +46,12 @@ export function extractNumber(weapon: Weapon, path: string): number {
   return current as unknown as number;
 }
 
+export function damageType(weapon: Weapon, label: MetricLabel): DamageType {
+  if(weapon.rangedAttack && label.toLowerCase().includes("thrown") && "damageTypeOverride" in weapon.rangedAttack)
+    return weapon.rangedAttack.damageTypeOverride!;
+  return weapon.damageType;
+}
+
 export type Weapon = {
   name: string;
   weaponTypes: WeaponType[];
@@ -70,6 +77,7 @@ export type Swing = {
 };
 
 export type RangedAttack = {
+  damageTypeOverride?: DamageType;
   projectileSpeed?: number; // Not measured yet
   windup?: number; // milliseconds
   damage: ProjectileDamage;
@@ -89,7 +97,7 @@ export type ProjectileDamage = {
 export enum DamageType {
   CUT = "Cut",
   CHOP = "Chop",
-  BLUNT = "Blunt",
+  BLUNT = "Blunt"
 }
 
 export enum WeaponType {

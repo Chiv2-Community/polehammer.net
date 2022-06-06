@@ -12,7 +12,7 @@ import "./style.scss";
 import { Target } from "./target";
 import { borderDash, weaponColor, weaponDash } from "./ui";
 import { shuffle } from "./util";
-import { bonusMult, Weapon } from "./weapon";
+import { bonusMult, damageType, Weapon } from "./weapon";
 
 Chart.defaults.font.family = "'Lato', sans-serif";
 Chart.register(...registerables); // the auto import stuff was making typescript angry.
@@ -60,7 +60,7 @@ function chartData(
           const metric = dataset.get(w)!.get(c)!;
           let value = metric.value;
           if (hasBonus(c)) {
-            value *= bonusMult(selectedTarget, w.damageType);
+            value *= bonusMult(selectedTarget, damageType(w, c));
           }
 
           const maybeUnitStats = normalizationStats.get(metric.unit);
@@ -313,6 +313,7 @@ function reset() {
   selectedCategories.add(MetricLabel.RANGE_AVERAGE);
   selectedCategories.add(MetricLabel.DAMAGE_LIGHT_AVERAGE);
   selectedCategories.add(MetricLabel.DAMAGE_HEAVY_AVERAGE);
+  selectedCategories.add(MetricLabel.DAMAGE_RANGED_AVERAGE);
   Object.values(MetricLabel).map((r) => {
     const checkbox = document.getElementById(toId(r)) as HTMLInputElement;
     checkbox.checked = selectedCategories.has(r);
