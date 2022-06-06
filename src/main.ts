@@ -268,7 +268,7 @@ Object.values(MetricLabel).forEach((r) => {
   div.appendChild(label);
 
   const categoryGroup = document.getElementById(
-    `category-${group.toLowerCase()}`
+    `category-${group.replaceAll(' ','-').toLowerCase()}`
   ) as HTMLFieldSetElement;
   categoryGroup.appendChild(div);
 });
