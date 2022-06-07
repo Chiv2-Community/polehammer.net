@@ -11,7 +11,7 @@ import {
   Unit,
 } from "./metrics";
 import { Target } from "./target";
-import { maxPossibleBonus as maxPossibleDamageBonus, withBonusMultipliers, Weapon } from "./weapon";
+import { withBonusMultipliers, Weapon } from "./weapon";
 import { weaponByName } from "./all_weapons";
 
 export type WeaponStats = Map<string, LabelledMetrics>;
@@ -154,26 +154,3 @@ export function hasBonus(category: MetricLabel) {
 }
 
 export type WeaponMetricLabels = Map<string, MetricLabel>;
-
-// export function normalize(stats: WeaponStats): WeaponStats {
-//   const normalized = new Map(stats);
-//   for (const rating of Object.values(MetricLabel)) {
-//     // Get min and max for this rating _across all weapons_
-//     // Scale max possible damage based on weapon's damage type
-//     const values: number[] = [...stats.values()].map(
-//       (x: LabelledMetrics) => x.get(rating)!
-//     );
-//     const min = Math.min(...values);
-//     const max = Math.max(...values);
-
-//     // Scale by min and max
-//     for (const [weapon, derived] of normalized) {
-//       let div = 1.0;
-//       if (hasBonus(rating)) {
-//         div = maxPossibleBonus(weapon);
-//       }
-//       derived.set(rating, (derived.get(rating)! - min) / (max - min) / div);
-//     }
-//   }
-//   return normalized;
-// }

@@ -18,7 +18,7 @@ Chart.defaults.font.family = "'Lato', sans-serif";
 Chart.register(...registerables); // the auto import stuff was making typescript angry.
 
 let selectedTarget = Target.AVERAGE;
-let numberOfTargets = 10;
+let numberOfTargets = 1;
 let stats: WeaponStats = generateMetrics(ALL_WEAPONS, 1, Target.VANGUARD_ARCHER);
 let unitStats: UnitStats = unitGroupStats(stats, numberOfTargets);
 console.log(unitStats)

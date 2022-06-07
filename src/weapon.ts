@@ -95,14 +95,6 @@ function bonusMult(numberOfTargets: number, target: Target, type: DamageType, cl
   return 1;
 }
 
-export function maxPossibleBonus(weapon: Weapon, numberOfTargets: number, cleaves: boolean): number {
-  return Math.max(
-    ...Object.values(Target).map((target) =>
-      bonusMult(numberOfTargets, target, weapon.damageType, true)
-    )
-  );
-}
-
 export function extractNumber(weapon: Weapon, path: string): number {
   let current: any = weapon; // eslint-disable-line
   const parts = path.split(".");
