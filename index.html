@@ -103,7 +103,7 @@
           <div class="text-center">
             <small
               ><a href="https://github.com/jacoby6000/polehammer" target="_blank"
-                >Source Code & Credits</a
+                >Source Code &amp; Credits</a
               ></small
             >
           </div>
@@ -138,6 +138,20 @@
                 Bar Graphs
               </button>
             </li>
+            <li class="nav-item" role="presentation">
+              <button
+                class="nav-link"
+                id="data-collection-content-tab"
+                data-bs-toggle="tab"
+                data-bs-target="#data-collection-content"
+                type="button"
+                role="tab"
+                aria-controls="data-collection-content"
+                aria-selected="false"
+              >
+              Data Collection
+              </button>
+            </li>
           </ul>
           <div class="tab-content border rounded-bottom border-top-0" id="visualization-content">
             <div
@@ -155,6 +169,68 @@
               aria-labelledby="bars-content-tab"
             >
               <div id="bars" class="row"></div>
+            </div>
+            <div
+              class="tab-pane fade"
+              id="data-collection-content"
+              role="tabpanel"
+              aria-labelledby="data-collection-content-tab"
+            >
+              <div id="data-collection" class="row info">
+                <div class="category-group">Damage</div>
+                <div>
+                  The damage category is measured by taking the values from hitting each class with each attack from each weapon. The 
+                  data was distilled down to just damage vs vanguard/archer after verifying damage bonuses, and then 
+                  damage to footman and knights is calculated via the damage type modifiers described in the "Target" 
+                  section. These are in-game, on-screen, numeric values - and are the easiest to collect and most accurate stats. 
+                  <hr />
+                </div>
+                <div class="category-group">Thrown Damage</div>
+                <div>
+                  Thrown damage was measured by hitting each enemy type with each weapon thown, on each part of the body 
+                  (head, torso, legs). Our team determined that thrown damage works similarly to normal class damage 
+                  type modiifiers, with BLUNT and CHOP recieving the same respective bonuses. However, there are 3 axes 
+                  (Battle axe, War axe, and Executioner’s axe), which have no damage type modifier - like a CUT type 
+                  weapon instead of CHOP. 
+                  <hr />
+                </div>
+                <div class="category-group">Speed</div>
+                <div>
+                  Speed is currently measured as the time to hit a target at center screen, at point-blank range*. The 
+                  number of frames from attack input until the visual hit indicator are counted, and then the Windup 
+                  speed data is displayed as the inverse of the resulting frame data, such that higher is better when 
+                  displayed on this site. *not all weapons/attacks connect at point-blank 
+                  range, so those trials were measured after a small step back from target"
+                  <small class="mt-3 mb-3">
+                    PolehammerSupremacy - "The method to gather windup speed involved hitting the spinning jousting 
+                    targets on Tournament Ground, at point-blank range, aiming dead-center. Each attack was video 
+                    captured at 30FPS. (offline mode - no lag)"
+                  </small>
+                  In the future we hope to measure this as seperate categories for Windup, active frames, and Recovery.
+                  <hr />
+                </div>
+                <div class="category-group">Range</div>
+                <div>
+                  Range is measured in "Jeoffrey's".  A single "Jeoffrey" is the distance the player moves back when a 
+                  target is struck. To measure a weapon's range, the process was to hug a target, face it 
+                  perpendicularly, and hit it repeatedly until the target is no longer in range.  The number of hits 
+                  until the first miss is the number of "Jeoffrey's" that represents the weapon's range. This method 
+                  gives us a resolution of 1 Jeoffrey which means some minor differences in range may not be apparent. 
+                  Yet.
+                  <small class="mt-3">
+                    Platyplysm- "I measured these values by striking the tip of the spinning traps on Tournament Grounds 
+                    until I was pushed out of range by the slight knockback you receive when landing a successful hit." 
+                  </small>
+                  <hr />
+                </div>
+                <div class="category-group">Torn Banner</div>
+                <div>
+                  We are aware that these methods are not perfect.  We would love to put perfectly accurate stats out,
+                  but Torn Banner seems completely averse to providing this information.  Please let us know if you can 
+                  provide a better method for collecting speed or range data. The modding SDK may lead to big 
+                  improvements to precision and accuracy, if the work is put in.
+                </div>
+              </div>
             </div>
           </div>
         </div>
