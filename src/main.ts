@@ -352,6 +352,7 @@ if (params.get("target")) {
 
 if (params.get("numberOfTargets")) {
   numberOfTargets = Number.parseInt(params.get("numberOfTargets")!);
+  numberOfTargetsOutput.innerHTML = numberOfTargets.toString();
 }
 
 if (params.getAll("weapon").length) {
