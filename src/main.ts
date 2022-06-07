@@ -51,7 +51,10 @@ function chartData(
   setBgColor: boolean
 ): ChartData {
   let sortedCategories = Array.from(categories);
-  sortedCategories.sort();
+  sortedCategories.sort((a,b) => {
+    return Object.values(MetricLabel).indexOf(a) - Object.values(MetricLabel).indexOf(b);
+  });
+
   return {
     labels: [...sortedCategories],
     datasets: [...selectedWeapons].map((w) => {
