@@ -12,15 +12,18 @@ import "./style.scss";
 import { Target } from "./target";
 import { borderDash, weaponColor, weaponDash } from "./ui";
 import { shuffle } from "./util";
-import { bonusMult, damageType, Weapon } from "./weapon";
+import { damageType, Weapon } from "./weapon";
 
 Chart.defaults.font.family = "'Lato', sans-serif";
 Chart.register(...registerables); // the auto import stuff was making typescript angry.
 
-const STATS: WeaponStats = generateMetrics(ALL_WEAPONS);
-const UNIT_STATS: UnitStats = unitGroupStats(STATS);
-
 let selectedTarget = Target.AVERAGE;
+let numberOfTargets = 1;
+
+const BASE_STATS = generateMetrics(ALL_WEAPONS, 1, Target.VANGUARD_ARCHER);
+let stats: WeaponStats = generateMetrics(ALL_WEAPONS, numberOfTargets, selectedTarget);
+let unitStats: UnitStats = unitGroupStats(BASE_STATS, numberOfTargets);
+
 const selectedWeapons: Set<Weapon> = new Set<Weapon>();
 const selectedCategories: Set<MetricLabel> = new Set<MetricLabel>();
 const searchResults: Set<Weapon> = new Set<Weapon>();
@@ -57,12 +60,8 @@ function chartData(
       return {
         label: w.name,
         data: [...sortedCategories].map((c) => {
-          const metric = dataset.get(w)!.get(c)!;
+          const metric = dataset.get(w.name)!.get(c)!;
           let value = metric.value;
-          if (hasBonus(c)) {
-            value *= bonusMult(selectedTarget, damageType(w, c));
-          }
-
           const maybeUnitStats = normalizationStats.get(metric.unit);
           if (maybeUnitStats) {
             const unitMin = maybeUnitStats!.min;
@@ -106,15 +105,15 @@ const radar: Chart = new Chart(
         },
       },
     },
-    data: chartData(STATS, selectedCategories, UNIT_STATS, false),
+    data: chartData(stats, selectedCategories, unitStats, false),
   }
 );
 
 const bars = new Array<Chart>();
 
 function createBarChart(element: HTMLCanvasElement, category: MetricLabel) {
-  const stats: UnitStats = new Map();
-  stats.set(Unit.SPEED, UNIT_STATS.get(Unit.SPEED)!);
+  const barUnitStats: UnitStats = new Map();
+  barUnitStats.set(Unit.SPEED, unitStats.get(Unit.SPEED)!);
 
   return new Chart(element as HTMLCanvasElement, {
     type: "bar",
@@ -128,7 +127,7 @@ function createBarChart(element: HTMLCanvasElement, category: MetricLabel) {
       responsive: true,
       maintainAspectRatio: false,
     },
-    data: chartData(STATS, new Set([category]), stats, true),
+    data: chartData(stats, new Set([category]), barUnitStats, true),
   });
 }
 
@@ -153,7 +152,7 @@ function redrawBars() {
 }
 
 function redraw() {
-  radar.data = chartData(STATS, selectedCategories, UNIT_STATS, false);
+  radar.data = chartData(stats, selectedCategories, unitStats, false);
   radar.update();
 
   redrawBars();
@@ -161,6 +160,7 @@ function redraw() {
   // Update content of location string so we can share
   const params = new URLSearchParams();
   params.set("target", selectedTarget);
+  params.set("numberOfTargets", numberOfTargets.toString());
   [...selectedWeapons].map((w) => params.append("weapon", w.name));
   [...selectedCategories].map((c) => params.append("category", c));
   window.history.replaceState(null, "", `?${params.toString()}`);
@@ -333,10 +333,25 @@ document.getElementById("share")!.onclick = () => {
   alert("Copied to clipboard!");
 };
 
+let numberOfTargetsInput = document.querySelector<HTMLInputElement>("#numberOfTargets")!;
+let numberOfTargetsOutput = document.getElementById("numberOfTargetsOutput")!;
+
+numberOfTargetsInput.oninput = () => {
+  numberOfTargetsOutput.innerHTML = numberOfTargetsInput.value
+  let numberOfTargets = Number.parseInt(numberOfTargetsInput.value)
+  stats = generateMetrics(ALL_WEAPONS, numberOfTargets, selectedTarget)
+  unitStats = unitGroupStats(BASE_STATS, numberOfTargets);
+  redraw();
+}
+
 // Use query string to init values if possible
 const params = new URLSearchParams(location.search);
 if (params.get("target")) {
   selectedTarget = params.get("target") as Target;
+}
+
+if (params.get("numberOfTargets")) {
+  numberOfTargets = Number.parseInt(params.get("numberOfTargets")!);
 }
 
 if (params.getAll("weapon").length) {

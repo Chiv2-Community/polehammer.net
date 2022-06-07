@@ -10,9 +10,11 @@ import {
   SPEED_METRICS,
   Unit,
 } from "./metrics";
-import { maxPossibleBonus as maxPossibleDamageBonus, Weapon } from "./weapon";
+import { Target } from "./target";
+import { maxPossibleBonus as maxPossibleDamageBonus, withBonusMultipliers, Weapon } from "./weapon";
+import { weaponByName } from "./all_weapons";
 
-export type WeaponStats = Map<Weapon, LabelledMetrics>;
+export type WeaponStats = Map<string, LabelledMetrics>;
 
 export type UnitStats = Map<Unit, { min: number; max: number }>;
 
@@ -21,7 +23,8 @@ function average(lst: number[]) {
   else return 0;
 }
 
-export function generateMetrics(weapons: Weapon[]): WeaponStats {
+export function generateMetrics(inputWeapons: Weapon[], numberOfTargets: number, target: Target): WeaponStats {
+  const weapons = inputWeapons.map(w => withBonusMultipliers(w, numberOfTargets, target))
   const metricGenerators = [
     // Speeds
     // Note that we invert each value within its range, because lower is better.
@@ -105,7 +108,7 @@ export function generateMetrics(weapons: Weapon[]): WeaponStats {
 
   return new Map(
     weapons.map((w) => [
-      w,
+      w.name,
       new Map(
         metricGenerators.map((m) => [
           m.name,
@@ -121,7 +124,7 @@ export function generateMetrics(weapons: Weapon[]): WeaponStats {
 
 // Across given weapon stats, calculate min and max (at max possible bonus)
 // values for use in normalizing results for chart display
-export function unitGroupStats(weaponStats: WeaponStats) {
+export function unitGroupStats(weaponStats: WeaponStats, numberOfTargets: number) {
   const unitGroupStats = new Map<Unit, { min: number; max: number }>();
 
   // Across each weapon
@@ -129,9 +132,11 @@ export function unitGroupStats(weaponStats: WeaponStats) {
     // Across each stat
     for (const [, metric] of stats) {
       const existing = unitGroupStats.get(metric.unit);
+      console.log(weapon)
+      console.log(metric.value)
       const maxPossible =
         (metric.unit === Unit.DAMAGE || metric.unit === Unit.RANGED_DAMAGE)
-          ? metric.value * maxPossibleDamageBonus(weapon)
+          ? metric.value * maxPossibleDamageBonus(weaponByName(weapon)!, metric.unit === Unit.RANGED_DAMAGE ? 1 : numberOfTargets)
           : metric.value;
       if (existing === undefined) {
         unitGroupStats.set(metric.unit, {
