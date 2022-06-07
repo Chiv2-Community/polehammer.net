@@ -175,37 +175,41 @@
               <div id="data-collection" class="row">
                 <div class="category-group">Damage</div>
                 <div>
-                  The damage category is measured by taking the values from hitting each class with each weapon. The 
+                  The damage category is measured by taking the values from hitting each class with each attack from each weapon. The 
                   data was distilled down to just damage vs vanguard/archer after verifying damage bonuses, and then 
                   damage to footman and knights is calculated via the damage type modifiers described in the "Target" 
-                  section.
+                  section. These are in-game, on-screen, numeric values - and are the easiest to collect and most accurate stats. 
                   <hr />
                 </div>
                 <div class="category-group">Thrown Damage</div>
                 <div>
-                  Thrown damage was measured by hitting each enemy type with each weapon, on each part of the body 
-                  (head, legs, torso). Our team determined that thrown damage works similarly to normal damage, with 
-                  blunt and chop recieving the same bonuses. However, there are 3 axes (battle axe, war axe, and 
-                  executioner's axe), which have slice damage bonuses, rather than chop.
+                  Thrown damage was measured by hitting each enemy type with each weapon thown, on each part of the body 
+                  (head, torso, legs). Our team determined that thrown damage works similarly to normal class damage type modiifiers, with 
+                  BLUNT and CHOP recieving the same respective bonuses. However, there are 3 axes (Battle axe, War axe, and 
+                  Executioner’s axe), which have no damage type modifier - like a CUT type weapon instead of CHOP. 
                   <hr />
                 </div>
                 <div class="category-group">Speed</div>
                 <div>
-                  Speed is currently measured as the time to hit a target at center screen.  The number of frames from 
-                  input til the hit marker is measured, and then the speed data is displayed as the inverse of the 
-                  results, such that higher is better when displayed on this site.
+PolehammerSupremacy-"The method to gather windup speed involved hitting the spinning jousting targets on Tournament Ground, at point-blank range, aiming dead-center. Each attack was video captured at 30FPS. (offline mode - no lag)" 
+               
+                  Speed is currently measured as the time to hit a target at center screen, at point-blank range*. The number of frames from 
+                  attack input until the visual hit indicator are counted, and then the Windup speed data is displayed as the inverse of the 
+                  resulting frame data, such that higher is better when displayed on this site. *not all weapons/attacks connect at point-blank 
+                  range, so those trials were measured after a small step back from target"
                   <br />
-                  In the future we hope to measure this as startup, active frames, and cooldown.
+                  In the future we hope to measure this as seperate categories for Windup, active frames, and Recovery.
                   <hr />
                 </div>
                 <div class="category-group">Range</div>
                 <div>
-                  Range is measured in "Geoffries".  A single "Geoffrie" is the distance the player moves back when a 
-                  wall is struck. To measure a weapon's range, the process was to hug a wall, face it perpendicularly, 
-                  and hit it repeatedly until the wall is no longer being hit.  The number of hits until the first miss 
-                  is the number of "geoffries" that represents the weapon's range. Attacks are repeated until they no 
-                  longer hit the wall.  This method gives us a resolution of 1 Geoffrie which means some minor 
-                  differences in range may not be reported. Yet.
+Platyplysm- "I measured these values by striking the tip of the spinning traps on Tournament Grounds until I was pushed out of range by the slight knockback you receive when landing a successful hit." 
+
+                  Range is measured in "Jeoffrey's".  A single "Jeoffrey" is the distance the player moves back when a 
+                  target is struck. To measure a weapon's range, the process was to hug a target, face it perpendicularly, 
+                  and hit it repeatedly until the target is no longer in range.  The number of hits until the first miss 
+                  is the number of "Jeoffrey's" that represents the weapon's range. This method gives us a resolution of 1 Jeoffrey which means some minor 
+                  differences in range may not be apparent. Yet.
                   <hr />
                 </div>
                 <div class="category-group">Torn Banner</div>
