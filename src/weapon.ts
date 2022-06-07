@@ -76,7 +76,6 @@ export function withBonusMultipliers(w: Weapon, numberOfTargets: number, target:
 function bonusMult(numberOfTargets: number, target: Target, type: DamageType, cleaves: boolean): number {
   const cleavingMultiplier = cleaves ? numberOfTargets : 1
 
-  let result = 1;
   // Multiply Vanguard / Archer by 2 assuming equal distribution of target classes
   if (target === Target.AVERAGE) {
     const sum =
@@ -85,19 +84,18 @@ function bonusMult(numberOfTargets: number, target: Target, type: DamageType, cl
       bonusMult(numberOfTargets, Target.KNIGHT, type, cleaves);
 
     return sum / 4;
-  } else if (target !== Target.VANGUARD_ARCHER) {
-    if (type === DamageType.CHOP) {
-      result = target === Target.FOOTMAN ? 1.175 : 1.25;
-    } else if (type === DamageType.BLUNT) {
-      result = target === Target.FOOTMAN ? 1.35 : 1.5;
-    }
+  } else if (target === Target.VANGUARD_ARCHER) {
+    return cleavingMultiplier;
+  } else if (type === DamageType.CHOP) {
+    return (target === Target.FOOTMAN ? 1.175 : 1.25) * cleavingMultiplier;
+  } else if (type === DamageType.BLUNT) {
+    return (target === Target.FOOTMAN ? 1.35 : 1.5) * cleavingMultiplier;
   }
 
-  return result * cleavingMultiplier;
-
+  return 1;
 }
 
-export function maxPossibleBonus(weapon: Weapon, numberOfTargets: number): number {
+export function maxPossibleBonus(weapon: Weapon, numberOfTargets: number, cleaves: boolean): number {
   return Math.max(
     ...Object.values(Target).map((target) =>
       bonusMult(numberOfTargets, target, weapon.damageType, true)

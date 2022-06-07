@@ -132,21 +132,15 @@ export function unitGroupStats(weaponStats: WeaponStats, numberOfTargets: number
     // Across each stat
     for (const [, metric] of stats) {
       const existing = unitGroupStats.get(metric.unit);
-      console.log(weapon)
-      console.log(metric.value)
-      const maxPossible =
-        (metric.unit === Unit.DAMAGE || metric.unit === Unit.RANGED_DAMAGE)
-          ? metric.value * maxPossibleDamageBonus(weaponByName(weapon)!, metric.unit === Unit.RANGED_DAMAGE ? 1 : numberOfTargets)
-          : metric.value;
       if (existing === undefined) {
         unitGroupStats.set(metric.unit, {
           min: metric.value,
-          max: maxPossible,
+          max: metric.value,
         });
       } else {
         unitGroupStats.set(metric.unit, {
           min: Math.min(existing.min, metric.value),
-          max: Math.max(existing.max, maxPossible),
+          max: Math.max(existing.max, metric.value),
         });
       }
     }

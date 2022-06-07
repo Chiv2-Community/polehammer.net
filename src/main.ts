@@ -18,11 +18,10 @@ Chart.defaults.font.family = "'Lato', sans-serif";
 Chart.register(...registerables); // the auto import stuff was making typescript angry.
 
 let selectedTarget = Target.AVERAGE;
-let numberOfTargets = 1;
-
-const BASE_STATS = generateMetrics(ALL_WEAPONS, 1, Target.VANGUARD_ARCHER);
-let stats: WeaponStats = generateMetrics(ALL_WEAPONS, numberOfTargets, selectedTarget);
-let unitStats: UnitStats = unitGroupStats(BASE_STATS, numberOfTargets);
+let numberOfTargets = 10;
+let stats: WeaponStats = generateMetrics(ALL_WEAPONS, 1, Target.VANGUARD_ARCHER);
+let unitStats: UnitStats = unitGroupStats(stats, numberOfTargets);
+console.log(unitStats)
 
 const selectedWeapons: Set<Weapon> = new Set<Weapon>();
 const selectedCategories: Set<MetricLabel> = new Set<MetricLabel>();
@@ -152,6 +151,9 @@ function redrawBars() {
 }
 
 function redraw() {
+  stats = generateMetrics(ALL_WEAPONS, numberOfTargets, selectedTarget)
+  unitStats = unitGroupStats(stats, numberOfTargets);
+
   radar.data = chartData(stats, selectedCategories, unitStats, false);
   radar.update();
 
@@ -338,9 +340,7 @@ let numberOfTargetsOutput = document.getElementById("numberOfTargetsOutput")!;
 
 numberOfTargetsInput.oninput = () => {
   numberOfTargetsOutput.innerHTML = numberOfTargetsInput.value
-  let numberOfTargets = Number.parseInt(numberOfTargetsInput.value)
-  stats = generateMetrics(ALL_WEAPONS, numberOfTargets, selectedTarget)
-  unitStats = unitGroupStats(BASE_STATS, numberOfTargets);
+  numberOfTargets = Number.parseInt(numberOfTargetsInput.value)
   redraw();
 }
 
