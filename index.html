@@ -134,6 +134,20 @@
                 Bar Graphs
               </button>
             </li>
+            <li class="nav-item" role="presentation">
+              <button
+                class="nav-link"
+                id="about-content-tab"
+                data-bs-toggle="tab"
+                data-bs-target="#about-content"
+                type="button"
+                role="tab"
+                aria-controls="about-content"
+                aria-selected="false"
+              >
+                About
+              </button>
+            </li>
           </ul>
           <div class="tab-content border rounded-bottom border-top-0" id="visualization-content">
             <div
@@ -151,6 +165,44 @@
               aria-labelledby="bars-content-tab"
             >
               <div id="bars" class="row"></div>
+            </div>
+            <div
+              class="tab-pane fade"
+              id="about-content"
+              role="tabpanel"
+              aria-labelledby="about-content-tab"
+            >
+              <div id="about" class="row">
+                <div class="category-group">Damage</div>
+                <div>
+                  The damage category is measured by taking the values from hitting a vanguard. Damage to footman and
+                  knights is calculated via the damage type modifiers described in the "Target" section.
+                  <hr />
+                </div>
+                <div class="category-group">Thrown Damage</div>
+                <div>
+                  Thrown damage was measured by hitting each enemy type with each weapon, on each part of the body 
+                  (head, legs, torso). Our team determined that thrown damage works similarly to normal damage, with 
+                  blunt and chop recieving the same bonuses. However, there are 3 axes (battle axe, war axe, and 
+                  executioner's axe), which have slice damage bonuses, rather than chop.
+                  <hr />
+                </div>
+                <div class="category-group">Speed</div>
+                <div>
+                  Speed is currently as the time to hit a target at center screen.  
+                  The number of frames from input til the hit marker is measured, and then the speed data is displayed 
+                  as the inverse of the results, such that higher is better when displayed on this site.
+                  <br />
+                  In the future we hope to measure this as startup, active frames, and cooldown.
+                  <hr />
+                </div>
+                <div class="category-group">Range</div>
+                <div>
+                  Range is measured in "Geoffries".  A single "Geoffrie" is the distance the player moves back when a wall is struck.
+                  Attacks are repeated until they no longer hit the wall.  This method gives us a resolution of 1 Geoffrie which means
+                  some minor differences in range may not be reported. Yet.
+                </div>
+              </div>
             </div>
           </div>
         </div>
