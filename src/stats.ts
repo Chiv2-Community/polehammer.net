@@ -12,7 +12,6 @@ import {
 } from "./metrics";
 import { Target } from "./target";
 import { withBonusMultipliers, Weapon } from "./weapon";
-import { weaponByName } from "./all_weapons";
 
 export type WeaponStats = Map<string, LabelledMetrics>;
 
@@ -124,11 +123,11 @@ export function generateMetrics(inputWeapons: Weapon[], numberOfTargets: number,
 
 // Across given weapon stats, calculate min and max (at max possible bonus)
 // values for use in normalizing results for chart display
-export function unitGroupStats(weaponStats: WeaponStats, numberOfTargets: number) {
+export function unitGroupStats(weaponStats: WeaponStats) {
   const unitGroupStats = new Map<Unit, { min: number; max: number }>();
 
   // Across each weapon
-  for (const [weapon, stats] of weaponStats) {
+  for (const [_, stats] of weaponStats) {
     // Across each stat
     for (const [, metric] of stats) {
       const existing = unitGroupStats.get(metric.unit);

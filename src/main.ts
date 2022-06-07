@@ -3,7 +3,6 @@ import ALL_WEAPONS, { weaponByName } from "./all_weapons";
 import { MetricLabel, Unit } from "./metrics";
 import {
   generateMetrics,
-  hasBonus,
   unitGroupStats,
   UnitStats,
   WeaponStats,
@@ -12,7 +11,7 @@ import "./style.scss";
 import { Target } from "./target";
 import { borderDash, weaponColor, weaponDash } from "./ui";
 import { shuffle } from "./util";
-import { damageType, Weapon } from "./weapon";
+import { Weapon } from "./weapon";
 
 Chart.defaults.font.family = "'Lato', sans-serif";
 Chart.register(...registerables); // the auto import stuff was making typescript angry.
@@ -20,7 +19,7 @@ Chart.register(...registerables); // the auto import stuff was making typescript
 let selectedTarget = Target.AVERAGE;
 let numberOfTargets = 1;
 let stats: WeaponStats = generateMetrics(ALL_WEAPONS, 1, Target.VANGUARD_ARCHER);
-let unitStats: UnitStats = unitGroupStats(stats, numberOfTargets);
+let unitStats: UnitStats = unitGroupStats(stats);
 console.log(unitStats)
 
 const selectedWeapons: Set<Weapon> = new Set<Weapon>();
@@ -152,7 +151,7 @@ function redrawBars() {
 
 function redraw() {
   stats = generateMetrics(ALL_WEAPONS, numberOfTargets, selectedTarget)
-  unitStats = unitGroupStats(stats, numberOfTargets);
+  unitStats = unitGroupStats(stats);
 
   radar.data = chartData(stats, selectedCategories, unitStats, false);
   radar.update();
