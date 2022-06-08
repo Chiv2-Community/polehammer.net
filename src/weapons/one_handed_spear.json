@@ -1,6 +1,9 @@
 {
   "name": "One Handed Spear",
-  "weaponTypes": ["Spear", "One Handed"],
+  "weaponTypes": [
+    "Spear",
+    "One Handed"
+  ],
   "damageType": "Cut",
   "attacks": {
     "horizontal": {
@@ -37,8 +40,21 @@
       }
     }
   },
+  "rangedAttack": {
+    "damage": {
+      "legs": 45,
+      "torso": 60,
+      "head": 75
+    }
+  },
   "specialAttack": {
     "windup": 1067,
+    "damage": 80
+  },
+  "chargeAttack": {
+    "damage": 60
+  },
+  "leapAttack": {
     "damage": 80
   }
 }

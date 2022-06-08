@@ -4,7 +4,7 @@
     "Spear",
     "Two Handed"
   ],
-  "damageType": "Chop",
+  "damageType": "Cut",
   "attacks": {
     "horizontal": {
       "range": 39,
@@ -40,8 +40,21 @@
       }
     }
   },
+  "rangedAttack": {
+    "damage": {
+      "legs": 37,
+      "torso": 50,
+      "head": 62
+    }
+  },
   "specialAttack": {
     "windup": 400,
     "damage": 0
+  },
+  "chargeAttack": {
+    "damage": 93
+  },
+  "leapAttack": {
+    "damage": 70
   }
 }

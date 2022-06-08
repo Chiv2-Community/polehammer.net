@@ -1,6 +1,9 @@
 {
   "name": "Maul",
-  "weaponTypes": ["Hammer", "Two Handed"],
+  "weaponTypes": [
+    "Hammer",
+    "Two Handed"
+  ],
   "damageType": "Blunt",
   "attacks": {
     "horizontal": {
@@ -37,8 +40,21 @@
       }
     }
   },
+  "rangedAttack": {
+    "damage": {
+      "legs": 37,
+      "torso": 50,
+      "head": 62
+    }
+  },
   "specialAttack": {
     "windup": 1500,
     "damage": 120
+  },
+  "chargeAttack": {
+    "damage": 45
+  },
+  "leapAttack": {
+    "damage": 100
   }
 }
