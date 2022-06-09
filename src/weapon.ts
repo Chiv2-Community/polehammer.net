@@ -92,7 +92,7 @@ function bonusMult(numberOfTargets: number, target: Target, type: DamageType, cl
     return (target === Target.FOOTMAN ? 1.35 : 1.5) * cleavingMultiplier;
   }
 
-  return 1;
+  return cleavingMultiplier;
 }
 
 export function extractNumber(weapon: Weapon, path: string): number {
