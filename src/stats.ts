@@ -10,9 +10,10 @@ import {
   SPEED_METRICS,
   Unit,
 } from "./metrics";
-import { maxPossibleBonus as maxPossibleDamageBonus, Weapon } from "./weapon";
+import { Target } from "./target";
+import { withBonusMultipliers, Weapon } from "./weapon";
 
-export type WeaponStats = Map<Weapon, LabelledMetrics>;
+export type WeaponStats = Map<string, LabelledMetrics>;
 
 export type UnitStats = Map<Unit, { min: number; max: number }>;
 
@@ -21,7 +22,8 @@ function average(lst: number[]) {
   else return 0;
 }
 
-export function generateMetrics(weapons: Weapon[]): WeaponStats {
+export function generateMetrics(inputWeapons: Weapon[], numberOfTargets: number, target: Target): WeaponStats {
+  const weapons = inputWeapons.map(w => withBonusMultipliers(w, numberOfTargets, target))
   const metricGenerators = [
     // Speeds
     // Note that we invert each value within its range, because lower is better.
@@ -105,7 +107,7 @@ export function generateMetrics(weapons: Weapon[]): WeaponStats {
 
   return new Map(
     weapons.map((w) => [
-      w,
+      w.name,
       new Map(
         metricGenerators.map((m) => [
           m.name,
@@ -125,23 +127,19 @@ export function unitGroupStats(weaponStats: WeaponStats) {
   const unitGroupStats = new Map<Unit, { min: number; max: number }>();
 
   // Across each weapon
-  for (const [weapon, stats] of weaponStats) {
+  for (const [_, stats] of weaponStats) {
     // Across each stat
     for (const [, metric] of stats) {
       const existing = unitGroupStats.get(metric.unit);
-      const maxPossible =
-        (metric.unit === Unit.DAMAGE || metric.unit === Unit.RANGED_DAMAGE)
-          ? metric.value * maxPossibleDamageBonus(weapon)
-          : metric.value;
       if (existing === undefined) {
         unitGroupStats.set(metric.unit, {
           min: metric.value,
-          max: maxPossible,
+          max: metric.value,
         });
       } else {
         unitGroupStats.set(metric.unit, {
           min: Math.min(existing.min, metric.value),
-          max: Math.max(existing.max, maxPossible),
+          max: Math.max(existing.max, metric.value),
         });
       }
     }
@@ -155,26 +153,3 @@ export function hasBonus(category: MetricLabel) {
 }
 
 export type WeaponMetricLabels = Map<string, MetricLabel>;
-
-// export function normalize(stats: WeaponStats): WeaponStats {
-//   const normalized = new Map(stats);
-//   for (const rating of Object.values(MetricLabel)) {
-//     // Get min and max for this rating _across all weapons_
-//     // Scale max possible damage based on weapon's damage type
-//     const values: number[] = [...stats.values()].map(
-//       (x: LabelledMetrics) => x.get(rating)!
-//     );
-//     const min = Math.min(...values);
-//     const max = Math.max(...values);
-
-//     // Scale by min and max
-//     for (const [weapon, derived] of normalized) {
-//       let div = 1.0;
-//       if (hasBonus(rating)) {
-//         div = maxPossibleBonus(weapon);
-//       }
-//       derived.set(rating, (derived.get(rating)! - min) / (max - min) / div);
-//     }
-//   }
-//   return normalized;
-// }

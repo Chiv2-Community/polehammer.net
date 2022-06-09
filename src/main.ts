@@ -3,7 +3,6 @@ import ALL_WEAPONS, { weaponByName } from "./all_weapons";
 import { MetricLabel, Unit } from "./metrics";
 import {
   generateMetrics,
-  hasBonus,
   unitGroupStats,
   UnitStats,
   WeaponStats,
@@ -12,15 +11,17 @@ import "./style.scss";
 import { Target } from "./target";
 import { borderDash, weaponColor, weaponDash } from "./ui";
 import { shuffle } from "./util";
-import { bonusMult, damageType, Weapon } from "./weapon";
+import { Weapon } from "./weapon";
 
 Chart.defaults.font.family = "'Lato', sans-serif";
 Chart.register(...registerables); // the auto import stuff was making typescript angry.
 
-const STATS: WeaponStats = generateMetrics(ALL_WEAPONS);
-const UNIT_STATS: UnitStats = unitGroupStats(STATS);
-
 let selectedTarget = Target.AVERAGE;
+let numberOfTargets = 1;
+let stats: WeaponStats = generateMetrics(ALL_WEAPONS, 1, Target.VANGUARD_ARCHER);
+let unitStats: UnitStats = unitGroupStats(stats);
+console.log(unitStats)
+
 const selectedWeapons: Set<Weapon> = new Set<Weapon>();
 const selectedCategories: Set<MetricLabel> = new Set<MetricLabel>();
 const searchResults: Set<Weapon> = new Set<Weapon>();
@@ -50,19 +51,18 @@ function chartData(
   setBgColor: boolean
 ): ChartData {
   let sortedCategories = Array.from(categories);
-  sortedCategories.sort();
+  sortedCategories.sort((a,b) => {
+    return Object.values(MetricLabel).indexOf(a) - Object.values(MetricLabel).indexOf(b);
+  });
+
   return {
     labels: [...sortedCategories],
     datasets: [...selectedWeapons].map((w) => {
       return {
         label: w.name,
         data: [...sortedCategories].map((c) => {
-          const metric = dataset.get(w)!.get(c)!;
+          const metric = dataset.get(w.name)!.get(c)!;
           let value = metric.value;
-          if (hasBonus(c)) {
-            value *= bonusMult(selectedTarget, damageType(w, c));
-          }
-
           const maybeUnitStats = normalizationStats.get(metric.unit);
           if (maybeUnitStats) {
             const unitMin = maybeUnitStats!.min;
@@ -106,15 +106,15 @@ const radar: Chart = new Chart(
         },
       },
     },
-    data: chartData(STATS, selectedCategories, UNIT_STATS, false),
+    data: chartData(stats, selectedCategories, unitStats, false),
   }
 );
 
 const bars = new Array<Chart>();
 
 function createBarChart(element: HTMLCanvasElement, category: MetricLabel) {
-  const stats: UnitStats = new Map();
-  stats.set(Unit.SPEED, UNIT_STATS.get(Unit.SPEED)!);
+  const barUnitStats: UnitStats = new Map();
+  barUnitStats.set(Unit.SPEED, unitStats.get(Unit.SPEED)!);
 
   return new Chart(element as HTMLCanvasElement, {
     type: "bar",
@@ -128,7 +128,7 @@ function createBarChart(element: HTMLCanvasElement, category: MetricLabel) {
       responsive: true,
       maintainAspectRatio: false,
     },
-    data: chartData(STATS, new Set([category]), stats, true),
+    data: chartData(stats, new Set([category]), barUnitStats, true),
   });
 }
 
@@ -153,7 +153,10 @@ function redrawBars() {
 }
 
 function redraw() {
-  radar.data = chartData(STATS, selectedCategories, UNIT_STATS, false);
+  stats = generateMetrics(ALL_WEAPONS, numberOfTargets, selectedTarget)
+  unitStats = unitGroupStats(stats);
+
+  radar.data = chartData(stats, selectedCategories, unitStats, false);
   radar.update();
 
   redrawBars();
@@ -161,6 +164,7 @@ function redraw() {
   // Update content of location string so we can share
   const params = new URLSearchParams();
   params.set("target", selectedTarget);
+  params.set("numberOfTargets", numberOfTargets.toString());
   [...selectedWeapons].map((w) => params.append("weapon", w.name));
   [...selectedCategories].map((c) => params.append("category", c));
   window.history.replaceState(null, "", `?${params.toString()}`);
@@ -333,10 +337,24 @@ document.getElementById("share")!.onclick = () => {
   alert("Copied to clipboard!");
 };
 
+let numberOfTargetsInput = document.querySelector<HTMLInputElement>("#numberOfTargets")!;
+let numberOfTargetsOutput = document.getElementById("numberOfTargetsOutput")!;
+
+numberOfTargetsInput.oninput = () => {
+  numberOfTargetsOutput.innerHTML = numberOfTargetsInput.value
+  numberOfTargets = Number.parseInt(numberOfTargetsInput.value)
+  redraw();
+}
+
 // Use query string to init values if possible
 const params = new URLSearchParams(location.search);
 if (params.get("target")) {
   selectedTarget = params.get("target") as Target;
+}
+
+if (params.get("numberOfTargets")) {
+  numberOfTargets = Number.parseInt(params.get("numberOfTargets")!);
+  numberOfTargetsOutput.innerHTML = numberOfTargets.toString();
 }
 
 if (params.getAll("weapon").length) {

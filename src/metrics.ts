@@ -34,19 +34,20 @@ export enum MetricPath {
 export enum Unit {
   SPEED = "Attacks Per Second",
   RANGE = "Knockbacks",
-  DAMAGE = "Melee Hitpoints",
-  RANGED_DAMAGE = "Thrown Hitpoints",
+  DAMAGE = "Melee Hitpoints"
 }
 
 export enum MetricLabel {
-  DAMAGE_LIGHT_AVERAGE = "Damage - Average (Light)",
   DAMAGE_HEAVY_AVERAGE = "Damage - Average (Heavy)",
-  DAMAGE_HORIZONTAL_LIGHT = "Damage - Horizontal (Light)",
   DAMAGE_HORIZONTAL_HEAVY = "Damage - Horizontal (Heavy)",
-  DAMAGE_OVERHEAD_LIGHT = "Damage - Overhead (Light)",
   DAMAGE_OVERHEAD_HEAVY = "Damage - Overhead (Heavy)",
-  DAMAGE_STAB_LIGHT = "Damage - Stab (Light)",
   DAMAGE_STAB_HEAVY = "Damage - Stab (Heavy)",
+
+  DAMAGE_LIGHT_AVERAGE = "Damage - Average (Light)",
+  DAMAGE_HORIZONTAL_LIGHT = "Damage - Horizontal (Light)",
+  DAMAGE_OVERHEAD_LIGHT = "Damage - Overhead (Light)",
+  DAMAGE_STAB_LIGHT = "Damage - Stab (Light)",
+
   DAMAGE_SPECIAL = "Damage - Special",
   DAMAGE_CHARGE = "Damage - Charge",
   DAMAGE_LEAP = "Damage - Leap",
@@ -75,9 +76,7 @@ export enum MetricLabel {
 }
 
 export function unitGroup(path: MetricPath) {
-  if (path.startsWith("rangedAttack")) {
-    return Unit.RANGED_DAMAGE;
-  } else if (path.includes(".damage")) {
+  if (path.includes(".damage")) {
     return Unit.DAMAGE;
   } else if (path.includes(".windup")) {
     return Unit.SPEED;
@@ -89,10 +88,6 @@ export function unitGroup(path: MetricPath) {
 
 export const DAMAGE_METRICS = Object.values(MetricPath).filter(
   (m) => unitGroup(m) === Unit.DAMAGE
-);
-
-export const RANGED_DAMAGE_METRICS = Object.values(MetricPath).filter(
-  (m) => unitGroup(m) === Unit.RANGED_DAMAGE
 );
 
 export const RANGE_METRICS = Object.values(MetricPath).filter(
