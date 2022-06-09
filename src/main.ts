@@ -282,28 +282,29 @@ Object.values(MetricLabel).forEach((r) => {
 // Clear all weapon selections
 function clear() {
   selectedWeapons.clear();
-  redraw();
-
   while (displayedWeapons.firstChild) {
     displayedWeapons.removeChild(displayedWeapons.firstChild);
   }
 
+  addWeapon(weaponByName("Polehammer")!)
+  redraw();
   updateSearchResults();
 }
 
 // Choose 3 random weapons
 function random() {
   clear();
-  const random = shuffle(ALL_WEAPONS);
-  random.slice(0, 3).forEach(addWeapon);
+  const random = shuffle(ALL_WEAPONS.filter(x => x.name != "Polehammer"));
+  random.slice(0, 2).forEach(addWeapon);
 }
 
 // Choose all weapons
 function all() {
-  clear();
   ALL_WEAPONS.forEach((w) => {
-    selectedWeapons.add(w);
-    addWeaponDiv(w);
+    if(!selectedWeapons.has(w)) {
+      selectedWeapons.add(w);
+      addWeaponDiv(w);
+    }
   });
   updateSearchResults();
   redraw();
