@@ -157,7 +157,7 @@ function redrawTable(dataset: WeaponStats) {
     unitStatDataset.set(w.name, dataset.get(w.name)!);
   });
 
-  let unitStatSubset = unitGroupStats(unitStatDataset);
+  let columnMinMaxes: Map<string, {min: number, max: number}> = new Map();
 
   let sortedCategories = Array.from(selectedCategories);
   sortedCategories.sort((a,b) => {
@@ -203,6 +203,8 @@ function redrawTable(dataset: WeaponStats) {
   table.appendChild(head);
 
   selectedWeapons.forEach(weapon => {
+    let weaponData = dataset.get(weapon.name)!;
+
     let row = document.createElement("tr");
 
     let firstCell = document.createElement("th");
@@ -212,7 +214,15 @@ function redrawTable(dataset: WeaponStats) {
     row.appendChild(firstCell);
 
     sortedCategories.forEach(category => {
-      let metric = dataset.get(weapon.name)!.get(category)!;
+      let metric = weaponData.get(category)!;
+
+      if(!columnMinMaxes.has(category)) {
+        let set = Array.from(selectedWeapons).map(w => {
+          return dataset.get(w.name)!.get(category)!.value;
+        });
+        columnMinMaxes.set(category, { min: Math.min(...set), max: Math.max(...set) });
+      }
+
       let cellContent = metric.unit == Unit.SPEED ? 
         (Math.round(metric.value*100)/100).toString() : 
         Math.round(metric.value).toString(); // First cells should be the weapon name
@@ -220,7 +230,7 @@ function redrawTable(dataset: WeaponStats) {
       let cell = document.createElement("td");
       cell.innerHTML = cellContent;
       cell.className = "border";
-      cell.style.backgroundColor = metricColor(metric.value, unitStatSubset.get(metric.unit)!);
+      cell.style.backgroundColor = metricColor(metric.value, columnMinMaxes.get(category)!);
 
       row.appendChild(cell);
 
