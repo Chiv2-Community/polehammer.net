@@ -62,7 +62,7 @@ function chartData(
         data: [...sortedCategories].map((c) => {
           const metric = dataset.get(w.name)!.get(c)!;
           let value = metric.value;
-          const maybeUnitStats = normalizationStats.get(metric.unit);
+          const maybeUnitStats = normalizationStats.get(c);
           if (maybeUnitStats) {
             const unitMin = maybeUnitStats!.min;
             const unitMax = maybeUnitStats!.max;
@@ -113,7 +113,9 @@ const bars = new Array<Chart>();
 
 function createBarChart(element: HTMLCanvasElement, category: MetricLabel) {
   const barUnitStats: UnitStats = new Map();
-  barUnitStats.set(Unit.SPEED, unitStats.get(Unit.SPEED)!);
+  if(category.includes("Speed")) {
+    barUnitStats.set(category, unitStats.get(category)!);
+  }
 
   return new Chart(element as HTMLCanvasElement, {
     type: "bar",
