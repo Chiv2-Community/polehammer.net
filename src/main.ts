@@ -1,6 +1,6 @@
 import { Chart, ChartData, registerables } from "chart.js";
 import ALL_WEAPONS, { weaponByName } from "./all_weapons";
-import { LabelledMetrics, MetricLabel, Unit } from "./metrics";
+import { MetricLabel, Unit } from "./metrics";
 import {
   generateMetrics,
   unitGroupStats,
@@ -153,14 +153,7 @@ function redrawBars() {
   });
 }
 
-function redrawTable(dataset: WeaponStats) {
-  let unitStatDataset = new Map<string, LabelledMetrics>();
-  selectedWeapons.forEach(w => {
-    unitStatDataset.set(w.name, dataset.get(w.name)!);
-  });
-
-  let columnMinMaxes: Map<string, {min: number, max: number}> = new Map();
-
+function redrawTable(dataset: WeaponStats, unitStats: UnitStats) {
   let sortedCategories = Array.from(selectedCategories);
   sortedCategories.sort((a,b) => {
     return Object.values(MetricLabel).indexOf(a) - Object.values(MetricLabel).indexOf(b);
@@ -218,13 +211,6 @@ function redrawTable(dataset: WeaponStats) {
     sortedCategories.forEach(category => {
       let metric = weaponData.get(category)!;
 
-      if(!columnMinMaxes.has(category)) {
-        let set = Array.from(selectedWeapons).map(w => {
-          return dataset.get(w.name)!.get(category)!.value;
-        });
-        columnMinMaxes.set(category, { min: Math.min(...set), max: Math.max(...set) });
-      }
-
       let cellContent = metric.unit == Unit.SPEED ? 
         (Math.round(metric.value*100)/100).toString() : 
         Math.round(metric.value).toString(); // First cells should be the weapon name
@@ -232,7 +218,7 @@ function redrawTable(dataset: WeaponStats) {
       let cell = document.createElement("td");
       cell.innerHTML = cellContent;
       cell.className = "border";
-      cell.style.backgroundColor = metricColor(metric.value, columnMinMaxes.get(category)!);
+      cell.style.backgroundColor = metricColor(metric.value, unitStats.get(category)!);
 
       row.appendChild(cell);
 
@@ -253,7 +239,7 @@ function redraw() {
   radar.update();
 
   redrawBars();
-  redrawTable(stats);
+  redrawTable(stats, unitStats);
 
   // Update content of location string so we can share
   const params = new URLSearchParams();
