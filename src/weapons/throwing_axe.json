@@ -2,7 +2,9 @@
   "name": "Throwing Axe",
   "weaponTypes": [
     "Axe",
-    "One Handed"
+    "One Handed",
+    "Skirmisher", "Archer",
+    "Knight", "Crusader"
   ],
   "damageType": "Chop",
   "attacks": {

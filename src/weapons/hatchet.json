@@ -2,7 +2,11 @@
   "name": "Hatchet",
   "weaponTypes": [
     "Axe",
-    "One Handed"
+    "One Handed",
+    "Archer", "Longbowman",
+    "Vanguard", "Ambusher",
+    "Footman", "Poleman",
+    "Knight", "Guardian"
   ],
   "damageType": "Chop",
   "attacks": {

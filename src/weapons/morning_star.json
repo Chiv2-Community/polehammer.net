@@ -2,7 +2,11 @@
   "name": "Morning Star",
   "weaponTypes": [
     "One Handed",
-    "Club"
+    "Club",
+    "Man at Arms",
+    "Footman",
+    "Knight",
+    "Crusader"
   ],
   "damageType": "Blunt",
   "twoHanded": false,

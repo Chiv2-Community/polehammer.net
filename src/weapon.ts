@@ -177,6 +177,24 @@ export enum WeaponType {
   BOW = "Bow",
   TWO_HANDED = "Two Handed",
   ONE_HANDED = "One Handed",
+
+  ARCHER = "Archer",
+  LONGBOWMAN = "Longbowman",
+  CROSSBOWMAN = "Crossbowman",
+  SKIRMISHER = "Skirmisher",
+
+  VANGUARD = "Vanguard",
+  DEVASTATOR = "Devastator",
+  RAIDER = "Raider",
+  AMBUSHER = "Ambusher",
+  FOOTMAN = "Footman",
+  POLEMAN = "Poleman",
+  MAN_AT_ARMS = "Man at Arms",
+  ENGINEER = "Engineer",
+  KNIGHT = "Knight",
+  OFFICER = "Officer",
+  GUARDIAN = "Guardian",
+  CRUSADER = "Crusader"
 }
 
 export enum SwingType {

@@ -2,7 +2,8 @@
   "name": "Shovel",
   "weaponTypes": [
     "Tool",
-    "Two Handed"
+    "Two Handed",
+    "Footman", "Engineer"
   ],
   "damageType": "Blunt",
   "attacks": {

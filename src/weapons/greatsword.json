@@ -2,7 +2,8 @@
   "name": "Greatsword",
   "weaponTypes": [
     "Sword",
-    "Two Handed"
+    "Two Handed",
+    "Vanguard", "Devastator", "Knight", "Officer"
   ],
   "damageType": "Cut",
   "attacks": {

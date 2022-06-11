@@ -2,7 +2,9 @@
   "name": "Dagger",
   "weaponTypes": [
     "Dagger",
-    "One Handed"
+    "One Handed",
+    "Vanguard",
+    "Ambusher"
   ],
   "damageType": "Cut",
   "attacks": {

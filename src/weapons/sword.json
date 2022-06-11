@@ -2,7 +2,9 @@
   "name": "Sword",
   "weaponTypes": [
     "Sword",
-    "One Handed"
+    "One Handed",
+    "Knight", "Officer",
+    "Footman", "Man at Arms"
   ],
   "damageType": "Cut",
   "attacks": {

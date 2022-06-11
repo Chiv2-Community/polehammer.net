@@ -2,7 +2,11 @@
   "name": "One Handed Spear",
   "weaponTypes": [
     "Spear",
-    "One Handed"
+    "One Handed",
+    "Footman",
+    "Man at Arms",
+    "Knight",
+    "Guardian"
   ],
   "damageType": "Cut",
   "attacks": {

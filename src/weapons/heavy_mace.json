@@ -2,7 +2,8 @@
   "name": "Heavy Mace",
   "weaponTypes": [
     "Club",
-    "Two Handed"
+    "Two Handed",
+    "Knight", "Officer"
   ],
   "damageType": "Blunt",
   "attacks": {

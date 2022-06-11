@@ -2,7 +2,8 @@
   "name": "Maul",
   "weaponTypes": [
     "Hammer",
-    "Two Handed"
+    "Two Handed",
+    "Vanguard", "Devastator"
   ],
   "damageType": "Blunt",
   "attacks": {

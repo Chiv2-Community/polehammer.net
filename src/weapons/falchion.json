@@ -2,7 +2,10 @@
   "name": "Falchion",
   "weaponTypes": [
     "Sword",
-    "One Handed"
+    "One Handed",
+    "Archer",
+    "Skirmisher",
+    "Footman", "Man at Arms", "Crusader", "Knight"
   ],
   "damageType": "Cut",
   "attacks": {

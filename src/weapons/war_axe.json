@@ -2,7 +2,8 @@
   "name": "War Axe",
   "weaponTypes": [
     "Axe",
-    "Two Handed"
+    "Two Handed",
+    "Officer", "Knight"
   ],
   "damageType": "Chop",
   "attacks": {

@@ -2,7 +2,9 @@
   "name": "Poleaxe",
   "weaponTypes": [
     "Axe",
-    "Two Handed"
+    "Two Handed",
+    "Knight", 
+    "Officer"
   ],
   "damageType": "Chop",
   "attacks": {

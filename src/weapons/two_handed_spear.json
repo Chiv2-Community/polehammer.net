@@ -2,7 +2,8 @@
   "name": "Two Handed Spear",
   "weaponTypes": [
     "Spear",
-    "Two Handed"
+    "Two Handed",
+    "Poleman", "Footman"
   ],
   "damageType": "Cut",
   "attacks": {

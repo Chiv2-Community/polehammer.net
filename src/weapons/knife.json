@@ -2,7 +2,16 @@
   "name": "Knife",
   "weaponTypes": [
     "Dagger",
-    "One Handed"
+    "One Handed",
+    "Archer",
+    "Crossbowman",
+    "Skirmisher",
+    "Devastator",
+    "Raider",
+    "Poleman",
+    "Man at Arms",
+    "Vanguard",
+    "Footman"
   ],
   "damageType": "Cut",
   "attacks": {

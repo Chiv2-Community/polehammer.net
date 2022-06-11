@@ -3,7 +3,8 @@
   "weaponTypes": [
     "Tool",
     "Axe",
-    "One Handed"
+    "One Handed",
+    "Footman", "Engineer"
   ],
   "damageType": "Chop",
   "attacks": {

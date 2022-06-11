@@ -2,7 +2,10 @@
   "name": "Mace",
   "weaponTypes": [
     "Club",
-    "One Handed"
+    "One Handed",
+    "Archer", "Skirmisher",
+    "Footman", "Man at Arms",
+    "Knight", "Officer", "Guardian"
   ],
   "damageType": "Blunt",
   "attacks": {

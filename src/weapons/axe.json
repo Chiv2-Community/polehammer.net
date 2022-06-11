@@ -2,7 +2,14 @@
   "name": "Axe",
   "weaponTypes": [
     "Axe",
-    "One Handed"
+    "One Handed",
+    "Archer","Knight","Footman",
+    "Crossbowman",
+    "Skirmisher",
+    "Man at Arms",
+    "Officer",
+    "Guardian",
+    "Crusader"
   ],
   "damageType": "Chop",
   "attacks": {
