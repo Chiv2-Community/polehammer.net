@@ -2,6 +2,7 @@
   "name": "Poleaxe",
   "weaponTypes": [
     "Axe",
+    "Polearm", 
     "Two Handed",
     "Knight", 
     "Officer"
