@@ -151,7 +151,7 @@ function redrawBars() {
   });
 }
 
-function redrawTable(dataset: WeaponStats, unitStats: UnitStats) {
+function redrawTable(dataset: WeaponStats) {
   let unitStatDataset = new Map<string, LabelledMetrics>();
   selectedWeapons.forEach(w => {
     unitStatDataset.set(w.name, dataset.get(w.name)!);
@@ -241,7 +241,7 @@ function redraw() {
   radar.update();
 
   redrawBars();
-  redrawTable(stats, unitStats);
+  redrawTable(stats);
 
   // Update content of location string so we can share
   const params = new URLSearchParams();
