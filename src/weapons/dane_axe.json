@@ -2,7 +2,9 @@
   "name": "Dane Axe",
   "weaponTypes": [
     "Axe",
-    "Two Handed"
+    "Two Handed",
+    "Vanguard",
+    "Radier"
   ],
   "damageType": "Chop",
   "attacks": {

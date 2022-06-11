@@ -2,7 +2,8 @@
   "name": "Longsword",
   "weaponTypes": [
     "Sword",
-    "One Handed"
+    "One Handed",
+    "Knight", "Officer"
   ],
   "damageType": "Cut",
   "twoHanded": false,

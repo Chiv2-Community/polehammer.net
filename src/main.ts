@@ -9,9 +9,9 @@ import {
 } from "./stats";
 import "./style.scss";
 import { Target } from "./target";
-import { borderDash, weaponColor, weaponDash } from "./ui";
+import { borderDash, weaponColor, weaponDash, metricColor } from "./ui";
 import { shuffle } from "./util";
-import { Weapon } from "./weapon";
+import { Weapon, WeaponType } from "./weapon";
 
 Chart.defaults.font.family = "'Lato', sans-serif";
 Chart.register(...registerables); // the auto import stuff was making typescript angry.
@@ -20,7 +20,6 @@ let selectedTarget = Target.AVERAGE;
 let numberOfTargets = 1;
 let stats: WeaponStats = generateMetrics(ALL_WEAPONS, 1, Target.VANGUARD_ARCHER);
 let unitStats: UnitStats = unitGroupStats(stats);
-console.log(unitStats)
 
 const selectedWeapons: Set<Weapon> = new Set<Weapon>();
 const selectedCategories: Set<MetricLabel> = new Set<MetricLabel>();
@@ -63,7 +62,7 @@ function chartData(
         data: [...sortedCategories].map((c) => {
           const metric = dataset.get(w.name)!.get(c)!;
           let value = metric.value;
-          const maybeUnitStats = normalizationStats.get(metric.unit);
+          const maybeUnitStats = normalizationStats.get(c);
           if (maybeUnitStats) {
             const unitMin = maybeUnitStats!.min;
             const unitMax = maybeUnitStats!.max;
@@ -114,7 +113,9 @@ const bars = new Array<Chart>();
 
 function createBarChart(element: HTMLCanvasElement, category: MetricLabel) {
   const barUnitStats: UnitStats = new Map();
-  barUnitStats.set(Unit.SPEED, unitStats.get(Unit.SPEED)!);
+  if(category.includes("Speed")) {
+    barUnitStats.set(category, unitStats.get(category)!);
+  }
 
   return new Chart(element as HTMLCanvasElement, {
     type: "bar",
@@ -152,6 +153,84 @@ function redrawBars() {
   });
 }
 
+function redrawTable(dataset: WeaponStats, unitStats: UnitStats) {
+  let sortedCategories = Array.from(selectedCategories);
+  sortedCategories.sort((a,b) => {
+    return Object.values(MetricLabel).indexOf(a) - Object.values(MetricLabel).indexOf(b);
+  });
+
+  const tableElem = document.getElementById("statTable")!;
+  tableElem.innerHTML = "";
+
+  const table = document.createElement("table");
+  table.className = "table";
+
+  const head = document.createElement("thead");
+  const headRow = document.createElement("tr");
+
+  let headers = [""]; // Leave name column blank
+  sortedCategories.forEach((c) => {
+    headers.push(c);
+  });
+
+  let first = false;
+  headers.forEach(header => {
+    let headerCol = document.createElement("th");
+    let headerDiv = document.createElement("div");
+    let headerSpan = document.createElement("span");
+
+    if(!first)
+      headerCol.className = "rotated-text";
+
+    headerCol.scope = "col";
+
+    headerSpan.innerHTML = header;
+    headerSpan.className = "border-bottom";
+
+
+    headerDiv.appendChild(headerSpan);
+    headerCol.appendChild(headerDiv);
+    headRow.appendChild(headerCol);
+
+    first = false;
+  });
+  head.appendChild(headRow);
+  table.appendChild(head);
+
+  selectedWeapons.forEach(weapon => {
+    let weaponData = dataset.get(weapon.name)!;
+
+    let row = document.createElement("tr");
+
+    let firstCell = document.createElement("th");
+    firstCell.innerHTML = weapon.name;
+    firstCell.scope = "row";
+    firstCell.className = "border w-25";
+    row.appendChild(firstCell);
+
+    sortedCategories.forEach(category => {
+      let metric = weaponData.get(category)!;
+
+      let cellContent = metric.unit == Unit.SPEED ? 
+        (Math.round(metric.value*100)/100).toString() : 
+        Math.round(metric.value).toString(); // First cells should be the weapon name
+
+      let cell = document.createElement("td");
+      cell.innerHTML = cellContent;
+      cell.className = "border";
+      cell.style.backgroundColor = metricColor(metric.value, unitStats.get(category)!);
+
+      row.appendChild(cell);
+
+      first = false;
+    });
+    table.appendChild(row);
+  });
+  
+  tableElem.appendChild(table);
+
+}
+
 function redraw() {
   stats = generateMetrics(ALL_WEAPONS, numberOfTargets, selectedTarget)
   unitStats = unitGroupStats(stats);
@@ -160,6 +239,7 @@ function redraw() {
   radar.update();
 
   redrawBars();
+  redrawTable(stats, unitStats);
 
   // Update content of location string so we can share
   const params = new URLSearchParams();
@@ -346,6 +426,21 @@ numberOfTargetsInput.oninput = () => {
   numberOfTargets = Number.parseInt(numberOfTargetsInput.value)
   redraw();
 }
+
+let presetsSelect = document.querySelector<HTMLSelectElement>("#presetsSelect")!;
+
+Object.values(WeaponType).forEach(wt => {
+  let elem = new Option(wt, wt) 
+  presetsSelect.add(elem);
+});
+
+presetsSelect.onchange = (_ => {
+  clear();
+  let preset = presetsSelect.value
+  ALL_WEAPONS.filter(w => w.weaponTypes.includes(preset as WeaponType)).forEach(w => {
+    addWeapon(w);
+  });
+});
 
 // Use query string to init values if possible
 const params = new URLSearchParams(location.search);

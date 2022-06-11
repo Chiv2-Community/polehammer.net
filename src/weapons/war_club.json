@@ -2,7 +2,8 @@
   "name": "War Club",
   "weaponTypes": [
     "Club",
-    "Two Handed"
+    "Two Handed",
+    "Vanguard", "Devastator"
   ],
   "damageType": "Blunt",
   "attacks": {

@@ -2,7 +2,11 @@
   "name": "Battle Axe",
   "weaponTypes": [
     "Axe",
-    "Two Handed"
+    "Two Handed",
+    "Devastator",
+    "Vanguard",
+    "Knight",
+    "Crusader"
   ],
   "damageType": "Chop",
   "attacks": {

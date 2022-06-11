@@ -2,7 +2,8 @@
   "name": "Messer",
   "weaponTypes": [
     "Sword",
-    "Two Handed"
+    "Two Handed",
+    "Vanguard", "Raider", "Knight", "Crusader"
   ],
   "damageType": "Cut",
   "twoHanded": true,

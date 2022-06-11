@@ -3,7 +3,11 @@
   "weaponTypes": [
     "Polearm",
     "Axe",
-    "Two Handed"
+    "Two Handed",
+    "Vanguard", 
+    "Raider",
+    "Footman", 
+    "Poleman"
   ],
   "damageType": "Chop",
   "attacks": {

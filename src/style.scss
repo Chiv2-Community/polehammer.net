@@ -104,3 +104,33 @@ fieldset small {
   margin-bottom: 0.1em;
   opacity: 50%;
 }
+
+table {
+  border-collapse: collapse;
+  --table-border-width: 1px;
+}
+
+th.rotated-text{
+  white-space: nowrap;
+  position: relative;
+}
+th.rotated-text > div {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  text-align: left;
+  transform:
+    translate(calc(100% - var(--table-border-width) / 2), var(--table-border-width))
+    rotate(315deg);
+  transform-origin: 0% calc(100% - var(--table-border-width));
+}
+th.rotated-text > div > span {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+
+td {
+  text-align: right;
+}

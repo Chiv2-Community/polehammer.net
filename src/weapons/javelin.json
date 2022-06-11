@@ -2,7 +2,9 @@
   "name": "Javelin",
   "weaponTypes": [
     "Spear",
-    "One Handed"
+    "One Handed",
+    "Archer", 
+    "Skirmisher"
   ],
   "damageType": "Cut",
   "attacks": {

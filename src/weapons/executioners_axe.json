@@ -2,7 +2,9 @@
   "name": "Executioner's Axe",
   "weaponTypes": [
     "Axe",
-    "Two Handed"
+    "Two Handed",
+    "Crusader", "Knight",
+    "Vanguard", "Devastator"
   ],
   "damageType": "Chop",
   "attacks": {

@@ -8,14 +8,13 @@ import {
   MetricPath,
   RANGE_METRICS,
   SPEED_METRICS,
-  Unit,
 } from "./metrics";
 import { Target } from "./target";
 import { withBonusMultipliers, Weapon } from "./weapon";
 
 export type WeaponStats = Map<string, LabelledMetrics>;
 
-export type UnitStats = Map<Unit, { min: number; max: number }>;
+export type UnitStats = Map<MetricLabel, { min: number; max: number }>;
 
 function average(lst: number[]) {
   if (lst.length > 0) return lst.reduce((a, b) => a + b) / lst.length;
@@ -124,20 +123,20 @@ export function generateMetrics(inputWeapons: Weapon[], numberOfTargets: number,
 // Across given weapon stats, calculate min and max (at max possible bonus)
 // values for use in normalizing results for chart display
 export function unitGroupStats(weaponStats: WeaponStats) {
-  const unitGroupStats = new Map<Unit, { min: number; max: number }>();
+  const unitGroupStats = new Map<MetricLabel, { min: number; max: number }>();
 
   // Across each weapon
   for (const [_, stats] of weaponStats) {
     // Across each stat
-    for (const [, metric] of stats) {
-      const existing = unitGroupStats.get(metric.unit);
+    for (const [l, metric] of stats) {
+      const existing = unitGroupStats.get(l);
       if (existing === undefined) {
-        unitGroupStats.set(metric.unit, {
+        unitGroupStats.set(l, {
           min: metric.value,
           max: metric.value,
         });
       } else {
-        unitGroupStats.set(metric.unit, {
+        unitGroupStats.set(l, {
           min: Math.min(existing.min, metric.value),
           max: Math.max(existing.max, metric.value),
         });

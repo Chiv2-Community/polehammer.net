@@ -2,7 +2,11 @@
   "name": "Two Handed Hammer",
   "weaponTypes": [
     "Hammer",
-    "Two Handed"
+    "Two Handed",
+    "Knight",
+    "Crusader",
+    "Vanguard",
+    "Raider"
   ],
   "damageType": "Blunt",
   "attacks": {

@@ -2,7 +2,11 @@
   "name": "Short Sword",
   "weaponTypes": [
     "Sword",
-    "One Handed"
+    "One Handed",
+    "Archer", "Longbowman", "Crossbowman",
+    "Vanguard", "Ambusher",
+    "Footman", "Poleman", "Man at Arms",
+    "Knight", "Guardian"
   ],
   "damageType": "Cut",
   "attacks": {

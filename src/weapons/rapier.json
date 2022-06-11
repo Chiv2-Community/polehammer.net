@@ -2,7 +2,9 @@
   "name": "Rapier",
   "weaponTypes": [
     "Sword",
-    "One Handed"
+    "One Handed",
+    "Man at Arms", 
+    "Footman"
   ],
   "damageType": "Cut",
   "attacks": {

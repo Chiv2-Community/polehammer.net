@@ -2,7 +2,14 @@
   "name": "Cudgel",
   "weaponTypes": [
     "Club",
-    "One Handed"
+    "One Handed",
+    "Longbowman",
+    "Archer",
+    "Crossbowman",
+    "Vanguard",
+    "Ambusher",
+    "Poleman",
+    "Footman"
   ],
   "damageType": "Blunt",
   "attacks": {

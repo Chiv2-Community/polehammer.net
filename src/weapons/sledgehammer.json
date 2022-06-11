@@ -2,7 +2,9 @@
   "name": "Sledgehammer",
   "weaponTypes": [
     "Hammer",
-    "Two Handed"
+    "Two Handed",
+    "Footman",
+    "Engineer"
   ],
   "damageType": "Blunt",
   "attacks": {

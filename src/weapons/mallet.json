@@ -2,7 +2,8 @@
   "name": "Mallet",
   "weaponTypes": [
     "Hammer",
-    "One Handed"
+    "One Handed",
+    "Vanguard", "Devastator"
   ],
   "damageType": "Blunt",
   "attacks": {

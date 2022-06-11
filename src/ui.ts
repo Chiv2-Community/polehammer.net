@@ -15,11 +15,19 @@ const PALETTE_DEGS = [...Array(PALETTE_SIZE)].map((_, idx) => {
   return (idx * 360) / PALETTE_SIZE + (idx % 2) * 180;
 });
 
-export function weaponColor(weapon: Weapon, opacity: number) {
+export function weaponColor(weapon: Weapon, opacity: number): string {
   const idx = ALL_WEAPONS.indexOf(weapon);
   return `hsl(${
     PALETTE_DEGS[idx % PALETTE_DEGS.length]
   }deg, ${SATURATION}, ${LIGHTNESS}, ${opacity})`;
+}
+
+export function metricColor(value: number, range: {min: number; max: number}): string {
+  let size = range.max - range.min
+  let relativeValue = value - range.min;
+  let hueOffset = relativeValue/size * 120
+
+  return `hsl(${hueOffset}deg, ${SATURATION}, ${LIGHTNESS}, ${0.5})`;
 }
 
 export function weaponDash(weapon: Weapon) {

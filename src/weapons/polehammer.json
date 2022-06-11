@@ -3,7 +3,9 @@
   "weaponTypes": [
     "Hammer",
     "Polearm",
-    "Two Handed"
+    "Two Handed",
+    "Footman",
+    "Poleman"
   ],
   "damageType": "Blunt",
   "attacks": {
