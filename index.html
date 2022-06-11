@@ -17,7 +17,7 @@
     <link rel="canonical" href="https://polehammer.net" />
   </head>
   <body>
-    <div class="container main-content">
+    <div class="container-flex main-content">
       <div class="row">
         <div class="col-md-6 col-lg-3 col-xl-2 p-1">
           <div class="border rounded p-2 mb-2">
@@ -141,6 +141,20 @@
             <li class="nav-item" role="presentation">
               <button
                 class="nav-link"
+                id="table-content-tab"
+                data-bs-toggle="tab"
+                data-bs-target="#table-content"
+                type="button"
+                role="tab"
+                aria-controls="table-content"
+                aria-selected="false"
+              >
+                Table 
+              </button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button
+                class="nav-link"
                 id="data-collection-content-tab"
                 data-bs-toggle="tab"
                 data-bs-target="#data-collection-content"
@@ -169,6 +183,15 @@
               aria-labelledby="bars-content-tab"
             >
               <div id="bars" class="row"></div>
+            </div>
+            <div
+              class="tab-pane fade"
+              id="table-content"
+              role="tabpanel"
+              aria-labelledby="table-content-tab"
+            >
+              <div id="statTable" class=".table-responsive" style="margin-top:9.1rem;margin-right:7rem;display:flex; flex-direction:column; justify-content: space-around;">
+              </div>
             </div>
             <div
               class="tab-pane fade"

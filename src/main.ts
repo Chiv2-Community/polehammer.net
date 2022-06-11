@@ -1,6 +1,6 @@
 import { Chart, ChartData, registerables } from "chart.js";
 import ALL_WEAPONS, { weaponByName } from "./all_weapons";
-import { MetricLabel, Unit } from "./metrics";
+import { LabelledMetrics, MetricLabel, Unit } from "./metrics";
 import {
   generateMetrics,
   unitGroupStats,
@@ -9,7 +9,7 @@ import {
 } from "./stats";
 import "./style.scss";
 import { Target } from "./target";
-import { borderDash, weaponColor, weaponDash } from "./ui";
+import { borderDash, weaponColor, weaponDash, metricColor } from "./ui";
 import { shuffle } from "./util";
 import { Weapon } from "./weapon";
 
@@ -20,7 +20,6 @@ let selectedTarget = Target.AVERAGE;
 let numberOfTargets = 1;
 let stats: WeaponStats = generateMetrics(ALL_WEAPONS, 1, Target.VANGUARD_ARCHER);
 let unitStats: UnitStats = unitGroupStats(stats);
-console.log(unitStats)
 
 const selectedWeapons: Set<Weapon> = new Set<Weapon>();
 const selectedCategories: Set<MetricLabel> = new Set<MetricLabel>();
@@ -152,6 +151,88 @@ function redrawBars() {
   });
 }
 
+function redrawTable(dataset: WeaponStats, unitStats: UnitStats) {
+  let unitStatDataset = new Map<string, LabelledMetrics>();
+  selectedWeapons.forEach(w => {
+    unitStatDataset.set(w.name, dataset.get(w.name)!);
+  });
+
+  let unitStatSubset = unitGroupStats(unitStatDataset);
+
+  let sortedCategories = Array.from(selectedCategories);
+  sortedCategories.sort((a,b) => {
+    return Object.values(MetricLabel).indexOf(a) - Object.values(MetricLabel).indexOf(b);
+  });
+
+  const tableElem = document.getElementById("statTable")!;
+  tableElem.innerHTML = "";
+
+  const table = document.createElement("table");
+  table.className = "table";
+
+  const head = document.createElement("thead");
+  const headRow = document.createElement("tr");
+
+  let headers = [""]; // Leave name column blank
+  sortedCategories.forEach((c) => {
+    headers.push(c);
+  });
+
+  let first = false;
+  headers.forEach(header => {
+    let headerCol = document.createElement("th");
+    let headerDiv = document.createElement("div");
+    let headerSpan = document.createElement("span");
+
+    if(!first)
+      headerCol.className = "rotated-text";
+
+    headerCol.scope = "col";
+
+    headerSpan.innerHTML = header;
+    headerSpan.className = "border-bottom";
+
+
+    headerDiv.appendChild(headerSpan);
+    headerCol.appendChild(headerDiv);
+    headRow.appendChild(headerCol);
+
+    first = false;
+  });
+  head.appendChild(headRow);
+  table.appendChild(head);
+
+  selectedWeapons.forEach(weapon => {
+    let row = document.createElement("tr");
+
+    let firstCell = document.createElement("th");
+    firstCell.innerHTML = weapon.name;
+    firstCell.scope = "row";
+    firstCell.className = "border";
+    row.appendChild(firstCell);
+
+    sortedCategories.forEach(category => {
+      let metric = dataset.get(weapon.name)!.get(category)!;
+      let cellContent = metric.unit == Unit.SPEED ? 
+        (Math.round(metric.value*100)/100).toString() : 
+        Math.round(metric.value).toString(); // First cells should be the weapon name
+
+      let cell = document.createElement("td");
+      cell.innerHTML = cellContent;
+      cell.className = "border";
+      cell.style.backgroundColor = metricColor(metric.value, unitStatSubset.get(metric.unit)!);
+
+      row.appendChild(cell);
+
+      first = false;
+    });
+    table.appendChild(row);
+  });
+  
+  tableElem.appendChild(table);
+
+}
+
 function redraw() {
   stats = generateMetrics(ALL_WEAPONS, numberOfTargets, selectedTarget)
   unitStats = unitGroupStats(stats);
@@ -160,6 +241,7 @@ function redraw() {
   radar.update();
 
   redrawBars();
+  redrawTable(stats, unitStats);
 
   // Update content of location string so we can share
   const params = new URLSearchParams();
