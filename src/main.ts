@@ -11,7 +11,7 @@ import "./style.scss";
 import { Target } from "./target";
 import { borderDash, weaponColor, weaponDash, metricColor } from "./ui";
 import { shuffle } from "./util";
-import { Weapon } from "./weapon";
+import { Weapon, WeaponType } from "./weapon";
 
 Chart.defaults.font.family = "'Lato', sans-serif";
 Chart.register(...registerables); // the auto import stuff was making typescript angry.
@@ -438,6 +438,21 @@ numberOfTargetsInput.oninput = () => {
   numberOfTargets = Number.parseInt(numberOfTargetsInput.value)
   redraw();
 }
+
+let presetsSelect = document.querySelector<HTMLSelectElement>("#presetsSelect")!;
+
+Object.values(WeaponType).forEach(wt => {
+  let elem = new Option(wt, wt) 
+  presetsSelect.add(elem);
+});
+
+presetsSelect.onchange = (_ => {
+  clear();
+  let preset = presetsSelect.value
+  ALL_WEAPONS.filter(w => w.weaponTypes.includes(preset as WeaponType)).forEach(w => {
+    addWeapon(w);
+  });
+});
 
 // Use query string to init values if possible
 const params = new URLSearchParams(location.search);
