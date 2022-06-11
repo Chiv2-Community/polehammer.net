@@ -208,7 +208,7 @@ function redrawTable(dataset: WeaponStats) {
     let firstCell = document.createElement("th");
     firstCell.innerHTML = weapon.name;
     firstCell.scope = "row";
-    firstCell.className = "border";
+    firstCell.className = "border w-25";
     row.appendChild(firstCell);
 
     sortedCategories.forEach(category => {
