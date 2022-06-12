@@ -21,8 +21,8 @@ function average(lst: number[]) {
   else return 0;
 }
 
-export function generateMetrics(inputWeapons: Weapon[], numberOfTargets: number, target: Target): WeaponStats {
-  const weapons = inputWeapons.map(w => withBonusMultipliers(w, numberOfTargets, target))
+export function generateMetrics(inputWeapons: Weapon[], numberOfTargets: number, horsebackDamageMult: number, target: Target): WeaponStats {
+  const weapons = inputWeapons.map(w => withBonusMultipliers(w, numberOfTargets, horsebackDamageMult, target))
   const metricGenerators = [
     // Speeds
     // Note that we invert each value within its range, because lower is better.

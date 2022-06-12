@@ -18,7 +18,8 @@ Chart.register(...registerables); // the auto import stuff was making typescript
 
 let selectedTarget = Target.AVERAGE;
 let numberOfTargets = 1;
-let stats: WeaponStats = generateMetrics(ALL_WEAPONS, 1, Target.VANGUARD_ARCHER);
+let horsebackDamageMultiplier = 1.0;
+let stats: WeaponStats = generateMetrics(ALL_WEAPONS, 1, 1, Target.VANGUARD_ARCHER);
 let unitStats: UnitStats = unitGroupStats(stats);
 
 const selectedWeapons: Set<Weapon> = new Set<Weapon>();
@@ -232,7 +233,7 @@ function redrawTable(dataset: WeaponStats, unitStats: UnitStats) {
 }
 
 function redraw() {
-  stats = generateMetrics(ALL_WEAPONS, numberOfTargets, selectedTarget)
+  stats = generateMetrics(ALL_WEAPONS, numberOfTargets, horsebackDamageMultiplier, selectedTarget)
   unitStats = unitGroupStats(stats);
 
   radar.data = chartData(stats, selectedCategories, unitStats, false);
@@ -424,6 +425,15 @@ let numberOfTargetsOutput = document.getElementById("numberOfTargetsOutput")!;
 numberOfTargetsInput.oninput = () => {
   numberOfTargetsOutput.innerHTML = numberOfTargetsInput.value
   numberOfTargets = Number.parseInt(numberOfTargetsInput.value)
+  redraw();
+}
+
+let horsebackDamageMultiplierInput = document.querySelector<HTMLInputElement>("#horsebackDamageMultiplier")!;
+let horsebackDamageMultiplierOutput = document.getElementById("horsebackDamageMultiplierOutput")!;
+
+horsebackDamageMultiplierInput.oninput = () => {
+  horsebackDamageMultiplierOutput.innerHTML = (Number.parseInt(horsebackDamageMultiplierInput.value)) + "%"
+  horsebackDamageMultiplier = Number.parseFloat(horsebackDamageMultiplierInput.value)/100.0;
   redraw();
 }
 
