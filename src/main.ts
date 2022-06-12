@@ -19,6 +19,7 @@ Chart.register(...registerables); // the auto import stuff was making typescript
 let selectedTarget = Target.AVERAGE;
 let numberOfTargets = 1;
 let horsebackDamageMultiplier = 1.0;
+
 let stats: WeaponStats = generateMetrics(ALL_WEAPONS, 1, 1, Target.VANGUARD_ARCHER);
 let unitStats: UnitStats = unitGroupStats(stats);
 
@@ -26,12 +27,8 @@ const selectedWeapons: Set<Weapon> = new Set<Weapon>();
 const selectedCategories: Set<MetricLabel> = new Set<MetricLabel>();
 const searchResults: Set<Weapon> = new Set<Weapon>();
 
-const weaponSearchResults = document.getElementById(
-  "weaponSearchResults"
-) as HTMLDivElement;
-const displayedWeapons = document.getElementById(
-  "displayedWeapons"
-) as HTMLFieldSetElement;
+const weaponSearchResults = document.querySelector<HTMLDivElement>("#weaponSearchResults")!
+const displayedWeapons = document.querySelector<HTMLFieldSetElement>("#displayedWeapons")!;
 
 function toId(str: string) {
   return str
@@ -212,7 +209,7 @@ function redrawTable(dataset: WeaponStats, unitStats: UnitStats) {
     sortedCategories.forEach(category => {
       let metric = weaponData.get(category)!;
 
-      let cellContent = metric.unit == Unit.SPEED ? 
+      let cellContent = [Unit.SPEED, Unit.POINTS].includes(metric.unit) ? 
         (Math.round(metric.value*100)/100).toString() : 
         Math.round(metric.value).toString(); // First cells should be the weapon name
 

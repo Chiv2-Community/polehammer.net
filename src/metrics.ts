@@ -34,7 +34,8 @@ export enum MetricPath {
 export enum Unit {
   SPEED = "Attacks Per Second",
   RANGE = "Knockbacks",
-  DAMAGE = "Melee Hitpoints"
+  DAMAGE = "Melee Hitpoints",
+  POINTS = "Points"
 }
 
 export enum MetricLabel {
@@ -73,6 +74,7 @@ export enum MetricLabel {
   SPEED_STAB = "Speed - Stab (Light)",
   SPEED_SPECIAL = "Speed - Special",
   // SPEED_MAX = "Speed - Max",
+  POLEHAMMER_SCORE = "Index - Polehammer"
 }
 
 export function unitGroup(path: MetricPath) {
@@ -121,13 +123,16 @@ export abstract class Metric {
 export class AggregateMetric extends Metric {
   paths: MetricPath[];
   aggregateFunction: (nums: number[]) => number;
-
+  
   constructor(
     name: MetricLabel,
     paths: MetricPath[],
-    aggregateFunc: (nums: number[]) => number
+    aggregateFunc: (nums: number[]) => number,
+    unit: Unit|null = null
   ) {
-    super(name, unitGroup(paths[0]));
+    if(unit == null)
+      unit = unitGroup(paths[0]);
+    super(name, unit);
     this.paths = paths;
     this.aggregateFunction = aggregateFunc;
   }

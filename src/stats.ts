@@ -8,6 +8,7 @@ import {
   MetricPath,
   RANGE_METRICS,
   SPEED_METRICS,
+  Unit,
 } from "./metrics";
 import { Target } from "./target";
 import { withBonusMultipliers, Weapon } from "./weapon";
@@ -102,6 +103,81 @@ export function generateMetrics(inputWeapons: Weapon[], numberOfTargets: number,
     new BasicMetric(MetricLabel.DAMAGE_RANGED_HEAD, MetricPath.DAMAGE_RANGED_HEAD),
     new BasicMetric(MetricLabel.DAMAGE_RANGED_TORSO, MetricPath.DAMAGE_RANGED_TORSO),
     new BasicMetric(MetricLabel.DAMAGE_RANGED_LEGS, MetricPath.DAMAGE_RANGED_LEGS),
+    new AggregateMetric(MetricLabel.POLEHAMMER_SCORE, [
+      MetricPath.DAMAGE_HORIZONTAL_HEAVY, 
+      MetricPath.DAMAGE_OVERHEAD_HEAVY,
+      MetricPath.DAMAGE_STAB_HEAVY, 
+
+      MetricPath.DAMAGE_HORIZONTAL_LIGHT, 
+      MetricPath.DAMAGE_OVERHEAD_LIGHT,
+      MetricPath.DAMAGE_STAB_LIGHT, 
+
+      MetricPath.DAMAGE_SPECIAL,
+
+      MetricPath.WINDUP_HORIZONTAL,
+      MetricPath.WINDUP_OVERHEAD,
+      MetricPath.WINDUP_STAB,
+      MetricPath.WINDUP_SPECIAL,
+
+      MetricPath.RANGE_HORIZONTAL,
+      MetricPath.RANGE_ALT_HORIZONTAL,
+
+      MetricPath.RANGE_OVERHEAD,
+      MetricPath.RANGE_ALT_OVERHEAD,
+
+      MetricPath.RANGE_STAB,
+      MetricPath.RANGE_ALT_STAB,
+      
+      MetricPath.DAMAGE_RANGED_HEAD,
+      MetricPath.DAMAGE_RANGED_TORSO,
+      MetricPath.DAMAGE_RANGED_LEGS
+    ], (inputs => {
+      let horizontalHeavyDamage = inputs[0],
+          overheadHeavyDamage = inputs[1],
+          stabHeavyDamage = inputs[2],
+          horizontalLightDamage = inputs[3],
+          overheadLightDamage = inputs[4],
+          stabLightDamage = inputs[5],
+          specialDamage = inputs[6],
+          horizontalWindup = inputs[7],
+          overheadWindup = inputs[8],
+          stabWindup = inputs[9],
+          specialWindup = inputs[10],
+          horizontalRange = inputs[11],
+          horizontalAltRange = inputs[12],
+          overheadRange = inputs[13],
+          overheadAltRange = inputs[14],
+          stabRange = inputs[13],
+          stabAltRange = inputs[14],
+          headRangedDamage = inputs[15],
+          torsoRangedDamage = inputs[16],
+          legsRangedDamage = inputs[17]
+
+      let averageDamageScore =
+        (horizontalHeavyDamage + horizontalLightDamage +
+        overheadHeavyDamage + overheadLightDamage +
+        stabHeavyDamage + stabLightDamage + specialDamage) / 7
+
+      let averageHeavyBuffScore = 
+        ((horizontalHeavyDamage + overheadHeavyDamage + stabHeavyDamage) -
+        (horizontalLightDamage + overheadLightDamage + stabLightDamage)) / 3
+      
+      let averageWindupScore = (horizontalWindup + overheadWindup + stabWindup + specialWindup) / 4
+      
+      let averageRangeScore = 
+        (horizontalRange + horizontalAltRange +
+        overheadRange + overheadAltRange +
+        stabRange + stabAltRange) / 6
+
+      let averageThrownDamageScore =
+        (headRangedDamage + torsoRangedDamage + legsRangedDamage) / 3
+    
+      return (averageDamageScore/2.5) + 
+        (averageHeavyBuffScore) +
+        (averageRangeScore/2.5) + 
+        (averageThrownDamageScore/5) -
+        (averageWindupScore/125);
+    }), Unit.POINTS),
   ];
 
   return new Map(
@@ -122,8 +198,8 @@ export function generateMetrics(inputWeapons: Weapon[], numberOfTargets: number,
 
 // Across given weapon stats, calculate min and max (at max possible bonus)
 // values for use in normalizing results for chart display
-export function unitGroupStats(weaponStats: WeaponStats) {
-  const unitGroupStats = new Map<MetricLabel, { min: number; max: number }>();
+export function unitGroupStats(weaponStats: WeaponStats): Map<string, { min: number; max: number; }> {
+  const unitGroupStats = new Map<string, { min: number; max: number }>();
 
   // Across each weapon
   for (const [_, stats] of weaponStats) {
