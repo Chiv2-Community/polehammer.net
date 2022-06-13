@@ -174,9 +174,9 @@ export function generateMetrics(inputWeapons: Weapon[], numberOfTargets: number,
     
       return (averageDamageScore/2.5) + 
         (averageHeavyBuffScore) +
-        (averageRangeScore/2.5) + 
+        (averageRangeScore/3) + 
         (averageThrownDamageScore/5) -
-        (averageWindupScore/125);
+        (averageWindupScore/100);
     }), Unit.POINTS),
   ];
 
