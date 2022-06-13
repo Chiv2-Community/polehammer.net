@@ -14,7 +14,7 @@ import { withBonusMultipliers, Weapon } from "./weapon";
 
 export type WeaponStats = Map<string, LabelledMetrics>;
 
-export type UnitStats = Map<MetricLabel, { min: number; max: number }>;
+export type UnitStats = Map<string, { min: number; max: number }>;
 
 function average(lst: number[]) {
   if (lst.length > 0) return lst.reduce((a, b) => a + b) / lst.length;
