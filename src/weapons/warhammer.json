@@ -2,7 +2,7 @@
   "name": "Warhammer",
   "weaponTypes": [
     "Hammer",
-    "Two Handed",
+    "One Handed",
     "Knight", "Guardian"
   ],
   "damageType": "Blunt",
