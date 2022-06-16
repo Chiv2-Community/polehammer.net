@@ -3,7 +3,7 @@
 * Available at [polehammer.net](https://polehammer.net)
 * Compare any combination of weapons using quantitative values for damage, range, and speed.
 * Visualize the damage output changes based on damage type against a given target (**Vanguard/Archer, Footman, Knight**).
-* Break down categories by attack type (**Horizontal, Overhead, Stab**) and strength (**Light, Heavy**) to see what changes.
+* Break down categories by attack type (**Slash, Overhead, Stab**) and strength (**Light, Heavy**) to see what changes.
 * Share your discoveries with friends by copying and pasting the URL or clicking the Share button.
 * Examine and use the underlying **JSON** data (`/src/weapons`)
 * Please submit pull requests for weapon stats that are incorrect as the game is updated or as weapons are added!

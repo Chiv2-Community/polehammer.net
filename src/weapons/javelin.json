@@ -8,7 +8,7 @@
   ],
   "damageType": "Cut",
   "attacks": {
-    "horizontal": {
+    "slash": {
       "range": 28,
       "altRange": 29,
       "light": {

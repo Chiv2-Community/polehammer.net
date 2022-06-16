@@ -463,7 +463,7 @@ if (params.getAll("weapon").length) {
 }
 
 if (params.getAll("category").length) {
-  params.getAll("category").map((c) => setCategory(c as MetricLabel, true));
+  params.getAll("category").map((c) => setCategory(c.replaceAll("Horizontal", "Slash") as MetricLabel, true));
 
   // Setting them failed, so just default
   if (!selectedCategories.size) {
