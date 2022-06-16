@@ -17,15 +17,15 @@ export function withBonusMultipliers(w: Weapon, numberOfTargets: number, target:
     "weaponTypes": w.weaponTypes,
     "damageType": w.damageType,
     "attacks": {
-      "horizontal": {
-        "range": w.attacks.horizontal.range,
-        "altRange": w.attacks.horizontal.altRange,
+      "slash": {
+        "range": w.attacks.slash.range,
+        "altRange": w.attacks.slash.altRange,
         "light": {
-          "windup": w.attacks.horizontal.light.windup,
-          "damage": w.attacks.horizontal.light.damage * bonusMult(numberOfTargets, target, w.damageType, canCleave(w, "attacks.horizontal.light.damage"))
+          "windup": w.attacks.slash.light.windup,
+          "damage": w.attacks.slash.light.damage * bonusMult(numberOfTargets, target, w.damageType, canCleave(w, "attacks.slash.light.damage"))
         },
         "heavy": {
-          "damage": w.attacks.horizontal.heavy.damage * bonusMult(numberOfTargets, target, w.damageType, canCleave(w, "attacks.horizontal.heavy.damage"))
+          "damage": w.attacks.slash.heavy.damage * bonusMult(numberOfTargets, target, w.damageType, canCleave(w, "attacks.slash.heavy.damage"))
         }
       },
       "overhead": {
@@ -198,7 +198,7 @@ export enum WeaponType {
 }
 
 export enum SwingType {
-  HORIZONTAL = "horizontal",
+  SLASH = "slash",
   OVERHEAD = "overhead",
   STAB = "stab",
 }

@@ -11,7 +11,7 @@
   ],
   "damageType": "Chop",
   "attacks": {
-    "horizontal": {
+    "slash": {
       "range": 36,
       "altRange": 31,
       "light": {

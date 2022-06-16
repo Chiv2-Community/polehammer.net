@@ -11,7 +11,7 @@
   "damageType": "Blunt",
   "twoHanded": false,
   "attacks": {
-    "horizontal": {
+    "slash": {
       "range": 19,
       "altRange": 20,
       "light": {
