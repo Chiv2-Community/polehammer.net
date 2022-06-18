@@ -432,8 +432,9 @@ let horsebackDamageMultiplierInput = document.querySelector<HTMLInputElement>("#
 let horsebackDamageMultiplierOutput = document.getElementById("horsebackDamageMultiplierOutput")!;
 
 horsebackDamageMultiplierInput.oninput = () => {
-  horsebackDamageMultiplierOutput.innerHTML = (Number.parseInt(horsebackDamageMultiplierInput.value)) + "%"
-  horsebackDamageMultiplier = Number.parseFloat(horsebackDamageMultiplierInput.value)/100.0;
+  let rawInput = Number.parseInt(horsebackDamageMultiplierInput.value)
+  horsebackDamageMultiplierOutput.innerHTML = rawInput + "%";
+  horsebackDamageMultiplier = 1 + rawInput/100.0;
   redraw();
 }
 
