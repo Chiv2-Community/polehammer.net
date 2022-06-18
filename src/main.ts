@@ -1,6 +1,6 @@
 import { Chart, ChartData, registerables } from "chart.js";
 import ALL_WEAPONS, { weaponByName } from "./all_weapons";
-import { MetricLabel, Unit } from "./metrics";
+import { MetricLabel } from "./metrics";
 import {
   generateMetrics,
   unitGroupStats,
@@ -61,7 +61,7 @@ function chartData(
         label: w.name,
         data: [...sortedCategories].map((c) => {
           const metric = dataset.get(w.name)!.get(c)!;
-          let value = metric.value;
+          let value = metric.value.result;
           const maybeUnitStats = normalizationStats.get(c);
           if (maybeUnitStats) {
             const unitMin = maybeUnitStats!.min;
@@ -211,18 +211,15 @@ function redrawTable(dataset: WeaponStats, unitStats: UnitStats) {
     sortedCategories.forEach(category => {
       let metric = weaponData.get(category)!;
 
-      let cellContent = metric.unit == Unit.SPEED ? 
-        (Math.round(metric.value*100)/100).toString() : 
-        Math.round(metric.value).toString(); // First cells should be the weapon name
+      let cellContent = Math.round(metric.value.rawResult).toString();
 
       let cell = document.createElement("td");
       cell.innerHTML = cellContent;
       cell.className = "border";
-      cell.style.backgroundColor = metricColor(metric.value, unitStats.get(category)!);
+      cell.style.backgroundColor = metricColor(metric.value.result, unitStats.get(category)!);
 
       row.appendChild(cell);
 
-      first = false;
     });
     table.appendChild(row);
   });
