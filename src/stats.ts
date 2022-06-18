@@ -132,13 +132,13 @@ export function unitGroupStats(weaponStats: WeaponStats) {
       const existing = unitGroupStats.get(l);
       if (existing === undefined) {
         unitGroupStats.set(l, {
-          min: metric.value,
-          max: metric.value,
+          min: metric.value.result,
+          max: metric.value.result,
         });
       } else {
         unitGroupStats.set(l, {
-          min: Math.min(existing.min, metric.value),
-          max: Math.max(existing.max, metric.value),
+          min: Math.min(existing.min, metric.value.result),
+          max: Math.max(existing.max, metric.value.result),
         });
       }
     }

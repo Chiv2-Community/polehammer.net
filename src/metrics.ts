@@ -102,9 +102,11 @@ export type LabelledMetrics = Map<
   MetricLabel,
   {
     unit: Unit;
-    value: number;
+    value: MetricResult;
   }
 >;
+
+export type MetricResult = {result: number; rawResult: number; }
 
 export abstract class Metric {
   name: MetricLabel;
@@ -115,7 +117,7 @@ export abstract class Metric {
     this.unit = unit;
   }
 
-  abstract calculate(weapon: Weapon): number;
+  abstract calculate(weapon: Weapon): MetricResult;
 }
 
 export class AggregateMetric extends Metric {
@@ -132,10 +134,15 @@ export class AggregateMetric extends Metric {
     this.aggregateFunction = aggregateFunc;
   }
 
-  calculate(weapon: Weapon): number {
-    return this.aggregateFunction(
+  calculate(weapon: Weapon): MetricResult {
+    let result = this.aggregateFunction(
       this.paths.map((prop) => extractNumber(weapon, prop))
     );
+
+    return {
+      result: result,
+      rawResult: result,
+    }
   }
 }
 
@@ -147,8 +154,12 @@ export class BasicMetric extends Metric {
     this.path = path;
   }
 
-  calculate(weapon: Weapon): number {
-    return extractNumber(weapon, this.path);
+  calculate(weapon: Weapon): MetricResult {
+    let result = extractNumber(weapon, this.path)
+    return {
+      result: result,
+      rawResult: result,
+    }
   }
 }
 
@@ -160,8 +171,12 @@ export class InverseMetric extends Metric {
     this.path = path;
   }
 
-  calculate(weapon: Weapon): number {
-    return 1000 / extractNumber(weapon, this.path);
+  calculate(weapon: Weapon): MetricResult {
+    let rawResult = extractNumber(weapon, this.path);
+    return {
+      result: 1/rawResult,
+      rawResult: rawResult
+    }
   }
 }
 
@@ -179,9 +194,14 @@ export class AggregateInverseMetric extends Metric {
     this.aggregateFunction = aggregateFunc;
   }
 
-  calculate(weapon: Weapon): number {
-    return this.aggregateFunction(
-      this.paths.map((prop) => 1000 / extractNumber(weapon, prop))
+  calculate(weapon: Weapon): MetricResult {
+    let rawResult = this.aggregateFunction(
+      this.paths.map((prop) => extractNumber(weapon, prop))
     );
+
+    return {
+      result: 1 / rawResult,
+      rawResult: rawResult,
+    }
   }
 }
