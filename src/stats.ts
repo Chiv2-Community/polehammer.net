@@ -27,8 +27,8 @@ export function generateMetrics(inputWeapons: Weapon[], numberOfTargets: number,
     // Speeds
     // Note that we invert each value within its range, because lower is better.
     new InverseMetric(
-      MetricLabel.SPEED_HORIZONTAL,
-      MetricPath.WINDUP_HORIZONTAL
+      MetricLabel.SPEED_SLASH,
+      MetricPath.WINDUP_SLASH
     ),
     new InverseMetric(MetricLabel.SPEED_OVERHEAD, MetricPath.WINDUP_OVERHEAD),
     new InverseMetric(MetricLabel.SPEED_STAB, MetricPath.WINDUP_STAB),
@@ -40,10 +40,10 @@ export function generateMetrics(inputWeapons: Weapon[], numberOfTargets: number,
     ),
 
     // Ranges
-    new BasicMetric(MetricLabel.RANGE_HORIZONTAL, MetricPath.RANGE_HORIZONTAL),
+    new BasicMetric(MetricLabel.RANGE_SLASH, MetricPath.RANGE_SLASH),
     new BasicMetric(
-      MetricLabel.RANGE_ALT_HORIZONTAL,
-      MetricPath.RANGE_ALT_HORIZONTAL
+      MetricLabel.RANGE_ALT_SLASH,
+      MetricPath.RANGE_ALT_SLASH
     ),
     new BasicMetric(MetricLabel.RANGE_OVERHEAD, MetricPath.RANGE_OVERHEAD),
     new BasicMetric(
@@ -57,12 +57,12 @@ export function generateMetrics(inputWeapons: Weapon[], numberOfTargets: number,
 
     // Damages
     new BasicMetric(
-      MetricLabel.DAMAGE_HORIZONTAL_LIGHT,
-      MetricPath.DAMAGE_HORIZONTAL_LIGHT
+      MetricLabel.DAMAGE_SLASH_LIGHT,
+      MetricPath.DAMAGE_SLASH_LIGHT
     ),
     new BasicMetric(
-      MetricLabel.DAMAGE_HORIZONTAL_HEAVY,
-      MetricPath.DAMAGE_HORIZONTAL_HEAVY
+      MetricLabel.DAMAGE_SLASH_HEAVY,
+      MetricPath.DAMAGE_SLASH_HEAVY
     ),
     new BasicMetric(
       MetricLabel.DAMAGE_OVERHEAD_LIGHT,
@@ -85,12 +85,12 @@ export function generateMetrics(inputWeapons: Weapon[], numberOfTargets: number,
     new BasicMetric(MetricLabel.DAMAGE_LEAP, MetricPath.DAMAGE_LEAP),
     new AggregateMetric(
       MetricLabel.DAMAGE_LIGHT_AVERAGE, 
-      [MetricPath.DAMAGE_STAB_LIGHT, MetricPath.DAMAGE_OVERHEAD_LIGHT, MetricPath.DAMAGE_HORIZONTAL_LIGHT], 
+      [MetricPath.DAMAGE_STAB_LIGHT, MetricPath.DAMAGE_OVERHEAD_LIGHT, MetricPath.DAMAGE_SLASH_LIGHT], 
       average
     ),
     new AggregateMetric(
       MetricLabel.DAMAGE_HEAVY_AVERAGE, 
-      [MetricPath.DAMAGE_STAB_HEAVY, MetricPath.DAMAGE_OVERHEAD_HEAVY, MetricPath.DAMAGE_HORIZONTAL_HEAVY], 
+      [MetricPath.DAMAGE_STAB_HEAVY, MetricPath.DAMAGE_OVERHEAD_HEAVY, MetricPath.DAMAGE_SLASH_HEAVY], 
       average
     ),
     

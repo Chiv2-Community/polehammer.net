@@ -8,7 +8,7 @@
   "damageType": "Cut",
   "twoHanded": false,
   "attacks": {
-    "horizontal": {
+    "slash": {
       "range": 23,
       "altRange": 23,
       "light": {
