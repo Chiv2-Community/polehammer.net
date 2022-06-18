@@ -14,15 +14,15 @@ import { withBonusMultipliers, Weapon } from "./weapon";
 
 export type WeaponStats = Map<string, LabelledMetrics>;
 
-export type UnitStats = Map<MetricLabel, { min: number; max: number }>;
+export type UnitStats = Map<string, { min: number; max: number }>;
 
 function average(lst: number[]) {
   if (lst.length > 0) return lst.reduce((a, b) => a + b) / lst.length;
   else return 0;
 }
 
-export function generateMetrics(inputWeapons: Weapon[], numberOfTargets: number, target: Target): WeaponStats {
-  const weapons = inputWeapons.map(w => withBonusMultipliers(w, numberOfTargets, target))
+export function generateMetrics(inputWeapons: Weapon[], numberOfTargets: number, horsebackDamageMult: number, target: Target): WeaponStats {
+  const weapons = inputWeapons.map(w => withBonusMultipliers(w, numberOfTargets, horsebackDamageMult, target))
   const metricGenerators = [
     // Speeds
     // Note that we invert each value within its range, because lower is better.
