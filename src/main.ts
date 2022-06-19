@@ -211,16 +211,14 @@ function redrawTable(dataset: WeaponStats, unitStats: UnitStats) {
 
     sortedCategories.forEach(category => {
       let metric = weaponData.get(category)!;
-
       let cellContent = Math.round(metric.value.rawResult).toString();
-
       let cell = document.createElement("td");
+
       cell.innerHTML = cellContent;
       cell.className = "border";
       cell.style.backgroundColor = metricColor(metric.value.result, unitStats.get(category)!);
 
       row.appendChild(cell);
-
     });
     table.appendChild(row);
   });
@@ -471,12 +469,19 @@ if (params.getAll("weapon").length) {
 }
 
 if (params.getAll("category").length) {
-  params.getAll("category").map((c) => setCategory(c.replaceAll("Horizontal", "Slash") as MetricLabel, true));
+  // Backwards Compat
+  let compatCategories = params.getAll("category").map((c) => {
+    let result = c.replaceAll("Horizontal", "Slash")
+    if(result.includes("Speed"))
+       result = result.replaceAll(" (Light)", "")
+    return result
+  });
+
+  compatCategories.forEach(c => setCategory(c as MetricLabel, true))
 
   // Setting them failed, so just default
-  if (!selectedCategories.size) {
+  if (!selectedCategories.size)
     reset();
-  }
 } else {
   reset();
 }

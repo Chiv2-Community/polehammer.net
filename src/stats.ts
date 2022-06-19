@@ -123,22 +123,36 @@ export function generateMetrics(inputWeapons: Weapon[], numberOfTargets: number,
 // Across given weapon stats, calculate min and max (at max possible bonus)
 // values for use in normalizing results for chart display
 export function unitGroupStats(weaponStats: WeaponStats) {
-  const unitGroupStats = new Map<MetricLabel, { min: number; max: number }>();
+  const unitGroupStats = new Map<string, { min: number; max: number }>();
 
   // Across each weapon
   for (const [_, stats] of weaponStats) {
-    // Across each stat
+    // Across each category and unit type
     for (const [l, metric] of stats) {
-      const existing = unitGroupStats.get(l);
-      if (existing === undefined) {
+      const existingCategory = unitGroupStats.get(l);
+      const existingUnit  = unitGroupStats.get(metric.unit);
+
+      if (existingCategory === undefined) {
         unitGroupStats.set(l, {
           min: metric.value.result,
           max: metric.value.result,
         });
       } else {
         unitGroupStats.set(l, {
-          min: Math.min(existing.min, metric.value.result),
-          max: Math.max(existing.max, metric.value.result),
+          min: Math.min(existingCategory.min, metric.value.result),
+          max: Math.max(existingCategory.max, metric.value.result),
+        });
+      }
+      
+      if (existingUnit === undefined) {
+        unitGroupStats.set(metric.unit, {
+          min: metric.value.result,
+          max: metric.value.result,
+        });
+      } else {
+        unitGroupStats.set(metric.unit, {
+          min: Math.min(existingUnit.min, metric.value.result),
+          max: Math.max(existingUnit.max, metric.value.result),
         });
       }
     }
