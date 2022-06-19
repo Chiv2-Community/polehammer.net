@@ -32,9 +32,9 @@ export enum MetricPath {
 // Metric Groups share the same units (damage/hitpoints, milliseconds, etc.)
 // and are used to determine consistent min/max scales for normalization across categories
 export enum Unit {
-  SPEED = "Attacks Per Second",
-  RANGE = "Knockbacks",
-  DAMAGE = "Melee Hitpoints"
+  SPEED = "Milliseconds",
+  RANGE = "Jeoffreys",
+  DAMAGE = "Hitpoints"
 }
 
 export enum MetricLabel {
@@ -65,14 +65,12 @@ export enum MetricLabel {
   RANGE_STAB = "Range - Stab",
   RANGE_ALT_STAB = "Range - Alt. Stab",
   // RANGE_SPECIAL = "Range - Special", TODO
-  // RANGE_MAX = "Range - Max",
 
-  SPEED_AVERAGE = "Speed - Average (Light)",
-  SPEED_SLASH = "Speed - Slash (Light)",
-  SPEED_OVERHEAD = "Speed - Overhead (Light)",
-  SPEED_STAB = "Speed - Stab (Light)",
+  SPEED_AVERAGE = "Speed - Average",
+  SPEED_SLASH = "Speed - Slash",
+  SPEED_OVERHEAD = "Speed - Overhead",
+  SPEED_STAB = "Speed - Stab",
   SPEED_SPECIAL = "Speed - Special",
-  // SPEED_MAX = "Speed - Max",
 }
 
 export function unitGroup(path: MetricPath) {
