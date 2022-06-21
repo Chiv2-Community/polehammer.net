@@ -7,7 +7,6 @@ import {
   MetricLabel,
   MetricPath,
   RANGE_METRICS,
-  SPEED_METRICS,
 } from "./metrics";
 import { Target } from "./target";
 import { withBonusMultipliers, Weapon } from "./weapon";
@@ -35,7 +34,7 @@ export function generateMetrics(inputWeapons: Weapon[], numberOfTargets: number,
     new InverseMetric(MetricLabel.SPEED_SPECIAL, MetricPath.WINDUP_SPECIAL),
     new AggregateInverseMetric(
       MetricLabel.SPEED_AVERAGE,
-      SPEED_METRICS,
+      [MetricPath.WINDUP_STAB, MetricPath.WINDUP_SLASH, MetricPath.WINDUP_OVERHEAD],
       average
     ),
 
