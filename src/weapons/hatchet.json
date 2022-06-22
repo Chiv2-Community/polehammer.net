@@ -1,9 +1,16 @@
 {
   "name": "Hatchet",
-  "weaponTypes": ["Axe", "One Handed"],
+  "weaponTypes": [
+    "Axe",
+    "One Handed",
+    "Archer", "Longbowman",
+    "Vanguard", "Ambusher",
+    "Footman", "Poleman",
+    "Knight", "Guardian"
+  ],
   "damageType": "Chop",
   "attacks": {
-    "horizontal": {
+    "slash": {
       "range": 11,
       "altRange": 12,
       "light": {
@@ -37,8 +44,21 @@
       }
     }
   },
+  "rangedAttack": {
+    "damage": {
+      "legs": 37,
+      "torso": 50,
+      "head": 62
+    }
+  },
   "specialAttack": {
     "windup": 900,
     "damage": 60
+  },
+  "chargeAttack": {
+    "damage": 50
+  },
+  "leapAttack": {
+    "damage": 70
   }
 }

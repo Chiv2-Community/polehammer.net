@@ -2,11 +2,15 @@
   "name": "Battle Axe",
   "weaponTypes": [
     "Axe",
-    "Two Handed"
+    "Two Handed",
+    "Devastator",
+    "Vanguard",
+    "Knight",
+    "Crusader"
   ],
   "damageType": "Chop",
   "attacks": {
-    "horizontal": {
+    "slash": {
       "range": 21,
       "altRange": 21,
       "light": {
@@ -40,8 +44,22 @@
       }
     }
   },
+  "rangedAttack": {
+    "damageTypeOverride": "Cut",
+    "damage": {
+      "legs": 52,
+      "torso": 70,
+      "head": 87
+    }
+  },
   "specialAttack": {
     "windup": 1133,
     "damage": 100
+  },
+  "chargeAttack": {
+    "damage": 40
+  },
+  "leapAttack": {
+    "damage": 80
   }
 }

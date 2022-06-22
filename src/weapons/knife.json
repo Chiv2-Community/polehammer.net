@@ -2,11 +2,20 @@
   "name": "Knife",
   "weaponTypes": [
     "Dagger",
-    "One Handed"
+    "One Handed",
+    "Archer",
+    "Crossbowman",
+    "Skirmisher",
+    "Devastator",
+    "Raider",
+    "Poleman",
+    "Man at Arms",
+    "Vanguard",
+    "Footman"
   ],
   "damageType": "Cut",
   "attacks": {
-    "horizontal": {
+    "slash": {
       "range": 11,
       "altRange": 12,
       "light": {
@@ -40,8 +49,21 @@
       }
     }
   },
+  "rangedAttack": {
+    "damage": {
+      "legs": 30,
+      "torso": 40,
+      "head": 50
+    }
+  },
   "specialAttack": {
     "windup": 767,
+    "damage": 60
+  },
+  "chargeAttack": {
+    "damage": 40
+  },
+  "leapAttack": {
     "damage": 60
   }
 }

@@ -2,11 +2,13 @@
   "name": "Dagger",
   "weaponTypes": [
     "Dagger",
-    "One Handed"
+    "One Handed",
+    "Vanguard",
+    "Ambusher"
   ],
   "damageType": "Cut",
   "attacks": {
-    "horizontal": {
+    "slash": {
       "range": 12,
       "altRange": 14,
       "light": {
@@ -40,8 +42,21 @@
       }
     }
   },
+  "rangedAttack": {
+    "damage": {
+      "legs": 22,
+      "torso": 30,
+      "head": 37
+    }
+  },
   "specialAttack": {
     "windup": 1200,
     "damage": 100
+  },
+  "chargeAttack": {
+    "damage": 45
+  },
+  "leapAttack": {
+    "damage": 80
   }
 }

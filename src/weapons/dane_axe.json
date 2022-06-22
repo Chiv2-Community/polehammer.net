@@ -2,11 +2,13 @@
   "name": "Dane Axe",
   "weaponTypes": [
     "Axe",
-    "Two Handed"
+    "Two Handed",
+    "Vanguard",
+    "Raider"
   ],
   "damageType": "Chop",
   "attacks": {
-    "horizontal": {
+    "slash": {
       "range": 21,
       "altRange": 21,
       "light": {
@@ -40,8 +42,21 @@
       }
     }
   },
+  "rangedAttack": {
+    "damage": {
+      "legs": 60,
+      "torso": 80,
+      "head": 100
+    }
+  },
   "specialAttack": {
     "windup": 1033,
     "damage": 85
+  },
+  "chargeAttack": {
+    "damage": 40
+  },
+  "leapAttack": {
+    "damage": 70
   }
 }

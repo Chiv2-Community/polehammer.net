@@ -1,9 +1,14 @@
 {
   "name": "Halberd",
-  "weaponTypes": ["Axe", "Polearm", "Two Handed"],
+  "weaponTypes": [
+    "Axe",
+    "Polearm",
+    "Two Handed",
+    "Poleman", "Footman"
+  ],
   "damageType": "Chop",
   "attacks": {
-    "horizontal": {
+    "slash": {
       "range": 33,
       "altRange": 27,
       "light": {
@@ -19,7 +24,7 @@
       "altRange": 35,
       "light": {
         "windup": 733,
-        "damage": 60
+        "damage": 55
       },
       "heavy": {
         "damage": 70
@@ -37,8 +42,21 @@
       }
     }
   },
+  "rangedAttack": {
+    "damage": {
+      "legs": 48,
+      "torso": 65,
+      "head": 81
+    }
+  },
   "specialAttack": {
     "windup": 1300,
-    "damage": 80
+    "damage": 85
+  },
+  "chargeAttack": {
+    "damage": 87
+  },
+  "leapAttack": {
+    "damage": 75
   }
 }

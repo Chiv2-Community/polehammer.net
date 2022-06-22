@@ -3,11 +3,12 @@
   "weaponTypes": [
     "Tool",
     "Axe",
-    "One Handed"
+    "One Handed",
+    "Footman", "Engineer"
   ],
   "damageType": "Chop",
   "attacks": {
-    "horizontal": {
+    "slash": {
       "range": 16,
       "altRange": 17,
       "light": {
@@ -41,8 +42,21 @@
       }
     }
   },
+  "rangedAttack": {
+    "damage": {
+      "legs": 26,
+      "torso": 35,
+      "head": 43
+    }
+  },
   "specialAttack": {
     "windup": 900,
+    "damage": 70
+  },
+  "chargeAttack": {
+    "damage": 40
+  },
+  "leapAttack": {
     "damage": 70
   }
 }

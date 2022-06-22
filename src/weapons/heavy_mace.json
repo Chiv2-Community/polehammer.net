@@ -1,9 +1,13 @@
 {
   "name": "Heavy Mace",
-  "weaponTypes": ["Club", "Two Handed"],
-  "damageType": "Chop",
+  "weaponTypes": [
+    "Club",
+    "Two Handed",
+    "Knight", "Officer"
+  ],
+  "damageType": "Blunt",
   "attacks": {
-    "horizontal": {
+    "slash": {
       "range": 26,
       "altRange": 26,
       "light": {
@@ -37,8 +41,21 @@
       }
     }
   },
+  "rangedAttack": {
+    "damage": {
+      "legs": 30,
+      "torso": 40,
+      "head": 50
+    }
+  },
   "specialAttack": {
     "windup": 1167,
     "damage": 80
+  },
+  "chargeAttack": {
+    "damage": 65
+  },
+  "leapAttack": {
+    "damage": 40
   }
 }

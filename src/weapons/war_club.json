@@ -2,11 +2,12 @@
   "name": "War Club",
   "weaponTypes": [
     "Club",
-    "Two Handed"
+    "Two Handed",
+    "Vanguard", "Devastator"
   ],
-  "damageType": "Chop",
+  "damageType": "Blunt",
   "attacks": {
-    "horizontal": {
+    "slash": {
       "range": 30,
       "altRange": 30,
       "light": {
@@ -40,8 +41,21 @@
       }
     }
   },
+  "rangedAttack": {
+    "damage": {
+      "legs": 26,
+      "torso": 35,
+      "head": 43
+    }
+  },
   "specialAttack": {
     "windup": 1067,
     "damage": 65
+  },
+  "chargeAttack": {
+    "damage": 40
+  },
+  "leapAttack": {
+    "damage": 75
   }
 }

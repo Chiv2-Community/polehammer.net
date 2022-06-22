@@ -1,9 +1,13 @@
 {
   "name": "Highland Sword",
-  "weaponTypes": ["Sword", "Two Handed"],
+  "weaponTypes": [
+    "Sword",
+    "Two Handed",
+    "Vanguard", "Devastator"
+  ],
   "damageType": "Cut",
   "attacks": {
-    "horizontal": {
+    "slash": {
       "range": 31,
       "altRange": 31,
       "light": {
@@ -37,8 +41,21 @@
       }
     }
   },
+  "rangedAttack": {
+    "damage": {
+      "legs": 60,
+      "torso": 80,
+      "head": 100
+    }
+  },
   "specialAttack": {
     "windup": 900,
+    "damage": 55
+  },
+  "chargeAttack": {
     "damage": 60
+  },
+  "leapAttack": {
+    "damage": 100
   }
 }

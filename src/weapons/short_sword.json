@@ -2,11 +2,15 @@
   "name": "Short Sword",
   "weaponTypes": [
     "Sword",
-    "One Handed"
+    "One Handed",
+    "Archer", "Longbowman", "Crossbowman",
+    "Vanguard", "Ambusher",
+    "Footman", "Poleman", "Man at Arms",
+    "Knight", "Guardian"
   ],
   "damageType": "Cut",
   "attacks": {
-    "horizontal": {
+    "slash": {
       "range": 20,
       "altRange": 21,
       "light": {
@@ -40,8 +44,21 @@
       }
     }
   },
+  "rangedAttack": {
+    "damage": {
+      "legs": 22,
+      "torso": 30,
+      "head": 37
+    }
+  },
   "specialAttack": {
     "windup": 867,
+    "damage": 65
+  },
+  "chargeAttack": {
+    "damage": 62
+  },
+  "leapAttack": {
     "damage": 65
   }
 }

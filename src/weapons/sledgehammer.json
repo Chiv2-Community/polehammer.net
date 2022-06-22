@@ -2,11 +2,13 @@
   "name": "Sledgehammer",
   "weaponTypes": [
     "Hammer",
-    "Two Handed"
+    "Two Handed",
+    "Footman",
+    "Engineer"
   ],
   "damageType": "Blunt",
   "attacks": {
-    "horizontal": {
+    "slash": {
       "range": 18,
       "altRange": 18,
       "light": {
@@ -40,8 +42,21 @@
       }
     }
   },
+  "rangedAttack": {
+    "damage": {
+      "legs": 26,
+      "torso": 35,
+      "head": 43
+    }
+  },
   "specialAttack": {
     "windup": 1100,
     "damage": 60
+  },
+  "chargeAttack": {
+    "damage": 40
+  },
+  "leapAttack": {
+    "damage": 50
   }
 }

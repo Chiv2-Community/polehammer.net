@@ -1,9 +1,14 @@
 {
   "name": "Rapier",
-  "weaponTypes": ["Sword", "One Handed"],
+  "weaponTypes": [
+    "Sword",
+    "One Handed",
+    "Man at Arms", 
+    "Footman"
+  ],
   "damageType": "Cut",
   "attacks": {
-    "horizontal": {
+    "slash": {
       "range": 22,
       "altRange": 21,
       "light": {
@@ -37,8 +42,21 @@
       }
     }
   },
+  "rangedAttack": {
+    "damage": {
+      "legs": 30,
+      "torso": 40,
+      "head": 50
+    }
+  },
   "specialAttack": {
     "windup": 700,
     "damage": 55
+  },
+  "chargeAttack": {
+    "damage": 65
+  },
+  "leapAttack": {
+    "damage": 65
   }
 }

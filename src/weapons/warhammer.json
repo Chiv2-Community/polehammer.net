@@ -2,11 +2,12 @@
   "name": "Warhammer",
   "weaponTypes": [
     "Hammer",
-    "Two Handed"
+    "One Handed",
+    "Knight", "Guardian"
   ],
   "damageType": "Blunt",
   "attacks": {
-    "horizontal": {
+    "slash": {
       "range": 16,
       "altRange": 17,
       "light": {
@@ -40,8 +41,21 @@
       }
     }
   },
+  "rangedAttack": {
+    "damage": {
+      "legs": 26,
+      "torso": 35,
+      "head": 43
+    }
+  },
   "specialAttack": {
     "windup": 1100,
+    "damage": 80
+  },
+  "chargeAttack": {
+    "damage": 55
+  },
+  "leapAttack": {
     "damage": 80
   }
 }

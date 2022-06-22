@@ -2,11 +2,13 @@
   "name": "Executioner's Axe",
   "weaponTypes": [
     "Axe",
-    "Two Handed"
+    "Two Handed",
+    "Crusader", "Knight",
+    "Vanguard", "Devastator"
   ],
   "damageType": "Chop",
   "attacks": {
-    "horizontal": {
+    "slash": {
       "light": {
         "windup": 833,
         "damage": 45
@@ -40,8 +42,22 @@
       }
     }
   },
+  "rangedAttack": {
+    "damageTypeOverride": "Cut",
+    "damage": {
+      "legs": 52,
+      "torso": 70,
+      "head": 87
+    }
+  },
   "specialAttack": {
     "windup": 1233,
     "damage": 80
+  },
+  "chargeAttack": {
+    "damage": 50
+  },
+  "leapAttack": {
+    "damage": 75
   }
 }

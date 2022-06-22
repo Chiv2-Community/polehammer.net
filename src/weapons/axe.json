@@ -2,12 +2,18 @@
   "name": "Axe",
   "weaponTypes": [
     "Axe",
-    "One Handed"
+    "One Handed",
+    "Archer","Knight","Footman",
+    "Crossbowman",
+    "Skirmisher",
+    "Man at Arms",
+    "Officer",
+    "Guardian",
+    "Crusader"
   ],
   "damageType": "Chop",
-  "twoHanded": false,
   "attacks": {
-    "horizontal": {
+    "slash": {
       "range": 17,
       "altRange": 17,
       "light": {
@@ -41,8 +47,21 @@
       }
     }
   },
+  "rangedAttack": {
+    "damage": {
+      "legs": 41,
+      "torso": 55,
+      "head": 68
+    }
+  },
   "specialAttack": {
     "windup": 1000,
+    "damage": 75
+  },
+  "chargeAttack": {
+    "damage": 40
+  },
+  "leapAttack": {
     "damage": 75
   }
 }

@@ -2,11 +2,12 @@
   "name": "War Axe",
   "weaponTypes": [
     "Axe",
-    "Two Handed"
+    "Two Handed",
+    "Officer", "Knight"
   ],
   "damageType": "Chop",
   "attacks": {
-    "horizontal": {
+    "slash": {
       "range": 25,
       "altRange": 25,
       "light": {
@@ -40,8 +41,22 @@
       }
     }
   },
+  "rangedAttack": {
+    "damageTypeOverride": "Cut",
+    "damage": {
+      "legs": 48,
+      "torso": 65,
+      "head": 81
+    }
+  },
   "specialAttack": {
     "windup": 1233,
     "damage": 90
+  },
+  "chargeAttack": {
+    "damage": 40
+  },
+  "leapAttack": {
+    "damage": 80
   }
 }

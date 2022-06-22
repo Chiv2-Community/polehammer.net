@@ -1,34 +1,98 @@
 import { Target } from "./target";
+import { MetricLabel } from "./metrics";
 
-export function bonusMult(target: Target, type: DamageType): number {
+function canCleave(w: Weapon, path: string): boolean {
+  if(path.startsWith("attacks")) {
+    if(path.includes('heavy'))
+      return true;
+    
+    return w.damageType != DamageType.BLUNT;
+  }
+  return false;
+}
+
+export function withBonusMultipliers(w: Weapon, numberOfTargets: number, horsebackDamageMult: number, target: Target): Weapon {
+  return {
+    "name": w.name,
+    "weaponTypes": w.weaponTypes,
+    "damageType": w.damageType,
+    "attacks": {
+      "slash": {
+        "range": w.attacks.slash.range,
+        "altRange": w.attacks.slash.altRange,
+        "light": {
+          "windup": w.attacks.slash.light.windup,
+          "damage": w.attacks.slash.light.damage * bonusMult(numberOfTargets, target, w.damageType, canCleave(w, "attacks.slash.light.damage")) * horsebackDamageMult
+        },
+        "heavy": {
+          "damage": w.attacks.slash.heavy.damage * bonusMult(numberOfTargets, target, w.damageType, canCleave(w, "attacks.slash.heavy.damage")) * horsebackDamageMult
+        }
+      },
+      "overhead": {
+        "range": w.attacks.overhead.range,
+        "altRange": w.attacks.overhead.altRange,
+        "light": {
+          "windup": w.attacks.overhead.light.windup,
+          "damage": w.attacks.overhead.light.damage * bonusMult(numberOfTargets, target, w.damageType, canCleave(w, "attacks.overhead.light.damage")) * horsebackDamageMult
+        },
+        "heavy": {
+          "damage": w.attacks.overhead.heavy.damage * bonusMult(numberOfTargets, target, w.damageType, canCleave(w, "attacks.overhead.heavy.damage")) * horsebackDamageMult
+        }
+      },
+      "stab": {
+        "range": w.attacks.stab.range,
+        "altRange": w.attacks.stab.altRange,
+        "light": {
+          "windup": w.attacks.stab.light.windup,
+          "damage": w.attacks.stab.light.damage * bonusMult(numberOfTargets, target, w.damageType, canCleave(w, "attacks.stab.light.damage")) * horsebackDamageMult
+        },
+        "heavy": {
+          "damage": w.attacks.stab.heavy.damage * bonusMult(numberOfTargets, target, w.damageType, canCleave(w, "attacks.stab.heavy.damage")) * horsebackDamageMult
+        }
+      }
+    },
+    "rangedAttack": {
+      "damage": {
+        "torso": w.rangedAttack.damage.torso * bonusMult(numberOfTargets, target, w.damageType, canCleave(w, "rangedAttack.damage.torso")),
+        "head": w.rangedAttack.damage.head * bonusMult(numberOfTargets, target, w.damageType, canCleave(w, "rangedAttack.damage.head")),
+        "legs": w.rangedAttack.damage.legs * bonusMult(numberOfTargets, target, w.damageType, canCleave(w, "rangedAttack.damage.legs"))
+      }
+    },
+    "specialAttack": {
+      "windup": w.specialAttack.windup,
+      "damage": w.specialAttack.damage * bonusMult(numberOfTargets, target, w.damageType, canCleave(w, "specialAttack.damage")) * horsebackDamageMult
+    },
+    "leapAttack": {
+      "windup": w.leapAttack.windup,
+      "damage": w.leapAttack.damage * bonusMult(numberOfTargets, target, w.damageType, canCleave(w, "leapAttack.damage"))
+    },
+    "chargeAttack": {
+      "windup": w.chargeAttack.windup,
+      "damage": w.chargeAttack.damage * bonusMult(numberOfTargets, target, w.damageType, canCleave(w, "chargeAttack.damage"))
+    }
+  } as Weapon
+}
+
+function bonusMult(numberOfTargets: number, target: Target, type: DamageType, cleaves: boolean): number {
+  const cleavingMultiplier = cleaves ? numberOfTargets : 1
+
   // Multiply Vanguard / Archer by 2 assuming equal distribution of target classes
   if (target === Target.AVERAGE) {
     const sum =
-      2 * bonusMult(Target.VANGUARD_ARCHER, type) +
-      bonusMult(Target.FOOTMAN, type) +
-      bonusMult(Target.KNIGHT, type);
+      2 * bonusMult(numberOfTargets, Target.VANGUARD_ARCHER, type, cleaves) +
+      bonusMult(numberOfTargets, Target.FOOTMAN, type, cleaves) +
+      bonusMult(numberOfTargets, Target.KNIGHT, type, cleaves);
+
     return sum / 4;
-  }
-
-  if (target === Target.VANGUARD_ARCHER) {
-    return 1;
-  }
-
-  if (type === DamageType.CHOP) {
-    return target === Target.FOOTMAN ? 1.175 : 1.25;
+  } else if (target === Target.VANGUARD_ARCHER) {
+    return cleavingMultiplier;
+  } else if (type === DamageType.CHOP) {
+    return (target === Target.FOOTMAN ? 1.175 : 1.25) * cleavingMultiplier;
   } else if (type === DamageType.BLUNT) {
-    return target === Target.FOOTMAN ? 1.35 : 1.5;
-  } else {
-    return 1;
+    return (target === Target.FOOTMAN ? 1.35 : 1.5) * cleavingMultiplier;
   }
-}
 
-export function maxPossibleBonus(weapon: Weapon): number {
-  return Math.max(
-    ...Object.values(Target).map((target) =>
-      bonusMult(target, weapon.damageType)
-    )
-  );
+  return cleavingMultiplier;
 }
 
 export function extractNumber(weapon: Weapon, path: string): number {
@@ -38,19 +102,28 @@ export function extractNumber(weapon: Weapon, path: string): number {
     if (part in current) {
       current = current[part];
     } else {
-      throw Error(`Invalid stat path specified: ${path}`);
+      console.warn(`Invalid stat ${weapon.name} path specified: ${path}`);
+      return 0;
     }
   }
   return current as unknown as number;
+}
+
+export function damageType(weapon: Weapon, label: MetricLabel): DamageType {
+  if(weapon.rangedAttack && label.toLowerCase().includes("thrown") && "damageTypeOverride" in weapon.rangedAttack)
+    return weapon.rangedAttack.damageTypeOverride!;
+  return weapon.damageType;
 }
 
 export type Weapon = {
   name: string;
   weaponTypes: WeaponType[];
   damageType: DamageType;
-  attacks?: Record<SwingType, Swing>;
-  specialAttack?: SpecialAttack;
-  rangedAttack?: RangedAttack;
+  attacks: Record<SwingType, Swing>;
+  specialAttack: SpecialAttack;
+  leapAttack: SpecialAttack;
+  chargeAttack: SpecialAttack;
+  rangedAttack: RangedAttack;
 };
 
 export type SpecialAttack = {
@@ -69,6 +142,7 @@ export type Swing = {
 };
 
 export type RangedAttack = {
+  damageTypeOverride?: DamageType;
   projectileSpeed?: number; // Not measured yet
   windup?: number; // milliseconds
   damage: ProjectileDamage;
@@ -88,7 +162,7 @@ export type ProjectileDamage = {
 export enum DamageType {
   CUT = "Cut",
   CHOP = "Chop",
-  BLUNT = "Blunt",
+  BLUNT = "Blunt"
 }
 
 export enum WeaponType {
@@ -103,10 +177,28 @@ export enum WeaponType {
   BOW = "Bow",
   TWO_HANDED = "Two Handed",
   ONE_HANDED = "One Handed",
+
+  ARCHER = "Archer",
+  LONGBOWMAN = "Longbowman",
+  CROSSBOWMAN = "Crossbowman",
+  SKIRMISHER = "Skirmisher",
+
+  VANGUARD = "Vanguard",
+  DEVASTATOR = "Devastator",
+  RAIDER = "Raider",
+  AMBUSHER = "Ambusher",
+  FOOTMAN = "Footman",
+  POLEMAN = "Poleman",
+  MAN_AT_ARMS = "Man at Arms",
+  ENGINEER = "Engineer",
+  KNIGHT = "Knight",
+  OFFICER = "Officer",
+  GUARDIAN = "Guardian",
+  CRUSADER = "Crusader"
 }
 
 export enum SwingType {
-  HORIZONTAL = "horizontal",
+  SLASH = "slash",
   OVERHEAD = "overhead",
   STAB = "stab",
 }

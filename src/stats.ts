@@ -2,53 +2,47 @@ import {
   AggregateInverseMetric,
   AggregateMetric,
   BasicMetric,
-  DAMAGE_METRICS,
   InverseMetric,
   LabelledMetrics,
   MetricLabel,
   MetricPath,
   RANGE_METRICS,
-  SPEED_METRICS,
-  Unit,
 } from "./metrics";
-import { maxPossibleBonus as maxPossibleDamageBonus, Weapon } from "./weapon";
+import { Target } from "./target";
+import { withBonusMultipliers, Weapon } from "./weapon";
 
-export type WeaponStats = Map<Weapon, LabelledMetrics>;
+export type WeaponStats = Map<string, LabelledMetrics>;
 
-export type UnitStats = Map<Unit, { min: number; max: number }>;
+export type UnitStats = Map<string, { min: number; max: number }>;
 
 function average(lst: number[]) {
   if (lst.length > 0) return lst.reduce((a, b) => a + b) / lst.length;
   else return 0;
 }
 
-export function generateMetrics(weapons: Weapon[]): WeaponStats {
+export function generateMetrics(inputWeapons: Weapon[], numberOfTargets: number, horsebackDamageMult: number, target: Target): WeaponStats {
+  const weapons = inputWeapons.map(w => withBonusMultipliers(w, numberOfTargets, horsebackDamageMult, target))
   const metricGenerators = [
     // Speeds
     // Note that we invert each value within its range, because lower is better.
     new InverseMetric(
-      MetricLabel.SPEED_HORIZONTAL,
-      MetricPath.WINDUP_HORIZONTAL
+      MetricLabel.SPEED_SLASH,
+      MetricPath.WINDUP_SLASH
     ),
     new InverseMetric(MetricLabel.SPEED_OVERHEAD, MetricPath.WINDUP_OVERHEAD),
     new InverseMetric(MetricLabel.SPEED_STAB, MetricPath.WINDUP_STAB),
     new InverseMetric(MetricLabel.SPEED_SPECIAL, MetricPath.WINDUP_SPECIAL),
     new AggregateInverseMetric(
       MetricLabel.SPEED_AVERAGE,
-      SPEED_METRICS,
+      [MetricPath.WINDUP_STAB, MetricPath.WINDUP_SLASH, MetricPath.WINDUP_OVERHEAD],
       average
     ),
-    // new AggregateInverseMetric(
-    //   MetricLabel.SPEED_MAX,
-    //   SPEED_METRICS,
-    //   n => Math.max(...n)
-    // ),
 
     // Ranges
-    new BasicMetric(MetricLabel.RANGE_HORIZONTAL, MetricPath.RANGE_HORIZONTAL),
+    new BasicMetric(MetricLabel.RANGE_SLASH, MetricPath.RANGE_SLASH),
     new BasicMetric(
-      MetricLabel.RANGE_ALT_HORIZONTAL,
-      MetricPath.RANGE_ALT_HORIZONTAL
+      MetricLabel.RANGE_ALT_SLASH,
+      MetricPath.RANGE_ALT_SLASH
     ),
     new BasicMetric(MetricLabel.RANGE_OVERHEAD, MetricPath.RANGE_OVERHEAD),
     new BasicMetric(
@@ -59,16 +53,15 @@ export function generateMetrics(weapons: Weapon[]): WeaponStats {
     new BasicMetric(MetricLabel.RANGE_ALT_STAB, MetricPath.RANGE_ALT_STAB),
     //new BasicMetric(MetricLabel.RANGE_SPECIAL, MetricPath.RANGE_SPECIAL), TODO
     new AggregateMetric(MetricLabel.RANGE_AVERAGE, RANGE_METRICS, average),
-    // new AggregateMetric(MetricLabel.RANGE_MAX, RANGE_METRICS, n => Math.max(...n)),
 
     // Damages
     new BasicMetric(
-      MetricLabel.DAMAGE_HORIZONTAL_LIGHT,
-      MetricPath.DAMAGE_HORIZONTAL_LIGHT
+      MetricLabel.DAMAGE_SLASH_LIGHT,
+      MetricPath.DAMAGE_SLASH_LIGHT
     ),
     new BasicMetric(
-      MetricLabel.DAMAGE_HORIZONTAL_HEAVY,
-      MetricPath.DAMAGE_HORIZONTAL_HEAVY
+      MetricLabel.DAMAGE_SLASH_HEAVY,
+      MetricPath.DAMAGE_SLASH_HEAVY
     ),
     new BasicMetric(
       MetricLabel.DAMAGE_OVERHEAD_LIGHT,
@@ -87,22 +80,32 @@ export function generateMetrics(weapons: Weapon[]): WeaponStats {
       MetricPath.DAMAGE_STAB_HEAVY
     ),
     new BasicMetric(MetricLabel.DAMAGE_SPECIAL, MetricPath.DAMAGE_SPECIAL),
-    new AggregateMetric(MetricLabel.DAMAGE_AVERAGE, DAMAGE_METRICS, average),
-    // new AggregateMetric(MetricLabel.DAMAGE_MAX_HEAVY, [
-    //   MetricPath.DAMAGE_STAB_HEAVY,
-    //   MetricPath.DAMAGE_OVERHEAD_HEAVY,
-    //   MetricPath.DAMAGE_HORIZONTAL_HEAVY
-    // ], x => Math.max(...x)),
-    // new AggregateMetric(MetricLabel.DAMAGE_MAX_LIGHT, [
-    //   MetricPath.DAMAGE_STAB_LIGHT,
-    //   MetricPath.DAMAGE_OVERHEAD_LIGHT,
-    //   MetricPath.DAMAGE_HORIZONTAL_LIGHT
-    // ], x => Math.max(...x)),
+    new BasicMetric(MetricLabel.DAMAGE_CHARGE, MetricPath.DAMAGE_CHARGE),
+    new BasicMetric(MetricLabel.DAMAGE_LEAP, MetricPath.DAMAGE_LEAP),
+    new AggregateMetric(
+      MetricLabel.DAMAGE_LIGHT_AVERAGE, 
+      [MetricPath.DAMAGE_STAB_LIGHT, MetricPath.DAMAGE_OVERHEAD_LIGHT, MetricPath.DAMAGE_SLASH_LIGHT], 
+      average
+    ),
+    new AggregateMetric(
+      MetricLabel.DAMAGE_HEAVY_AVERAGE, 
+      [MetricPath.DAMAGE_STAB_HEAVY, MetricPath.DAMAGE_OVERHEAD_HEAVY, MetricPath.DAMAGE_SLASH_HEAVY], 
+      average
+    ),
+    
+    new AggregateMetric(
+      MetricLabel.DAMAGE_RANGED_AVERAGE, 
+      [MetricPath.DAMAGE_RANGED_HEAD, MetricPath.DAMAGE_RANGED_TORSO, MetricPath.DAMAGE_RANGED_LEGS], 
+      average
+    ),
+    new BasicMetric(MetricLabel.DAMAGE_RANGED_HEAD, MetricPath.DAMAGE_RANGED_HEAD),
+    new BasicMetric(MetricLabel.DAMAGE_RANGED_TORSO, MetricPath.DAMAGE_RANGED_TORSO),
+    new BasicMetric(MetricLabel.DAMAGE_RANGED_LEGS, MetricPath.DAMAGE_RANGED_LEGS),
   ];
 
   return new Map(
     weapons.map((w) => [
-      w,
+      w.name,
       new Map(
         metricGenerators.map((m) => [
           m.name,
@@ -119,26 +122,36 @@ export function generateMetrics(weapons: Weapon[]): WeaponStats {
 // Across given weapon stats, calculate min and max (at max possible bonus)
 // values for use in normalizing results for chart display
 export function unitGroupStats(weaponStats: WeaponStats) {
-  const unitGroupStats = new Map<Unit, { min: number; max: number }>();
+  const unitGroupStats = new Map<string, { min: number; max: number }>();
 
   // Across each weapon
-  for (const [weapon, stats] of weaponStats) {
-    // Across each stat
-    for (const [, metric] of stats) {
-      const existing = unitGroupStats.get(metric.unit);
-      const maxPossible =
-        metric.unit === Unit.DAMAGE
-          ? metric.value * maxPossibleDamageBonus(weapon)
-          : metric.value;
-      if (existing === undefined) {
+  for (const [_, stats] of weaponStats) {
+    // Across each category and unit type
+    for (const [l, metric] of stats) {
+      const existingCategory = unitGroupStats.get(l);
+      const existingUnit  = unitGroupStats.get(metric.unit);
+
+      if (existingCategory === undefined) {
+        unitGroupStats.set(l, {
+          min: metric.value.result,
+          max: metric.value.result,
+        });
+      } else {
+        unitGroupStats.set(l, {
+          min: Math.min(existingCategory.min, metric.value.result),
+          max: Math.max(existingCategory.max, metric.value.result),
+        });
+      }
+      
+      if (existingUnit === undefined) {
         unitGroupStats.set(metric.unit, {
-          min: metric.value,
-          max: maxPossible,
+          min: metric.value.result,
+          max: metric.value.result,
         });
       } else {
         unitGroupStats.set(metric.unit, {
-          min: Math.min(existing.min, metric.value),
-          max: Math.max(existing.max, maxPossible),
+          min: Math.min(existingUnit.min, metric.value.result),
+          max: Math.max(existingUnit.max, metric.value.result),
         });
       }
     }
@@ -152,26 +165,3 @@ export function hasBonus(category: MetricLabel) {
 }
 
 export type WeaponMetricLabels = Map<string, MetricLabel>;
-
-// export function normalize(stats: WeaponStats): WeaponStats {
-//   const normalized = new Map(stats);
-//   for (const rating of Object.values(MetricLabel)) {
-//     // Get min and max for this rating _across all weapons_
-//     // Scale max possible damage based on weapon's damage type
-//     const values: number[] = [...stats.values()].map(
-//       (x: LabelledMetrics) => x.get(rating)!
-//     );
-//     const min = Math.min(...values);
-//     const max = Math.max(...values);
-
-//     // Scale by min and max
-//     for (const [weapon, derived] of normalized) {
-//       let div = 1.0;
-//       if (hasBonus(rating)) {
-//         div = maxPossibleBonus(weapon);
-//       }
-//       derived.set(rating, (derived.get(rating)! - min) / (max - min) / div);
-//     }
-//   }
-//   return normalized;
-// }

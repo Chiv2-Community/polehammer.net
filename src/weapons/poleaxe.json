@@ -2,11 +2,14 @@
   "name": "Poleaxe",
   "weaponTypes": [
     "Axe",
-    "Two Handed"
+    "Polearm", 
+    "Two Handed",
+    "Knight", 
+    "Officer"
   ],
   "damageType": "Chop",
   "attacks": {
-    "horizontal": {
+    "slash": {
       "range": 26,
       "altRange": 20,
       "light": {
@@ -40,8 +43,21 @@
       }
     }
   },
+  "rangedAttack": {
+    "damage": {
+      "legs": 37,
+      "torso": 50,
+      "head": 62
+    }
+  },
   "specialAttack": {
     "windup": 1233,
     "damage": 70
+  },
+  "chargeAttack": {
+    "damage": 68
+  },
+  "leapAttack": {
+    "damage": 65
   }
 }

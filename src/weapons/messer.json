@@ -1,15 +1,19 @@
 {
   "name": "Messer",
-  "weaponTypes": ["Sword", "Two Handed"],
+  "weaponTypes": [
+    "Sword",
+    "Two Handed",
+    "Vanguard", "Raider", "Knight", "Crusader"
+  ],
   "damageType": "Cut",
   "twoHanded": true,
   "attacks": {
-    "horizontal": {
+    "slash": {
       "altRange": 25,
       "range": 26,
       "light": {
         "windup": 833,
-        "damage": 50
+        "damage": 55
       },
       "heavy": {
         "damage": 70
@@ -31,15 +35,28 @@
       "altRange": 28,
       "light": {
         "windup": 733,
-        "damage": 40
+        "damage": 50
       },
       "heavy": {
-        "damage": 55
+        "damage": 65
       }
+    }
+  },
+  "rangedAttack": {
+    "damage": {
+      "legs": 37,
+      "torso": 50,
+      "head": 62
     }
   },
   "specialAttack": {
     "windup": 1267,
+    "damage": 90
+  },
+  "chargeAttack": {
+    "damage": 68
+  },
+  "leapAttack": {
     "damage": 90
   }
 }

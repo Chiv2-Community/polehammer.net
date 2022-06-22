@@ -1,9 +1,15 @@
 {
   "name": "Falchion",
-  "weaponTypes": ["Sword", "One Handed"],
+  "weaponTypes": [
+    "Sword",
+    "One Handed",
+    "Archer",
+    "Skirmisher",
+    "Footman", "Man at Arms", "Crusader", "Knight"
+  ],
   "damageType": "Cut",
   "attacks": {
-    "horizontal": {
+    "slash": {
       "range": 20,
       "altRange": 21,
       "light": {
@@ -37,8 +43,21 @@
       }
     }
   },
+  "rangedAttack": {
+    "damage": {
+      "legs": 30,
+      "torso": 40,
+      "head": 50
+    }
+  },
   "specialAttack": {
     "windup": 966,
+    "damage": 80
+  },
+  "chargeAttack": {
+    "damage": 55
+  },
+  "leapAttack": {
     "damage": 80
   }
 }
