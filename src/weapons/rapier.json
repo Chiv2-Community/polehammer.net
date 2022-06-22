@@ -12,6 +12,7 @@
       "range": 22,
       "altRange": 21,
       "light": {
+        "cleaveOverride": false,
         "windup": 633,
         "damage": 30
       },
@@ -23,6 +24,7 @@
       "range": 21,
       "altRange": 22,
       "light": {
+        "cleaveOverride": false,
         "windup": 500,
         "damage": 35
       },
