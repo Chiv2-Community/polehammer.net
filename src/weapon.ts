@@ -2,6 +2,14 @@ import { Target } from "./target";
 import { MetricLabel } from "./metrics";
 
 function canCleave(w: Weapon, path: string): boolean {
+  let pathParts = path.split(".")
+  pathParts.pop()
+  let overridePath = pathParts.join(".") + ".cleaveOverride",
+      cleaveOverride = extract<boolean>(w, overridePath)
+
+  if (cleaveOverride != undefined) 
+    return cleaveOverride
+
   if(path.startsWith("attacks")) {
     if(path.includes('heavy'))
       return true;
@@ -13,45 +21,57 @@ function canCleave(w: Weapon, path: string): boolean {
 
 export function withBonusMultipliers(w: Weapon, numberOfTargets: number, horsebackDamageMult: number, target: Target): Weapon {
   return {
+    ...w,
     "name": w.name,
     "weaponTypes": w.weaponTypes,
     "damageType": w.damageType,
     "attacks": {
+      ...w.attacks,
       "slash": {
+        ...w.attacks.slash,
         "range": w.attacks.slash.range,
         "altRange": w.attacks.slash.altRange,
         "light": {
+          ...w.attacks.slash.light,
           "windup": w.attacks.slash.light.windup,
           "damage": w.attacks.slash.light.damage * bonusMult(numberOfTargets, target, w.damageType, canCleave(w, "attacks.slash.light.damage")) * horsebackDamageMult
         },
         "heavy": {
+          ...w.attacks.slash.heavy,
           "damage": w.attacks.slash.heavy.damage * bonusMult(numberOfTargets, target, w.damageType, canCleave(w, "attacks.slash.heavy.damage")) * horsebackDamageMult
         }
       },
       "overhead": {
+        ...w.attacks.overhead,
         "range": w.attacks.overhead.range,
         "altRange": w.attacks.overhead.altRange,
         "light": {
+          ...w.attacks.overhead.light,
           "windup": w.attacks.overhead.light.windup,
           "damage": w.attacks.overhead.light.damage * bonusMult(numberOfTargets, target, w.damageType, canCleave(w, "attacks.overhead.light.damage")) * horsebackDamageMult
         },
         "heavy": {
+          ...w.attacks.overhead.heavy,
           "damage": w.attacks.overhead.heavy.damage * bonusMult(numberOfTargets, target, w.damageType, canCleave(w, "attacks.overhead.heavy.damage")) * horsebackDamageMult
         }
       },
       "stab": {
+        ...w.attacks.stab,
         "range": w.attacks.stab.range,
         "altRange": w.attacks.stab.altRange,
         "light": {
+          ...w.attacks.stab.light,
           "windup": w.attacks.stab.light.windup,
           "damage": w.attacks.stab.light.damage * bonusMult(numberOfTargets, target, w.damageType, canCleave(w, "attacks.stab.light.damage")) * horsebackDamageMult
         },
         "heavy": {
+          ...w.attacks.stab.light,
           "damage": w.attacks.stab.heavy.damage * bonusMult(numberOfTargets, target, w.damageType, canCleave(w, "attacks.stab.heavy.damage")) * horsebackDamageMult
         }
       }
     },
     "rangedAttack": {
+      ...w.rangedAttack,
       "damage": {
         "torso": w.rangedAttack.damage.torso * bonusMult(numberOfTargets, target, w.damageType, canCleave(w, "rangedAttack.damage.torso")),
         "head": w.rangedAttack.damage.head * bonusMult(numberOfTargets, target, w.damageType, canCleave(w, "rangedAttack.damage.head")),
@@ -59,14 +79,17 @@ export function withBonusMultipliers(w: Weapon, numberOfTargets: number, horseba
       }
     },
     "specialAttack": {
+      ...w.specialAttack,
       "windup": w.specialAttack.windup,
       "damage": w.specialAttack.damage * bonusMult(numberOfTargets, target, w.damageType, canCleave(w, "specialAttack.damage")) * horsebackDamageMult
     },
     "leapAttack": {
+      ...w.leapAttack,
       "windup": w.leapAttack.windup,
       "damage": w.leapAttack.damage * bonusMult(numberOfTargets, target, w.damageType, canCleave(w, "leapAttack.damage"))
     },
     "chargeAttack": {
+      ...w.chargeAttack,
       "windup": w.chargeAttack.windup,
       "damage": w.chargeAttack.damage * bonusMult(numberOfTargets, target, w.damageType, canCleave(w, "chargeAttack.damage"))
     }
@@ -96,6 +119,16 @@ function bonusMult(numberOfTargets: number, target: Target, type: DamageType, cl
 }
 
 export function extractNumber(weapon: Weapon, path: string): number {
+  let result = extract<number>(weapon, path);
+
+  if(result == undefined) {
+    return 0;
+  }
+
+  return result
+}
+
+export function extract<T>(weapon: Weapon, path: string): T|undefined {
   let current: any = weapon; // eslint-disable-line
   const parts = path.split(".");
   for (const part of parts) {
@@ -103,10 +136,10 @@ export function extractNumber(weapon: Weapon, path: string): number {
       current = current[part];
     } else {
       console.warn(`Invalid stat ${weapon.name} path specified: ${path}`);
-      return 0;
+      return undefined;
     }
   }
-  return current as unknown as number;
+  return current 
 }
 
 export function damageType(weapon: Weapon, label: MetricLabel): DamageType {
@@ -129,6 +162,7 @@ export type Weapon = {
 export type SpecialAttack = {
   windup: number;
   damage: number;
+  cleaveOverride?: boolean;
   range?: number; // Not measured yet
 };
 
@@ -151,6 +185,7 @@ export type RangedAttack = {
 export type MeleeAttack = {
   damage: number;
   windup?: number; // We don't yet know these for heavy attacks
+  cleaveOverride?: boolean;
 };
 
 export type ProjectileDamage = {
