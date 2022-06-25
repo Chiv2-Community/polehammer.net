@@ -149,6 +149,7 @@ export function damageType(weapon: Weapon, label: MetricLabel): DamageType {
 }
 
 export type Weapon = {
+  id: string;
   name: string;
   weaponTypes: WeaponType[];
   damageType: DamageType;
