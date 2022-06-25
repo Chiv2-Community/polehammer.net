@@ -464,7 +464,7 @@ if (params.getAll("weapon").length) {
     let weapon = weaponByName(name);
     if (weapon) { addWeapon(weapon) }
     else {
-      name.split("-").map(weaponById).filter(a => a).forEach(addWeapon)
+      name.split("-").map(weaponById).filter(a => a).map(a => a!).forEach(addWeapon)
     }
   });
 } else {
