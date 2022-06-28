@@ -1,5 +1,5 @@
 import { Chart, ChartData, registerables } from "chart.js";
-import ALL_WEAPONS, { weaponByName } from "./all_weapons";
+import ALL_WEAPONS, { weaponByName, weaponById } from "./all_weapons";
 import { MetricLabel } from "./metrics";
 import {
   generateMetrics,
@@ -241,7 +241,7 @@ function redraw() {
   const params = new URLSearchParams();
   params.set("target", selectedTarget);
   params.set("numberOfTargets", numberOfTargets.toString());
-  [...selectedWeapons].map((w) => params.append("weapon", w.name));
+  params.append("weapon", [...selectedWeapons].map(x => x.id).join("-"));
   [...selectedCategories].map((c) => params.append("category", c));
   window.history.replaceState(null, "", `?${params.toString()}`);
 }
@@ -460,9 +460,12 @@ if (params.get("numberOfTargets")) {
 }
 
 if (params.getAll("weapon").length) {
-  params.getAll("weapon").map((name) => {
-    const weapon = weaponByName(name);
-    if (weapon) addWeapon(weapon);
+  params.getAll("weapon").forEach((name) => {
+    let weapon = weaponByName(name);
+    if (weapon) { addWeapon(weapon) }
+    else {
+      name.split("-").map(weaponById).filter(a => a).map(a => a!).forEach(addWeapon)
+    }
   });
 } else {
   random();
