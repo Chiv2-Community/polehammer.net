@@ -19,19 +19,18 @@ Chart.register(...registerables); // the auto import stuff was making typescript
 let selectedTarget = Target.AVERAGE;
 let numberOfTargets = 1;
 let horsebackDamageMultiplier = 1.0;
+
 let stats: WeaponStats = generateMetrics(ALL_WEAPONS, 1, 1, Target.VANGUARD_ARCHER);
 let unitStats: UnitStats = unitGroupStats(stats);
+
+let selectedTab = "radar-content-tab";
 
 const selectedWeapons: Set<Weapon> = new Set<Weapon>();
 const selectedCategories: Set<MetricLabel> = new Set<MetricLabel>();
 const searchResults: Set<Weapon> = new Set<Weapon>();
 
-const weaponSearchResults = document.getElementById(
-  "weaponSearchResults"
-) as HTMLDivElement;
-const displayedWeapons = document.getElementById(
-  "displayedWeapons"
-) as HTMLFieldSetElement;
+const weaponSearchResults = document.querySelector<HTMLDivElement>("#weaponSearchResults")!
+const displayedWeapons = document.querySelector<HTMLFieldSetElement>("#displayedWeapons")!;
 
 function toId(str: string) {
   return str
@@ -168,6 +167,8 @@ function redrawTable(dataset: WeaponStats, unitStats: UnitStats) {
 
   const head = document.createElement("thead");
   const headRow = document.createElement("tr");
+  
+
 
   let headers = [""]; // Leave name column blank
   sortedCategories.forEach((c) => {
@@ -175,6 +176,7 @@ function redrawTable(dataset: WeaponStats, unitStats: UnitStats) {
   });
 
   let first = false;
+
   headers.forEach(header => {
     let headerCol = document.createElement("th");
     let headerDiv = document.createElement("div");
@@ -211,7 +213,9 @@ function redrawTable(dataset: WeaponStats, unitStats: UnitStats) {
 
     sortedCategories.forEach(category => {
       let metric = weaponData.get(category)!;
-      let cellContent = Math.round(metric.value.rawResult).toString();
+
+      let cellContent: string = Math.round(metric.value.rawResult).toString();
+
       let cell = document.createElement("td");
 
       cell.innerHTML = cellContent;
@@ -228,8 +232,36 @@ function redrawTable(dataset: WeaponStats, unitStats: UnitStats) {
 }
 
 function redraw() {
+
   stats = generateMetrics(ALL_WEAPONS, numberOfTargets, horsebackDamageMultiplier, selectedTarget)
   unitStats = unitGroupStats(stats);
+
+  let weaponArray = Array.from(selectedWeapons)
+  const INDEX_POSTITIONS: Map<string, Array<string>> = new Map()
+  const indexCategories = Array.from(selectedCategories).filter(c => c.startsWith("Index"))
+  indexCategories.forEach((c) => {
+    const sortedWeapons = 
+        weaponArray.sort((a,b) => {
+          const l = stats.get(b.name)!.get(c)!.value.result;
+          const r = stats.get(a.name)!.get(c)!.value.result;
+          return l - r;
+        });
+
+    INDEX_POSTITIONS.set(c, sortedWeapons.map(x => x.name))
+  })
+
+  indexCategories.forEach(c => {
+    weaponArray.forEach(w => {
+      const value = stats.get(w.name)!.get(c)!.value
+      const idx = INDEX_POSTITIONS.get(c)!.indexOf(w.name);
+      value.rawResult = idx + 1;
+      value.result = selectedWeapons.size - idx;
+    });
+    unitStats.get(c)!.max = selectedWeapons.size;
+    unitStats.get(c)!.min = 1;
+
+  });
+
 
   radar.data = chartData(stats, selectedCategories, unitStats, false);
   radar.update();
@@ -241,6 +273,7 @@ function redraw() {
   const params = new URLSearchParams();
   params.set("target", selectedTarget);
   params.set("numberOfTargets", numberOfTargets.toString());
+  params.set("tab", selectedTab);
   params.append("weapon", [...selectedWeapons].map(x => x.id).join("-"));
   [...selectedCategories].map((c) => params.append("category", c));
   window.history.replaceState(null, "", `?${params.toString()}`);
@@ -395,12 +428,14 @@ function reset() {
   selectedCategories.add(MetricLabel.DAMAGE_LIGHT_AVERAGE);
   selectedCategories.add(MetricLabel.DAMAGE_HEAVY_AVERAGE);
   selectedCategories.add(MetricLabel.DAMAGE_RANGED_AVERAGE);
+  selectedCategories.add(MetricLabel.POLEHAMMER_INDEX);
   Object.values(MetricLabel).map((r) => {
     const checkbox = document.getElementById(toId(r)) as HTMLInputElement;
     checkbox.checked = selectedCategories.has(r);
   });
   redraw();
 }
+
 
 // Link up to buttons
 document.getElementById("clear")!.onclick = clear;
@@ -450,6 +485,17 @@ presetsSelect.onchange = (_ => {
 
 // Use query string to init values if possible
 const params = new URLSearchParams(location.search);
+
+if(params.get("tab")) {
+  selectedTab = params.get("tab")!;
+}
+const tab = document.querySelector(`#${selectedTab}`)!
+tab.classList.add("active");
+tab.ariaSelected = "true";
+const targetPaneId = selectedTab.replaceAll("-tab", "");
+const targetPane = document.querySelector(`#${targetPaneId}`)!;
+targetPane.classList.add("active", "show");
+
 if (params.get("target")) {
   selectedTarget = params.get("target") as Target;
 }
@@ -488,6 +534,7 @@ if (params.getAll("category").length) {
 } else {
   reset();
 }
+
 
 // Link up target radio buttons
 Object.values(Target).forEach((t) => {
@@ -537,6 +584,18 @@ function updateSearchResults() {
     weaponSearchResults.appendChild(button);
   });
 }
+
+window.addEventListener('DOMContentLoaded', () => {
+  const tabs = document.querySelectorAll('#graph-tabs [role="tab"]');
+  // const tabList = document.querySelector('#graph-tabs[role="tablist"]');
+  
+  tabs.forEach((tab) => {
+    tab.addEventListener('click', () => {
+      selectedTab = tab.id;
+      redraw();
+    });
+  });
+});
 
 
 updateSearchResults();
