@@ -15,7 +15,7 @@ import { withBonusMultipliers, Weapon } from "./weapon";
 
 export type WeaponStats = Map<string, LabelledMetrics>;
 
-export type UnitStats = Map<MetricLabel, { min: number; max: number }>;
+export type UnitStats = Map<string, { min: number; max: number }>;
 
 function average(lst: number[]) {
   if (lst.length > 0) return lst.reduce((a, b) => a + b) / lst.length;
@@ -103,7 +103,7 @@ export function generateMetrics(inputWeapons: Weapon[], numberOfTargets: number,
     new BasicMetric(MetricLabel.DAMAGE_RANGED_HEAD, MetricPath.DAMAGE_RANGED_HEAD),
     new BasicMetric(MetricLabel.DAMAGE_RANGED_TORSO, MetricPath.DAMAGE_RANGED_TORSO),
     new BasicMetric(MetricLabel.DAMAGE_RANGED_LEGS, MetricPath.DAMAGE_RANGED_LEGS),
-    new AggregateMetric(MetricLabel.POLEHAMMER_SCORE, [
+    new AggregateMetric(MetricLabel.POLEHAMMER_INDEX, [
       MetricPath.DAMAGE_HORIZONTAL_HEAVY, 
       MetricPath.DAMAGE_OVERHEAD_HEAVY,
       MetricPath.DAMAGE_STAB_HEAVY, 
@@ -177,7 +177,7 @@ export function generateMetrics(inputWeapons: Weapon[], numberOfTargets: number,
         (averageRangeScore/3) + 
         (averageThrownDamageScore/5) -
         (averageWindupScore/100);
-    }), Unit.POINTS),
+    }), Unit.INDEX),
   ];
 
   return new Map(

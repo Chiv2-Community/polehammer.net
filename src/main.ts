@@ -23,6 +23,8 @@ let horsebackDamageMultiplier = 1.0;
 let stats: WeaponStats = generateMetrics(ALL_WEAPONS, 1, 1, Target.VANGUARD_ARCHER);
 let unitStats: UnitStats = unitGroupStats(stats);
 
+let selectedTab = "radar-content-tab";
+
 const selectedWeapons: Set<Weapon> = new Set<Weapon>();
 const selectedCategories: Set<MetricLabel> = new Set<MetricLabel>();
 const searchResults: Set<Weapon> = new Set<Weapon>();
@@ -165,13 +167,26 @@ function redrawTable(dataset: WeaponStats, unitStats: UnitStats) {
 
   const head = document.createElement("thead");
   const headRow = document.createElement("tr");
+  
+
+  const INDEX_POSTITIONS: Map<string, Array<string>> = new Map()
+  const indexCategories = sortedCategories.filter(c => c.startsWith("Index"))
+  sortedCategories.forEach((c) => {
+    const sortedWeapons = 
+      Array
+        .from(selectedWeapons)
+        .sort((a,b) => {
+          const l = dataset.get(b.name)!.get(c)!.value;
+          const r = dataset.get(a.name)!.get(c)!.value;
+          return l - r;
+        });
+
+    INDEX_POSTITIONS.set(c, sortedWeapons.map(x => x.name))
+  })
 
   let headers = [""]; // Leave name column blank
-  sortedCategories.forEach((c) => {
-    headers.push(c);
-  });
-
   let first = false;
+
   headers.forEach(header => {
     let headerCol = document.createElement("th");
     let headerDiv = document.createElement("div");
@@ -209,9 +224,13 @@ function redrawTable(dataset: WeaponStats, unitStats: UnitStats) {
     sortedCategories.forEach(category => {
       let metric = weaponData.get(category)!;
 
-      let cellContent = [Unit.SPEED, Unit.POINTS].includes(metric.unit) ? 
-        (Math.round(metric.value*100)/100).toString() : 
-        Math.round(metric.value).toString(); // First cells should be the weapon name
+      let cellContent: string;
+      if([Unit.SPEED, Unit.POINTS].includes(metric.unit)) {
+        cellContent = (Math.round(metric.value*100)/100).toString()
+      } else if([Unit.INDEX].includes(metric.unit)) {
+        cellContent = (1 + INDEX_POSTITIONS.get(category)!.indexOf(weapon.name)).toString();
+      } else 
+        cellContent = Math.round(metric.value).toString();
 
       let cell = document.createElement("td");
       cell.innerHTML = cellContent;
@@ -243,6 +262,7 @@ function redraw() {
   const params = new URLSearchParams();
   params.set("target", selectedTarget);
   params.set("numberOfTargets", numberOfTargets.toString());
+  params.set("tab", selectedTab);
   [...selectedWeapons].map((w) => params.append("weapon", w.name));
   [...selectedCategories].map((c) => params.append("category", c));
   window.history.replaceState(null, "", `?${params.toString()}`);
@@ -404,6 +424,7 @@ function reset() {
   redraw();
 }
 
+
 // Link up to buttons
 document.getElementById("clear")!.onclick = clear;
 document.getElementById("random")!.onclick = random;
@@ -451,6 +472,17 @@ presetsSelect.onchange = (_ => {
 
 // Use query string to init values if possible
 const params = new URLSearchParams(location.search);
+
+if(params.get("tab")) {
+  selectedTab = params.get("tab")!;
+}
+const tab = document.querySelector(`#${selectedTab}`)!
+tab.classList.add("active");
+tab.ariaSelected = "true";
+const targetPaneId = selectedTab.replaceAll("-tab", "");
+const targetPane = document.querySelector(`#${targetPaneId}`)!;
+targetPane.classList.add("active", "show");
+
 if (params.get("target")) {
   selectedTarget = params.get("target") as Target;
 }
@@ -479,6 +511,7 @@ if (params.getAll("category").length) {
 } else {
   reset();
 }
+
 
 // Link up target radio buttons
 Object.values(Target).forEach((t) => {
@@ -528,6 +561,19 @@ function updateSearchResults() {
     weaponSearchResults.appendChild(button);
   });
 }
+
+window.addEventListener('DOMContentLoaded', () => {
+  const tabs = document.querySelectorAll('#graph-tabs [role="tab"]');
+  // const tabList = document.querySelector('#graph-tabs[role="tablist"]');
+  
+  console.log(tabs);
+  tabs.forEach((tab) => {
+    tab.addEventListener('click', () => {
+      selectedTab = tab.id;
+      redraw();
+    });
+  });
+});
 
 
 updateSearchResults();

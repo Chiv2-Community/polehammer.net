@@ -35,6 +35,7 @@ export enum Unit {
   SPEED = "Attacks Per Second",
   RANGE = "Knockbacks",
   DAMAGE = "Melee Hitpoints",
+  INDEX = "Index",
   POINTS = "Points"
 }
 
@@ -74,7 +75,7 @@ export enum MetricLabel {
   SPEED_STAB = "Speed - Stab (Light)",
   SPEED_SPECIAL = "Speed - Special",
   // SPEED_MAX = "Speed - Max",
-  POLEHAMMER_SCORE = "Index - Polehammer"
+  POLEHAMMER_INDEX = "Index - Polehammer"
 }
 
 export function unitGroup(path: MetricPath) {
