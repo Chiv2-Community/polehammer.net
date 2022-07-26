@@ -6,7 +6,6 @@ import {
   LabelledMetrics,
   MetricLabel,
   MetricPath,
-  RANGE_METRICS,
   Unit,
 } from "./metrics";
 import { Target } from "./target";
