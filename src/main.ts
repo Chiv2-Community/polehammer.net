@@ -169,20 +169,6 @@ function redrawTable(dataset: WeaponStats, unitStats: UnitStats) {
   const headRow = document.createElement("tr");
   
 
-  const INDEX_POSTITIONS: Map<string, Array<string>> = new Map()
-  const indexCategories = sortedCategories.filter(c => c.startsWith("Index"))
-  indexCategories.forEach((c) => {
-    const sortedWeapons = 
-      Array
-        .from(selectedWeapons)
-        .sort((a,b) => {
-          const l = dataset.get(b.name)!.get(c)!.value.result;
-          const r = dataset.get(a.name)!.get(c)!.value.result;
-          return l - r;
-        });
-
-    INDEX_POSTITIONS.set(c, sortedWeapons.map(x => x.name))
-  })
 
   let headers = [""]; // Leave name column blank
   sortedCategories.forEach((c) => {
@@ -228,11 +214,7 @@ function redrawTable(dataset: WeaponStats, unitStats: UnitStats) {
     sortedCategories.forEach(category => {
       let metric = weaponData.get(category)!;
 
-      let cellContent: string;
-      if([Unit.INDEX].includes(metric.unit)) {
-        cellContent = (1 + INDEX_POSTITIONS.get(category)!.indexOf(weapon.name)).toString();
-      } else 
-        cellContent = Math.round(metric.value.rawResult).toString();
+      let cellContent: string = Math.round(metric.value.rawResult).toString();
 
       let cell = document.createElement("td");
 
@@ -250,8 +232,36 @@ function redrawTable(dataset: WeaponStats, unitStats: UnitStats) {
 }
 
 function redraw() {
+
   stats = generateMetrics(ALL_WEAPONS, numberOfTargets, horsebackDamageMultiplier, selectedTarget)
   unitStats = unitGroupStats(stats);
+
+  let weaponArray = Array.from(selectedWeapons)
+  const INDEX_POSTITIONS: Map<string, Array<string>> = new Map()
+  const indexCategories = Array.from(selectedCategories).filter(c => c.startsWith("Index"))
+  indexCategories.forEach((c) => {
+    const sortedWeapons = 
+        weaponArray.sort((a,b) => {
+          const l = stats.get(b.name)!.get(c)!.value.result;
+          const r = stats.get(a.name)!.get(c)!.value.result;
+          return l - r;
+        });
+
+    INDEX_POSTITIONS.set(c, sortedWeapons.map(x => x.name))
+  })
+
+  indexCategories.forEach(c => {
+    weaponArray.forEach(w => {
+      const value = stats.get(w.name)!.get(c)!.value
+      const idx = INDEX_POSTITIONS.get(c)!.indexOf(w.name);
+      value.rawResult = idx + 1;
+      value.result = selectedWeapons.size - idx;
+    });
+    unitStats.get(c)!.max = selectedWeapons.size;
+    unitStats.get(c)!.min = 1;
+
+  });
+
 
   radar.data = chartData(stats, selectedCategories, unitStats, false);
   radar.update();
