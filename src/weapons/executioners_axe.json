@@ -8,7 +8,7 @@
   ],
   "damageType": "Chop",
   "attacks": {
-    "horizontal": {
+    "slash": {
       "light": {
         "windup": 833,
         "damage": 45

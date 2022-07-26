@@ -9,7 +9,7 @@
   ],
   "damageType": "Blunt",
   "attacks": {
-    "horizontal": {
+    "slash": {
       "range": 28,
       "altRange": 23,
       "light": {

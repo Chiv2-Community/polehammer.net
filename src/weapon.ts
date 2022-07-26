@@ -17,15 +17,15 @@ export function withBonusMultipliers(w: Weapon, numberOfTargets: number, horseba
     "weaponTypes": w.weaponTypes,
     "damageType": w.damageType,
     "attacks": {
-      "horizontal": {
-        "range": w.attacks.horizontal.range,
-        "altRange": w.attacks.horizontal.altRange,
+      "slash": {
+        "range": w.attacks.slash.range,
+        "altRange": w.attacks.slash.altRange,
         "light": {
-          "windup": w.attacks.horizontal.light.windup,
-          "damage": w.attacks.horizontal.light.damage * bonusMult(numberOfTargets, target, w.damageType, canCleave(w, "attacks.horizontal.light.damage")) * horsebackDamageMult
+          "windup": w.attacks.slash.light.windup,
+          "damage": w.attacks.slash.light.damage * bonusMult(numberOfTargets, target, w.damageType, canCleave(w, "attacks.slash.light.damage")) * horsebackDamageMult
         },
         "heavy": {
-          "damage": w.attacks.horizontal.heavy.damage * bonusMult(numberOfTargets, target, w.damageType, canCleave(w, "attacks.horizontal.heavy.damage")) * horsebackDamageMult
+          "damage": w.attacks.slash.heavy.damage * bonusMult(numberOfTargets, target, w.damageType, canCleave(w, "attacks.slash.heavy.damage")) * horsebackDamageMult
         }
       },
       "overhead": {
@@ -97,6 +97,7 @@ function bonusMult(numberOfTargets: number, target: Target, type: DamageType, cl
 
 export function extractNumber(weapon: Weapon, path: string): number {
   let current: any = weapon; // eslint-disable-line
+  console.log(path);
   const parts = path.split(".");
   for (const part of parts) {
     if (part in current) {
@@ -198,7 +199,7 @@ export enum WeaponType {
 }
 
 export enum SwingType {
-  HORIZONTAL = "horizontal",
+  SLASH = "slash",
   OVERHEAD = "overhead",
   STAB = "stab",
 }

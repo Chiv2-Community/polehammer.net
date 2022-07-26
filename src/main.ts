@@ -61,7 +61,7 @@ function chartData(
         label: w.name,
         data: [...sortedCategories].map((c) => {
           const metric = dataset.get(w.name)!.get(c)!;
-          let value = metric.value;
+          let value = metric.value.result;
           const maybeUnitStats = normalizationStats.get(c);
           if (maybeUnitStats) {
             const unitMin = maybeUnitStats!.min;
@@ -171,13 +171,13 @@ function redrawTable(dataset: WeaponStats, unitStats: UnitStats) {
 
   const INDEX_POSTITIONS: Map<string, Array<string>> = new Map()
   const indexCategories = sortedCategories.filter(c => c.startsWith("Index"))
-  sortedCategories.forEach((c) => {
+  indexCategories.forEach((c) => {
     const sortedWeapons = 
       Array
         .from(selectedWeapons)
         .sort((a,b) => {
-          const l = dataset.get(b.name)!.get(c)!.value;
-          const r = dataset.get(a.name)!.get(c)!.value;
+          const l = dataset.get(b.name)!.get(c)!.value.result;
+          const r = dataset.get(a.name)!.get(c)!.value.result;
           return l - r;
         });
 
@@ -185,6 +185,10 @@ function redrawTable(dataset: WeaponStats, unitStats: UnitStats) {
   })
 
   let headers = [""]; // Leave name column blank
+  sortedCategories.forEach((c) => {
+    headers.push(c);
+  });
+
   let first = false;
 
   headers.forEach(header => {
@@ -225,21 +229,18 @@ function redrawTable(dataset: WeaponStats, unitStats: UnitStats) {
       let metric = weaponData.get(category)!;
 
       let cellContent: string;
-      if([Unit.SPEED, Unit.POINTS].includes(metric.unit)) {
-        cellContent = (Math.round(metric.value*100)/100).toString()
-      } else if([Unit.INDEX].includes(metric.unit)) {
+      if([Unit.INDEX].includes(metric.unit)) {
         cellContent = (1 + INDEX_POSTITIONS.get(category)!.indexOf(weapon.name)).toString();
       } else 
-        cellContent = Math.round(metric.value).toString();
+        cellContent = Math.round(metric.value.rawResult).toString();
 
       let cell = document.createElement("td");
+
       cell.innerHTML = cellContent;
       cell.className = "border";
-      cell.style.backgroundColor = metricColor(metric.value, unitStats.get(category)!);
+      cell.style.backgroundColor = metricColor(metric.value.result, unitStats.get(category)!);
 
       row.appendChild(cell);
-
-      first = false;
     });
     table.appendChild(row);
   });
@@ -450,8 +451,9 @@ let horsebackDamageMultiplierInput = document.querySelector<HTMLInputElement>("#
 let horsebackDamageMultiplierOutput = document.getElementById("horsebackDamageMultiplierOutput")!;
 
 horsebackDamageMultiplierInput.oninput = () => {
-  horsebackDamageMultiplierOutput.innerHTML = (Number.parseInt(horsebackDamageMultiplierInput.value)) + "%"
-  horsebackDamageMultiplier = Number.parseFloat(horsebackDamageMultiplierInput.value)/100.0;
+  let rawInput = Number.parseInt(horsebackDamageMultiplierInput.value)
+  horsebackDamageMultiplierOutput.innerHTML = rawInput + "%";
+  horsebackDamageMultiplier = 1 + rawInput/100.0;
   redraw();
 }
 
@@ -502,12 +504,19 @@ if (params.getAll("weapon").length) {
 }
 
 if (params.getAll("category").length) {
-  params.getAll("category").map((c) => setCategory(c as MetricLabel, true));
+  // Backwards Compat
+  let compatCategories = params.getAll("category").map((c) => {
+    let result = c.replaceAll("Horizontal", "Slash")
+    if(result.includes("Speed"))
+       result = result.replaceAll(" (Light)", "")
+    return result
+  });
+
+  compatCategories.forEach(c => setCategory(c as MetricLabel, true))
 
   // Setting them failed, so just default
-  if (!selectedCategories.size) {
+  if (!selectedCategories.size)
     reset();
-  }
 } else {
   reset();
 }

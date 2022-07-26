@@ -67,9 +67,9 @@
               </div>
               <input style="width:100%" value=1 min=1 max=5 type="range" class="form-control-range" id="numberOfTargets">
               <div class="labelled-input mt-2">
-                <label for="Number of Targets">Horseback Damage Multiplier: </label><output id="horsebackDamageMultiplierOutput" class="m-2">100%</output>
+                <label for="Horseback Damage Multiplier">Horseback Damage: </label><output id="horsebackDamageMultiplierOutput" class="m-2">+0%</output>
               </div>
-              <input style="width:100%" value=100 min=100 max=200 type="range" class="form-control-range" id="horsebackDamageMultiplier">
+              <input style="width:100%" value=0 min=0 max=200 type="range" class="form-control-range" id="horsebackDamageMultiplier">
             </fieldset>
           </div>
           <fieldset id="weapons" class="border rounded p-2">
@@ -276,16 +276,16 @@
               <div class="category-group">Indexes</div>
             </div>
             <div id="category-damage">
-              <div class="category-group">Damage</div>
+              <div class="category-group">Damage<small id="damageUnits">Hitpoints</small></div>
             </div>
             <div id="category-thrown-damage">
-              <div class="category-group">Thrown Damage</div>
+              <div class="category-group">Thrown Damage<small id="thrownDamageUnits">Hitpoints</small></div>
             </div>
             <div id="category-range">
-              <div class="category-group">Range</div>
+              <div class="category-group">Range<small id="rangeUnits">Jeoffrys</small></div>
             </div>
             <div id="category-speed">
-              <div class="category-group">Speed</div>
+              <div class="category-group">Speed<small id="speedUnits">Milliseconds</small></div>
             </div>
           </fieldset>
         </div>

@@ -7,7 +7,7 @@
   ],
   "damageType": "Cut",
   "attacks": {
-    "horizontal": {
+    "slash": {
       "range": 39,
       "altRange": 36,
       "light": {
@@ -50,7 +50,7 @@
   },
   "specialAttack": {
     "windup": 400,
-    "damage": 0
+    "damage": 40
   },
   "chargeAttack": {
     "damage": 93
