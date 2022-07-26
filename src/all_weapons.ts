@@ -79,4 +79,8 @@ export function weaponByName(name: string) {
   return ALL_WEAPONS.find((w) => w.name === name);
 }
 
+export function weaponById(id: string) {
+  return ALL_WEAPONS.find((w) => w.id === id);
+}
+
 export default ALL_WEAPONS;

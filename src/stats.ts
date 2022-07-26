@@ -7,7 +7,6 @@ import {
   MetricLabel,
   MetricPath,
   RANGE_METRICS,
-  SPEED_METRICS,
   Unit,
 } from "./metrics";
 import { Target } from "./target";
@@ -54,7 +53,15 @@ export function generateMetrics(inputWeapons: Weapon[], numberOfTargets: number,
     new BasicMetric(MetricLabel.RANGE_STAB, MetricPath.RANGE_STAB),
     new BasicMetric(MetricLabel.RANGE_ALT_STAB, MetricPath.RANGE_ALT_STAB),
     //new BasicMetric(MetricLabel.RANGE_SPECIAL, MetricPath.RANGE_SPECIAL), TODO
-    new AggregateMetric(MetricLabel.RANGE_AVERAGE, RANGE_METRICS, average),
+    new AggregateMetric(
+      MetricLabel.RANGE_AVERAGE, 
+      [
+        MetricPath.RANGE_OVERHEAD, MetricPath.RANGE_ALT_OVERHEAD, 
+        MetricPath.RANGE_SLASH, MetricPath.RANGE_ALT_SLASH, 
+        MetricPath.RANGE_STAB, MetricPath.RANGE_ALT_STAB, 
+      ],
+      average
+    ),
 
     // Damages
     new BasicMetric(
