@@ -13,10 +13,10 @@
       "altRange": 31,
       "light": {
         "windup": 967,
-        "damage": 60
+        "damage": 50
       },
       "heavy": {
-        "damage": 80
+        "damage": 70
       }
     },
     "overhead": {
@@ -24,7 +24,7 @@
       "altRange": 32,
       "light": {
         "windup": 933,
-        "damage": 85
+        "damage": 70
       },
       "heavy": {
         "damage": 100
