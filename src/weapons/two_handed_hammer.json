@@ -1,6 +1,7 @@
 {
   "id": "th",
   "name": "Two Handed Hammer",
+  "aliases": ["thh", "2hh", "2 handed hammer", "2handed hammer", "2h hammer"],
   "weaponTypes": [
     "Hammer",
     "Two Handed",
