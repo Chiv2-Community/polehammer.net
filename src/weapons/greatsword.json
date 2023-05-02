@@ -1,6 +1,7 @@
 {
   "id": "gs",
   "name": "Greatsword",
+  "aliases": ["great sword"],
   "weaponTypes": [
     "Sword",
     "Two Handed",
