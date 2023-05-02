@@ -1,6 +1,7 @@
 {
   "id": "l",
   "name": "Longsword",
+  "aliases": ["long sword"],
   "weaponTypes": [
     "Sword",
     "Two Handed",
