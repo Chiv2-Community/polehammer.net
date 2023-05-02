@@ -1,6 +1,7 @@
 {
   "id": "ph",
   "name": "Polehammer",
+  "aliases": ["Pole Hammer"],
   "weaponTypes": [
     "Hammer",
     "Polearm",
