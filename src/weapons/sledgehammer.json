@@ -1,6 +1,7 @@
 {
   "id": "sh",
   "name": "Sledgehammer",
+  "aliases": ["Sledge", "sledge hammer"],
   "weaponTypes": [
     "Hammer",
     "Two Handed",
