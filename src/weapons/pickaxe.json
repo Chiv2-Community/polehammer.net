@@ -1,6 +1,7 @@
 {
   "id": "p",
   "name": "Pickaxe",
+  "aliases": ["Pick axe"],
   "weaponTypes": [
     "Tool",
     "Axe",
