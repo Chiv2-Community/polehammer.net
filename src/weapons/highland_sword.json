@@ -1,5 +1,6 @@
 {
   "id": "hs",
+  "alias": ["Highlander Sword", "Longest Sword"],
   "name": "Highland Sword",
   "weaponTypes": [
     "Sword",
