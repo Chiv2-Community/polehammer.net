@@ -6,7 +6,8 @@
     "Hammer",
     "Two Handed",
     "Footman",
-    "Engineer"
+    "Engineer",
+    "Tool"
   ],
   "damageType": "Blunt",
   "attacks": {
