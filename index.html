@@ -51,7 +51,7 @@
                 />
                 <label for="Footman">Footman</label>
               </div>
-              <small>+17.5% Chop<br />+25% Blunt</small>
+              <small>+17.5% Chop<br />+35% Blunt</small>
               <div class="labelled-input">
                 <input
                   type="radio"
@@ -61,7 +61,7 @@
                 />
                 <label for="Knight">Knight</label>
               </div>
-              <small>+35% Chop<br />+50% Blunt</small>
+              <small>+25% Chop<br />+50% Blunt</small>
               <div class="labelled-input mt-2">
                 <label for="Number of Targets">Number of Targets:</label><output id="numberOfTargetsOutput" class="m-2">1</output>
               </div>
@@ -121,14 +121,14 @@
           <ul class="nav nav-tabs" id="graph-tabs" role="tablist">
             <li class="nav-item" role="presentation">
               <button
-                class="nav-link active"
+                class="nav-link"
                 id="radar-content-tab"
                 data-bs-toggle="tab"
                 data-bs-target="#radar-content"
                 type="button"
                 role="tab"
                 aria-controls="radar-content"
-                aria-selected="true"
+                aria-selected="false"
               >
                 Radar Chart
               </button>
@@ -178,7 +178,7 @@
           </ul>
           <div class="tab-content border rounded-bottom border-top-0" id="visualization-content">
             <div
-              class="tab-pane fade show active"
+              class="tab-pane fade"
               id="radar-content"
               role="tabpanel"
               aria-labelledby="radar-content-tab"
@@ -271,6 +271,9 @@
             <legend>Categories</legend>
             <div class="btn-group w-100 my-1" role="group">
               <button id="reset" class="btn btn-outline-primary">Reset</button>
+            </div>
+            <div id="category-index">
+              <div class="category-group">Indexes</div>
             </div>
             <div id="category-damage">
               <div class="category-group">Damage<small id="damageUnits">Hitpoints</small></div>

@@ -1,4 +1,5 @@
 {
+  "id": "k",
   "name": "Knife",
   "weaponTypes": [
     "Dagger",
@@ -19,6 +20,7 @@
       "range": 11,
       "altRange": 12,
       "light": {
+        "cleaveOverride": false,
         "windup": 567,
         "damage": 35
       },
@@ -30,6 +32,7 @@
       "range": 10,
       "altRange": 12,
       "light": {
+        "cleaveOverride": false,
         "windup": 500,
         "damage": 45
       },
