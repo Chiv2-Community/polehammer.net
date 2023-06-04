@@ -1,63 +1,119 @@
 {
-  "id": "gs",
   "name": "Greatsword",
-  "aliases": ["great sword"],
-  "weaponTypes": [
-    "Sword",
-    "Two Handed",
-    "Vanguard", "Devastator", "Knight", "Officer"
-  ],
-  "damageType": "Cut",
   "attacks": {
     "slash": {
-      "range": 31,
-      "altRange": 26,
       "light": {
-        "windup": 900,
-        "damage": 50
+        "holding": 0.35,
+        "windup": 0.325,
+        "release": 0.55,
+        "recovery": 1.1,
+        "combo": 0.175,
+        "riposte": 0.25,
+        "damage": 50.0,
+        "turnLimitStrength": 50.0,
+        "verticalTurnLimitStrength": 50.0,
+        "reverseTurnLimitStrength": 50.0
       },
       "heavy": {
-        "damage": 70
+        "holding": 0.35,
+        "windup": 0.575,
+        "release": 0.55,
+        "recovery": 1.2,
+        "combo": 0.175,
+        "riposte": 0.5,
+        "damage": 70.0,
+        "turnLimitStrength": 52.5,
+        "verticalTurnLimitStrength": 50.0,
+        "reverseTurnLimitStrength": 50.0
       }
     },
     "overhead": {
-      "range": 27,
-      "altRange": 30,
       "light": {
-        "windup": 833,
-        "damage": 70
+        "holding": 0.35,
+        "windup": 0.325,
+        "release": 0.525,
+        "recovery": 1.1,
+        "combo": 0.175,
+        "riposte": 0.25,
+        "damage": 70.0,
+        "turnLimitStrength": 47.5,
+        "verticalTurnLimitStrength": 50.0,
+        "reverseTurnLimitStrength": 50.0
       },
       "heavy": {
-        "damage": 90
+        "holding": 0.35,
+        "windup": 0.575,
+        "release": 0.525,
+        "recovery": 1.2,
+        "combo": 0.175,
+        "riposte": 0.5,
+        "damage": 90.0,
+        "turnLimitStrength": 50.0,
+        "verticalTurnLimitStrength": 50.0,
+        "reverseTurnLimitStrength": 50.0
       }
     },
     "stab": {
-      "range": 26,
-      "altRange": 28,
       "light": {
-        "windup": 800,
-        "damage": 50
+        "holding": 0.35,
+        "windup": 0.35,
+        "release": 0.425,
+        "recovery": 1.0,
+        "combo": 0.2,
+        "riposte": 0.25,
+        "damage": 50.0,
+        "turnLimitStrength": 52.5,
+        "verticalTurnLimitStrength": 50.0,
+        "reverseTurnLimitStrength": -1.0
       },
       "heavy": {
-        "damage": 70
+        "holding": 0.35,
+        "windup": 0.6,
+        "release": 0.4,
+        "recovery": 1.1,
+        "combo": 0.2,
+        "riposte": 0.5,
+        "damage": 70.0,
+        "turnLimitStrength": 55.0,
+        "verticalTurnLimitStrength": 50.0,
+        "reverseTurnLimitStrength": -1.0
       }
+    },
+    "jab": {
+      "holding": -1.0,
+      "windup": 0.3,
+      "release": -1.0,
+      "recovery": 0.7,
+      "combo": 0.15,
+      "riposte": 0.0,
+      "damage": 10.0,
+      "turnLimitStrength": 37.5,
+      "verticalTurnLimitStrength": 50.0,
+      "reverseTurnLimitStrength": -1.0
+    },
+    "shove": {
+      "holding": -1.0,
+      "windup": 0.45,
+      "release": -1.0,
+      "recovery": 0.9,
+      "combo": 0.1,
+      "riposte": 0.45,
+      "damage": 5.0,
+      "turnLimitStrength": 50.0,
+      "verticalTurnLimitStrength": 50.0,
+      "reverseTurnLimitStrength": -1.0
+    },
+    "throw": {
+      "holding": 0.8,
+      "windup": 0.7,
+      "release": 0.5,
+      "recovery": 0.55,
+      "combo": 0.15,
+      "riposte": 0.0,
+      "damage": 60.0,
+      "turnLimitStrength": 0.0,
+      "verticalTurnLimitStrength": -1.0,
+      "reverseTurnLimitStrength": -1.0
     }
-  },
-  "rangedAttack": {
-    "damage": {
-      "legs": 45,
-      "torso": 60,
-      "head": 75
-    }
-  },
-  "specialAttack": {
-    "windup": 1300,
-    "damage": 100
-  },
-  "chargeAttack": {
-    "damage": 60
-  },
-  "leapAttack": {
-    "damage": 100
   }
 }

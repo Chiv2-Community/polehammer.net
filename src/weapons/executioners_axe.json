@@ -1,65 +1,119 @@
 {
-  "id": "e",
-  "name": "Executioner's Axe",
-  "aliases": ["Ex Axe", "Executioner Axe"],
-  "weaponTypes": [
-    "Axe",
-    "Two Handed",
-    "Crusader", "Knight",
-    "Vanguard", "Devastator"
-  ],
-  "damageType": "Chop",
+  "name": "ExecutionersAxe",
   "attacks": {
     "slash": {
       "light": {
-        "windup": 833,
-        "damage": 45
+        "holding": 0.35,
+        "windup": 0.3255,
+        "release": 0.6,
+        "recovery": 1.1,
+        "combo": 0.225,
+        "riposte": 0.25,
+        "damage": 45.0,
+        "turnLimitStrength": 50.0,
+        "verticalTurnLimitStrength": 50.0,
+        "reverseTurnLimitStrength": 50.0
       },
-      "range": 27,
-      "altRange": 27,
       "heavy": {
-        "damage": 70
+        "holding": 0.35,
+        "windup": 0.6,
+        "release": 0.65,
+        "recovery": 1.25,
+        "combo": 0.225,
+        "riposte": 0.5,
+        "damage": 70.0,
+        "turnLimitStrength": 52.5,
+        "verticalTurnLimitStrength": 50.0,
+        "reverseTurnLimitStrength": 50.0
       }
     },
     "overhead": {
       "light": {
-        "windup": 733,
-        "damage": 60
+        "holding": 0.35,
+        "windup": 0.325,
+        "release": 0.55,
+        "recovery": 1.1,
+        "combo": 0.225,
+        "riposte": 0.25,
+        "damage": 60.0,
+        "turnLimitStrength": 47.5,
+        "verticalTurnLimitStrength": 50.0,
+        "reverseTurnLimitStrength": 50.0
       },
-      "range": 24,
-      "altRange": 21,
       "heavy": {
-        "damage": 70
+        "holding": 0.35,
+        "windup": 0.6,
+        "release": 0.575,
+        "recovery": 1.25,
+        "combo": 0.225,
+        "riposte": 0.5,
+        "damage": 70.0,
+        "turnLimitStrength": 50.0,
+        "verticalTurnLimitStrength": 50.0,
+        "reverseTurnLimitStrength": 50.0
       }
     },
     "stab": {
       "light": {
-        "windup": 767,
-        "damage": 30
+        "holding": 0.35,
+        "windup": 0.35,
+        "release": 0.4,
+        "recovery": 1.1,
+        "combo": 0.225,
+        "riposte": 0.25,
+        "damage": 30.0,
+        "turnLimitStrength": 47.5,
+        "verticalTurnLimitStrength": 50.0,
+        "reverseTurnLimitStrength": -1.0
       },
-      "range": 26,
-      "altRange": 26,
       "heavy": {
-        "damage": 50
+        "holding": 0.35,
+        "windup": 0.6,
+        "release": 0.4,
+        "recovery": 1.25,
+        "combo": 0.225,
+        "riposte": 0.5,
+        "damage": 50.0,
+        "turnLimitStrength": 50.0,
+        "verticalTurnLimitStrength": 50.0,
+        "reverseTurnLimitStrength": -1.0
       }
+    },
+    "jab": {
+      "holding": -1.0,
+      "windup": 0.3,
+      "release": -1.0,
+      "recovery": 0.7,
+      "combo": 0.15,
+      "riposte": 0.0,
+      "damage": 10.0,
+      "turnLimitStrength": 37.5,
+      "verticalTurnLimitStrength": 50.0,
+      "reverseTurnLimitStrength": -1.0
+    },
+    "shove": {
+      "holding": -1.0,
+      "windup": 0.45,
+      "release": -1.0,
+      "recovery": 0.9,
+      "combo": 0.1,
+      "riposte": 0.45,
+      "damage": 5.0,
+      "turnLimitStrength": 50.0,
+      "verticalTurnLimitStrength": 50.0,
+      "reverseTurnLimitStrength": -1.0
+    },
+    "throw": {
+      "holding": 0.4,
+      "windup": 0.55,
+      "release": 0.5,
+      "recovery": 0.55,
+      "combo": 0.15,
+      "riposte": 0.0,
+      "damage": 70.0,
+      "turnLimitStrength": 0.0,
+      "verticalTurnLimitStrength": -1.0,
+      "reverseTurnLimitStrength": -1.0
     }
-  },
-  "rangedAttack": {
-    "damageTypeOverride": "Cut",
-    "damage": {
-      "legs": 52,
-      "torso": 70,
-      "head": 87
-    }
-  },
-  "specialAttack": {
-    "windup": 1233,
-    "damage": 80
-  },
-  "chargeAttack": {
-    "damage": 50
-  },
-  "leapAttack": {
-    "damage": 75
   }
 }

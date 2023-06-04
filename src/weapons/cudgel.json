@@ -1,68 +1,119 @@
 {
-  "id": "c",
   "name": "Cudgel",
-  "weaponTypes": [
-    "Club",
-    "One Handed",
-    "Longbowman",
-    "Archer",
-    "Crossbowman",
-    "Vanguard",
-    "Ambusher",
-    "Poleman",
-    "Footman"
-  ],
-  "damageType": "Blunt",
   "attacks": {
     "slash": {
-      "range": 15,
-      "altRange": 16,
       "light": {
-        "windup": 567,
-        "damage": 30
+        "holding": 0.35,
+        "windup": 0.125,
+        "release": 0.4,
+        "recovery": 0.7,
+        "combo": 0.225,
+        "riposte": 0.15,
+        "damage": 30.0,
+        "turnLimitStrength": 40.0,
+        "verticalTurnLimitStrength": 50.0,
+        "reverseTurnLimitStrength": 50.0
       },
       "heavy": {
-        "damage": 45
+        "holding": 0.35,
+        "windup": 0.375,
+        "release": 0.45,
+        "recovery": 0.85,
+        "combo": 0.225,
+        "riposte": -1.0,
+        "damage": 45.0,
+        "turnLimitStrength": 45.0,
+        "verticalTurnLimitStrength": 50.0,
+        "reverseTurnLimitStrength": 50.0
       }
     },
     "overhead": {
-      "range": 13,
-      "altRange": 15,
       "light": {
-        "windup": 567,
-        "damage": 30
+        "holding": 0.35,
+        "windup": 0.125,
+        "release": 0.4,
+        "recovery": 0.7,
+        "combo": 0.225,
+        "riposte": 0.0,
+        "damage": 30.0,
+        "turnLimitStrength": 40.0,
+        "verticalTurnLimitStrength": 50.0,
+        "reverseTurnLimitStrength": 50.0
       },
       "heavy": {
-        "damage": 45
+        "holding": 0.35,
+        "windup": 0.375,
+        "release": 0.45,
+        "recovery": 0.85,
+        "combo": 0.225,
+        "riposte": -1.0,
+        "damage": 45.0,
+        "turnLimitStrength": 42.5,
+        "verticalTurnLimitStrength": 50.0,
+        "reverseTurnLimitStrength": 50.0
       }
     },
     "stab": {
-      "range": 18,
-      "altRange": 20,
       "light": {
-        "windup": 633,
-        "damage": 25
+        "holding": 0.35,
+        "windup": 0.2,
+        "release": 0.3,
+        "recovery": 0.7,
+        "combo": 0.225,
+        "riposte": 0.0,
+        "damage": 25.0,
+        "turnLimitStrength": 40.0,
+        "verticalTurnLimitStrength": 50.0,
+        "reverseTurnLimitStrength": -1.0
       },
       "heavy": {
-        "damage": 35
+        "holding": 0.35,
+        "windup": 0.45,
+        "release": 0.35,
+        "recovery": 0.85,
+        "combo": 0.225,
+        "riposte": -1.0,
+        "damage": 35.0,
+        "turnLimitStrength": 42.5,
+        "verticalTurnLimitStrength": 50.0,
+        "reverseTurnLimitStrength": -1.0
       }
+    },
+    "jab": {
+      "holding": -1.0,
+      "windup": 0.3,
+      "release": -1.0,
+      "recovery": 0.7,
+      "combo": 0.225,
+      "riposte": 0.0,
+      "damage": 10.0,
+      "turnLimitStrength": 37.5,
+      "verticalTurnLimitStrength": 50.0,
+      "reverseTurnLimitStrength": -1.0
+    },
+    "shove": {
+      "holding": -1.0,
+      "windup": 0.45,
+      "release": -1.0,
+      "recovery": 0.9,
+      "combo": 0.1,
+      "riposte": 0.45,
+      "damage": 5.0,
+      "turnLimitStrength": 50.0,
+      "verticalTurnLimitStrength": 50.0,
+      "reverseTurnLimitStrength": -1.0
+    },
+    "throw": {
+      "holding": 0.4,
+      "windup": 0.55,
+      "release": 0.4,
+      "recovery": 0.55,
+      "combo": 0.15,
+      "riposte": 0.0,
+      "damage": 25.0,
+      "turnLimitStrength": 0.0,
+      "verticalTurnLimitStrength": -1.0,
+      "reverseTurnLimitStrength": -1.0
     }
-  },
-  "rangedAttack": {
-    "damage": {
-      "legs": 18,
-      "torso": 25,
-      "head": 31
-    }
-  },
-  "specialAttack": {
-    "windup": 933,
-    "damage": 55
-  },
-  "chargeAttack": {
-    "damage": 50
-  },
-  "leapAttack": {
-    "damage": 65
   }
 }
