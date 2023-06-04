@@ -5,11 +5,17 @@ import requests
 import os
 import copy
 from collections.abc import Mapping
+import argparse
 
 
 
 def main():
-    path = 'input.json'
+    parser = argparse.ArgumentParser()
+    parser.add_argument("-i", "--input_json", required=True, help="Path to the input JSON file")
+    parser.add_argument("-o", "--output_dir", required=True, help="Path to the output directory")
+    parser.add_argument("-c", "--changelog_location", required=True, help="Path to the changelog location")
+    args = parser.parse_args()
+
     valid_stats = ["Holding", "Windup", "Release", "Recovery", "Combo", "Riposte", "Damage", "TurnLimitStrength", "VerticalTurnLimitStrength", "ReverseTurnLimitStrength"]
     valid_attacks = ["slash", "slashHeavy", "overhead","overheadHeavy", "stab", "stabHeavy", "jab", "shove", "kickLow", "throw"]
 
@@ -18,14 +24,14 @@ def main():
     weapon_defaults = {}
     weapons = {}
 
-    data = fetch_data(path)["Rows"]
+    data = fetch_data(args.input_json)["Rows"]
 
     for name, item in data.items():
         process_item(name, item, valid_stats, valid_attacks, base_defaults, attack_defaults, weapon_defaults, weapons)
 
     apply_defaults(weapons, attack_defaults)
 
-    write_to_file(list(weapons.values()), 'src/weapons')
+    write_to_file(list(weapons.values()), args.output_dir, args.changelog_location)
 
 def lowercase_first_char(in_str):
     return in_str[0].lower() + in_str[1:]
@@ -33,13 +39,6 @@ def lowercase_first_char(in_str):
 def fetch_data(path):
     with open(path) as user_file:
       return json.load(user_file)
-
-#    try:
-#        response = requests.get(url)
-#        response.raise_for_status()  # Ensure we got a successful response
-#        return json.loads(response.text)["Rows"]
-#    except (requests.RequestException, ValueError):
-#        sys.exit("Failed to fetch data from the URL!")
 
 def clean_item(item, valid_stats):
     return {lowercase_first_char(key): item[key] for key in valid_stats}
@@ -102,7 +101,7 @@ def apply_defaults(weapons, attack_defaults):
                         if key in attack_defaults.get(attack, {}):
                             attack_data[key] = attack_defaults[attack][key]
 
-def write_to_file(data, foldername):
+def write_to_file(data, foldername, changelog_location):
     try:
         if not os.path.exists(foldername):
             os.mkdir(foldername)
@@ -126,7 +125,7 @@ def write_to_file(data, foldername):
                 full_path = name + "." + '.'.join(change['path'])
                 print(full_path + ": " + str(change['old']) + " -> " + str(change['new']))
 
-        with open(foldername + "/changelog.json", 'w') as changelog_file:
+        with open(changelog_location, 'w') as changelog_file:
             json.dump(changelog, changelog_file, indent=2)
     except IOError as e:
         print(e)

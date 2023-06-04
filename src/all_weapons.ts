@@ -30,7 +30,7 @@ import SLEDGEHAMMER from "./weapons/sledgehammer.json";
 import SWORD from "./weapons/sword.json";
 import THROWING_AXE from "./weapons/throwing_axe.json";
 import TWO_HANDED_HAMMER from "./weapons/two_handed_hammer.json";
-import TWO_HANDED_SPEAR from "./weapons/two_handed_spear.json";
+import SPEAR from "./weapons/spear.json";
 import WAR_AXE from "./weapons/war_axe.json";
 import WAR_CLUB from "./weapons/war_club.json";
 import WARHAMMER from "./weapons/warhammer.json";
@@ -69,7 +69,7 @@ const ALL_WEAPONS: Weapon[] = [
   SWORD,
   THROWING_AXE,
   TWO_HANDED_HAMMER,
-  TWO_HANDED_SPEAR,
+  SPEAR,
   WAR_AXE,
   WAR_CLUB,
   WARHAMMER,
