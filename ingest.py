@@ -114,11 +114,13 @@ def write_to_file(data, foldername, changelog_location):
             if exists:
                 existing_data = fetch_data(path)
 
+            print(existing_data)
+
             with open(path, 'w') as outfile:
                 (changes, merged) = deep_merge(weapon["name"], existing_data, weapon)
                 if len(changes) > 0:
                     changelog[weapon["name"]] = changes
-                json.dump(weapon, outfile, indent=2)
+                json.dump(merged, outfile, indent=2)
 
         for (name, changes) in changelog.items():
             for change in changes:

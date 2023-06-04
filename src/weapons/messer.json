@@ -1,79 +1,96 @@
 {
+  "id": "me",
   "name": "Messer",
+  "weaponTypes": [
+    "Sword",
+    "Two Handed",
+    "Vanguard",
+    "Raider",
+    "Knight",
+    "Crusader"
+  ],
+  "damageType": "Cut",
+  "twoHanded": true,
   "attacks": {
     "slash": {
+      "altRange": 25,
+      "range": 26,
       "light": {
-        "holding": 0.35,
         "windup": 0.325,
+        "damage": 55,
+        "holding": 0.35,
         "release": 0.525,
         "recovery": 0.95,
         "combo": 0.175,
         "riposte": 0.25,
-        "damage": 55.0,
         "turnLimitStrength": 45.0,
         "verticalTurnLimitStrength": 50.0,
         "reverseTurnLimitStrength": 50.0
       },
       "heavy": {
+        "damage": 70,
         "holding": 0.35,
         "windup": 0.525,
         "release": 0.55,
         "recovery": 1.1,
         "combo": 0.175,
         "riposte": 0.5,
-        "damage": 70.0,
         "turnLimitStrength": 47.5,
         "verticalTurnLimitStrength": 50.0,
         "reverseTurnLimitStrength": 50.0
       }
     },
     "overhead": {
+      "range": 26,
+      "altRange": 27,
       "light": {
-        "holding": 0.35,
         "windup": 0.325,
+        "damage": 70,
+        "holding": 0.35,
         "release": 0.5,
         "recovery": 0.95,
         "combo": 0.175,
         "riposte": 0.25,
-        "damage": 70.0,
         "turnLimitStrength": 45.0,
         "verticalTurnLimitStrength": 50.0,
         "reverseTurnLimitStrength": 50.0
       },
       "heavy": {
+        "damage": 80,
         "holding": 0.35,
         "windup": 0.525,
         "release": 0.55,
         "recovery": 1.1,
         "combo": 0.175,
         "riposte": 0.5,
-        "damage": 80.0,
         "turnLimitStrength": 47.5,
         "verticalTurnLimitStrength": 50.0,
         "reverseTurnLimitStrength": 50.0
       }
     },
     "stab": {
+      "range": 28,
+      "altRange": 28,
       "light": {
-        "holding": 0.35,
         "windup": 0.3,
+        "damage": 40.0,
+        "holding": 0.35,
         "release": 0.425,
         "recovery": 0.95,
         "combo": 0.2,
         "riposte": 0.25,
-        "damage": 40.0,
         "turnLimitStrength": 50.0,
         "verticalTurnLimitStrength": 50.0,
         "reverseTurnLimitStrength": -1.0
       },
       "heavy": {
+        "damage": 55.0,
         "holding": 0.35,
         "windup": 0.525,
         "release": 0.425,
         "recovery": 1.1,
         "combo": 0.2,
         "riposte": 0.5,
-        "damage": 55.0,
         "turnLimitStrength": 52.5,
         "verticalTurnLimitStrength": 50.0,
         "reverseTurnLimitStrength": -1.0
@@ -115,5 +132,22 @@
       "verticalTurnLimitStrength": -1.0,
       "reverseTurnLimitStrength": -1.0
     }
+  },
+  "rangedAttack": {
+    "damage": {
+      "legs": 37,
+      "torso": 50,
+      "head": 62
+    }
+  },
+  "specialAttack": {
+    "windup": 1267,
+    "damage": 90
+  },
+  "chargeAttack": {
+    "damage": 68
+  },
+  "leapAttack": {
+    "damage": 90
   }
 }
