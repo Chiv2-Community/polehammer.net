@@ -1,6 +1,7 @@
 {
   "id": "w",
   "name": "Warhammer",
+  "aliases": ["War Hammer"],
   "weaponTypes": [
     "Hammer",
     "One Handed",

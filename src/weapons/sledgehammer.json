@@ -1,11 +1,13 @@
 {
   "id": "sh",
   "name": "Sledgehammer",
+  "aliases": ["Sledge", "sledge hammer"],
   "weaponTypes": [
     "Hammer",
     "Two Handed",
     "Footman",
-    "Engineer"
+    "Engineer",
+    "Tool"
   ],
   "damageType": "Blunt",
   "attacks": {

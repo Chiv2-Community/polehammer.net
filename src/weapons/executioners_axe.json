@@ -1,6 +1,7 @@
 {
   "id": "e",
   "name": "Executioner's Axe",
+  "aliases": ["Ex Axe", "Executioner Axe"],
   "weaponTypes": [
     "Axe",
     "Two Handed",

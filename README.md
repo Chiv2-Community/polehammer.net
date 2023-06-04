@@ -14,6 +14,7 @@
 
 * Aardvarkk - Website Design, Application Design, Radar Graphs
 * Bungee - Damage stats
+* Gusaneishon - In-game stat bar corrections
 * HowlingWolf067 - Throwing damage stats
 * Jacoby6000 - JSON Data Model, Responsive Design, Bar Graphs
 * KingLouie - Damage stats

@@ -1,9 +1,10 @@
 {
   "id": "l",
   "name": "Longsword",
+  "aliases": ["long sword"],
   "weaponTypes": [
     "Sword",
-    "One Handed",
+    "Two Handed",
     "Knight", "Officer"
   ],
   "damageType": "Cut",

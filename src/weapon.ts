@@ -5,7 +5,7 @@ function canCleave(w: Weapon, path: string): boolean {
   let pathParts = path.split(".")
   pathParts.pop()
   let overridePath = pathParts.join(".") + ".cleaveOverride",
-      cleaveOverride = extract<boolean>(w, overridePath)
+      cleaveOverride = extract<boolean>(w, overridePath, true)
 
   if (cleaveOverride != undefined) 
     return cleaveOverride
@@ -128,14 +128,15 @@ export function extractNumber(weapon: Weapon, path: string): number {
   return result
 }
 
-export function extract<T>(weapon: Weapon, path: string): T|undefined {
+export function extract<T>(weapon: Weapon, path: string, optional: boolean = false): T|undefined {
   let current: any = weapon; // eslint-disable-line
   const parts = path.split(".");
   for (const part of parts) {
     if (part in current) {
       current = current[part];
     } else {
-      console.warn(`Invalid stat ${weapon.name} path specified: ${path}`);
+      if(!optional)
+        console.warn(`Invalid stat ${weapon.name} path specified: ${path}`);
       return undefined;
     }
   }

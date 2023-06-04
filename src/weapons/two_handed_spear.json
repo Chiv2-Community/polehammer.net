@@ -1,6 +1,7 @@
 {
   "id": "ts",
   "name": "Two Handed Spear",
+  "aliases": ["spear", "2h spear", "2 handed spear", "2handed spear"],
   "weaponTypes": [
     "Spear",
     "Two Handed",

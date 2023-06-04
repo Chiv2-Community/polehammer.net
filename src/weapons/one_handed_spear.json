@@ -1,6 +1,7 @@
 {
   "id": "o",
   "name": "One Handed Spear",
+  "alises": ["1h spear", "1 handed spear", "1handed spear", "onehanded spear"],
   "weaponTypes": [
     "Spear",
     "One Handed",

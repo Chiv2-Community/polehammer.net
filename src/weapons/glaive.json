@@ -1,6 +1,7 @@
 {
   "id": "g",
   "name": "Glaive",
+  "aliases": ["glave"],
   "weaponTypes": [
     "Polearm",
     "Axe",
