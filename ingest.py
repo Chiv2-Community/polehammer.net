@@ -8,7 +8,7 @@ from collections.abc import Mapping
 import argparse
 
 VALID_STATS = ["Holding", "Windup", "Release", "Recovery", "Combo", "Riposte", "Damage", "TurnLimitStrength", "VerticalTurnLimitStrength", "ReverseTurnLimitStrength"]
-VALID_ATTACKS = ["slash", "slashHeavy", "overhead","overheadHeavy", "stab", "stabHeavy", "shove", "throw", "special", "sprintAttack", "sprintShove", "sprintCharge", "horseSpecial"]
+VALID_ATTACKS = ["slash", "slashHeavy", "overhead","overheadHeavy", "stab", "stabHeavy", "throw", "special", "sprintAttack"]
 
 def seconds_to_millis(n):
     return n * 1000 if n != -1 else -1
@@ -17,7 +17,7 @@ STAT_TRANSFORMS = {
     "windup": seconds_to_millis,
     "release": seconds_to_millis,
     "recovery": seconds_to_millis,
-    "combo": seconds_to_millis
+    "combo": seconds_to_millis,
 }
 
 def main():
@@ -128,8 +128,11 @@ def write_to_file(data, foldername, changelog_location):
                     changelog[weapon["name"]] = changes
                 if "rangedAttack" in merged:
                     del merged["rangedAttack"]
+                if "specialAttack" in merged:
                     del merged["specialAttack"]
+                if "chargeAttack" in merged:
                     del merged["chargeAttack"]
+                if "leapAttack" in merged:
                     del merged["leapAttack"]
                 json.dump(merged, outfile, indent=2)
 
