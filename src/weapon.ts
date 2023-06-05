@@ -1,6 +1,15 @@
 import { Target } from "./target";
 import { MetricLabel } from "./metrics";
 
+export type Attacks = {
+  slash: Swing;
+  overhead: Swing;
+  stab: Swing;
+  sprintAttack: SpecialAttack;
+  special: SpecialAttack;
+  throw: SpecialAttack;
+};
+
 export type Weapon = {
   id: string;
   name: string;
@@ -9,15 +18,6 @@ export type Weapon = {
   attacks: Attacks;
 };
 
-export type Attacks = {
-  slash: Swing;
-  overhead: Swing;
-  stab: Swing;
-  jab: SpecialAttack;
-  sprintAttack: SpecialAttack;
-  special: SpecialAttack;
-  throw: SpecialAttack;
-};
 
 export type SpecialAttack = {
   damage: number;
@@ -183,8 +183,8 @@ export function withBonusMultipliers(w: Weapon, numberOfTargets: number, horseba
         ...w.attacks.sprintAttack,
         "damage": w.attacks.sprintAttack.damage * bonusMult(numberOfTargets, target, w.damageType, canCleave(w, "attacks.sprintAttack.damage"))
       }
-    } as unknown as Weapon
-  }
+    }
+  } as Weapon
 }
 
 export function bonusMult(numberOfTargets: number, target: Target, type: DamageType, cleaves: boolean): number {

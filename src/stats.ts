@@ -6,7 +6,6 @@ import {
   LabelledMetrics,
   MetricLabel,
   MetricPath,
-  Unit,
 } from "./metrics";
 import { Target } from "./target";
 import { withBonusMultipliers, Weapon } from "./weapon";
