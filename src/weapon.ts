@@ -154,11 +154,20 @@ export type Weapon = {
   name: string;
   weaponTypes: WeaponType[];
   damageType: DamageType;
-  attacks: Record<SwingType, Swing>;
+  attacks: Attacks;
   specialAttack: SpecialAttack;
   leapAttack: SpecialAttack;
   chargeAttack: SpecialAttack;
   rangedAttack: RangedAttack;
+};
+
+export type Attacks = {
+  slash: Swing;
+  overhead: Swing;
+  stab: Swing;
+  jab: SpecialAttack;
+  shove: SpecialAttack;
+  special: SpecialAttack;
 };
 
 export type SpecialAttack = {
@@ -171,8 +180,6 @@ export type SpecialAttack = {
 export type Swing = {
   range: number;
   altRange: number;
-
-  // TODO: Create AttackDuration class containing windup/active hitbox/cooldown
   light: MeleeAttack;
   heavy: MeleeAttack;
 };

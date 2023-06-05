@@ -7,17 +7,25 @@ import copy
 from collections.abc import Mapping
 import argparse
 
+VALID_STATS = ["Holding", "Windup", "Release", "Recovery", "Combo", "Riposte", "Damage", "TurnLimitStrength", "VerticalTurnLimitStrength", "ReverseTurnLimitStrength"]
+VALID_ATTACKS = ["slash", "slashHeavy", "overhead","overheadHeavy", "stab", "stabHeavy", "jab", "shove", "kickLow", "throw", "special", "sprintAttack", "sprintShove", "sprintCharge", "horseSpecial"]
 
+def seconds_to_millis(n):
+    return n * 1000 if n != -1 else -1
+
+STAT_TRANSFORMS = {
+    "windup": seconds_to_millis,
+    "release": seconds_to_millis,
+    "recovery": seconds_to_millis,
+    "combo": seconds_to_millis
+}
 
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("-i", "--input_json", required=True, help="Path to the input JSON file")
     parser.add_argument("-o", "--output_dir", required=True, help="Path to the output directory")
-    parser.add_argument("-c", "--changelog_location", required=True, help="Path to the changelog location")
+    parser.add_argument("-c", "--changelog_location", required=True, help="Path to output the changelog json")
     args = parser.parse_args()
-
-    valid_stats = ["Holding", "Windup", "Release", "Recovery", "Combo", "Riposte", "Damage", "TurnLimitStrength", "VerticalTurnLimitStrength", "ReverseTurnLimitStrength"]
-    valid_attacks = ["slash", "slashHeavy", "overhead","overheadHeavy", "stab", "stabHeavy", "jab", "shove", "kickLow", "throw"]
 
     base_defaults = {}
     attack_defaults = {}
@@ -27,7 +35,7 @@ def main():
     data = fetch_data(args.input_json)["Rows"]
 
     for name, item in data.items():
-        process_item(name, item, valid_stats, valid_attacks, base_defaults, attack_defaults, weapon_defaults, weapons)
+        process_item(name, item, base_defaults, attack_defaults, weapon_defaults, weapons)
 
     apply_defaults(weapons, attack_defaults)
 
@@ -40,15 +48,15 @@ def fetch_data(path):
     with open(path) as user_file:
       return json.load(user_file)
 
-def clean_item(item, valid_stats):
-    return {lowercase_first_char(key): item[key] for key in valid_stats}
+def clean_item(item, VALID_STATS):
+    return {lowercase_first_char(key): item[key] for key in VALID_STATS}
 
-def process_item(name, item, valid_stats, valid_attacks, base_defaults, attack_defaults, weapon_defaults, weapons):
+def process_item(name, item, base_defaults, attack_defaults, weapon_defaults, weapons):
     name_parts = name.split('.')
-    item = clean_item(item, valid_stats)
+    item = clean_item(item, VALID_STATS)
     attack_type = lowercase_first_char(name_parts[1]) if len(name_parts) > 1 else None
 
-    if attack_type and attack_type not in valid_attacks: 
+    if attack_type and attack_type not in VALID_ATTACKS: 
         return
 
     if name_parts[0] == 'Default':
@@ -76,15 +84,15 @@ def process_attack(attack_type, item, attacks):
         attack_type = attack_type.replace("Heavy", "")
         if attack_type not in attacks:
             attacks[attack_type] = {"light": {}, "heavy": {}}
-        attacks[attack_type]["heavy"] = item
+        attacks[attack_type]["heavy"] = apply_stat_transforms(item)
     elif attack_type in ["slash", "overhead", "stab"]:
         if attack_type not in attacks:
-            attacks[attack_type] = {"light": {}}
-        attacks[attack_type]["light"] = item
+            attacks[attack_type] = {"light": {}, "heavy": {}}
+        attacks[attack_type]["light"] = apply_stat_transforms(item)
     else:
         if attack_type not in attacks:
             attacks[attack_type] = {}
-        attacks[attack_type] = item
+        attacks[attack_type] = apply_stat_transforms(item)
     return attacks
 
 def apply_defaults(weapons, attack_defaults):
@@ -114,8 +122,6 @@ def write_to_file(data, foldername, changelog_location):
             if exists:
                 existing_data = fetch_data(path)
 
-            print(existing_data)
-
             with open(path, 'w') as outfile:
                 (changes, merged) = deep_merge(weapon["name"], existing_data, weapon)
                 if len(changes) > 0:
@@ -137,6 +143,13 @@ def write_to_file(data, foldername, changelog_location):
 def pascal_to_camel(s):
     return re.sub(r'(?<!^)(?=[A-Z])', '_', s).lower()
 
+def apply_stat_transforms(data):
+    for key, value in data.items():
+        if key in STAT_TRANSFORMS:
+            data[key] = STAT_TRANSFORMS[key](value)
+
+    return data
+
 def deep_merge(name, dict1, dict2, path=None):
     "Deeply merge two dictionaries and print out the differences."
 
@@ -146,18 +159,20 @@ def deep_merge(name, dict1, dict2, path=None):
         path = []
 
     for key in dict2:
+        value = dict2[key]
         if key in dict1:
-            if isinstance(dict1[key], Mapping) and isinstance(dict2[key], Mapping):
-                (new_changes, _) = deep_merge(name, dict1[key], dict2[key], path + [str(key)])
+            if isinstance(dict1[key], Mapping) and isinstance(value, Mapping):
+                (new_changes, _) = deep_merge(name, dict1[key], value, path + [str(key)])
                 changes += new_changes
-            elif dict1[key] == dict2[key]:
-                pass # same leaf value
-            else:
-                changes.append({'path': path + [key], 'old': dict1[key], 'new': dict2[key]})
-                dict1[key] = dict2[key]
+            else: 
+                if dict1[key] == value:
+                    pass # same leaf value
+                else:
+                    changes.append({'path': path + [key], 'old': dict1[key], 'new': value})
+                    dict1[key] = value
         else:
-            changes.append({'path': path + [key], 'old': None, 'new': dict2[key]})
-            dict1[key] = dict2[key]
+            changes.append({'path': path + [key], 'old': None, 'new': value})
+            dict1[key] = value
     return (changes, dict1)
 
 if __name__ == '__main__':
