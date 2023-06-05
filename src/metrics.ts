@@ -135,7 +135,6 @@ export enum MetricLabel {
   COMBO_HEAVY_AVERAGE = "Combo - Average (Heavy)",
   COMBO_LIGHT_AVERAGE = "Combo - Average (Light)",
 
-
   RANGE_AVERAGE = "Range - Average*",
   RANGE_SLASH = "Range - Slash",
   RANGE_ALT_SLASH = "Range - Alt. Slash",
@@ -144,6 +143,8 @@ export enum MetricLabel {
   RANGE_STAB = "Range - Stab",
   RANGE_ALT_STAB = "Range - Alt. Stab",
   // RANGE_SPECIAL = "Range - Special", TODO
+
+  RANK = "Rank - Average Percentile",
 }
 
 export function unitGroup(path: MetricPath) {

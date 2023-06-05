@@ -1,3 +1,4 @@
+import ALL_WEAPONS from "./all_weapons";
 import {
   AggregateInverseMetric,
   AggregateMetric,
@@ -17,6 +18,23 @@ export type UnitStats = Map<string, { min: number; max: number }>;
 function average(lst: number[]) {
   if (lst.length > 0) return lst.reduce((a, b) => a + b) / lst.length;
   else return 0;
+}
+
+function calculateStatPercentile(weaponId: string, stat: string) {
+  const all_weapons_copy = clone(ALL_WEAPONS)
+  const weapon = weaponById(weaponId);
+  if (weapon === undefined) {
+    console.warn(`Invalid weapon id specified: ${weaponId}`);
+    return undefined;
+  }
+
+  const statValue = extractNumber(weapon, stat);
+  if (statValue === undefined) {
+    console.warn(`Invalid stat ${weapon.name} path specified: ${stat}`);
+    return undefined;
+  }
+
+  return statValue / 1
 }
 
 export function generateMetrics(inputWeapons: Weapon[], numberOfTargets: number, horsebackDamageMult: number, target: Target): WeaponStats {
@@ -182,6 +200,8 @@ export function unitGroupStats(weaponStats: WeaponStats): Map<string, { min: num
   for (const [_, stats] of weaponStats) {
     // Across each category and unit type
     for (const [l, metric] of stats) {
+      console.log(metric.value)
+      if (metric.value.result === -1) continue;
       const existingCategory = unitGroupStats.get(l);
       const existingUnit  = unitGroupStats.get(metric.unit);
 
