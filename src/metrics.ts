@@ -1,10 +1,12 @@
 import { extractNumber, Weapon } from "./weapon";
 
+
+
 export enum MetricPath {
   WINDUP_SLASH = "attacks.slash.light.windup",
   WINDUP_OVERHEAD = "attacks.overhead.light.windup",
   WINDUP_STAB = "attacks.stab.light.windup",
-  WINDUP_SPECIAL = "specialAttack.windup",
+  WINDUP_SPECIAL = "attacks.special.windup",
 
   RANGE_SLASH = "attacks.slash.range",
   RANGE_ALT_SLASH = "attacks.slash.altRange",
@@ -20,7 +22,7 @@ export enum MetricPath {
   DAMAGE_OVERHEAD_HEAVY = "attacks.overhead.heavy.damage",
   DAMAGE_STAB_LIGHT = "attacks.stab.light.damage",
   DAMAGE_STAB_HEAVY = "attacks.stab.heavy.damage",
-  DAMAGE_SPECIAL = "specialAttack.damage",
+  DAMAGE_SPECIAL = "attacks.special.damage",
   DAMAGE_CHARGE = "chargeAttack.damage",
   DAMAGE_LEAP = "leapAttack.damage",
   
@@ -34,6 +36,7 @@ export enum MetricPath {
 export enum Unit {
   INDEX = "Index",
   SPEED = "Milliseconds",
+  INVERSE_SPEED = "-Milliseconds",
   RANGE = "Jeoffreys",
   DAMAGE = "Hitpoints"
 }
@@ -79,7 +82,9 @@ export enum MetricLabel {
 export function unitGroup(path: MetricPath) {
   if (path.includes(".damage")) {
     return Unit.DAMAGE;
-  } else if (path.includes(".windup")) {
+  } else if (path.includes(".windup") || path.includes("recovery")) {
+    return Unit.INVERSE_SPEED;
+  } else if (path.includes(".release") || path.includes("combo")) {
     return Unit.SPEED;
   } else if (path.includes(".range") || path.includes(".altRange")) {
     return Unit.RANGE;
@@ -108,6 +113,9 @@ export type LabelledMetrics = Map<
 >;
 
 export type MetricResult = {result: number; rawResult: number; }
+
+export class MetricPath {
+  attackType: AttackType;
 
 export abstract class Metric {
   name: MetricLabel;

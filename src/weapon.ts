@@ -68,15 +68,11 @@ export function withBonusMultipliers(w: Weapon, numberOfTargets: number, horseba
           ...w.attacks.stab.light,
           "damage": w.attacks.stab.heavy.damage * bonusMult(numberOfTargets, target, w.damageType, canCleave(w, "attacks.stab.heavy.damage")) * horsebackDamageMult
         }
-      }
-    },
-    "rangedAttack": {
-      ...w.rangedAttack,
-      "damage": {
-        "torso": w.rangedAttack.damage.torso * bonusMult(numberOfTargets, target, w.damageType, canCleave(w, "rangedAttack.damage.torso")),
-        "head": w.rangedAttack.damage.head * bonusMult(numberOfTargets, target, w.damageType, canCleave(w, "rangedAttack.damage.head")),
-        "legs": w.rangedAttack.damage.legs * bonusMult(numberOfTargets, target, w.damageType, canCleave(w, "rangedAttack.damage.legs"))
-      }
+      },
+      "throw": {
+        ...w.attacks.throw,
+        "damage": w.attacks.throw.damage * bonusMult(numberOfTargets, target, w.damageType, canCleave(w, "attacks.throw.damage"))
+
     },
     "specialAttack": {
       ...w.specialAttack,
@@ -144,7 +140,7 @@ export function extract<T>(weapon: Weapon, path: string, optional: boolean = fal
 }
 
 export function damageType(weapon: Weapon, label: MetricLabel): DamageType {
-  if(weapon.rangedAttack && label.toLowerCase().includes("thrown") && "damageTypeOverride" in weapon.rangedAttack)
+  if(label.toLowerCase().includes("throw") && "damageTypeOverride" in weapon.attacks.throw.damageTypeOverride)
     return weapon.rangedAttack.damageTypeOverride!;
   return weapon.damageType;
 }
@@ -155,10 +151,6 @@ export type Weapon = {
   weaponTypes: WeaponType[];
   damageType: DamageType;
   attacks: Attacks;
-  specialAttack: SpecialAttack;
-  leapAttack: SpecialAttack;
-  chargeAttack: SpecialAttack;
-  rangedAttack: RangedAttack;
 };
 
 export type Attacks = {
@@ -168,13 +160,17 @@ export type Attacks = {
   jab: SpecialAttack;
   shove: SpecialAttack;
   special: SpecialAttack;
+  throw: SpecialAttack;
 };
 
 export type SpecialAttack = {
-  windup: number;
   damage: number;
-  cleaveOverride?: boolean;
+  windup: number; 
+  release: number; 
+  recovery: number; 
+  combo: number;
   range?: number; // Not measured yet
+  cleaveOverride?: boolean;
 };
 
 export type Swing = {
@@ -184,16 +180,12 @@ export type Swing = {
   heavy: MeleeAttack;
 };
 
-export type RangedAttack = {
-  damageTypeOverride?: DamageType;
-  projectileSpeed?: number; // Not measured yet
-  windup?: number; // milliseconds
-  damage: ProjectileDamage;
-};
-
 export type MeleeAttack = {
   damage: number;
-  windup?: number; // We don't yet know these for heavy attacks
+  windup: number; 
+  release: number; 
+  recovery: number; 
+  combo: number;
   cleaveOverride?: boolean;
 };
 
