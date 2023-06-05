@@ -134,7 +134,6 @@ export function extract<T>(weapon: Weapon, path: string, optional: boolean = fal
 }
 
 export function withBonusMultipliers(w: Weapon, numberOfTargets: number, horsebackDamageMult: number, target: Target): Weapon {
-  console.log(w.name)
   return {
     ...w,
     "attacks": {

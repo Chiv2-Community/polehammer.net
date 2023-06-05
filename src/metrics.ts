@@ -144,8 +144,6 @@ export enum MetricLabel {
   RANGE_STAB = "Range - Stab",
   RANGE_ALT_STAB = "Range - Alt. Stab",
   // RANGE_SPECIAL = "Range - Special", TODO
-
-  AVERAGE_RANK  = "Rank - Average"
 }
 
 export function unitGroup(path: MetricPath) {

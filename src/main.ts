@@ -361,6 +361,7 @@ function setCategory(category: MetricLabel, enabled: boolean) {
 
 // Write all categories we know about into the categories list
 Object.values(MetricLabel).forEach((r) => {
+  console.log(r)
   const [group, name] = r.split(" - ");
 
   const div = document.createElement("div");
