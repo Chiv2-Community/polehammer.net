@@ -14,7 +14,7 @@ export type Attacks = {
   overhead: Swing;
   stab: Swing;
   jab: SpecialAttack;
-  shove: SpecialAttack;
+  sprintAttack: SpecialAttack;
   special: SpecialAttack;
   throw: SpecialAttack;
 };
@@ -134,6 +134,7 @@ export function extract<T>(weapon: Weapon, path: string, optional: boolean = fal
 }
 
 export function withBonusMultipliers(w: Weapon, numberOfTargets: number, horsebackDamageMult: number, target: Target): Weapon {
+  console.log(w.name)
   return {
     ...w,
     "attacks": {
@@ -163,27 +164,31 @@ export function withBonusMultipliers(w: Weapon, numberOfTargets: number, horseba
       "stab": {
         ...w.attacks.stab,
         "light": {
+          ...w.attacks.stab.light,  
           "damage": w.attacks.stab.light.damage * bonusMult(numberOfTargets, target, w.damageType, canCleave(w, "attacks.stab.light.damage")) * horsebackDamageMult
         },
         "heavy": {
+          ...w.attacks.stab.heavy,  
           "damage": w.attacks.stab.heavy.damage * bonusMult(numberOfTargets, target, w.damageType, canCleave(w, "attacks.stab.heavy.damage")) * horsebackDamageMult
         }
       },
       "throw": {
+        ...w.attacks.throw,  
         "damage": w.attacks.throw.damage * bonusMult(numberOfTargets, target, w.damageType, canCleave(w, "attacks.throw.damage"))
       },
       "special": {
-        ...w.special,
-        "damage": w.special.damage * bonusMult(numberOfTargets, target, w.damageType, canCleave(w, "special.damage")) * horsebackDamageMult
+        ...w.attacks.special,
+        "damage": w.attacks.special.damage * bonusMult(numberOfTargets, target, w.damageType, canCleave(w, "attacks.special.damage")) * horsebackDamageMult
       },
       "sprintAttack": {
-        ...w.sprintAttack,
-        "damage": w.sprintAttack.damage * bonusMult(numberOfTargets, target, w.damageType, canCleave(w, "sprintAttack.damage"))
+        ...w.attacks.sprintAttack,
+        "damage": w.attacks.sprintAttack.damage * bonusMult(numberOfTargets, target, w.damageType, canCleave(w, "attacks.sprintAttack.damage"))
       }
-  } as Weapon
+    } as unknown as Weapon
+  }
 }
 
-function bonusMult(numberOfTargets: number, target: Target, type: DamageType, cleaves: boolean): number {
+export function bonusMult(numberOfTargets: number, target: Target, type: DamageType, cleaves: boolean): number {
   const cleavingMultiplier = cleaves ? numberOfTargets : 1
 
   // Multiply Vanguard / Archer by 2 assuming equal distribution of target classes
@@ -213,11 +218,10 @@ export function extractNumber(weapon: Weapon, path: string): number {
   }
 
   return result
-}
-
+};
 
 export function damageType(weapon: Weapon, label: MetricLabel): DamageType {
   if(label.toLowerCase().includes("throw") && "damageTypeOverride" in weapon.attacks.throw)
     return weapon.attacks.throw.damageTypeOverride!;
   return weapon.damageType;
-}
+};
