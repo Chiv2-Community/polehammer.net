@@ -200,7 +200,6 @@ export function unitGroupStats(weaponStats: WeaponStats): Map<string, { min: num
   for (const [_, stats] of weaponStats) {
     // Across each category and unit type
     for (const [l, metric] of stats) {
-      console.log(metric.value)
       if (metric.value.result === -1) continue;
       const existingCategory = unitGroupStats.get(l);
       const existingUnit  = unitGroupStats.get(metric.unit);
