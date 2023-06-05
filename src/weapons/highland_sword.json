@@ -1,6 +1,6 @@
 {
   "id": "hs",
-  "alias": [
+  "aliases": [
     "Highlander Sword",
     "Longest Sword",
     "Executioner Sword",
@@ -9,7 +9,7 @@
     "Highland",
     "Highlander"
   ],
-  "name": "HighlandSword",
+  "name": "Highland Sword",
   "weaponTypes": [
     "Sword",
     "Two Handed",
