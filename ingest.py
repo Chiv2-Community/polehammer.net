@@ -134,6 +134,8 @@ def write_to_file(data, foldername, changelog_location):
                     del merged["chargeAttack"]
                 if "leapAttack" in merged:
                     del merged["leapAttack"]
+
+                merged["name"] = pascal_to_space(weapon["name"])
                 json.dump(merged, outfile, indent=2)
 
         for (name, changes) in changelog.items():
@@ -150,6 +152,9 @@ def write_to_file(data, foldername, changelog_location):
 
 def pascal_to_camel(s):
     return re.sub(r'(?<!^)(?=[A-Z])', '_', s).lower()
+
+def pascal_to_space(s):
+    return re.sub(r'(?<!^)(?=[A-Z])', ' ', s)
 
 def apply_stat_transforms(data):
     for key, value in data.items():

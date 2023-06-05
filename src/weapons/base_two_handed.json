@@ -1,5 +1,5 @@
 {
-  "name": "BaseTwoHanded",
+  "name": "Base Two Handed",
   "attacks": {
     "slash": {
       "light": {
