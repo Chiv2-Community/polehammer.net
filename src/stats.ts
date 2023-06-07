@@ -9,7 +9,7 @@ import {
   MetricPath,
 } from "./metrics";
 import { Target } from "./target";
-import { withBonusMultipliers, Weapon } from "./weapon";
+import { withBonusMultipliers, Weapon, extractNumber } from "./weapon";
 
 export type WeaponStats = Map<string, LabelledMetrics>;
 
@@ -20,22 +20,45 @@ function average(lst: number[]) {
   else return 0;
 }
 
-function calculateStatPercentile(weaponId: string, stat: string) {
-  const all_weapons_copy = clone(ALL_WEAPONS)
-  const weapon = weaponById(weaponId);
-  if (weapon === undefined) {
-    console.warn(`Invalid weapon id specified: ${weaponId}`);
-    return undefined;
-  }
+const ALL_METRICS = Object.values(MetricPath)
+function calculateMetricRank(weaponId: string, stat: string, invert: boolean = false) {
+  const all_weapons_sorted = [...ALL_WEAPONS].sort((a, b) => {
+    if(invert)
+      return extractNumber(b, stat) - extractNumber(a, stat);
+    else
+      return extractNumber(a, stat) - extractNumber(b, stat);
+  });
 
-  const statValue = extractNumber(weapon, stat);
-  if (statValue === undefined) {
-    console.warn(`Invalid stat ${weapon.name} path specified: ${stat}`);
-    return undefined;
-  }
-
-  return statValue / 1
+  const rank = all_weapons_sorted.findIndex(w => w.id === weaponId);
+  return rank
 }
+
+function calculateAverageRank(ranks: Map<string, number>) {
+  const all_ranks = [...ranks.values()];
+  const average_rank = average(all_ranks);
+  return average_rank;
+}
+
+//function calculateAverageRankRank(weaponId: string) {
+  //const all_ranks = [...ALL_WEAPONS_RANKS.values()].map(ranks => ranks.get("AVERAGE_RANK") as number);
+  //const average_rank_rank = calculateMetricRank(weaponId, "AVERAGE_RANK", true);
+  //return average_rank_rank;
+//}
+
+const ALL_WEAPONS_RANKS = new Map<string, Map<string, number>>();
+for(const weapon of ALL_WEAPONS) {
+  const ranks = new Map<string, number>();
+  for(const metric of ALL_METRICS) {
+    ranks.set(metric, calculateMetricRank(weapon.id, metric));
+  }
+  ranks.set("AVERAGE_RANK", calculateAverageRank(ranks));
+  ALL_WEAPONS_RANKS.set(weapon.id, ranks);
+}
+
+
+
+
+
 
 export function generateMetrics(inputWeapons: Weapon[], numberOfTargets: number, horsebackDamageMult: number, target: Target): WeaponStats {
   const weapons = inputWeapons.map(w => withBonusMultipliers(w, numberOfTargets, horsebackDamageMult, target))
