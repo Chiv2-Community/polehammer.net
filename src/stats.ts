@@ -1,3 +1,4 @@
+import ALL_WEAPONS from "./all_weapons";
 import {
   AggregateInverseMetric,
   AggregateMetric,
@@ -6,7 +7,6 @@ import {
   LabelledMetrics,
   MetricLabel,
   MetricPath,
-  Unit,
 } from "./metrics";
 import { Target } from "./target";
 import { withBonusMultipliers, Weapon } from "./weapon";
@@ -20,21 +20,111 @@ function average(lst: number[]) {
   else return 0;
 }
 
+function calculateStatPercentile(weaponId: string, stat: string) {
+  const all_weapons_copy = clone(ALL_WEAPONS)
+  const weapon = weaponById(weaponId);
+  if (weapon === undefined) {
+    console.warn(`Invalid weapon id specified: ${weaponId}`);
+    return undefined;
+  }
+
+  const statValue = extractNumber(weapon, stat);
+  if (statValue === undefined) {
+    console.warn(`Invalid stat ${weapon.name} path specified: ${stat}`);
+    return undefined;
+  }
+
+  return statValue / 1
+}
+
 export function generateMetrics(inputWeapons: Weapon[], numberOfTargets: number, horsebackDamageMult: number, target: Target): WeaponStats {
   const weapons = inputWeapons.map(w => withBonusMultipliers(w, numberOfTargets, horsebackDamageMult, target))
   const metricGenerators = [
-    // Speeds
-    // Note that we invert each value within its range, because lower is better.
-    new InverseMetric(
-      MetricLabel.SPEED_SLASH,
-      MetricPath.WINDUP_SLASH
-    ),
-    new InverseMetric(MetricLabel.SPEED_OVERHEAD, MetricPath.WINDUP_OVERHEAD),
-    new InverseMetric(MetricLabel.SPEED_STAB, MetricPath.WINDUP_STAB),
-    new InverseMetric(MetricLabel.SPEED_SPECIAL, MetricPath.WINDUP_SPECIAL),
+    // For windup and recovery, lower is better
+    new InverseMetric(MetricLabel.WINDUP_SLASH_LIGHT, MetricPath.WINDUP_SLASH_LIGHT),
+    new InverseMetric(MetricLabel.WINDUP_SLASH_HEAVY, MetricPath.WINDUP_SLASH_LIGHT),
+    new InverseMetric(MetricLabel.WINDUP_OVERHEAD_LIGHT, MetricPath.WINDUP_SLASH_LIGHT),
+    new InverseMetric(MetricLabel.WINDUP_OVERHEAD_HEAVY, MetricPath.WINDUP_SLASH_LIGHT),
+    new InverseMetric(MetricLabel.WINDUP_STAB_LIGHT, MetricPath.WINDUP_SLASH_LIGHT),
+    new InverseMetric(MetricLabel.WINDUP_STAB_HEAVY, MetricPath.WINDUP_SLASH_LIGHT),
+    new InverseMetric(MetricLabel.WINDUP_SPECIAL, MetricPath.WINDUP_SPECIAL),
+    new InverseMetric(MetricLabel.WINDUP_SPRINT, MetricPath.WINDUP_SPRINT),
+    new InverseMetric(MetricLabel.WINDUP_THROW, MetricPath.WINDUP_THROW),
+    new InverseMetric(MetricLabel.RECOVERY_SLASH_LIGHT, MetricPath.RECOVERY_SLASH_LIGHT),
+    new InverseMetric(MetricLabel.RECOVERY_SLASH_HEAVY, MetricPath.RECOVERY_SLASH_LIGHT),
+    new InverseMetric(MetricLabel.RECOVERY_OVERHEAD_LIGHT, MetricPath.RECOVERY_SLASH_LIGHT),
+    new InverseMetric(MetricLabel.RECOVERY_OVERHEAD_HEAVY, MetricPath.RECOVERY_SLASH_LIGHT),
+    new InverseMetric(MetricLabel.RECOVERY_STAB_LIGHT, MetricPath.RECOVERY_SLASH_LIGHT),
+    new InverseMetric(MetricLabel.RECOVERY_STAB_HEAVY, MetricPath.RECOVERY_SLASH_LIGHT),
+    new InverseMetric(MetricLabel.RECOVERY_SPECIAL, MetricPath.RECOVERY_SPECIAL),
+    new InverseMetric(MetricLabel.RECOVERY_SPRINT, MetricPath.RECOVERY_SPRINT),
+    new InverseMetric(MetricLabel.RECOVERY_THROW, MetricPath.RECOVERY_THROW),
+
+    // For combo and release, higher is better
+    new BasicMetric(MetricLabel.RELEASE_SLASH_LIGHT, MetricPath.RELEASE_SLASH_LIGHT),
+    new BasicMetric(MetricLabel.RELEASE_SLASH_HEAVY, MetricPath.RELEASE_SLASH_LIGHT),
+    new BasicMetric(MetricLabel.RELEASE_OVERHEAD_LIGHT, MetricPath.RELEASE_SLASH_LIGHT),
+    new BasicMetric(MetricLabel.RELEASE_OVERHEAD_HEAVY, MetricPath.RELEASE_SLASH_LIGHT),
+    new BasicMetric(MetricLabel.RELEASE_STAB_LIGHT, MetricPath.RELEASE_SLASH_LIGHT),
+    new BasicMetric(MetricLabel.RELEASE_STAB_HEAVY, MetricPath.RELEASE_SLASH_LIGHT),
+    new BasicMetric(MetricLabel.RELEASE_SPECIAL, MetricPath.RELEASE_SPECIAL),
+    new BasicMetric(MetricLabel.RELEASE_SPRINT, MetricPath.RELEASE_SPRINT),
+    new BasicMetric(MetricLabel.RELEASE_THROW, MetricPath.RELEASE_THROW),
+    new BasicMetric(MetricLabel.COMBO_SLASH_LIGHT, MetricPath.COMBO_SLASH_LIGHT),
+    new BasicMetric(MetricLabel.COMBO_SLASH_HEAVY, MetricPath.COMBO_SLASH_LIGHT),
+    new BasicMetric(MetricLabel.COMBO_OVERHEAD_LIGHT, MetricPath.COMBO_SLASH_LIGHT),
+    new BasicMetric(MetricLabel.COMBO_OVERHEAD_HEAVY, MetricPath.COMBO_SLASH_LIGHT),
+    new BasicMetric(MetricLabel.COMBO_STAB_LIGHT, MetricPath.COMBO_SLASH_LIGHT),
+    new BasicMetric(MetricLabel.COMBO_STAB_HEAVY, MetricPath.COMBO_SLASH_LIGHT),
+    new BasicMetric(MetricLabel.COMBO_SPECIAL, MetricPath.COMBO_SPECIAL),
+    new BasicMetric(MetricLabel.COMBO_SPRINT, MetricPath.COMBO_SPRINT),
+    new BasicMetric(MetricLabel.COMBO_THROW, MetricPath.COMBO_THROW),
+
+    // Average Windup
     new AggregateInverseMetric(
-      MetricLabel.SPEED_AVERAGE,
-      [MetricPath.WINDUP_STAB, MetricPath.WINDUP_SLASH, MetricPath.WINDUP_OVERHEAD],
+      MetricLabel.WINDUP_LIGHT_AVERAGE,
+      [MetricPath.WINDUP_STAB_LIGHT, MetricPath.WINDUP_SLASH_LIGHT, MetricPath.WINDUP_OVERHEAD_LIGHT],
+      average
+    ),
+    new AggregateInverseMetric(
+      MetricLabel.WINDUP_HEAVY_AVERAGE,
+      [MetricPath.WINDUP_STAB_HEAVY, MetricPath.WINDUP_SLASH_HEAVY, MetricPath.WINDUP_OVERHEAD_HEAVY],
+      average
+    ),
+
+    // Average Recovery
+    new AggregateInverseMetric(
+      MetricLabel.RECOVERY_LIGHT_AVERAGE,
+      [MetricPath.RECOVERY_STAB_LIGHT, MetricPath.RECOVERY_SLASH_LIGHT, MetricPath.RECOVERY_OVERHEAD_LIGHT],
+      average
+    ),
+    new AggregateInverseMetric(
+      MetricLabel.RECOVERY_HEAVY_AVERAGE,
+      [MetricPath.RECOVERY_STAB_HEAVY, MetricPath.RECOVERY_SLASH_HEAVY, MetricPath.RECOVERY_OVERHEAD_HEAVY],
+      average
+    ),
+    
+    // Average Release
+    new AggregateMetric(
+      MetricLabel.RELEASE_LIGHT_AVERAGE,
+      [MetricPath.RELEASE_STAB_LIGHT, MetricPath.RELEASE_SLASH_LIGHT, MetricPath.RELEASE_OVERHEAD_LIGHT],
+      average
+    ),
+    new AggregateMetric(
+      MetricLabel.RELEASE_HEAVY_AVERAGE,
+      [MetricPath.RELEASE_STAB_HEAVY, MetricPath.RELEASE_SLASH_HEAVY, MetricPath.RELEASE_OVERHEAD_HEAVY],
+      average
+    ),
+
+    // Average Combo
+    new AggregateMetric(
+      MetricLabel.COMBO_LIGHT_AVERAGE,
+      [MetricPath.COMBO_STAB_LIGHT, MetricPath.COMBO_SLASH_LIGHT, MetricPath.COMBO_OVERHEAD_LIGHT],
+      average
+    ),
+    new AggregateMetric(
+      MetricLabel.COMBO_HEAVY_AVERAGE,
+      [MetricPath.COMBO_STAB_HEAVY, MetricPath.COMBO_SLASH_HEAVY, MetricPath.COMBO_OVERHEAD_HEAVY],
       average
     ),
 
@@ -63,33 +153,16 @@ export function generateMetrics(inputWeapons: Weapon[], numberOfTargets: number,
     ),
 
     // Damages
-    new BasicMetric(
-      MetricLabel.DAMAGE_SLASH_LIGHT,
-      MetricPath.DAMAGE_SLASH_LIGHT
-    ),
-    new BasicMetric(
-      MetricLabel.DAMAGE_SLASH_HEAVY,
-      MetricPath.DAMAGE_SLASH_HEAVY
-    ),
-    new BasicMetric(
-      MetricLabel.DAMAGE_OVERHEAD_LIGHT,
-      MetricPath.DAMAGE_OVERHEAD_LIGHT
-    ),
-    new BasicMetric(
-      MetricLabel.DAMAGE_OVERHEAD_HEAVY,
-      MetricPath.DAMAGE_OVERHEAD_HEAVY
-    ),
-    new BasicMetric(
-      MetricLabel.DAMAGE_STAB_LIGHT,
-      MetricPath.DAMAGE_STAB_LIGHT
-    ),
-    new BasicMetric(
-      MetricLabel.DAMAGE_STAB_HEAVY,
-      MetricPath.DAMAGE_STAB_HEAVY
-    ),
+    new BasicMetric(MetricLabel.DAMAGE_SLASH_LIGHT, MetricPath.DAMAGE_SLASH_LIGHT),
+    new BasicMetric(MetricLabel.DAMAGE_SLASH_HEAVY, MetricPath.DAMAGE_SLASH_HEAVY),
+    new BasicMetric(MetricLabel.DAMAGE_OVERHEAD_LIGHT, MetricPath.DAMAGE_OVERHEAD_LIGHT),
+    new BasicMetric(MetricLabel.DAMAGE_OVERHEAD_HEAVY, MetricPath.DAMAGE_OVERHEAD_HEAVY),
+    new BasicMetric(MetricLabel.DAMAGE_STAB_LIGHT, MetricPath.DAMAGE_STAB_LIGHT),
+    new BasicMetric(MetricLabel.DAMAGE_STAB_HEAVY, MetricPath.DAMAGE_STAB_HEAVY),
     new BasicMetric(MetricLabel.DAMAGE_SPECIAL, MetricPath.DAMAGE_SPECIAL),
-    new BasicMetric(MetricLabel.DAMAGE_CHARGE, MetricPath.DAMAGE_CHARGE),
-    new BasicMetric(MetricLabel.DAMAGE_LEAP, MetricPath.DAMAGE_LEAP),
+    new BasicMetric(MetricLabel.DAMAGE_SPRINT, MetricPath.DAMAGE_SPRINT),
+    new BasicMetric(MetricLabel.DAMAGE_THROW, MetricPath.DAMAGE_THROW),
+
     new AggregateMetric(
       MetricLabel.DAMAGE_LIGHT_AVERAGE, 
       [MetricPath.DAMAGE_STAB_LIGHT, MetricPath.DAMAGE_OVERHEAD_LIGHT, MetricPath.DAMAGE_SLASH_LIGHT], 
@@ -99,91 +172,7 @@ export function generateMetrics(inputWeapons: Weapon[], numberOfTargets: number,
       MetricLabel.DAMAGE_HEAVY_AVERAGE, 
       [MetricPath.DAMAGE_STAB_HEAVY, MetricPath.DAMAGE_OVERHEAD_HEAVY, MetricPath.DAMAGE_SLASH_HEAVY], 
       average
-    ),
-    
-    new AggregateMetric(
-      MetricLabel.DAMAGE_RANGED_AVERAGE, 
-      [MetricPath.DAMAGE_RANGED_HEAD, MetricPath.DAMAGE_RANGED_TORSO, MetricPath.DAMAGE_RANGED_LEGS], 
-      average
-    ),
-    new BasicMetric(MetricLabel.DAMAGE_RANGED_HEAD, MetricPath.DAMAGE_RANGED_HEAD),
-    new BasicMetric(MetricLabel.DAMAGE_RANGED_TORSO, MetricPath.DAMAGE_RANGED_TORSO),
-    new BasicMetric(MetricLabel.DAMAGE_RANGED_LEGS, MetricPath.DAMAGE_RANGED_LEGS),
-    new AggregateMetric(MetricLabel.POLEHAMMER_INDEX, [
-      MetricPath.DAMAGE_SLASH_HEAVY, 
-      MetricPath.DAMAGE_OVERHEAD_HEAVY,
-      MetricPath.DAMAGE_STAB_HEAVY, 
-
-      MetricPath.DAMAGE_SLASH_LIGHT, 
-      MetricPath.DAMAGE_OVERHEAD_LIGHT,
-      MetricPath.DAMAGE_STAB_LIGHT, 
-
-      MetricPath.DAMAGE_SPECIAL,
-
-      MetricPath.WINDUP_SLASH,
-      MetricPath.WINDUP_OVERHEAD,
-      MetricPath.WINDUP_STAB,
-      MetricPath.WINDUP_SPECIAL,
-
-      MetricPath.RANGE_SLASH,
-      MetricPath.RANGE_ALT_SLASH,
-
-      MetricPath.RANGE_OVERHEAD,
-      MetricPath.RANGE_ALT_OVERHEAD,
-
-      MetricPath.RANGE_STAB,
-      MetricPath.RANGE_ALT_STAB,
-      
-      MetricPath.DAMAGE_RANGED_HEAD,
-      MetricPath.DAMAGE_RANGED_TORSO,
-      MetricPath.DAMAGE_RANGED_LEGS
-    ], (inputs => {
-      let horizontalHeavyDamage = inputs[0],
-          overheadHeavyDamage = inputs[1],
-          stabHeavyDamage = inputs[2],
-          horizontalLightDamage = inputs[3],
-          overheadLightDamage = inputs[4],
-          stabLightDamage = inputs[5],
-          specialDamage = inputs[6],
-          horizontalWindup = inputs[7],
-          overheadWindup = inputs[8],
-          stabWindup = inputs[9],
-          specialWindup = inputs[10],
-          horizontalRange = inputs[11],
-          horizontalAltRange = inputs[12],
-          overheadRange = inputs[13],
-          overheadAltRange = inputs[14],
-          stabRange = inputs[13],
-          stabAltRange = inputs[14],
-          headRangedDamage = inputs[15],
-          torsoRangedDamage = inputs[16],
-          legsRangedDamage = inputs[17]
-
-      let averageDamageScore =
-        (horizontalHeavyDamage + horizontalLightDamage +
-        overheadHeavyDamage + overheadLightDamage +
-        stabHeavyDamage + stabLightDamage + specialDamage) / 7
-
-      let averageHeavyBuffScore = 
-        ((horizontalHeavyDamage + overheadHeavyDamage + stabHeavyDamage) -
-        (horizontalLightDamage + overheadLightDamage + stabLightDamage)) / 3
-      
-      let averageWindupScore = (horizontalWindup + overheadWindup + stabWindup + specialWindup) / 4
-      
-      let averageRangeScore = 
-        (horizontalRange + horizontalAltRange +
-        overheadRange + overheadAltRange +
-        stabRange + stabAltRange) / 6
-
-      let averageThrownDamageScore =
-        (headRangedDamage + torsoRangedDamage + legsRangedDamage) / 3
-    
-      return (averageDamageScore/2.5) + 
-        (averageHeavyBuffScore) +
-        (averageRangeScore/3) + 
-        (averageThrownDamageScore/5) -
-        (averageWindupScore/100);
-    }), Unit.INDEX),
+    )
   ];
 
   return new Map(
@@ -211,6 +200,7 @@ export function unitGroupStats(weaponStats: WeaponStats): Map<string, { min: num
   for (const [_, stats] of weaponStats) {
     // Across each category and unit type
     for (const [l, metric] of stats) {
+      if (metric.value.result === -1) continue;
       const existingCategory = unitGroupStats.get(l);
       const existingUnit  = unitGroupStats.get(metric.unit);
 

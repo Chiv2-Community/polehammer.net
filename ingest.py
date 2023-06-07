@@ -9,7 +9,7 @@ from collections.abc import Mapping
 import argparse
 
 VALID_STATS = ["Holding", "Windup", "Release", "Recovery", "Combo", "Riposte", "Damage", "TurnLimitStrength", "VerticalTurnLimitStrength", "ReverseTurnLimitStrength"]
-VALID_ATTACKS = ["slash", "slashHeavy", "overhead","overheadHeavy", "stab", "stabHeavy", "shove", "throw", "special", "sprintAttack", "sprintShove", "sprintCharge", "horseSpecial"]
+VALID_ATTACKS = ["slash", "slashHeavy", "overhead","overheadHeavy", "stab", "stabHeavy", "throw", "special", "sprintAttack"]
 
 def seconds_to_millis(n):
     return n * 1000 if n != -1 else -1
@@ -18,7 +18,7 @@ STAT_TRANSFORMS = {
     "windup": seconds_to_millis,
     "release": seconds_to_millis,
     "recovery": seconds_to_millis,
-    "combo": seconds_to_millis
+    "combo": seconds_to_millis,
 }
 
 def main():
@@ -127,6 +127,7 @@ def write_to_file(data, foldername, changelog_location):
                 (changes, merged) = deep_merge(weapon["name"], existing_data, weapon)
                 if len(changes) > 0:
                     changelog[weapon["name"]] = changes
+                merged["name"] = pascal_to_space(weapon["name"])
                 json.dump(merged, outfile, indent=2)
 
         for (name, changes) in changelog.items():
@@ -168,6 +169,9 @@ def write_dicts_to_csv(data, csv_file_path):
 
 def pascal_to_camel(s):
     return re.sub(r'(?<!^)(?=[A-Z])', '_', s).lower()
+
+def pascal_to_space(s):
+    return re.sub(r'(?<!^)(?=[A-Z])', ' ', s)
 
 def apply_stat_transforms(data):
     for key, value in data.items():
