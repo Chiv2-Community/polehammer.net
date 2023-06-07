@@ -118,6 +118,7 @@ def write_to_file(data, foldername, changelog_location):
         changelog = {}
         for weapon in data:
             path = foldername + "/" + pascal_to_camel(weapon["name"]) + ".json"
+            weapon["name"] = pascal_to_space(weapon["name"])
             exists = os.path.isfile(path)
             existing_data = {}
             if exists:
@@ -171,7 +172,7 @@ def pascal_to_camel(s):
     return re.sub(r'(?<!^)(?=[A-Z])', '_', s).lower()
 
 def pascal_to_space(s):
-    return re.sub(r'(?<!^)(?=[A-Z])', ' ', s)
+    return re.sub(r'(?<!^)(?=[A-Z])', ' ', s).replace("  ", " ")
 
 def apply_stat_transforms(data):
     for key, value in data.items():
