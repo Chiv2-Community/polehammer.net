@@ -4,6 +4,7 @@ import sys
 import requests
 import os
 import copy
+import csv
 from collections.abc import Mapping
 import argparse
 
@@ -126,23 +127,43 @@ def write_to_file(data, foldername, changelog_location):
                 (changes, merged) = deep_merge(weapon["name"], existing_data, weapon)
                 if len(changes) > 0:
                     changelog[weapon["name"]] = changes
-                if "rangedAttack" in merged:
-                    del merged["rangedAttack"]
-                    del merged["specialAttack"]
-                    del merged["chargeAttack"]
-                    del merged["leapAttack"]
                 json.dump(merged, outfile, indent=2)
 
         for (name, changes) in changelog.items():
             for change in changes:
                 full_path = name + "." + '.'.join(change['path'])
                 print(full_path + ": " + str(change['old']) + " -> " + str(change['new']))
+        
+        write_dicts_to_csv(data, foldername + "/data.csv")
 
-        with open(changelog_location, 'w') as changelog_file:
+        with open(changelog_location, 'w') as changelog_file: 
             json.dump(changelog, changelog_file, indent=2)
     except IOError as e:
         print(e)
         sys.exit("Unable to write to JSON file!")
+
+import csv
+
+def flatten_dict(d, parent_key='', sep='_'):
+    items = []
+    for k, v in d.items():
+        new_key = f"{parent_key}{sep}{k}" if parent_key else k
+        if isinstance(v, dict):
+            items.extend(flatten_dict(v, new_key, sep=sep).items())
+        else:
+            items.append((new_key, v))
+    return dict(items)
+
+def write_dicts_to_csv(data, csv_file_path):
+    with open(csv_file_path, 'w', newline='') as f:
+        writer = None
+        for d in data:
+            flat_d = flatten_dict(d)
+            if writer is None:
+                writer = csv.DictWriter(f, fieldnames=flat_d.keys())
+                writer.writeheader()
+            writer.writerow(flat_d)
+
 
 
 def pascal_to_camel(s):
