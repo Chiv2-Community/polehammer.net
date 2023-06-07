@@ -50,7 +50,7 @@ def fetch_data(path):
       return json.load(user_file)
 
 def clean_item(item, VALID_STATS):
-    return {lowercase_first_char(key): item[key] for key in VALID_STATS}
+    return {lowercase_first_char(key): item[key] for key in item.keys()}#VALID_STATS}
 
 def process_item(name, item, base_defaults, attack_defaults, weapon_defaults, weapons):
     name_parts = name.split('.')
