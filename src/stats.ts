@@ -1,4 +1,4 @@
-import ALL_WEAPONS from "./all_weapons";
+import ALL_WEAPONS, { weaponById } from "./all_weapons";
 import {
   AggregateInverseMetric,
   AggregateMetric,
@@ -7,6 +7,8 @@ import {
   LabelledMetrics,
   MetricLabel,
   MetricPath,
+  Unit,
+  WeaponMetric,
 } from "./metrics";
 import { Target } from "./target";
 import { withBonusMultipliers, Weapon, extractNumber } from "./weapon";
@@ -21,15 +23,19 @@ function average(lst: number[]) {
 }
 
 const ALL_METRICS = Object.values(MetricPath)
-function calculateMetricRank(weaponId: string, stat: string, invert: boolean = false) {
+function calculateMetricRank(weaponId: string, stat: string, invert: boolean = false, getNumber: (w: Weapon, stat: string) => number = extractNumber) {
+  console.log(weaponId + " Invert: " + invert)
+  console.log(weaponId + " Stat: " + stat)
+  console.log(weaponId + " Stat Value: " + getNumber(weaponById(weaponId)!, stat))
   const all_weapons_sorted = [...ALL_WEAPONS].sort((a, b) => {
     if(invert)
-      return extractNumber(b, stat) - extractNumber(a, stat);
+      return getNumber(b, stat) - getNumber(a, stat);
     else
-      return extractNumber(a, stat) - extractNumber(b, stat);
+      return getNumber(a, stat) - getNumber(b, stat);
   });
 
   const rank = all_weapons_sorted.findIndex(w => w.id === weaponId);
+  console.log(weaponId + " Rank: " + rank)
   return rank
 }
 
@@ -39,20 +45,25 @@ function calculateAverageRank(ranks: Map<string, number>) {
   return average_rank;
 }
 
-//function calculateAverageRankRank(weaponId: string) {
-  //const all_ranks = [...ALL_WEAPONS_RANKS.values()].map(ranks => ranks.get("AVERAGE_RANK") as number);
-  //const average_rank_rank = calculateMetricRank(weaponId, "AVERAGE_RANK", true);
-  //return average_rank_rank;
-//}
+function calculateAverageRankRank(weaponId: string) {
+  const average_rank_rank = calculateMetricRank(weaponId, "AVERAGE_RANK", true, (w, stat) => ALL_WEAPONS_RANKS.get(w.id)?.get(stat) as number);
+  return average_rank_rank;
+}
 
 const ALL_WEAPONS_RANKS = new Map<string, Map<string, number>>();
 for(const weapon of ALL_WEAPONS) {
   const ranks = new Map<string, number>();
   for(const metric of ALL_METRICS) {
-    ranks.set(metric, calculateMetricRank(weapon.id, metric));
+    const invert = MetricPath.toString().includes("windup") || MetricPath.toString().includes("recovery");
+    ranks.set(metric, calculateMetricRank(weapon.id, metric, invert));
   }
   ranks.set("AVERAGE_RANK", calculateAverageRank(ranks));
   ALL_WEAPONS_RANKS.set(weapon.id, ranks);
+}
+
+for(const weapon of ALL_WEAPONS) {
+  const ranks = ALL_WEAPONS_RANKS.get(weapon.id) as Map<string, number>;
+  ranks.set("AVERAGE_RANK_RANK", calculateAverageRankRank(weapon.id));
 }
 
 
@@ -63,6 +74,7 @@ for(const weapon of ALL_WEAPONS) {
 export function generateMetrics(inputWeapons: Weapon[], numberOfTargets: number, horsebackDamageMult: number, target: Target): WeaponStats {
   const weapons = inputWeapons.map(w => withBonusMultipliers(w, numberOfTargets, horsebackDamageMult, target))
   const metricGenerators = [
+    new WeaponMetric(MetricLabel.RANK, Unit.RANK, (w) => ALL_WEAPONS_RANKS.get(w.id)?.get("AVERAGE_RANK_RANK") as number),
     // For windup and recovery, lower is better
     new InverseMetric(MetricLabel.WINDUP_SLASH_LIGHT, MetricPath.WINDUP_SLASH_LIGHT),
     new InverseMetric(MetricLabel.WINDUP_SLASH_HEAVY, MetricPath.WINDUP_SLASH_HEAVY),

@@ -66,7 +66,8 @@ export enum Unit {
   SPEED = "Milliseconds",
   INVERSE_SPEED = "-Milliseconds",
   RANGE = "Jeoffreys",
-  DAMAGE = "Hitpoints"
+  DAMAGE = "Hitpoints",
+  RANK = "Rank"
 }
 
 export enum MetricLabel {
@@ -156,6 +157,8 @@ export function unitGroup(path: MetricPath) {
     return Unit.SPEED;
   } else if (path.includes(".range") || path.includes(".altRange")) {
     return Unit.RANGE;
+  } else if (path.includes(".rank")) {
+    return Unit.RANK;
   }
   throw `Invalid path: ${path}`;
 }
@@ -199,6 +202,21 @@ export abstract class Metric {
   abstract calculate(weapon: Weapon): MetricResult;
 }
 
+export class WeaponMetric extends Metric {
+  func: (weapon: Weapon) => number;
+  constructor(name: MetricLabel, unit: Unit, func: (weapon: Weapon) => number) {
+    super(name, unit);
+    this.func = func;
+  }
+
+  calculate(weapon: Weapon) {
+    const result = this.func(weapon);
+    return {
+      result: result,
+      rawResult: result,
+    }
+  }
+}
 export class AggregateMetric extends Metric {
   paths: MetricPath[];
   aggregateFunction: (nums: number[]) => number;
