@@ -152,12 +152,12 @@ export function generateMetrics(inputWeapons: Weapon[], numberOfTargets: number,
     ),
 
     // Average Combo
-    new AggregateMetric(
+    new AggregateInverseMetric(
       MetricLabel.COMBO_LIGHT_AVERAGE,
       [MetricPath.COMBO_STAB_LIGHT, MetricPath.COMBO_SLASH_LIGHT, MetricPath.COMBO_OVERHEAD_LIGHT],
       average
     ),
-    new AggregateMetric(
+    new AggregateInverseMetric(
       MetricLabel.COMBO_HEAVY_AVERAGE,
       [MetricPath.COMBO_STAB_HEAVY, MetricPath.COMBO_SLASH_HEAVY, MetricPath.COMBO_OVERHEAD_HEAVY],
       average

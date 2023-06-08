@@ -150,10 +150,10 @@ export enum MetricLabel {
 
 export function unitGroup(path: MetricPath) {
   if (path.includes(".damage")) {
-    return Unit.DAMAGE;
-  } else if (path.includes(".windup") || path.includes(".recovery")) {
+    return Unit.DAMAGE;''
+  } else if (path.includes(".windup") || path.includes(".recovery") || path.includes(".combo")) {
     return Unit.INVERSE_SPEED;
-  } else if (path.includes(".release") || path.includes(".combo")) {
+  } else if (path.includes(".release")) {
     return Unit.SPEED;
   } else if (path.includes(".range") || path.includes(".altRange")) {
     return Unit.RANGE;
