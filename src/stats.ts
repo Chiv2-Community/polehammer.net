@@ -1,4 +1,4 @@
-import ALL_WEAPONS, { weaponById } from "./all_weapons";
+// import ALL_WEAPONS, { weaponById } from "./all_weapons";
 import {
   AggregateInverseMetric,
   AggregateMetric,
@@ -7,11 +7,11 @@ import {
   LabelledMetrics,
   MetricLabel,
   MetricPath,
-  Unit,
-  WeaponMetric,
+//  Unit,
+ // WeaponMetric,
 } from "./metrics";
 import { Target } from "./target";
-import { withBonusMultipliers, Weapon, extractNumber } from "./weapon";
+import { withBonusMultipliers, Weapon, /*extractNumber */} from "./weapon";
 
 export type WeaponStats = Map<string, LabelledMetrics>;
 
@@ -21,7 +21,7 @@ function average(lst: number[]) {
   if (lst.length > 0) return lst.reduce((a, b) => a + b) / lst.length;
   else return 0;
 }
-
+/*
 const ALL_METRICS = Object.values(MetricPath)
 function calculateMetricRank(weaponId: string, stat: string, invert: boolean = false, getNumber: (w: Weapon, stat: string) => number = extractNumber) {
   console.log(weaponId + " Invert: " + invert)
@@ -54,7 +54,7 @@ const ALL_WEAPONS_RANKS = new Map<string, Map<string, number>>();
 for(const weapon of ALL_WEAPONS) {
   const ranks = new Map<string, number>();
   for(const metric of ALL_METRICS) {
-    const invert = MetricPath.toString().includes("windup") || MetricPath.toString().includes("recovery");
+    const invert = MetricPath.toString().includes("windup") || MetricPath.toString().includes("recovery") || MetricPath.toString().includes("combo");
     ranks.set(metric, calculateMetricRank(weapon.id, metric, invert));
   }
   ranks.set("AVERAGE_RANK", calculateAverageRank(ranks));
@@ -65,7 +65,7 @@ for(const weapon of ALL_WEAPONS) {
   const ranks = ALL_WEAPONS_RANKS.get(weapon.id) as Map<string, number>;
   ranks.set("AVERAGE_RANK_RANK", calculateAverageRankRank(weapon.id));
 }
-
+*/
 
 
 
@@ -74,8 +74,8 @@ for(const weapon of ALL_WEAPONS) {
 export function generateMetrics(inputWeapons: Weapon[], numberOfTargets: number, horsebackDamageMult: number, target: Target): WeaponStats {
   const weapons = inputWeapons.map(w => withBonusMultipliers(w, numberOfTargets, horsebackDamageMult, target))
   const metricGenerators = [
-    new WeaponMetric(MetricLabel.RANK, Unit.RANK, (w) => ALL_WEAPONS_RANKS.get(w.id)?.get("AVERAGE_RANK_RANK") as number),
-    // For windup and recovery, lower is better
+ //   new WeaponMetric(MetricLabel.RANK, Unit.RANK, (w) => ALL_WEAPONS_RANKS.get(w.id)?.get("AVERAGE_RANK_RANK") as number),
+    // For windup, recovery, and combo, lower is better
     new InverseMetric(MetricLabel.WINDUP_SLASH_LIGHT, MetricPath.WINDUP_SLASH_LIGHT),
     new InverseMetric(MetricLabel.WINDUP_SLASH_HEAVY, MetricPath.WINDUP_SLASH_HEAVY),
     new InverseMetric(MetricLabel.WINDUP_OVERHEAD_LIGHT, MetricPath.WINDUP_SLASH_LIGHT),
@@ -94,6 +94,15 @@ export function generateMetrics(inputWeapons: Weapon[], numberOfTargets: number,
     new InverseMetric(MetricLabel.RECOVERY_SPECIAL, MetricPath.RECOVERY_SPECIAL),
     new InverseMetric(MetricLabel.RECOVERY_SPRINT, MetricPath.RECOVERY_SPRINT),
     new InverseMetric(MetricLabel.RECOVERY_THROW, MetricPath.RECOVERY_THROW),
+    new InverseMetric(MetricLabel.COMBO_SLASH_LIGHT, MetricPath.COMBO_SLASH_LIGHT),
+    new InverseMetric(MetricLabel.COMBO_SLASH_HEAVY, MetricPath.COMBO_SLASH_HEAVY),
+    new InverseMetric(MetricLabel.COMBO_OVERHEAD_LIGHT, MetricPath.COMBO_SLASH_LIGHT),
+    new InverseMetric(MetricLabel.COMBO_OVERHEAD_HEAVY, MetricPath.COMBO_SLASH_HEAVY),
+    new InverseMetric(MetricLabel.COMBO_STAB_LIGHT, MetricPath.COMBO_SLASH_LIGHT),
+    new InverseMetric(MetricLabel.COMBO_STAB_HEAVY, MetricPath.COMBO_SLASH_HEAVY),
+    new InverseMetric(MetricLabel.COMBO_SPECIAL, MetricPath.COMBO_SPECIAL),
+    new InverseMetric(MetricLabel.COMBO_SPRINT, MetricPath.COMBO_SPRINT),
+    new InverseMetric(MetricLabel.COMBO_THROW, MetricPath.COMBO_THROW),
 
     // For combo and release, higher is better
     new BasicMetric(MetricLabel.RELEASE_SLASH_LIGHT, MetricPath.RELEASE_SLASH_LIGHT),
@@ -105,15 +114,6 @@ export function generateMetrics(inputWeapons: Weapon[], numberOfTargets: number,
     new BasicMetric(MetricLabel.RELEASE_SPECIAL, MetricPath.RELEASE_SPECIAL),
     new BasicMetric(MetricLabel.RELEASE_SPRINT, MetricPath.RELEASE_SPRINT),
     new BasicMetric(MetricLabel.RELEASE_THROW, MetricPath.RELEASE_THROW),
-    new BasicMetric(MetricLabel.COMBO_SLASH_LIGHT, MetricPath.COMBO_SLASH_LIGHT),
-    new BasicMetric(MetricLabel.COMBO_SLASH_HEAVY, MetricPath.COMBO_SLASH_HEAVY),
-    new BasicMetric(MetricLabel.COMBO_OVERHEAD_LIGHT, MetricPath.COMBO_SLASH_LIGHT),
-    new BasicMetric(MetricLabel.COMBO_OVERHEAD_HEAVY, MetricPath.COMBO_SLASH_HEAVY),
-    new BasicMetric(MetricLabel.COMBO_STAB_LIGHT, MetricPath.COMBO_SLASH_LIGHT),
-    new BasicMetric(MetricLabel.COMBO_STAB_HEAVY, MetricPath.COMBO_SLASH_HEAVY),
-    new BasicMetric(MetricLabel.COMBO_SPECIAL, MetricPath.COMBO_SPECIAL),
-    new BasicMetric(MetricLabel.COMBO_SPRINT, MetricPath.COMBO_SPRINT),
-    new BasicMetric(MetricLabel.COMBO_THROW, MetricPath.COMBO_THROW),
 
     // Average Windup
     new AggregateInverseMetric(

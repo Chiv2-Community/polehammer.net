@@ -145,7 +145,7 @@ export enum MetricLabel {
   RANGE_ALT_STAB = "Range - Alt. Stab",
   // RANGE_SPECIAL = "Range - Special", TODO
 
-  RANK = "Rank - Average Percentile",
+  // RANK = "Rank - Average Percentile",
 }
 
 export function unitGroup(path: MetricPath) {
