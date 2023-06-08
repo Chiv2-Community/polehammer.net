@@ -1,10 +1,45 @@
 import { extractNumber, Weapon } from "./weapon";
 
 export enum MetricPath {
-  WINDUP_SLASH = "attacks.slash.light.windup",
-  WINDUP_OVERHEAD = "attacks.overhead.light.windup",
-  WINDUP_STAB = "attacks.stab.light.windup",
-  WINDUP_SPECIAL = "specialAttack.windup",
+  WINDUP_SLASH_LIGHT    = "attacks.slash.light.windup",
+  WINDUP_OVERHEAD_LIGHT = "attacks.overhead.light.windup",
+  WINDUP_STAB_LIGHT     = "attacks.stab.light.windup",
+  WINDUP_SLASH_HEAVY    = "attacks.slash.heavy.windup",
+  WINDUP_OVERHEAD_HEAVY = "attacks.overhead.heavy.windup",
+  WINDUP_STAB_HEAVY     = "attacks.stab.heavy.windup",
+  WINDUP_SPECIAL        = "attacks.special.windup",
+  WINDUP_SPRINT         = "attacks.sprintAttack.windup",
+  WINDUP_THROW          = "attacks.throw.windup",
+  
+  RELEASE_SLASH_LIGHT    = "attacks.slash.light.release",
+  RELEASE_OVERHEAD_LIGHT = "attacks.overhead.light.release",
+  RELEASE_STAB_LIGHT     = "attacks.stab.light.release",
+  RELEASE_SLASH_HEAVY    = "attacks.slash.heavy.release",
+  RELEASE_OVERHEAD_HEAVY = "attacks.overhead.heavy.release",
+  RELEASE_STAB_HEAVY     = "attacks.stab.heavy.release",
+  RELEASE_SPECIAL        = "attacks.special.release",
+  RELEASE_SPRINT         = "attacks.sprintAttack.release",
+  RELEASE_THROW          = "attacks.throw.release",
+
+  RECOVERY_SLASH_LIGHT    = "attacks.slash.light.recovery",
+  RECOVERY_OVERHEAD_LIGHT = "attacks.overhead.light.recovery",
+  RECOVERY_STAB_LIGHT     = "attacks.stab.light.recovery",
+  RECOVERY_SLASH_HEAVY    = "attacks.slash.heavy.recovery",
+  RECOVERY_OVERHEAD_HEAVY = "attacks.overhead.heavy.recovery",
+  RECOVERY_STAB_HEAVY     = "attacks.stab.heavy.recovery",
+  RECOVERY_SPECIAL        = "attacks.special.recovery",
+  RECOVERY_SPRINT         = "attacks.sprintAttack.recovery",
+  RECOVERY_THROW          = "attacks.throw.recovery",
+  
+  COMBO_SLASH_LIGHT    = "attacks.slash.light.combo",
+  COMBO_OVERHEAD_LIGHT = "attacks.overhead.light.combo",
+  COMBO_STAB_LIGHT     = "attacks.stab.light.combo",
+  COMBO_SLASH_HEAVY    = "attacks.slash.heavy.combo",
+  COMBO_OVERHEAD_HEAVY = "attacks.overhead.heavy.combo",
+  COMBO_STAB_HEAVY     = "attacks.stab.heavy.combo",
+  COMBO_SPECIAL        = "attacks.special.combo",
+  COMBO_SPRINT         = "attacks.sprintAttack.combo",
+  COMBO_THROW          = "attacks.throw.combo",
 
   RANGE_SLASH = "attacks.slash.range",
   RANGE_ALT_SLASH = "attacks.slash.altRange",
@@ -12,21 +47,16 @@ export enum MetricPath {
   RANGE_ALT_OVERHEAD = "attacks.overhead.altRange",
   RANGE_STAB = "attacks.stab.range",
   RANGE_ALT_STAB = "attacks.stab.altRange",
-  // RANGE_SPECIAL = "specialAttack.range", TODO
 
-  DAMAGE_SLASH_LIGHT = "attacks.slash.light.damage",
-  DAMAGE_SLASH_HEAVY = "attacks.slash.heavy.damage",
+  DAMAGE_SLASH_LIGHT    = "attacks.slash.light.damage",
   DAMAGE_OVERHEAD_LIGHT = "attacks.overhead.light.damage",
+  DAMAGE_STAB_LIGHT     = "attacks.stab.light.damage",
+  DAMAGE_SLASH_HEAVY    = "attacks.slash.heavy.damage",
   DAMAGE_OVERHEAD_HEAVY = "attacks.overhead.heavy.damage",
-  DAMAGE_STAB_LIGHT = "attacks.stab.light.damage",
-  DAMAGE_STAB_HEAVY = "attacks.stab.heavy.damage",
-  DAMAGE_SPECIAL = "specialAttack.damage",
-  DAMAGE_CHARGE = "chargeAttack.damage",
-  DAMAGE_LEAP = "leapAttack.damage",
-  
-  DAMAGE_RANGED_HEAD = "rangedAttack.damage.head",
-  DAMAGE_RANGED_TORSO = "rangedAttack.damage.torso",
-  DAMAGE_RANGED_LEGS = "rangedAttack.damage.legs",
+  DAMAGE_STAB_HEAVY     = "attacks.stab.heavy.damage",
+  DAMAGE_SPECIAL        = "attacks.special.damage",
+  DAMAGE_SPRINT         = "attacks.sprintAttack.damage",
+  DAMAGE_THROW          = "attacks.throw.damage",
 }
 
 // Metric Groups share the same units (damage/hitpoints, milliseconds, etc.)
@@ -34,29 +64,77 @@ export enum MetricPath {
 export enum Unit {
   INDEX = "Index",
   SPEED = "Milliseconds",
+  INVERSE_SPEED = "-Milliseconds",
   RANGE = "Jeoffreys",
-  DAMAGE = "Hitpoints"
+  DAMAGE = "Hitpoints",
+  RANK = "Rank"
 }
 
 export enum MetricLabel {
-  DAMAGE_HEAVY_AVERAGE = "Damage - Average (Heavy)",
-  DAMAGE_SLASH_HEAVY = "Damage - Slash (Heavy)",
-  DAMAGE_OVERHEAD_HEAVY = "Damage - Overhead (Heavy)",
-  DAMAGE_STAB_HEAVY = "Damage - Stab (Heavy)",
+  WINDUP_SLASH_LIGHT    = "Windup - Slash (Light)",
+  WINDUP_SLASH_HEAVY    = "Windup - Slash (Heavy)",
+  WINDUP_STAB_LIGHT     = "Windup - Stab (Light)",
+  WINDUP_STAB_HEAVY     = "Windup - Stab (Heavy)",
+  WINDUP_OVERHEAD_LIGHT = "Windup - Overhead (Light)",
+  WINDUP_OVERHEAD_HEAVY = "Windup - Overhead (Heavy)",
+  WINDUP_SPECIAL        = "Windup - Special",
+  WINDUP_SPRINT         = "Windup - Sprint",
+  WINDUP_THROW          = "Windup - Throw",
 
-  DAMAGE_LIGHT_AVERAGE = "Damage - Average (Light)",
-  DAMAGE_SLASH_LIGHT = "Damage - Slash (Light)",
+  RELEASE_SLASH_LIGHT    = "Release - Slash (Light)",
+  RELEASE_SLASH_HEAVY    = "Release - Slash (Heavy)",
+  RELEASE_STAB_LIGHT     = "Release - Stab (Light)",
+  RELEASE_STAB_HEAVY     = "Release - Stab (Heavy)",
+  RELEASE_OVERHEAD_LIGHT = "Release - Overhead (Light)",
+  RELEASE_OVERHEAD_HEAVY = "Release - Overhead (Heavy)",
+  RELEASE_SPECIAL        = "Release - Special",
+  RELEASE_SPRINT         = "Release - Sprint",
+  RELEASE_THROW          = "Release - Throw",
+
+  RECOVERY_SLASH_LIGHT    = "Recovery - Slash (Light)",
+  RECOVERY_SLASH_HEAVY    = "Recovery - Slash (Heavy)",
+  RECOVERY_STAB_LIGHT     = "Recovery - Stab (Light)",
+  RECOVERY_STAB_HEAVY     = "Recovery - Stab (Heavy)",
+  RECOVERY_OVERHEAD_LIGHT = "Recovery - Overhead (Light)",
+  RECOVERY_OVERHEAD_HEAVY = "Recovery - Overhead (Heavy)",
+  RECOVERY_SPECIAL        = "Recovery - Special",
+  RECOVERY_SPRINT         = "Recovery - Sprint",
+  RECOVERY_THROW          = "Recovery - Throw",
+  
+  COMBO_SLASH_LIGHT    = "Combo - Slash (Light)",
+  COMBO_SLASH_HEAVY    = "Combo - Slash (Heavy)",
+  COMBO_STAB_LIGHT     = "Combo - Stab (Light)",
+  COMBO_STAB_HEAVY     = "Combo - Stab (Heavy)",
+  COMBO_OVERHEAD_LIGHT = "Combo - Overhead (Light)",
+  COMBO_OVERHEAD_HEAVY = "Combo - Overhead (Heavy)",
+  COMBO_SPECIAL        = "Combo - Special",
+  COMBO_SPRINT         = "Combo - Sprint",
+  COMBO_THROW          = "Combo - Throw",
+  
+  DAMAGE_SLASH_LIGHT    = "Damage - Slash (Light)",
+  DAMAGE_SLASH_HEAVY    = "Damage - Slash (Heavy)",
+  DAMAGE_STAB_LIGHT     = "Damage - Stab (Light)",
+  DAMAGE_STAB_HEAVY     = "Damage - Stab (Heavy)",
   DAMAGE_OVERHEAD_LIGHT = "Damage - Overhead (Light)",
-  DAMAGE_STAB_LIGHT = "Damage - Stab (Light)",
+  DAMAGE_OVERHEAD_HEAVY = "Damage - Overhead (Heavy)",
+  DAMAGE_SPECIAL        = "Damage - Special",
+  DAMAGE_SPRINT         = "Damage - Sprint",
+  DAMAGE_THROW          = "Damage - Throw",
 
-  DAMAGE_SPECIAL = "Damage - Special",
-  DAMAGE_CHARGE = "Damage - Charge",
-  DAMAGE_LEAP = "Damage - Leap",
+  DAMAGE_HEAVY_AVERAGE = "Damage - Average (Heavy)",
+  DAMAGE_LIGHT_AVERAGE = "Damage - Average (Light)",
 
-  DAMAGE_RANGED_AVERAGE = "Thrown Damage - Average",
-  DAMAGE_RANGED_HEAD = "Thrown Damage - Head",
-  DAMAGE_RANGED_TORSO = "Thrown Damage - Torso",
-  DAMAGE_RANGED_LEGS = "Thrown Damage - Legs",
+  WINDUP_HEAVY_AVERAGE = "Windup - Average (Heavy)",
+  WINDUP_LIGHT_AVERAGE = "Windup - Average (Light)",
+
+  RELEASE_HEAVY_AVERAGE = "Release - Average (Heavy)",
+  RELEASE_LIGHT_AVERAGE = "Release - Average (Light)",
+
+  RECOVERY_HEAVY_AVERAGE = "Recovery - Average (Heavy)",
+  RECOVERY_LIGHT_AVERAGE = "Recovery - Average (Light)",
+
+  COMBO_HEAVY_AVERAGE = "Combo - Average (Heavy)",
+  COMBO_LIGHT_AVERAGE = "Combo - Average (Light)",
 
   RANGE_AVERAGE = "Range - Average*",
   RANGE_SLASH = "Range - Slash",
@@ -67,22 +145,20 @@ export enum MetricLabel {
   RANGE_ALT_STAB = "Range - Alt. Stab",
   // RANGE_SPECIAL = "Range - Special", TODO
 
-  SPEED_AVERAGE = "Speed - Average",
-  SPEED_SLASH = "Speed - Slash",
-  SPEED_OVERHEAD = "Speed - Overhead",
-  SPEED_STAB = "Speed - Stab",
-  SPEED_SPECIAL = "Speed - Special",
-  // SPEED_MAX = "Speed - Max",
-  POLEHAMMER_INDEX = "Index - Polehammer"
+  // RANK = "Rank - Average Percentile",
 }
 
 export function unitGroup(path: MetricPath) {
   if (path.includes(".damage")) {
-    return Unit.DAMAGE;
-  } else if (path.includes(".windup")) {
+    return Unit.DAMAGE;''
+  } else if (path.includes(".windup") || path.includes(".recovery") || path.includes(".combo")) {
+    return Unit.INVERSE_SPEED;
+  } else if (path.includes(".release")) {
     return Unit.SPEED;
   } else if (path.includes(".range") || path.includes(".altRange")) {
     return Unit.RANGE;
+  } else if (path.includes(".rank")) {
+    return Unit.RANK;
   }
   throw `Invalid path: ${path}`;
 }
@@ -99,6 +175,10 @@ export const SPEED_METRICS = Object.values(MetricPath).filter(
   (m) => unitGroup(m) === Unit.SPEED
 );
 
+export const INVERSE_SPEED_METRICS = Object.values(MetricPath).filter(
+  (m) => unitGroup(m) === Unit.INVERSE_SPEED
+);
+
 export type LabelledMetrics = Map<
   MetricLabel,
   {
@@ -108,6 +188,7 @@ export type LabelledMetrics = Map<
 >;
 
 export type MetricResult = {result: number; rawResult: number; }
+
 
 export abstract class Metric {
   name: MetricLabel;
@@ -121,6 +202,21 @@ export abstract class Metric {
   abstract calculate(weapon: Weapon): MetricResult;
 }
 
+export class WeaponMetric extends Metric {
+  func: (weapon: Weapon) => number;
+  constructor(name: MetricLabel, unit: Unit, func: (weapon: Weapon) => number) {
+    super(name, unit);
+    this.func = func;
+  }
+
+  calculate(weapon: Weapon) {
+    const result = this.func(weapon);
+    return {
+      result: result,
+      rawResult: result,
+    }
+  }
+}
 export class AggregateMetric extends Metric {
   paths: MetricPath[];
   aggregateFunction: (nums: number[]) => number;

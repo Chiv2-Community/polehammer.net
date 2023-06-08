@@ -15,13 +15,13 @@ import JAVELIN from "./weapons/javelin.json";
 import KNIFE from "./weapons/knife.json";
 import LONGSWORD from "./weapons/longsword.json";
 import MACE from "./weapons/mace.json";
-import MALLET from "./weapons/mallet.json";
+import MALLET from "./weapons/throwing_mallet.json";
 import MAUL from "./weapons/maul.json";
 import MESSER from "./weapons/messer.json";
 import MORNING_STAR from "./weapons/morning_star.json";
 import ONE_HANDED_SPEAR from "./weapons/one_handed_spear.json";
 import PICKAXE from "./weapons/pickaxe.json";
-import POLEAXE from "./weapons/poleaxe.json";
+import POLEAXE from "./weapons/pole_axe.json";
 import POLEHAMMER from "./weapons/polehammer.json";
 import RAPIER from "./weapons/rapier.json";
 import SHORT_SWORD from "./weapons/short_sword.json";
@@ -30,7 +30,7 @@ import SLEDGEHAMMER from "./weapons/sledgehammer.json";
 import SWORD from "./weapons/sword.json";
 import THROWING_AXE from "./weapons/throwing_axe.json";
 import TWO_HANDED_HAMMER from "./weapons/two_handed_hammer.json";
-import TWO_HANDED_SPEAR from "./weapons/two_handed_spear.json";
+import SPEAR from "./weapons/spear.json";
 import WAR_AXE from "./weapons/war_axe.json";
 import WAR_CLUB from "./weapons/war_club.json";
 import WARHAMMER from "./weapons/warhammer.json";
@@ -69,7 +69,7 @@ const ALL_WEAPONS: Weapon[] = [
   SWORD,
   THROWING_AXE,
   TWO_HANDED_HAMMER,
-  TWO_HANDED_SPEAR,
+  SPEAR,
   WAR_AXE,
   WAR_CLUB,
   WARHAMMER,
