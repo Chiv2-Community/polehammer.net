@@ -1,7 +1,5 @@
 // import ALL_WEAPONS, { weaponById } from "./all_weapons";
 import {
-  AggregateInverseMetric,
-  AggregateMetric,
   BasicMetric,
   InverseMetric,
   LabelledMetrics,
@@ -16,11 +14,6 @@ import { withBonusMultipliers, Weapon, /*extractNumber */} from "./weapon";
 export type WeaponStats = Map<string, LabelledMetrics>;
 
 export type UnitStats = Map<string, { min: number; max: number }>;
-
-function average(lst: number[]) {
-  if (lst.length > 0) return lst.reduce((a, b) => a + b) / lst.length;
-  else return 0;
-}
 
 export function generateMetrics(inputWeapons: Weapon[], numberOfTargets: number, horsebackDamageMult: number, target: Target): WeaponStats {
   const weapons = inputWeapons.map(w => withBonusMultipliers(w, numberOfTargets, horsebackDamageMult, target))
@@ -90,8 +83,8 @@ export function generateMetrics(inputWeapons: Weapon[], numberOfTargets: number,
     new BasicMetric(MetricLabel.RANGE_STAB, MetricPath.RANGE_STAB),
     new BasicMetric(MetricLabel.RANGE_ALT_STAB, MetricPath.RANGE_ALT_STAB),
     //new BasicMetric(MetricLabel.RANGE_SPECIAL, MetricPath.RANGE_SPECIAL), TODO
-    new AggregateMetric(MetricLabel.RANGE_AVERAGE, MetricPath.RANGE_AVERAGE),
-    new AggregateMetric(MetricLabel.RANGE_ALT_AVERAGE, MetricPath.RANGE_ALT_AVERAGE),
+    new BasicMetric(MetricLabel.RANGE_AVERAGE, MetricPath.RANGE_AVERAGE),
+    new BasicMetric(MetricLabel.RANGE_ALT_AVERAGE, MetricPath.RANGE_ALT_AVERAGE),
 
     // Damages
     new BasicMetric(MetricLabel.DAMAGE_SLASH_LIGHT, MetricPath.DAMAGE_SLASH_LIGHT),
@@ -104,8 +97,8 @@ export function generateMetrics(inputWeapons: Weapon[], numberOfTargets: number,
     new BasicMetric(MetricLabel.DAMAGE_SPRINT, MetricPath.DAMAGE_SPRINT),
     new BasicMetric(MetricLabel.DAMAGE_THROW, MetricPath.DAMAGE_THROW),
 
-    new AggregateMetric(MetricLabel.DAMAGE_AVERAGE_LIGHT, MetricPath.DAMAGE_AVERAGE_LIGHT),
-    new AggregateMetric(MetricLabel.DAMAGE_AVERAGE_HEAVY, MetricPath.DAMAGE_AVERAGE_HEAVY),
+    new BasicMetric(MetricLabel.DAMAGE_LIGHT_AVERAGE, MetricPath.DAMAGE_AVERAGE_LIGHT),
+    new BasicMetric(MetricLabel.DAMAGE_HEAVY_AVERAGE, MetricPath.DAMAGE_AVERAGE_HEAVY),
   ];
 
   return new Map(
