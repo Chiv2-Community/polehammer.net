@@ -1,7 +1,19 @@
 {
+  "id": "cs",
   "name": "Heavy Cavalry Sword",
+  "weaponTypes": [
+    "Sword",
+    "One Handed",
+    "Man At Arms",
+    "Footman",
+    "Knight",
+    "Guardian"
+  ],
+  "damageType": "Cut",
   "attacks": {
     "slash": {
+      "range": 25,
+      "altRange": 27,
       "light": {
         "holding": 0.35,
         "windup": 250.0,
@@ -66,6 +78,8 @@
       }
     },
     "overhead": {
+      "range": 22,
+      "altRange": 25,
       "light": {
         "holding": 0.35,
         "windup": 225.0,
@@ -130,6 +144,8 @@
       }
     },
     "stab": {
+      "range": 28,
+      "altRange": 29,      
       "light": {
         "holding": 0.35,
         "windup": 300.0,
