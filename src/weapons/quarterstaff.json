@@ -1,10 +1,9 @@
 {
-
-"id": "qs",
+  "id": "qs",
   "name": "Quarterstaff",
   "weaponTypes": [
-    "Polearm", 
-    "Two Handed", 
+    "Polearm",
+    "Two Handed",
     "Knight",
     "Officer"
   ],
@@ -419,7 +418,9 @@
         "weaponTipCheckReverseAlt": -1.0,
         "weaponTipCheckDisable": -1.0,
         "comboFromBlocked": -1.0
-      }
+      },
+      "range": 25.666666666666668,
+      "altRange": 26.666666666666668
     }
   }
 }

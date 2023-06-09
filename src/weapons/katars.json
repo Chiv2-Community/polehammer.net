@@ -1,9 +1,9 @@
 {
-"id": "kt",
+  "id": "kt",
   "name": "Katars",
   "weaponTypes": [
-    "Sword", 
-    "Two Handed", 
+    "Sword",
+    "Two Handed",
     "Vanguard",
     "Ambusher"
   ],
@@ -418,7 +418,9 @@
         "weaponTipCheckReverseAlt": -1.0,
         "weaponTipCheckDisable": -1.0,
         "comboFromBlocked": -1.0
-      }
+      },
+      "range": 16.333333333333332,
+      "altRange": 17.0
     }
   }
 }

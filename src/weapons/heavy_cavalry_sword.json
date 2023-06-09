@@ -145,7 +145,7 @@
     },
     "stab": {
       "range": 28,
-      "altRange": 29,      
+      "altRange": 29,
       "light": {
         "holding": 0.35,
         "windup": 300.0,
@@ -420,7 +420,9 @@
         "weaponTipCheckReverseAlt": -1.0,
         "weaponTipCheckDisable": -1.0,
         "comboFromBlocked": -1.0
-      }
+      },
+      "range": 25.0,
+      "altRange": 25.333333333333332
     }
   }
 }
