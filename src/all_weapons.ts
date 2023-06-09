@@ -10,8 +10,10 @@ import GREATSWORD from "./weapons/greatsword.json";
 import HALBERD from "./weapons/halberd.json";
 import HATCHET from "./weapons/hatchet.json";
 import HEAVY_MACE from "./weapons/heavy_mace.json";
+import CAVALRY_SWORD from "./weapons/heavy_cavalry_sword.json"
 import HIGHLAND_SWORD from "./weapons/highland_sword.json";
 import JAVELIN from "./weapons/javelin.json";
+import KATARS from "./weapons/katars.json"
 import KNIFE from "./weapons/knife.json";
 import LONGSWORD from "./weapons/longsword.json";
 import MACE from "./weapons/mace.json";
@@ -23,6 +25,7 @@ import ONE_HANDED_SPEAR from "./weapons/one_handed_spear.json";
 import PICKAXE from "./weapons/pickaxe.json";
 import POLEAXE from "./weapons/pole_axe.json";
 import POLEHAMMER from "./weapons/polehammer.json";
+import QUARTERSTAFF from "./weapons/quarterstaff.json"
 import RAPIER from "./weapons/rapier.json";
 import SHORT_SWORD from "./weapons/short_sword.json";
 import SHOVEL from "./weapons/shovel.json";
@@ -40,6 +43,7 @@ const ALL_WEAPONS: Weapon[] = [
   AXE,
   BATTLE_AXE,
   CUDGEL,
+  CAVALRY_SWORD, 
   DAGGER,
   DANE_AXE,
   EXECUTIONERS_AXE,
@@ -51,6 +55,7 @@ const ALL_WEAPONS: Weapon[] = [
   HEAVY_MACE,
   HIGHLAND_SWORD,
   JAVELIN,
+  KATARS, 
   KNIFE,
   LONGSWORD,
   MACE,
@@ -62,6 +67,7 @@ const ALL_WEAPONS: Weapon[] = [
   PICKAXE,
   POLEAXE,
   POLEHAMMER,
+  QUARTERSTAFF, 
   RAPIER,
   SHORT_SWORD,
   SHOVEL,

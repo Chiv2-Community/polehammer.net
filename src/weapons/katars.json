@@ -1,7 +1,17 @@
 {
+"id": "kt",
   "name": "Katars",
+  "weaponTypes": [
+    "Sword", 
+    "Two Handed", 
+    "Vanguard",
+    "Ambusher"
+  ],
+  "damageType": "Cut",
   "attacks": {
     "slash": {
+      "range": 16,
+      "altRange": 13,
       "light": {
         "holding": 0.35,
         "windup": 100.0,
@@ -66,6 +76,8 @@
       }
     },
     "overhead": {
+      "range": 16,
+      "altRange": 16,
       "light": {
         "holding": 0.35,
         "windup": 150.0,
@@ -130,6 +142,8 @@
       }
     },
     "stab": {
+      "range": 17,
+      "altRange": 19,
       "light": {
         "holding": 0.35,
         "windup": 100.0,
