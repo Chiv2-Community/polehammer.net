@@ -230,35 +230,6 @@ export class WeaponMetric extends Metric {
     }
   }
 }
-export class AggregateMetric extends Metric {
-  paths: MetricPath[];
-  aggregateFunction: (nums: number[]) => number;
-  
-  constructor(
-    name: MetricLabel,
-    paths: MetricPath[],
-    aggregateFunc: (nums: number[]) => number,
-    unit: Unit|null = null
-  ) {
-    if(unit == null)
-      unit = unitGroup(paths[0]);
-    super(name, unit);
-    this.paths = paths;
-    this.aggregateFunction = aggregateFunc;
-  }
-
-  calculate(weapon: Weapon): MetricResult {
-    let result = this.aggregateFunction(
-      this.paths.map((prop) => extractNumber(weapon, prop))
-    );
-
-    return {
-      result: result,
-      rawResult: result,
-    }
-  }
-}
-
 export class BasicMetric extends Metric {
   path: string;
 
@@ -289,32 +260,6 @@ export class InverseMetric extends Metric {
     return {
       result: 1/rawResult,
       rawResult: rawResult
-    }
-  }
-}
-
-export class AggregateInverseMetric extends Metric {
-  paths: MetricPath[];
-  aggregateFunction: (n: number[]) => number;
-
-  constructor(
-    name: MetricLabel,
-    paths: MetricPath[],
-    aggregateFunc: (n: number[]) => number
-  ) {
-    super(name, unitGroup(paths[0]));
-    this.paths = paths;
-    this.aggregateFunction = aggregateFunc;
-  }
-
-  calculate(weapon: Weapon): MetricResult {
-    let rawResult = this.aggregateFunction(
-      this.paths.map((prop) => extractNumber(weapon, prop))
-    );
-
-    return {
-      result: 1 / rawResult,
-      rawResult: rawResult,
     }
   }
 }
