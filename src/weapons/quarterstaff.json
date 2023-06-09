@@ -1,5 +1,14 @@
-{
+
+
+"id": "qs",
   "name": "Quarterstaff",
+  "weaponTypes": [
+    "Polearm", 
+    "Two Handed", 
+    "Knight",
+    "Officer"
+  ],
+  "damageType": "Blunt",
   "attacks": {
     "slash": {
       "light": {
