@@ -2,8 +2,8 @@
   "id": "cs",
   "name": "Heavy Cavalry Sword",
   "weaponTypes": [
-    "Sword"
-    "One Handed"
+    "Sword",
+    "One Handed",
     "Man At Arms",
     "Footman",
     "Knight",
