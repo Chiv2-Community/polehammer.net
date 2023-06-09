@@ -1,7 +1,18 @@
 {
+
+"id": "qs",
   "name": "Quarterstaff",
+  "weaponTypes": [
+    "Polearm", 
+    "Two Handed", 
+    "Knight",
+    "Officer"
+  ],
+  "damageType": "Blunt",
   "attacks": {
     "slash": {
+      "range": 19,
+      "altRange": 16,
       "light": {
         "holding": 0.35,
         "windup": 125.0,
@@ -66,6 +77,8 @@
       }
     },
     "overhead": {
+      "range": 33,
+      "altRange": 33,
       "light": {
         "holding": 0.35,
         "windup": 200.0,
@@ -130,6 +143,8 @@
       }
     },
     "stab": {
+      "range": 25,
+      "altRange": 28,
       "light": {
         "holding": 0.35,
         "windup": 350.0,
