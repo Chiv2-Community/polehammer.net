@@ -21,55 +21,6 @@ function average(lst: number[]) {
   if (lst.length > 0) return lst.reduce((a, b) => a + b) / lst.length;
   else return 0;
 }
-/*
-const ALL_METRICS = Object.values(MetricPath)
-function calculateMetricRank(weaponId: string, stat: string, invert: boolean = false, getNumber: (w: Weapon, stat: string) => number = extractNumber) {
-  console.log(weaponId + " Invert: " + invert)
-  console.log(weaponId + " Stat: " + stat)
-  console.log(weaponId + " Stat Value: " + getNumber(weaponById(weaponId)!, stat))
-  const all_weapons_sorted = [...ALL_WEAPONS].sort((a, b) => {
-    if(invert)
-      return getNumber(b, stat) - getNumber(a, stat);
-    else
-      return getNumber(a, stat) - getNumber(b, stat);
-  });
-
-  const rank = all_weapons_sorted.findIndex(w => w.id === weaponId);
-  console.log(weaponId + " Rank: " + rank)
-  return rank
-}
-
-function calculateAverageRank(ranks: Map<string, number>) {
-  const all_ranks = [...ranks.values()];
-  const average_rank = average(all_ranks);
-  return average_rank;
-}
-
-function calculateAverageRankRank(weaponId: string) {
-  const average_rank_rank = calculateMetricRank(weaponId, "AVERAGE_RANK", true, (w, stat) => ALL_WEAPONS_RANKS.get(w.id)?.get(stat) as number);
-  return average_rank_rank;
-}
-
-const ALL_WEAPONS_RANKS = new Map<string, Map<string, number>>();
-for(const weapon of ALL_WEAPONS) {
-  const ranks = new Map<string, number>();
-  for(const metric of ALL_METRICS) {
-    const invert = MetricPath.toString().includes("windup") || MetricPath.toString().includes("recovery") || MetricPath.toString().includes("combo");
-    ranks.set(metric, calculateMetricRank(weapon.id, metric, invert));
-  }
-  ranks.set("AVERAGE_RANK", calculateAverageRank(ranks));
-  ALL_WEAPONS_RANKS.set(weapon.id, ranks);
-}
-
-for(const weapon of ALL_WEAPONS) {
-  const ranks = ALL_WEAPONS_RANKS.get(weapon.id) as Map<string, number>;
-  ranks.set("AVERAGE_RANK_RANK", calculateAverageRankRank(weapon.id));
-}
-*/
-
-
-
-
 
 export function generateMetrics(inputWeapons: Weapon[], numberOfTargets: number, horsebackDamageMult: number, target: Target): WeaponStats {
   const weapons = inputWeapons.map(w => withBonusMultipliers(w, numberOfTargets, horsebackDamageMult, target))

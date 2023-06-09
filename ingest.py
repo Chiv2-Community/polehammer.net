@@ -146,7 +146,7 @@ def make_averages(weapon):
         average_attack["range"] = sums["range"] / 3
         average_attack["altRange"] = sums["altRange"] / 3
 
-    weapon["average"] = average_attack
+    weapon["attacks"]["average"] = average_attack
     
 
 def apply_defaults(weapons, attack_defaults):
