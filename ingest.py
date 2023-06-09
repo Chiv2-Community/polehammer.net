@@ -140,7 +140,7 @@ def make_averages(weapon):
             continue 
 
         average_attack["light"][stat] = sums["light"][stat] / 3
-        average_attack["heavy"][stat] = sums["light"][stat] / 3
+        average_attack["heavy"][stat] = sums["heavy"][stat] / 3
 
     if has_range:
         average_attack["range"] = sums["range"] / 3
