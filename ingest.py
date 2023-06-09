@@ -8,7 +8,7 @@ import csv
 from collections.abc import Mapping
 import argparse
 
-VALID_STATS = ["Holding", "Windup", "Release", "Recovery", "Combo", "Riposte", "Damage", "TurnLimitStrength", "VerticalTurnLimitStrength", "ReverseTurnLimitStrength"]
+#VALID_STATS = ["Holding", "Windup", "Release", "Recovery", "Combo", "Riposte", "Damage", "TurnLimitStrength", "VerticalTurnLimitStrength", "ReverseTurnLimitStrength"]
 VALID_ATTACKS = ["slash", "slashHeavy", "overhead","overheadHeavy", "stab", "stabHeavy", "throw", "special", "sprintAttack"]
 
 def seconds_to_millis(n):
@@ -49,12 +49,12 @@ def fetch_data(path):
     with open(path) as user_file:
       return json.load(user_file)
 
-def clean_item(item, VALID_STATS):
+def clean_item(item):#, VALID_STATS):
     return {lowercase_first_char(key): item[key] for key in item.keys()}#VALID_STATS}
 
 def process_item(name, item, base_defaults, attack_defaults, weapon_defaults, weapons):
     name_parts = name.split('.')
-    item = clean_item(item, VALID_STATS)
+    item = clean_item(item)#, VALID_STATS)
     attack_type = lowercase_first_char(name_parts[1]) if len(name_parts) > 1 else None
 
     if attack_type and attack_type not in VALID_ATTACKS: 
@@ -96,6 +96,58 @@ def process_attack(attack_type, item, attacks):
         attacks[attack_type] = apply_stat_transforms(item)
     return attacks
 
+def make_averages(weapon):
+    if "slash" not in weapon["attacks"]:
+        return 
+
+    ignore_keys = ["cleaveOverride", "damageTypeOverride"]
+    has_range = "range" in weapon["attacks"]["slash"]
+
+    average_attack = {"light": {}, "heavy": {}}
+    sums = {"light": {}, "heavy": {}, "range": 0, "altRange": 0}
+    for attack in ["slash", "overhead", "stab"]:
+        currentRangeSum = sums["range"]
+        currentAltRangeSum = sums["altRange"]
+
+        # heavy and light attacks have the same keys
+        for stat in weapon["attacks"][attack]["light"].keys():
+            if stat in ignore_keys:
+                continue 
+
+            lightStatValue = weapon["attacks"][attack]["light"][stat]
+            heavyStatValue = weapon["attacks"][attack]["heavy"][stat]
+
+            if type(lightStatValue) not in [float, int]:
+                try:
+                    float(lightStatValue)
+                except: 
+                    print(f"WARNING: {stat} has type {type(lightStatValue)}, with value {lightStatValue}")
+                    continue
+                continue
+
+            currentLightSum = sums["light"][stat] if stat in sums["light"] else 0
+            currentHeavySum = sums["heavy"][stat] if stat in sums["heavy"] else 0
+            sums["light"][stat] = currentLightSum + lightStatValue
+            sums["heavy"][stat] = currentHeavySum + heavyStatValue
+        
+        if has_range:
+            sums["range"] = currentRangeSum + weapon["attacks"][attack]["range"]
+            sums["altRange"] = currentRangeSum + weapon["attacks"][attack]["altRange"]
+        
+    for stat in sums["light"].keys():
+        if stat in ignore_keys:
+            continue 
+
+        average_attack["light"][stat] = sums["light"][stat] / 3
+        average_attack["heavy"][stat] = sums["heavy"][stat] / 3
+
+    if has_range:
+        average_attack["range"] = sums["range"] / 3
+        average_attack["altRange"] = sums["altRange"] / 3
+
+    weapon["attacks"]["average"] = average_attack
+    
+
 def apply_defaults(weapons, attack_defaults):
     for weapon, weapon_data in weapons.items():
         for attack, attack_data in weapon_data["attacks"].items():
@@ -126,6 +178,7 @@ def write_to_file(data, foldername, changelog_location):
 
             with open(path, 'w') as outfile:
                 (changes, merged) = deep_merge(weapon["name"], existing_data, weapon)
+                make_averages(merged)
                 if len(changes) > 0:
                     changelog[weapon["name"]] = changes
                 merged["name"] = pascal_to_space(weapon["name"])
