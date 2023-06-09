@@ -100,7 +100,6 @@ def make_averages(weapon):
     if "slash" not in weapon["attacks"]:
         return 
 
-    print(weapon["name"])
     ignore_keys = ["cleaveOverride", "damageTypeOverride"]
     has_range = "range" in weapon["attacks"]["slash"]
 
@@ -119,10 +118,10 @@ def make_averages(weapon):
             heavyStatValue = weapon["attacks"][attack]["heavy"][stat]
 
             if type(lightStatValue) not in [float, int]:
-                print(f"WARNING: {stat} has type {type(lightStatValue)}, with value {lightStatValue}")
                 try:
                     float(lightStatValue)
                 except: 
+                    print(f"WARNING: {stat} has type {type(lightStatValue)}, with value {lightStatValue}")
                     continue
                 continue
 
