@@ -1,5 +1,13 @@
 {
+"id": "kt",
   "name": "Katars",
+  "weaponTypes": [
+    "Sword", 
+    "Two Handed", 
+    "Vanguard",
+    "Ambusher"
+  ],
+  "damageType": "Cut",
   "attacks": {
     "slash": {
       "light": {
