@@ -2,6 +2,7 @@ import { Target } from "./target";
 import { MetricLabel } from "./metrics";
 
 export type Attacks = {
+  average: Swing;
   slash: Swing;
   overhead: Swing;
   stab: Swing;

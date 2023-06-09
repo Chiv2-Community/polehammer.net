@@ -116,76 +116,31 @@ export function generateMetrics(inputWeapons: Weapon[], numberOfTargets: number,
     new BasicMetric(MetricLabel.RELEASE_THROW, MetricPath.RELEASE_THROW),
 
     // Average Windup
-    new AggregateInverseMetric(
-      MetricLabel.WINDUP_LIGHT_AVERAGE,
-      [MetricPath.WINDUP_STAB_LIGHT, MetricPath.WINDUP_SLASH_LIGHT, MetricPath.WINDUP_OVERHEAD_LIGHT],
-      average
-    ),
-    new AggregateInverseMetric(
-      MetricLabel.WINDUP_HEAVY_AVERAGE,
-      [MetricPath.WINDUP_STAB_HEAVY, MetricPath.WINDUP_SLASH_HEAVY, MetricPath.WINDUP_OVERHEAD_HEAVY],
-      average
-    ),
+    new InverseMetric(MetricLabel.WINDUP_LIGHT_AVERAGE, MetricPath.WINDUP_AVERAGE_LIGHT),
+    new InverseMetric(MetricLabel.WINDUP_HEAVY_AVERAGE, MetricPath.WINDUP_AVERAGE_HEAVY),
 
     // Average Recovery
-    new AggregateInverseMetric(
-      MetricLabel.RECOVERY_LIGHT_AVERAGE,
-      [MetricPath.RECOVERY_STAB_LIGHT, MetricPath.RECOVERY_SLASH_LIGHT, MetricPath.RECOVERY_OVERHEAD_LIGHT],
-      average
-    ),
-    new AggregateInverseMetric(
-      MetricLabel.RECOVERY_HEAVY_AVERAGE,
-      [MetricPath.RECOVERY_STAB_HEAVY, MetricPath.RECOVERY_SLASH_HEAVY, MetricPath.RECOVERY_OVERHEAD_HEAVY],
-      average
-    ),
+    new InverseMetric(MetricLabel.RECOVERY_LIGHT_AVERAGE, MetricPath.RECOVERY_AVERAGE_LIGHT),
+    new InverseMetric(MetricLabel.RECOVERY_HEAVY_AVERAGE, MetricPath.RECOVERY_AVERAGE_HEAVY),
     
     // Average Release
-    new AggregateMetric(
-      MetricLabel.RELEASE_LIGHT_AVERAGE,
-      [MetricPath.RELEASE_STAB_LIGHT, MetricPath.RELEASE_SLASH_LIGHT, MetricPath.RELEASE_OVERHEAD_LIGHT],
-      average
-    ),
-    new AggregateMetric(
-      MetricLabel.RELEASE_HEAVY_AVERAGE,
-      [MetricPath.RELEASE_STAB_HEAVY, MetricPath.RELEASE_SLASH_HEAVY, MetricPath.RELEASE_OVERHEAD_HEAVY],
-      average
-    ),
+    new InverseMetric(MetricLabel.RELEASE_LIGHT_AVERAGE, MetricPath.RELEASE_AVERAGE_LIGHT),
+    new InverseMetric(MetricLabel.RELEASE_HEAVY_AVERAGE, MetricPath.RELEASE_AVERAGE_HEAVY),
 
     // Average Combo
-    new AggregateInverseMetric(
-      MetricLabel.COMBO_LIGHT_AVERAGE,
-      [MetricPath.COMBO_STAB_LIGHT, MetricPath.COMBO_SLASH_LIGHT, MetricPath.COMBO_OVERHEAD_LIGHT],
-      average
-    ),
-    new AggregateInverseMetric(
-      MetricLabel.COMBO_HEAVY_AVERAGE,
-      [MetricPath.COMBO_STAB_HEAVY, MetricPath.COMBO_SLASH_HEAVY, MetricPath.COMBO_OVERHEAD_HEAVY],
-      average
-    ),
+    new InverseMetric(MetricLabel.COMBO_LIGHT_AVERAGE, MetricPath.COMBO_AVERAGE_LIGHT),
+    new InverseMetric(MetricLabel.COMBO_HEAVY_AVERAGE, MetricPath.COMBO_AVERAGE_HEAVY),
 
     // Ranges
     new BasicMetric(MetricLabel.RANGE_SLASH, MetricPath.RANGE_SLASH),
-    new BasicMetric(
-      MetricLabel.RANGE_ALT_SLASH,
-      MetricPath.RANGE_ALT_SLASH
-    ),
+    new BasicMetric(MetricLabel.RANGE_ALT_SLASH, MetricPath.RANGE_ALT_SLASH),
     new BasicMetric(MetricLabel.RANGE_OVERHEAD, MetricPath.RANGE_OVERHEAD),
-    new BasicMetric(
-      MetricLabel.RANGE_ALT_OVERHEAD,
-      MetricPath.RANGE_ALT_OVERHEAD
-    ),
+    new BasicMetric(MetricLabel.RANGE_ALT_OVERHEAD, MetricPath.RANGE_ALT_OVERHEAD),
     new BasicMetric(MetricLabel.RANGE_STAB, MetricPath.RANGE_STAB),
     new BasicMetric(MetricLabel.RANGE_ALT_STAB, MetricPath.RANGE_ALT_STAB),
     //new BasicMetric(MetricLabel.RANGE_SPECIAL, MetricPath.RANGE_SPECIAL), TODO
-    new AggregateMetric(
-      MetricLabel.RANGE_AVERAGE, 
-      [
-        MetricPath.RANGE_OVERHEAD, MetricPath.RANGE_ALT_OVERHEAD, 
-        MetricPath.RANGE_SLASH, MetricPath.RANGE_ALT_SLASH, 
-        MetricPath.RANGE_STAB, MetricPath.RANGE_ALT_STAB, 
-      ],
-      average
-    ),
+    new AggregateMetric(MetricLabel.RANGE_AVERAGE, MetricPath.RANGE_AVERAGE),
+    new AggregateMetric(MetricLabel.RANGE_ALT_AVERAGE, MetricPath.RANGE_ALT_AVERAGE),
 
     // Damages
     new BasicMetric(MetricLabel.DAMAGE_SLASH_LIGHT, MetricPath.DAMAGE_SLASH_LIGHT),
@@ -198,16 +153,8 @@ export function generateMetrics(inputWeapons: Weapon[], numberOfTargets: number,
     new BasicMetric(MetricLabel.DAMAGE_SPRINT, MetricPath.DAMAGE_SPRINT),
     new BasicMetric(MetricLabel.DAMAGE_THROW, MetricPath.DAMAGE_THROW),
 
-    new AggregateMetric(
-      MetricLabel.DAMAGE_LIGHT_AVERAGE, 
-      [MetricPath.DAMAGE_STAB_LIGHT, MetricPath.DAMAGE_OVERHEAD_LIGHT, MetricPath.DAMAGE_SLASH_LIGHT], 
-      average
-    ),
-    new AggregateMetric(
-      MetricLabel.DAMAGE_HEAVY_AVERAGE, 
-      [MetricPath.DAMAGE_STAB_HEAVY, MetricPath.DAMAGE_OVERHEAD_HEAVY, MetricPath.DAMAGE_SLASH_HEAVY], 
-      average
-    )
+    new AggregateMetric(MetricLabel.DAMAGE_AVERAGE_LIGHT, MetricPath.DAMAGE_AVERAGE_LIGHT),
+    new AggregateMetric(MetricLabel.DAMAGE_AVERAGE_HEAVY, MetricPath.DAMAGE_AVERAGE_HEAVY),
   ];
 
   return new Map(
