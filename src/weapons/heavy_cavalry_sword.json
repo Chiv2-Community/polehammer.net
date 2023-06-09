@@ -1,5 +1,15 @@
 {
+  "id": "cs",
   "name": "Heavy Cavalry Sword",
+  "weaponTypes": [
+    "Sword"
+    "One Handed"
+    "ManAtArms",
+    "Footman",
+    "Knight",
+    "Guardian"
+  ],
+  "damageType": "Chop",
   "attacks": {
     "slash": {
       "light": {
