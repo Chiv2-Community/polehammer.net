@@ -68,8 +68,8 @@ export function generateMetrics(inputWeapons: Weapon[], numberOfTargets: number,
     new InverseMetric(MetricLabel.RECOVERY_HEAVY_AVERAGE, MetricPath.RECOVERY_AVERAGE_HEAVY),
     
     // Average Release
-    new InverseMetric(MetricLabel.RELEASE_LIGHT_AVERAGE, MetricPath.RELEASE_AVERAGE_LIGHT),
-    new InverseMetric(MetricLabel.RELEASE_HEAVY_AVERAGE, MetricPath.RELEASE_AVERAGE_HEAVY),
+    new BasicMetric(MetricLabel.RELEASE_LIGHT_AVERAGE, MetricPath.RELEASE_AVERAGE_LIGHT),
+    new BasicMetric(MetricLabel.RELEASE_HEAVY_AVERAGE, MetricPath.RELEASE_AVERAGE_HEAVY),
 
     // Average Combo
     new InverseMetric(MetricLabel.COMBO_LIGHT_AVERAGE, MetricPath.COMBO_AVERAGE_LIGHT),
