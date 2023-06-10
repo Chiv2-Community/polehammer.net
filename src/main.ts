@@ -423,12 +423,17 @@ function all() {
 // Clear all weapon selections
 function reset() {
   selectedCategories.clear();
-  selectedCategories.add(MetricLabel.SPEED_AVERAGE);
   selectedCategories.add(MetricLabel.RANGE_AVERAGE);
-  selectedCategories.add(MetricLabel.DAMAGE_LIGHT_AVERAGE);
+  selectedCategories.add(MetricLabel.WINDUP_HEAVY_AVERAGE);
+  selectedCategories.add(MetricLabel.RELEASE_HEAVY_AVERAGE);
+  selectedCategories.add(MetricLabel.RECOVERY_HEAVY_AVERAGE);
+  selectedCategories.add(MetricLabel.COMBO_HEAVY_AVERAGE);
   selectedCategories.add(MetricLabel.DAMAGE_HEAVY_AVERAGE);
-  selectedCategories.add(MetricLabel.DAMAGE_RANGED_AVERAGE);
-  selectedCategories.add(MetricLabel.POLEHAMMER_INDEX);
+  selectedCategories.add(MetricLabel.WINDUP_LIGHT_AVERAGE);
+  selectedCategories.add(MetricLabel.RELEASE_LIGHT_AVERAGE);
+  selectedCategories.add(MetricLabel.RECOVERY_LIGHT_AVERAGE);
+  selectedCategories.add(MetricLabel.COMBO_LIGHT_AVERAGE);
+  selectedCategories.add(MetricLabel.DAMAGE_LIGHT_AVERAGE);
   Object.values(MetricLabel).map((r) => {
     const checkbox = document.getElementById(toId(r)) as HTMLInputElement;
     checkbox.checked = selectedCategories.has(r);
@@ -521,8 +526,6 @@ if (params.getAll("category").length) {
   // Backwards Compat
   let compatCategories = params.getAll("category").map((c) => {
     let result = c.replaceAll("Horizontal", "Slash")
-    if(result.includes("Speed"))
-       result = result.replaceAll(" (Light)", "")
     return result
   });
 
