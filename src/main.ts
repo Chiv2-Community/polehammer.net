@@ -37,6 +37,168 @@ const displayedWeaponsElem = document.querySelector<HTMLFieldSetElement>("#displ
 const categorySearchResultsElem = document.querySelector<HTMLFieldSetElement>("#categorySearchResults")!;
 const displayedCategoriesElem = document.querySelector<HTMLFieldSetElement>("#displayedCategories")!;
 
+
+const categoryPresets: Map<string, MetricLabel[]> = new Map()
+
+categoryPresets.set("Windup", [
+  MetricLabel.WINDUP_SLASH_LIGHT,
+  MetricLabel.WINDUP_SLASH_HEAVY,
+  MetricLabel.WINDUP_OVERHEAD_LIGHT,
+  MetricLabel.WINDUP_OVERHEAD_HEAVY,
+  MetricLabel.WINDUP_STAB_LIGHT,
+  MetricLabel.WINDUP_STAB_HEAVY,
+  MetricLabel.WINDUP_SPECIAL,
+  MetricLabel.WINDUP_SPRINT,
+  MetricLabel.WINDUP_THROW,
+])
+
+categoryPresets.set("Release", [
+  MetricLabel.RELEASE_SLASH_LIGHT,
+  MetricLabel.RELEASE_SLASH_HEAVY,
+  MetricLabel.RELEASE_OVERHEAD_LIGHT,
+  MetricLabel.RELEASE_OVERHEAD_HEAVY,
+  MetricLabel.RELEASE_STAB_LIGHT,
+  MetricLabel.RELEASE_STAB_HEAVY,
+  MetricLabel.RELEASE_SPECIAL,
+  MetricLabel.RELEASE_SPRINT,
+  MetricLabel.RELEASE_THROW,
+])
+categoryPresets.set("Recovery", [
+  MetricLabel.RECOVERY_SLASH_LIGHT,
+  MetricLabel.RECOVERY_SLASH_HEAVY,
+  MetricLabel.RECOVERY_OVERHEAD_LIGHT,
+  MetricLabel.RECOVERY_OVERHEAD_HEAVY,
+  MetricLabel.RECOVERY_STAB_LIGHT,
+  MetricLabel.RECOVERY_STAB_HEAVY,
+  MetricLabel.RECOVERY_SPECIAL,
+  MetricLabel.RECOVERY_SPRINT,
+  MetricLabel.RECOVERY_THROW,
+])
+
+categoryPresets.set("Combo", [
+  MetricLabel.COMBO_SLASH_LIGHT,
+  MetricLabel.COMBO_SLASH_HEAVY,
+  MetricLabel.COMBO_OVERHEAD_LIGHT,
+  MetricLabel.COMBO_OVERHEAD_HEAVY,
+  MetricLabel.COMBO_STAB_LIGHT,
+  MetricLabel.COMBO_STAB_HEAVY,
+  MetricLabel.COMBO_SPRINT,
+])
+
+categoryPresets.set("All Damage", [
+  MetricLabel.DAMAGE_SLASH_LIGHT,
+  MetricLabel.DAMAGE_SLASH_HEAVY,
+  MetricLabel.DAMAGE_OVERHEAD_LIGHT,
+  MetricLabel.DAMAGE_OVERHEAD_HEAVY,
+  MetricLabel.DAMAGE_STAB_LIGHT,
+  MetricLabel.DAMAGE_STAB_HEAVY,
+  MetricLabel.DAMAGE_SPECIAL,
+  MetricLabel.DAMAGE_SPRINT,
+  MetricLabel.DAMAGE_THROW,
+])
+
+categoryPresets.set("Light Damage", [
+  MetricLabel.DAMAGE_SLASH_LIGHT,
+  MetricLabel.DAMAGE_OVERHEAD_LIGHT,
+  MetricLabel.DAMAGE_STAB_LIGHT,
+])
+
+categoryPresets.set("Heavy Damage", [
+  MetricLabel.DAMAGE_SLASH_HEAVY,
+  MetricLabel.DAMAGE_OVERHEAD_HEAVY,
+  MetricLabel.DAMAGE_STAB_HEAVY,
+])
+
+categoryPresets.set("Range", [
+  MetricLabel.RANGE_SLASH,
+  MetricLabel.RANGE_ALT_SLASH,
+  MetricLabel.RANGE_OVERHEAD,
+  MetricLabel.RANGE_ALT_OVERHEAD,
+  MetricLabel.RANGE_STAB,
+  MetricLabel.RANGE_ALT_STAB,
+])
+
+categoryPresets.set("Slash", [
+  MetricLabel.DAMAGE_SLASH_LIGHT,
+  MetricLabel.DAMAGE_SLASH_HEAVY,
+  MetricLabel.RANGE_SLASH,
+  MetricLabel.RANGE_ALT_SLASH,
+  MetricLabel.WINDUP_SLASH_LIGHT,
+  MetricLabel.WINDUP_SLASH_HEAVY,
+  MetricLabel.RELEASE_SLASH_LIGHT,
+  MetricLabel.RELEASE_SLASH_HEAVY,
+  MetricLabel.RECOVERY_SLASH_LIGHT,
+  MetricLabel.RECOVERY_SLASH_HEAVY,
+  MetricLabel.COMBO_SLASH_LIGHT,
+  MetricLabel.COMBO_SLASH_HEAVY,
+])
+
+categoryPresets.set("Overhead", [
+  MetricLabel.DAMAGE_OVERHEAD_LIGHT,
+  MetricLabel.DAMAGE_OVERHEAD_HEAVY,
+  MetricLabel.RANGE_OVERHEAD,
+  MetricLabel.RANGE_ALT_OVERHEAD,
+  MetricLabel.WINDUP_OVERHEAD_LIGHT,
+  MetricLabel.WINDUP_OVERHEAD_HEAVY,
+  MetricLabel.RELEASE_OVERHEAD_LIGHT,
+  MetricLabel.RELEASE_OVERHEAD_HEAVY,
+  MetricLabel.RECOVERY_OVERHEAD_LIGHT,
+  MetricLabel.RECOVERY_OVERHEAD_HEAVY,
+  MetricLabel.COMBO_OVERHEAD_LIGHT,
+  MetricLabel.COMBO_OVERHEAD_HEAVY,
+])
+
+categoryPresets.set("Stab", [
+  MetricLabel.DAMAGE_STAB_LIGHT,
+  MetricLabel.DAMAGE_STAB_HEAVY,
+  MetricLabel.RANGE_STAB,
+  MetricLabel.RANGE_ALT_STAB,
+  MetricLabel.WINDUP_STAB_LIGHT,
+  MetricLabel.WINDUP_STAB_HEAVY,
+  MetricLabel.RELEASE_STAB_LIGHT,
+  MetricLabel.RELEASE_STAB_HEAVY,
+  MetricLabel.RECOVERY_STAB_LIGHT,
+  MetricLabel.RECOVERY_STAB_HEAVY,
+  MetricLabel.COMBO_STAB_LIGHT,
+  MetricLabel.COMBO_STAB_HEAVY,
+])
+
+categoryPresets.set("Throw", [
+  MetricLabel.DAMAGE_THROW,
+  MetricLabel.WINDUP_THROW,
+  MetricLabel.RELEASE_THROW,
+  MetricLabel.RECOVERY_THROW,
+])
+
+categoryPresets.set("Special", [
+  MetricLabel.DAMAGE_SPECIAL,
+  MetricLabel.WINDUP_SPECIAL,
+  MetricLabel.RELEASE_SPECIAL,
+  MetricLabel.RECOVERY_SPECIAL,
+])
+
+categoryPresets.set("Sprint Attack", [
+  MetricLabel.DAMAGE_SPRINT,
+  MetricLabel.WINDUP_SPRINT,
+  MetricLabel.RELEASE_SPRINT,
+  MetricLabel.COMBO_SPRINT,
+])
+
+categoryPresets.set("Average", [
+  MetricLabel.DAMAGE_LIGHT_AVERAGE,
+  MetricLabel.DAMAGE_HEAVY_AVERAGE,
+  MetricLabel.WINDUP_LIGHT_AVERAGE,
+  MetricLabel.WINDUP_HEAVY_AVERAGE,
+  MetricLabel.RELEASE_LIGHT_AVERAGE,
+  MetricLabel.RELEASE_HEAVY_AVERAGE,
+  MetricLabel.RECOVERY_LIGHT_AVERAGE,
+  MetricLabel.RECOVERY_HEAVY_AVERAGE,
+  MetricLabel.COMBO_LIGHT_AVERAGE,
+  MetricLabel.COMBO_HEAVY_AVERAGE,
+  MetricLabel.RANGE_AVERAGE,
+  MetricLabel.RANGE_ALT_AVERAGE
+])
+
 function toId(str: string) {
   return str
     .replaceAll(" ", "_")
@@ -322,8 +484,8 @@ function addCategoryDiv(l: MetricLabel) {
   input.type = "checkbox";
   input.className = "form-check-input";
   input.onchange = () => {
-    console.log("Removing " + l)
     setCategory(l, false);
+    redraw();
   };
   div.appendChild(input);
 
@@ -388,14 +550,12 @@ function setCategory(category: MetricLabel, enabled: boolean) {
     addCategoryDiv(category);
   } else {
     selectedCategories.delete(category);
-    console.log(document.getElementById(category));
     displayedCategoriesElem.removeChild(document.getElementById(category)!);
   }
-  redraw();
 }
 
 // Clear all weapon selections
-function clear() {
+function clearWeapons() {
   selectedWeapons.clear();
   while (displayedWeaponsElem.firstChild) {
     displayedWeaponsElem.removeChild(displayedWeaponsElem.firstChild);
@@ -406,15 +566,26 @@ function clear() {
   updateWeaponSearchResults();
 }
 
+// Clear all weapon selections
+function clearCategories() {
+  selectedCategories.clear();
+  while (displayedCategoriesElem.firstChild) {
+    displayedCategoriesElem.removeChild(displayedCategoriesElem.firstChild);
+  }
+
+  redraw();
+  updateWeaponSearchResults();
+}
+
 // Choose 3 random weapons
 function random() {
-  clear();
+  clearWeapons();
   const random = shuffle(ALL_WEAPONS.filter(x => x.name != "Polehammer"));
   random.slice(0, 2).forEach(addWeapon);
 }
 
 // Choose all weapons
-function all() {
+function allWeapons() {
   ALL_WEAPONS.forEach((w) => {
     if(!selectedWeapons.has(w)) {
       selectedWeapons.add(w);
@@ -422,6 +593,16 @@ function all() {
     }
   });
   updateWeaponSearchResults();
+  redraw();
+}
+
+function allCategories() {
+  Object.values(MetricLabel).forEach((l) => {
+    if(!selectedCategories.has(l)) {
+      setCategory(l, true);
+    }
+  });
+  updateCategorySearchResults();
   redraw();
 }
 
@@ -447,9 +628,12 @@ function reset() {
 
 
 // Link up to buttons
-document.getElementById("clearWeapons")!.onclick = clear;
+document.getElementById("clearWeapons")!.onclick = clearWeapons;
 document.getElementById("randomWeapons")!.onclick = random;
-document.getElementById("allWeapons")!.onclick = all;
+document.getElementById("allWeapons")!.onclick = allWeapons;
+
+document.getElementById("clearCategories")!.onclick = clearCategories;
+document.getElementById("allCategories")!.onclick = allCategories;
 
 // Link up Share button
 document.getElementById("share")!.onclick = () => {
@@ -477,6 +661,7 @@ horsebackDamageMultiplierInput.oninput = () => {
 }
 
 let weaponPresetsSelect = document.querySelector<HTMLSelectElement>("#presetsSelectWeapon")!;
+let categoryPresetsSelect = document.querySelector<HTMLSelectElement>("#presetsSelectCategory")!;
 
 Object.values(WeaponType).forEach(wt => {
   let elem = new Option(wt, wt) 
@@ -484,11 +669,25 @@ Object.values(WeaponType).forEach(wt => {
 });
 
 weaponPresetsSelect.onchange = (_ => {
-  clear();
+  clearWeapons();
   let preset = weaponPresetsSelect.value
   ALL_WEAPONS.filter(w => w.weaponTypes.includes(preset as WeaponType)).forEach(w => {
     addWeapon(w);
   });
+});
+
+categoryPresets.forEach((_, key) =>  {
+  let elem = new Option(key, key)
+  categoryPresetsSelect.add(elem);  
+});
+
+categoryPresetsSelect.onchange = (_ => {
+  clearCategories();
+  let preset = categoryPresetsSelect.value
+  categoryPresets.get(preset)!.forEach(l => {
+    setCategory(l, true);
+  })
+  redraw();
 });
 
 // Use query string to init values if possible
@@ -621,7 +820,10 @@ function updateCategorySearchResults() {
     button.className = "searchResult";
     button.innerText = l;
     button.onmousedown = (ev) => ev.preventDefault(); // Stop the blur from occurring that will hide the button itself
-    button.onclick = () => setCategory(l, true);
+    button.onclick = () => {
+      setCategory(l, true);
+      redraw();
+    };
     categorySearchResultsElem.appendChild(button);
   });
 }
@@ -641,3 +843,4 @@ window.addEventListener('DOMContentLoaded', () => {
 
 updateWeaponSearchResults();
 updateCategorySearchResults();
+redraw();
