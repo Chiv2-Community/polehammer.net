@@ -611,6 +611,7 @@ function reset() {
   selectedCategories.clear();
   [
     MetricLabel.RANGE_AVERAGE, 
+    MetricLabel.RANGE_ALT_AVERAGE, 
     MetricLabel.WINDUP_HEAVY_AVERAGE, 
     MetricLabel.RELEASE_HEAVY_AVERAGE, 
     MetricLabel.RECOVERY_HEAVY_AVERAGE,
