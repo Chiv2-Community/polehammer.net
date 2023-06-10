@@ -1,6 +1,6 @@
 import { Chart, ChartData, registerables } from "chart.js";
 import ALL_WEAPONS, { weaponByName, weaponById } from "./all_weapons";
-import { Metric, MetricLabel } from "./metrics";
+import { MetricLabel } from "./metrics";
 import {
   generateMetrics,
   unitGroupStats,
