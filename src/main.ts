@@ -1,6 +1,6 @@
 import { Chart, ChartData, registerables } from "chart.js";
 import ALL_WEAPONS, { weaponByName, weaponById } from "./all_weapons";
-import { MetricLabel } from "./metrics";
+import { Metric, MetricLabel } from "./metrics";
 import {
   generateMetrics,
   unitGroupStats,
@@ -27,10 +27,15 @@ let selectedTab = "radar-content-tab";
 
 const selectedWeapons: Set<Weapon> = new Set<Weapon>();
 const selectedCategories: Set<MetricLabel> = new Set<MetricLabel>();
-const searchResults: Set<Weapon> = new Set<Weapon>();
 
-const weaponSearchResults = document.querySelector<HTMLDivElement>("#weaponSearchResults")!
-const displayedWeapons = document.querySelector<HTMLFieldSetElement>("#displayedWeapons")!;
+const weaponSearchResults: Set<Weapon> = new Set<Weapon>();
+const categorySearchResults: Set<MetricLabel> = new Set<MetricLabel>();
+
+const weaponSearchResultsElem = document.querySelector<HTMLDivElement>("#weaponSearchResults")!
+const displayedWeaponsElem = document.querySelector<HTMLFieldSetElement>("#displayedWeapons")!;
+
+const categorySearchResultsElem = document.querySelector<HTMLFieldSetElement>("#categorySearchResults")!;
+const displayedCategoriesElem = document.querySelector<HTMLFieldSetElement>("#displayedCategories")!;
 
 function toId(str: string) {
   return str
@@ -145,7 +150,7 @@ function redrawBars() {
   selectedCategories.forEach((c) => {
     const outer = document.createElement("div");
     outer.className = "col-md-4";
-    outer.id = c;
+    outer.id = c + "-bar";
     const elem = document.createElement("canvas");
     outer.appendChild(elem);
     barsElem.appendChild(outer);
@@ -228,7 +233,6 @@ function redrawTable(dataset: WeaponStats, unitStats: UnitStats) {
   });
   
   tableElem.appendChild(table);
-
 }
 
 function redraw() {
@@ -259,7 +263,6 @@ function redraw() {
     });
     unitStats.get(c)!.max = selectedWeapons.size;
     unitStats.get(c)!.min = 1;
-
   });
 
 
@@ -303,7 +306,34 @@ function addWeaponDiv(weapon: Weapon) {
   label.style.border = `3px ${weaponDash(weapon)} ${weaponColor(weapon, 0.6)}`;
   div.appendChild(label);
 
-  displayedWeapons.appendChild(div);
+  displayedWeaponsElem.appendChild(div);
+}
+
+function addCategoryDiv(l: MetricLabel) {
+  const div = document.createElement("div");
+  div.id = l;
+  div.className = "labelled-input";
+  div.style.display = "flex";
+  div.style.alignItems = "center";
+
+  const input = document.createElement("input");
+  input.id = `input-${l}`;
+  input.checked = true;
+  input.type = "checkbox";
+  input.className = "form-check-input";
+  input.onchange = () => {
+    console.log("Removing " + l)
+    setCategory(l, false);
+  };
+  div.appendChild(input);
+
+  const label = document.createElement("label");
+  label.htmlFor = `input-${l}`;
+  label.innerText = l;
+  label.style.padding = "0.2em";
+  div.appendChild(label);
+
+  displayedCategoriesElem.appendChild(div);
 }
 
 // Add an input checkbox with a border to show the weapon has been added
@@ -314,90 +344,66 @@ function addWeapon(weapon: Weapon) {
   selectedWeapons.add(weapon);
   redraw();
 
-  updateSearchResults();
+  updateWeaponSearchResults();
 }
 
 function removeWeapon(weapon: Weapon) {
-  displayedWeapons.removeChild(document.getElementById(weapon.name)!);
+  displayedWeaponsElem.removeChild(document.getElementById(weapon.name)!);
 
   selectedWeapons.delete(weapon);
   redraw();
 
-  updateSearchResults();
+  updateWeaponSearchResults();
 }
 
-const weaponSearch = document.getElementById(
-  "weaponSearch"
-) as HTMLInputElement;
+const weaponSearch = document.getElementById("weaponSearch") as HTMLInputElement;
 weaponSearch.onfocus = () => {
-  weaponSearchResults.style.display = "initial";
+  weaponSearchResultsElem.style.display = "initial";
 };
 weaponSearch.onblur = () => {
   // Clear search when clicking out
   weaponSearch.value = "";
-  updateSearchResults();
+  updateWeaponSearchResults();
 
-  weaponSearchResults.style.display = "none";
+  weaponSearchResultsElem.style.display = "none";
 };
-weaponSearch.oninput = updateSearchResults;
+weaponSearch.oninput = updateWeaponSearchResults;
+
+const categorySearch = document.getElementById("categorySearch") as HTMLInputElement;
+categorySearch.onfocus = () => {
+  categorySearchResultsElem.style.display = "initial";
+};
+categorySearch.onblur = () => {
+  // Clear search when clicking out
+  categorySearch.value = "";
+  updateCategorySearchResults();
+
+  categorySearchResultsElem.style.display = "none";
+};
+categorySearch.oninput = updateCategorySearchResults;
 
 function setCategory(category: MetricLabel, enabled: boolean) {
-  const checkbox = document.getElementById(toId(category)) as HTMLInputElement;
-
-  // Manually typing into URL, or old URL and we've changed category names
-  if (!checkbox) {
-    return;
-  }
-
-  checkbox.checked = enabled;
-
   if (enabled) {
     selectedCategories.add(category);
+    addCategoryDiv(category);
   } else {
     selectedCategories.delete(category);
+    console.log(document.getElementById(category));
+    displayedCategoriesElem.removeChild(document.getElementById(category)!);
   }
   redraw();
 }
 
-// Write all categories we know about into the categories list
-Object.values(MetricLabel).forEach((r) => {
-  const [group, name] = r.split(" - ");
-
-  const div = document.createElement("div");
-
-  const input = document.createElement("input");
-  input.id = toId(r);
-  input.checked = selectedCategories.has(r);
-  input.className = "form-check-input";
-  input.setAttribute("type", "checkbox");
-  input.onclick = (ev) => {
-    const enabled = (ev.target as HTMLInputElement).checked;
-    setCategory(r, enabled);
-  };
-  div.className = "labelled-input";
-  div.appendChild(input);
-
-  const label = document.createElement("label");
-  label.htmlFor = toId(r);
-  label.innerText = name;
-  div.appendChild(label);
-
-  const categoryGroup = document.getElementById(
-    `category-${group.replaceAll(' ','-').toLowerCase()}`
-  ) as HTMLFieldSetElement;
-  categoryGroup.appendChild(div);
-});
-
 // Clear all weapon selections
 function clear() {
   selectedWeapons.clear();
-  while (displayedWeapons.firstChild) {
-    displayedWeapons.removeChild(displayedWeapons.firstChild);
+  while (displayedWeaponsElem.firstChild) {
+    displayedWeaponsElem.removeChild(displayedWeaponsElem.firstChild);
   }
 
   addWeapon(weaponByName("Polehammer")!)
   redraw();
-  updateSearchResults();
+  updateWeaponSearchResults();
 }
 
 // Choose 3 random weapons
@@ -415,7 +421,7 @@ function all() {
       addWeaponDiv(w);
     }
   });
-  updateSearchResults();
+  updateWeaponSearchResults();
   redraw();
 }
 
@@ -423,30 +429,27 @@ function all() {
 // Clear all weapon selections
 function reset() {
   selectedCategories.clear();
-  selectedCategories.add(MetricLabel.RANGE_AVERAGE);
-  selectedCategories.add(MetricLabel.WINDUP_HEAVY_AVERAGE);
-  selectedCategories.add(MetricLabel.RELEASE_HEAVY_AVERAGE);
-  selectedCategories.add(MetricLabel.RECOVERY_HEAVY_AVERAGE);
-  selectedCategories.add(MetricLabel.COMBO_HEAVY_AVERAGE);
-  selectedCategories.add(MetricLabel.DAMAGE_HEAVY_AVERAGE);
-  selectedCategories.add(MetricLabel.WINDUP_LIGHT_AVERAGE);
-  selectedCategories.add(MetricLabel.RELEASE_LIGHT_AVERAGE);
-  selectedCategories.add(MetricLabel.RECOVERY_LIGHT_AVERAGE);
-  selectedCategories.add(MetricLabel.COMBO_LIGHT_AVERAGE);
-  selectedCategories.add(MetricLabel.DAMAGE_LIGHT_AVERAGE);
-  Object.values(MetricLabel).map((r) => {
-    const checkbox = document.getElementById(toId(r)) as HTMLInputElement;
-    checkbox.checked = selectedCategories.has(r);
-  });
+  [
+    MetricLabel.RANGE_AVERAGE, 
+    MetricLabel.WINDUP_HEAVY_AVERAGE, 
+    MetricLabel.RELEASE_HEAVY_AVERAGE, 
+    MetricLabel.RECOVERY_HEAVY_AVERAGE,
+    MetricLabel.COMBO_HEAVY_AVERAGE,
+    MetricLabel.DAMAGE_HEAVY_AVERAGE,
+    MetricLabel.WINDUP_LIGHT_AVERAGE,
+    MetricLabel.RELEASE_LIGHT_AVERAGE,
+    MetricLabel.RECOVERY_LIGHT_AVERAGE,
+    MetricLabel.COMBO_LIGHT_AVERAGE,
+    MetricLabel.DAMAGE_LIGHT_AVERAGE,
+  ].map(l => setCategory(l, true));
   redraw();
 }
 
 
 // Link up to buttons
-document.getElementById("clear")!.onclick = clear;
-document.getElementById("random")!.onclick = random;
-document.getElementById("all")!.onclick = all;
-document.getElementById("reset")!.onclick = reset;
+document.getElementById("clearWeapons")!.onclick = clear;
+document.getElementById("randomWeapons")!.onclick = random;
+document.getElementById("allWeapons")!.onclick = all;
 
 // Link up Share button
 document.getElementById("share")!.onclick = () => {
@@ -473,16 +476,16 @@ horsebackDamageMultiplierInput.oninput = () => {
   redraw();
 }
 
-let presetsSelect = document.querySelector<HTMLSelectElement>("#presetsSelect")!;
+let weaponPresetsSelect = document.querySelector<HTMLSelectElement>("#presetsSelectWeapon")!;
 
 Object.values(WeaponType).forEach(wt => {
   let elem = new Option(wt, wt) 
-  presetsSelect.add(elem);
+  weaponPresetsSelect.add(elem);
 });
 
-presetsSelect.onchange = (_ => {
+weaponPresetsSelect.onchange = (_ => {
   clear();
-  let preset = presetsSelect.value
+  let preset = weaponPresetsSelect.value
   ALL_WEAPONS.filter(w => w.weaponTypes.includes(preset as WeaponType)).forEach(w => {
     addWeapon(w);
   });
@@ -553,38 +556,73 @@ Object.values(Target).forEach((t) => {
 // - Take into account any filters that are applied
 // - Clear out existing buttons and write new ones depending on the results
 // - If no results, have special entry
-function updateSearchResults() {
+function updateWeaponSearchResults() {
   // Start assuming no search results
-  searchResults.clear();
+  weaponSearchResults.clear();
 
   // Take search text into account
   const searchText = weaponSearch.value?.toLowerCase();
   if (searchText) {
     ALL_WEAPONS.forEach((w) => {
       if (w.name.toLowerCase().includes(searchText)) {
-        searchResults.add(w);
+        weaponSearchResults.add(w);
       }
     });
   } else {
-    ALL_WEAPONS.forEach((w) => searchResults.add(w));
+    ALL_WEAPONS.forEach((w) => weaponSearchResults.add(w));
   }
 
   // Remove any we already have selected
-  selectedWeapons.forEach((w) => searchResults.delete(w));
+  selectedWeapons.forEach((w) => weaponSearchResults.delete(w));
 
   // Clear existing buttons
-  while (weaponSearchResults.firstChild) {
-    weaponSearchResults.removeChild(weaponSearchResults.firstChild);
+  while (weaponSearchResultsElem.firstChild) {
+    weaponSearchResultsElem.removeChild(weaponSearchResultsElem.firstChild);
   }
 
   // Add a button for each search result
-  searchResults.forEach((w) => {
+  weaponSearchResults.forEach((w) => {
     const button = document.createElement("button");
     button.className = "searchResult";
     button.innerText = w.name;
     button.onmousedown = (ev) => ev.preventDefault(); // Stop the blur from occurring that will hide the button itself
     button.onclick = () => addWeapon(w);
-    weaponSearchResults.appendChild(button);
+    weaponSearchResultsElem.appendChild(button);
+  });
+}
+
+function updateCategorySearchResults() {
+  // Start assuming no search results
+  categorySearchResults.clear();
+
+  // Take search text into account
+  const searchText = categorySearch.value?.toLowerCase();
+  if (searchText) {
+    Object.values(MetricLabel).forEach((l) => {
+      if (l.toLowerCase().includes(searchText)) {
+        categorySearchResults.add(l);
+      }
+    });
+  } else {
+    Object.values(MetricLabel).forEach(x => categorySearchResults.add(x));
+  }
+
+  // Remove any we already have selected
+  selectedCategories.forEach(l => categorySearchResults.delete(l));
+
+  // Clear existing buttons
+  while (categorySearchResultsElem.firstChild) {
+    categorySearchResultsElem.removeChild(categorySearchResultsElem.firstChild);
+  }
+
+  // Add a button for each search result
+  categorySearchResults.forEach((l) => {
+    const button = document.createElement("button");
+    button.className = "searchResult";
+    button.innerText = l;
+    button.onmousedown = (ev) => ev.preventDefault(); // Stop the blur from occurring that will hide the button itself
+    button.onclick = () => setCategory(l, true);
+    categorySearchResultsElem.appendChild(button);
   });
 }
 
@@ -601,4 +639,5 @@ window.addEventListener('DOMContentLoaded', () => {
 });
 
 
-updateSearchResults();
+updateWeaponSearchResults();
+updateCategorySearchResults();
