@@ -71,7 +71,6 @@ categoryPresets.set("Recovery", [
   MetricLabel.RECOVERY_STAB_LIGHT,
   MetricLabel.RECOVERY_STAB_HEAVY,
   MetricLabel.RECOVERY_SPECIAL,
-  MetricLabel.RECOVERY_SPRINT,
   MetricLabel.RECOVERY_THROW,
 ])
 
