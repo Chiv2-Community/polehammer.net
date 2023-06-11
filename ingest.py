@@ -132,7 +132,7 @@ def make_averages(weapon):
         
         if has_range:
             sums["range"] = currentRangeSum + weapon["attacks"][attack]["range"]
-            sums["altRange"] = currentRangeSum + weapon["attacks"][attack]["altRange"]
+            sums["altRange"] = currentAltRangeSum + weapon["attacks"][attack]["altRange"]
         
     for stat in sums["light"].keys():
         if stat in ignore_keys:
