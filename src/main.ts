@@ -48,7 +48,7 @@ categoryPresets.set("Windup", [
   MetricLabel.WINDUP_STAB_LIGHT,
   MetricLabel.WINDUP_STAB_HEAVY,
   MetricLabel.WINDUP_SPECIAL,
-  MetricLabel.WINDUP_SPRINT,
+  MetricLabel.WINDUP_LEAPING_STRIKE,
   MetricLabel.WINDUP_THROW,
 ])
 
@@ -60,7 +60,7 @@ categoryPresets.set("Release", [
   MetricLabel.RELEASE_STAB_LIGHT,
   MetricLabel.RELEASE_STAB_HEAVY,
   MetricLabel.RELEASE_SPECIAL,
-  MetricLabel.RELEASE_SPRINT,
+  MetricLabel.RELEASE_LEAPING_STRIKE,
   MetricLabel.RELEASE_THROW,
 ])
 categoryPresets.set("Recovery", [
@@ -81,7 +81,7 @@ categoryPresets.set("Combo", [
   MetricLabel.COMBO_OVERHEAD_HEAVY,
   MetricLabel.COMBO_STAB_LIGHT,
   MetricLabel.COMBO_STAB_HEAVY,
-  MetricLabel.COMBO_SPRINT,
+  MetricLabel.COMBO_LEAPING_STRIKE,
 ])
 
 categoryPresets.set("All Damage", [
@@ -92,7 +92,7 @@ categoryPresets.set("All Damage", [
   MetricLabel.DAMAGE_STAB_LIGHT,
   MetricLabel.DAMAGE_STAB_HEAVY,
   MetricLabel.DAMAGE_SPECIAL,
-  MetricLabel.DAMAGE_SPRINT,
+  MetricLabel.DAMAGE_LEAPING_STRIKE,
   MetricLabel.DAMAGE_THROW,
 ])
 
@@ -176,11 +176,15 @@ categoryPresets.set("Special", [
   MetricLabel.RECOVERY_SPECIAL,
 ])
 
-categoryPresets.set("Sprint Attack", [
-  MetricLabel.DAMAGE_SPRINT,
-  MetricLabel.WINDUP_SPRINT,
-  MetricLabel.RELEASE_SPRINT,
-  MetricLabel.COMBO_SPRINT,
+categoryPresets.set("Leaping Strike", [
+  MetricLabel.DAMAGE_LEAPING_STRIKE,
+  MetricLabel.WINDUP_LEAPING_STRIKE,
+  MetricLabel.RELEASE_LEAPING_STRIKE,
+  MetricLabel.COMBO_LEAPING_STRIKE,
+])
+
+categoryPresets.set("Sprint Charge", [
+  MetricLabel.DAMAGE_SPRINT_CHARGE,
 ])
 
 categoryPresets.set("Average", [
