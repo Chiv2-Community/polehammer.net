@@ -80,13 +80,13 @@ export class SearchSelector<A> {
       this.updateSearchResults();
     }
 
-    this.presets.forEach((value, key) =>
+    this.presets.forEach((_, key) =>
       this.presetSelectElem.add(new Option(key, key))
     )
 
     this.presetSelectElem.onchange = (_) => {
       this.clearSelection(false)
-      const preset = this.presets.get(this.presetSelectElem.value)
+      const preset = this.presets.get(this.presetSelectElem.value)!
       preset.forEach(a => this.addSelected(a, false))
       this.redraw()
     }

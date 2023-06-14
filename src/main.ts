@@ -11,10 +11,10 @@ import "./style.scss";
 import { Target } from "./target";
 import { borderDash, weaponColor, weaponDash, metricColor } from "./ui";
 import { shuffle } from "./util";
-import { Weapon, WeaponType } from "./weapon";
+import { Weapon } from "./weapon";
 import { SearchSelector } from "./components/search_selector";
-import { categoryPresets } from "./components/category_presets";
-import { weaponPresets } from "./components/weapon_presets";
+import CATEGORY_PRESETS from "./components/category_presets";
+import WEAPON_PRESETS from "./components/weapon_presets";
 
 Chart.defaults.font.family = "'Lato', sans-serif";
 Chart.register(...registerables); // the auto import stuff was making typescript angry.
@@ -38,7 +38,7 @@ const weaponSelector = new SearchSelector<Weapon>(
   "#weaponSearch", 
   "#weaponSearchResults", 
   "#displayedWeapons", 
-  weaponPresets, 
+  WEAPON_PRESETS,
   "#presetsSelectWeapon",
   w => w.name, 
   weaponBorderStyle, 
@@ -50,10 +50,10 @@ const categorySelector = new SearchSelector<MetricLabel>(
   "#categorySearch",
   "#categorySearchResults",
   "#displayedCategories",
-  categoryPresets,
+  CATEGORY_PRESETS,
   "#presetsSelectCategory",
   c => c,
-  (c, label) => label,
+  (_, label) => label,
   redraw
 )
 
@@ -307,7 +307,7 @@ function redraw() {
 function random() {
   weaponSelector.clearSelection();
   const random = shuffle(ALL_WEAPONS.filter(x => x.name != "Polehammer"));
-  weaponSelector.addSelected(weaponById("ph"))
+  weaponSelector.addSelected(weaponById("ph")!)
   random.slice(0, 2).forEach(w => weaponSelector.addSelected(w));
 }
 
