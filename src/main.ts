@@ -25,21 +25,18 @@ let unitStats: UnitStats = unitGroupStats(stats);
 
 let selectedTab = "radar-content-tab";
 
+
 const selectedWeapons: Set<Weapon> = new Set<Weapon>();
-const selectedCategories: Set<MetricLabel> = new Set<MetricLabel>();
-
 const weaponSearchResults: Set<Weapon> = new Set<Weapon>();
-const categorySearchResults: Set<MetricLabel> = new Set<MetricLabel>();
-
 const weaponSearchResultsElem = document.querySelector<HTMLDivElement>("#weaponSearchResults")!
 const displayedWeaponsElem = document.querySelector<HTMLFieldSetElement>("#displayedWeapons")!;
 
+const selectedCategories: Set<MetricLabel> = new Set<MetricLabel>();
+const categorySearchResults: Set<MetricLabel> = new Set<MetricLabel>();
 const categorySearchResultsElem = document.querySelector<HTMLFieldSetElement>("#categorySearchResults")!;
 const displayedCategoriesElem = document.querySelector<HTMLFieldSetElement>("#displayedCategories")!;
 
-
 const categoryPresets: Map<string, MetricLabel[]> = new Map()
-
 categoryPresets.set("Windup", [
   MetricLabel.WINDUP_SLASH_LIGHT,
   MetricLabel.WINDUP_SLASH_HEAVY,
@@ -63,6 +60,7 @@ categoryPresets.set("Release", [
   MetricLabel.RELEASE_SPRINT,
   MetricLabel.RELEASE_THROW,
 ])
+
 categoryPresets.set("Recovery", [
   MetricLabel.RECOVERY_SLASH_LIGHT,
   MetricLabel.RECOVERY_SLASH_HEAVY,
