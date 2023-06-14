@@ -486,6 +486,7 @@ function addCategoryDiv(l: MetricLabel) {
   input.className = "form-check-input";
   input.onchange = () => {
     setCategory(l, false);
+    updateCategorySearchResults();
     redraw();
   };
   div.appendChild(input);
@@ -688,6 +689,7 @@ categoryPresetsSelect.onchange = (_ => {
   let preset = categoryPresetsSelect.value
   categoryPresets.get(preset)!.forEach(l => {
     setCategory(l, true);
+    updateCategorySearchResults();
   })
   redraw();
 });
@@ -824,6 +826,7 @@ function updateCategorySearchResults() {
     button.onmousedown = (ev) => ev.preventDefault(); // Stop the blur from occurring that will hide the button itself
     button.onclick = () => {
       setCategory(l, true);
+      updateCategorySearchResults();
       redraw();
     };
     categorySearchResultsElem.appendChild(button);
