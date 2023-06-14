@@ -75,14 +75,12 @@
           <fieldset id="weapons" class="border rounded p-2">
             <legend>Weapons</legend>
             <div class="btn-group w-100 my-1" role="group">
-              <button id="clear" class="btn btn-outline-primary">Clear</button>
-              <button id="random" class="btn btn-outline-primary">
-                Random
-              </button>
-              <button id="all" class="btn btn-outline-primary">All</button>
+              <button id="clearWeapons" class="btn btn-outline-primary">Clear</button>
+              <button id="randomWeapons" class="btn btn-outline-primary"> Random </button>
+              <button id="allWeapons" class="btn btn-outline-primary">All</button>
             </div>
             <div class="mt-1">
-              <select id="presetsSelect" class="form-select form-select-sm" aria-label=".form-select-sm example">
+              <select id="presetsSelectWeapon" class="form-select form-select-sm" aria-label=".form-select-sm example">
                 <option value ="" disabled="true" selected>Weapon Presets</option>
               </select>
             </div>
@@ -270,29 +268,25 @@
           <fieldset id="categories" class="border rounded p-2">
             <legend>Categories</legend>
             <div class="btn-group w-100 my-1" role="group">
-              <button id="reset" class="btn btn-outline-primary">Reset</button>
+              <button id="clearCategories" class="btn btn-outline-primary">Clear</button>
+              <button id="allCategories" class="btn btn-outline-primary">All</button>
             </div>
-            <!--<div id="category-rank">
-              <div class="category-group">Rank<small id="rankUnits">Percentile</small></div>
-            </div>-->
-            <div id="category-damage">
-              <div class="category-group">Damage<small id="damageUnits">Hitpoints</small></div>
+            <div class="mt-1">
+              <select id="presetsSelectCategory" class="form-select form-select-sm" aria-label=".form-select-sm example">
+                <option value ="" disabled="true" selected>Category Presets</option>
+              </select>
             </div>
-            <div id="category-range">
-              <div class="category-group">Range<small id="rangeUnits">Jeoffrys</small></div>
+            <input
+              type="text"
+              id="categorySearch"
+              placeholder="Search"
+              style="width: 100%; box-sizing: border-box"
+              class="my-2 p-2 form-control"
+            />
+            <div style="position: relative; height: 0; margin: 0">
+              <div id="categorySearchResults" class="category-search"></div>
             </div>
-            <div id="category-windup">
-              <div class="category-group">Windup<small id="windupUnits">Milliseconds</small></div>
-            </div>
-            <div id="category-release">
-              <div class="category-group">Release<small id="releaseUnits">Milliseconds</small></div>
-            </div>
-            <div id="category-recovery">
-              <div class="category-group">Recovery<small id="recoveryUnits">Milliseconds</small></div>
-            </div>
-            <div id="category-combo">
-              <div class="category-group">Combo<small id="comboUnits">Milliseconds</small></div>
-            </div>
+            <div id="displayedCategories"></div>
           </fieldset>
         </div>
       </div>

@@ -2,10 +2,12 @@ import { Target } from "./target";
 import { MetricLabel } from "./metrics";
 
 export type Attacks = {
+  average: Swing;
   slash: Swing;
   overhead: Swing;
   stab: Swing;
   sprintAttack: SpecialAttack;
+  sprintCharge: { damage: number; }
   special: SpecialAttack;
   throw: SpecialAttack;
 };
@@ -171,18 +173,29 @@ export function withBonusMultipliers(w: Weapon, numberOfTargets: number, horseba
           "damage": w.attacks.stab.heavy.damage * bonusMult(numberOfTargets, target, w.damageType, canCleave(w, "attacks.stab.heavy.damage")) * horsebackDamageMult
         }
       },
-      "throw": {
-        ...w.attacks.throw,  
-        "damage": w.attacks.throw.damage * bonusMult(numberOfTargets, target, w.damageType, canCleave(w, "attacks.throw.damage"))
-      },
-      "special": {
-        ...w.attacks.special,
-        "damage": w.attacks.special.damage * bonusMult(numberOfTargets, target, w.damageType, canCleave(w, "attacks.special.damage")) * horsebackDamageMult
+      "average": {
+        ...w.attacks.average,
+        "light": {
+          ...w.attacks.average.light,
+          "damage": w.attacks.average.light.damage * bonusMult(numberOfTargets, target, w.damageType, canCleave(w, "attacks.average.light.damage")) * horsebackDamageMult
+        },
+        "heavy": {
+          ...w.attacks.average.heavy,
+          "damage": w.attacks.average.heavy.damage * bonusMult(numberOfTargets, target, w.damageType, canCleave(w, "attacks.average.heavy.damage")) * horsebackDamageMult
+        }
       },
       "sprintAttack": {
         ...w.attacks.sprintAttack,
-        "damage": w.attacks.sprintAttack.damage * bonusMult(numberOfTargets, target, w.damageType, canCleave(w, "attacks.sprintAttack.damage"))
-      }
+          "damage": w.attacks.sprintAttack.damage * bonusMult(numberOfTargets, target, w.damageType, canCleave(w, "attacks.sprintAttack.damage")) * horsebackDamageMult
+      },
+      "special": {
+        ...w.attacks.special,
+          "damage": w.attacks.special.damage * bonusMult(numberOfTargets, target, w.damageType, canCleave(w, "attacks.special.damage")) * horsebackDamageMult
+      },
+      "throw": {
+        ...w.attacks.throw,
+        "damage": w.attacks.throw.damage * bonusMult(numberOfTargets, target, w.damageType, canCleave(w, "attacks.throw.damage")) * horsebackDamageMult
+      },
     }
   } as Weapon
 }

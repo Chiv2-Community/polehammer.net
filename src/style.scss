@@ -61,6 +61,19 @@ a {
   box-sizing: border-box;
   z-index: 1;
 }
+.category-search {
+  position: absolute;
+  width: 100%;
+  margin: 0;
+  top: 0;
+  left: 0;
+/*  background-color: white; */
+  border: 1px solid; /*darkgrey;*/
+  box-shadow: 8px 8px 16px; /*lightgray;*/
+  display: none;
+  box-sizing: border-box;
+  z-index: 1;
+}
 
 .form-check-input {
   margin-top: 0px;
