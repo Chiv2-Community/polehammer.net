@@ -13,7 +13,7 @@
 # Updated Credits
 
 * Aardvarkk - Website Design, Application Design, Radar Graphs
-* Gimmic - Provided method for accessing weapon stats directly from game code, developer of [Chivstats.xyz] (https://chivstats.xyz)
+* Gimmic - Provided method for accessing weapon stats directly from game code, developer of [Chivstats.xyz](https://chivstats.xyz)
 * Jacoby6000 - JSON Data Model, Responsive Design, Bar Graphs, Updated Category Selection UI, "PolehammerPoster" ChatGPT4 Bot Integration, Maintenance and Updates
 * Nihilianth - Provided the most recent patch's weapon stats data file, collaboration with Chiv II DeepStats 
 * Platyplysm - Range Stats, developer of the "Jeoffrey" range unit measurement system
