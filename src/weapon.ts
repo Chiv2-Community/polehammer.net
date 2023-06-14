@@ -7,6 +7,7 @@ export type Attacks = {
   overhead: Swing;
   stab: Swing;
   sprintAttack: SpecialAttack;
+  sprintCharge: { damage: number; }
   special: SpecialAttack;
   throw: SpecialAttack;
 };

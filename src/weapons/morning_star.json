@@ -364,6 +364,37 @@
       },
       "range": 19.333333333333332,
       "altRange": 20.666666666666668
+    },
+    "sprintCharge": {
+      "holding": -1.0,
+      "windup": -1,
+      "release": -1,
+      "recovery": -1,
+      "combo": 200.0,
+      "riposte": -1.0,
+      "feint": -1.0,
+      "thwack": -1.0,
+      "hitSuccess": -1.0,
+      "blocked": -1.0,
+      "worldHit": -1.0,
+      "damage": 50.0,
+      "staminaCost": 10.0,
+      "playRate": 1.0,
+      "drawStrength": -1.0,
+      "worldHitStartPercentage": -1.0,
+      "worldHitStopPercentage": -1.0,
+      "turnLimitStrength": 70.0,
+      "verticalTurnLimitStrength": -1.0,
+      "reverseTurnLimitStrength": -1.0,
+      "thwackOnHit": 0,
+      "hitSuccessOnHit": -1,
+      "direction": "-1",
+      "altDirection": "-1",
+      "cooldown": 0.0,
+      "weaponTipCheckReverse": -1,
+      "weaponTipCheckReverseAlt": -1,
+      "weaponTipCheckDisable": -1,
+      "comboFromBlocked": 0.0
     }
   }
 }

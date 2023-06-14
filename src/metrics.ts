@@ -10,7 +10,7 @@ export enum MetricPath {
   WINDUP_OVERHEAD_HEAVY = "attacks.overhead.heavy.windup",
   WINDUP_STAB_HEAVY     = "attacks.stab.heavy.windup",
   WINDUP_SPECIAL        = "attacks.special.windup",
-  WINDUP_SPRINT         = "attacks.sprintAttack.windup",
+  WINDUP_LEAPING_STRIKE = "attacks.sprintAttack.windup",
   WINDUP_THROW          = "attacks.throw.windup",
   
   RELEASE_AVERAGE_LIGHT  = "attacks.average.light.release",
@@ -22,7 +22,7 @@ export enum MetricPath {
   RELEASE_OVERHEAD_HEAVY = "attacks.overhead.heavy.release",
   RELEASE_STAB_HEAVY     = "attacks.stab.heavy.release",
   RELEASE_SPECIAL        = "attacks.special.release",
-  RELEASE_SPRINT         = "attacks.sprintAttack.release",
+  RELEASE_LEAPING_STRIKE = "attacks.sprintAttack.release",
   RELEASE_THROW          = "attacks.throw.release",
 
   RECOVERY_AVERAGE_LIGHT  = "attacks.average.light.recovery",
@@ -44,7 +44,7 @@ export enum MetricPath {
   COMBO_SLASH_HEAVY    = "attacks.slash.heavy.combo",
   COMBO_OVERHEAD_HEAVY = "attacks.overhead.heavy.combo",
   COMBO_STAB_HEAVY     = "attacks.stab.heavy.combo",
-  COMBO_SPRINT         = "attacks.sprintAttack.combo",
+  COMBO_LEAPING_STRIKE = "attacks.sprintAttack.combo",
 
   RANGE_AVERAGE = "attacks.average.range",
   RANGE_ALT_AVERAGE = "attacks.average.altRange",
@@ -64,7 +64,8 @@ export enum MetricPath {
   DAMAGE_OVERHEAD_HEAVY = "attacks.overhead.heavy.damage",
   DAMAGE_STAB_HEAVY     = "attacks.stab.heavy.damage",
   DAMAGE_SPECIAL        = "attacks.special.damage",
-  DAMAGE_SPRINT         = "attacks.sprintAttack.damage",
+  DAMAGE_LEAPING_STRIKE = "attacks.sprintAttack.damage",
+  DAMAGE_SPRINT_CHARGE = "attacks.sprintCharge.damage",
   DAMAGE_THROW          = "attacks.throw.damage",
 }
 
@@ -87,7 +88,7 @@ export enum MetricLabel {
   WINDUP_OVERHEAD_LIGHT = "Windup - Overhead (Light)",
   WINDUP_OVERHEAD_HEAVY = "Windup - Overhead (Heavy)",
   WINDUP_SPECIAL        = "Windup - Special",
-  WINDUP_SPRINT         = "Windup - Sprint",
+  WINDUP_LEAPING_STRIKE = "Windup - Leaping Strike",
   WINDUP_THROW          = "Windup - Throw",
 
   RELEASE_SLASH_LIGHT    = "Release - Slash (Light)",
@@ -97,7 +98,7 @@ export enum MetricLabel {
   RELEASE_OVERHEAD_LIGHT = "Release - Overhead (Light)",
   RELEASE_OVERHEAD_HEAVY = "Release - Overhead (Heavy)",
   RELEASE_SPECIAL        = "Release - Special",
-  RELEASE_SPRINT         = "Release - Sprint",
+  RELEASE_LEAPING_STRIKE = "Release - Leaping Strike",
   RELEASE_THROW          = "Release - Throw",
 
   RECOVERY_SLASH_LIGHT    = "Recovery - Slash (Light)",
@@ -115,7 +116,7 @@ export enum MetricLabel {
   COMBO_STAB_HEAVY     = "Combo - Stab (Heavy)",
   COMBO_OVERHEAD_LIGHT = "Combo - Overhead (Light)",
   COMBO_OVERHEAD_HEAVY = "Combo - Overhead (Heavy)",
-  COMBO_SPRINT         = "Combo - Sprint",
+  COMBO_LEAPING_STRIKE = "Combo - Leaping Strike",
   
   DAMAGE_SLASH_LIGHT    = "Damage - Slash (Light)",
   DAMAGE_SLASH_HEAVY    = "Damage - Slash (Heavy)",
@@ -124,7 +125,8 @@ export enum MetricLabel {
   DAMAGE_OVERHEAD_LIGHT = "Damage - Overhead (Light)",
   DAMAGE_OVERHEAD_HEAVY = "Damage - Overhead (Heavy)",
   DAMAGE_SPECIAL        = "Damage - Special",
-  DAMAGE_SPRINT         = "Damage - Sprint",
+  DAMAGE_LEAPING_STRIKE = "Damage - Leaping Strike",
+  DAMAGE_SPRINT_CHARGE  = "Damage - Sprint Charge",
   DAMAGE_THROW          = "Damage - Throw",
 
   DAMAGE_HEAVY_AVERAGE = "Damage - Average (Heavy)",
