@@ -81,7 +81,7 @@ function chartData(
 
   return {
     labels: [...sortedCategories],
-    datasets: [...weaponSelector.display].map((w) => {
+    datasets: [...weaponSelector.selectedItems].map((w) => {
       return {
         label: w.name,
         data: [...sortedCategories].map((c) => {
@@ -130,7 +130,7 @@ const radar: Chart = new Chart(
         },
       },
     },
-    data: chartData(stats, categorySelector.display, unitStats, false),
+    data: chartData(stats, categorySelector.selectedItems, unitStats, false),
   }
 );
 
@@ -167,7 +167,7 @@ function redrawBars() {
 
   bars.splice(0, bars.length);
 
-  categorySelector.display.forEach((c) => {
+  categorySelector.selectedItems.forEach((c) => {
     const outer = document.createElement("div");
     outer.className = "col-md-4";
     outer.id = c + "-bar";
@@ -178,8 +178,8 @@ function redrawBars() {
   });
 }
 
-function redrawTable(dataset: WeaponStats, unitStats: UnitStats) {
-  let sortedCategories = Array.from(categorySelector.display);
+function redrawTable(dataset: WeaponStats, unitStats: UnitStats, ) {
+  let sortedCategories = Array.from(categorySelector.selectedItems);
   sortedCategories.sort((a,b) => {
     return Object.values(MetricLabel).indexOf(a) - Object.values(MetricLabel).indexOf(b);
   });
@@ -193,8 +193,6 @@ function redrawTable(dataset: WeaponStats, unitStats: UnitStats) {
   const head = document.createElement("thead");
   const headRow = document.createElement("tr");
   
-
-
   let headers = [""]; // Leave name column blank
   sortedCategories.forEach((c) => {
     headers.push(c);
@@ -225,7 +223,7 @@ function redrawTable(dataset: WeaponStats, unitStats: UnitStats) {
   head.appendChild(headRow);
   table.appendChild(head);
 
-  weaponSelector.display.forEach(weapon => {
+  weaponSelector.selectedItems.forEach(weapon => {
     let weaponData = dataset.get(weapon.name)!;
 
     let row = document.createElement("tr");
@@ -260,9 +258,9 @@ function redraw() {
   stats = generateMetrics(ALL_WEAPONS, numberOfTargets, horsebackDamageMultiplier, selectedTarget)
   unitStats = unitGroupStats(stats);
 
-  let weaponArray = Array.from(weaponSelector.display)
+  let weaponArray = Array.from(weaponSelector.selectedItems)
   const INDEX_POSTITIONS: Map<string, Array<string>> = new Map()
-  const indexCategories = Array.from(categorySelector.display).filter(c => c.startsWith("Index"))
+  const indexCategories = Array.from(categorySelector.selectedItems).filter(c => c.startsWith("Index"))
   indexCategories.forEach((c) => {
     const sortedWeapons = 
         weaponArray.sort((a,b) => {
@@ -279,14 +277,14 @@ function redraw() {
       const value = stats.get(w.name)!.get(c)!.value
       const idx = INDEX_POSTITIONS.get(c)!.indexOf(w.name);
       value.rawResult = idx + 1;
-      value.result = weaponSelector.display.size - idx;
+      value.result = weaponSelector.selectedItems.size - idx;
     });
-    unitStats.get(c)!.max = weaponSelector.display.size;
+    unitStats.get(c)!.max = weaponSelector.selectedItems.size;
     unitStats.get(c)!.min = 1;
   });
 
 
-  radar.data = chartData(stats, categorySelector.display, unitStats, false);
+  radar.data = chartData(stats, categorySelector.selectedItems, unitStats, false);
   radar.update();
 
   redrawBars();
@@ -297,8 +295,8 @@ function redraw() {
   params.set("target", selectedTarget);
   params.set("numberOfTargets", numberOfTargets.toString());
   params.set("tab", selectedTab);
-  params.append("weapon", [...weaponSelector.display].map(x => x.id).join("-"));
-  [...categorySelector.display].map((c) => params.append("category", c));
+  params.append("weapon", [...weaponSelector.selectedItems].map(x => x.id).join("-"));
+  [...categorySelector.selectedItems].map((c) => params.append("category", c));
   window.history.replaceState(null, "", `?${params.toString()}`);
 }
 
@@ -410,7 +408,7 @@ if (params.getAll("category").length) {
   compatCategories.forEach(c => categorySelector.addSelected(c as MetricLabel))
 
   // Setting them failed, so just default
-  if (!categorySelector.display.size)
+  if (!categorySelector.selectedItems.size)
     reset();
 } else {
   reset();
