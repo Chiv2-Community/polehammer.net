@@ -188,6 +188,10 @@ export function withBonusMultipliers(w: Weapon, numberOfTargets: number, horseba
         ...w.attacks.sprintAttack,
           "damage": w.attacks.sprintAttack.damage * bonusMult(numberOfTargets, target, w.damageType, canCleave(w, "attacks.sprintAttack.damage")) * horsebackDamageMult
       },
+      "sprintCharge": {
+        ...w.attacks.sprintCharge,
+          "damage": w.attacks.sprintCharge.damage * bonusMult(numberOfTargets, target, w.damageType, false) * horsebackDamageMult
+      },
       "special": {
         ...w.attacks.special,
           "damage": w.attacks.special.damage * bonusMult(numberOfTargets, target, w.damageType, canCleave(w, "attacks.special.damage")) * horsebackDamageMult
