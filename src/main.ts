@@ -11,7 +11,10 @@ import "./style.scss";
 import { Target } from "./target";
 import { borderDash, weaponColor, weaponDash, metricColor } from "./ui";
 import { shuffle } from "./util";
-import { Weapon, WeaponType } from "./weapon";
+import { Weapon } from "./weapon";
+import { SearchSelector } from "./components/search_selector";
+import CATEGORY_PRESETS from "./components/category_presets";
+import WEAPON_PRESETS from "./components/weapon_presets";
 
 Chart.defaults.font.family = "'Lato', sans-serif";
 Chart.register(...registerables); // the auto import stuff was making typescript angry.
@@ -25,182 +28,34 @@ let unitStats: UnitStats = unitGroupStats(stats);
 
 let selectedTab = "radar-content-tab";
 
-const selectedWeapons: Set<Weapon> = new Set<Weapon>();
-const selectedCategories: Set<MetricLabel> = new Set<MetricLabel>();
+let weaponBorderStyle = (weapon: Weapon, label: HTMLLabelElement) => {
+  label.style.border = `3px ${weaponDash(weapon)} ${weaponColor(weapon, 0.6)}`;
+  return label
+}
 
-const weaponSearchResults: Set<Weapon> = new Set<Weapon>();
-const categorySearchResults: Set<MetricLabel> = new Set<MetricLabel>();
+const weaponSelector = new SearchSelector<Weapon>(
+  new Set(ALL_WEAPONS), 
+  "#weaponSearch", 
+  "#weaponSearchResults", 
+  "#displayedWeapons", 
+  WEAPON_PRESETS,
+  "#presetsSelectWeapon",
+  w => w.name, 
+  weaponBorderStyle, 
+  redraw
+);
 
-const weaponSearchResultsElem = document.querySelector<HTMLDivElement>("#weaponSearchResults")!
-const displayedWeaponsElem = document.querySelector<HTMLFieldSetElement>("#displayedWeapons")!;
-
-const categorySearchResultsElem = document.querySelector<HTMLFieldSetElement>("#categorySearchResults")!;
-const displayedCategoriesElem = document.querySelector<HTMLFieldSetElement>("#displayedCategories")!;
-
-
-const categoryPresets: Map<string, MetricLabel[]> = new Map()
-
-categoryPresets.set("Windup", [
-  MetricLabel.WINDUP_SLASH_LIGHT,
-  MetricLabel.WINDUP_SLASH_HEAVY,
-  MetricLabel.WINDUP_OVERHEAD_LIGHT,
-  MetricLabel.WINDUP_OVERHEAD_HEAVY,
-  MetricLabel.WINDUP_STAB_LIGHT,
-  MetricLabel.WINDUP_STAB_HEAVY,
-  MetricLabel.WINDUP_SPECIAL,
-  MetricLabel.WINDUP_LEAPING_STRIKE,
-  MetricLabel.WINDUP_THROW,
-])
-
-categoryPresets.set("Release", [
-  MetricLabel.RELEASE_SLASH_LIGHT,
-  MetricLabel.RELEASE_SLASH_HEAVY,
-  MetricLabel.RELEASE_OVERHEAD_LIGHT,
-  MetricLabel.RELEASE_OVERHEAD_HEAVY,
-  MetricLabel.RELEASE_STAB_LIGHT,
-  MetricLabel.RELEASE_STAB_HEAVY,
-  MetricLabel.RELEASE_SPECIAL,
-  MetricLabel.RELEASE_LEAPING_STRIKE,
-  MetricLabel.RELEASE_THROW,
-])
-categoryPresets.set("Recovery", [
-  MetricLabel.RECOVERY_SLASH_LIGHT,
-  MetricLabel.RECOVERY_SLASH_HEAVY,
-  MetricLabel.RECOVERY_OVERHEAD_LIGHT,
-  MetricLabel.RECOVERY_OVERHEAD_HEAVY,
-  MetricLabel.RECOVERY_STAB_LIGHT,
-  MetricLabel.RECOVERY_STAB_HEAVY,
-  MetricLabel.RECOVERY_SPECIAL,
-  MetricLabel.RECOVERY_THROW,
-])
-
-categoryPresets.set("Combo", [
-  MetricLabel.COMBO_SLASH_LIGHT,
-  MetricLabel.COMBO_SLASH_HEAVY,
-  MetricLabel.COMBO_OVERHEAD_LIGHT,
-  MetricLabel.COMBO_OVERHEAD_HEAVY,
-  MetricLabel.COMBO_STAB_LIGHT,
-  MetricLabel.COMBO_STAB_HEAVY,
-  MetricLabel.COMBO_LEAPING_STRIKE,
-])
-
-categoryPresets.set("All Damage", [
-  MetricLabel.DAMAGE_SLASH_LIGHT,
-  MetricLabel.DAMAGE_SLASH_HEAVY,
-  MetricLabel.DAMAGE_OVERHEAD_LIGHT,
-  MetricLabel.DAMAGE_OVERHEAD_HEAVY,
-  MetricLabel.DAMAGE_STAB_LIGHT,
-  MetricLabel.DAMAGE_STAB_HEAVY,
-  MetricLabel.DAMAGE_SPECIAL,
-  MetricLabel.DAMAGE_LEAPING_STRIKE,
-  MetricLabel.DAMAGE_THROW,
-])
-
-categoryPresets.set("Light Damage", [
-  MetricLabel.DAMAGE_SLASH_LIGHT,
-  MetricLabel.DAMAGE_OVERHEAD_LIGHT,
-  MetricLabel.DAMAGE_STAB_LIGHT,
-])
-
-categoryPresets.set("Heavy Damage", [
-  MetricLabel.DAMAGE_SLASH_HEAVY,
-  MetricLabel.DAMAGE_OVERHEAD_HEAVY,
-  MetricLabel.DAMAGE_STAB_HEAVY,
-])
-
-categoryPresets.set("Range", [
-  MetricLabel.RANGE_SLASH,
-  MetricLabel.RANGE_ALT_SLASH,
-  MetricLabel.RANGE_OVERHEAD,
-  MetricLabel.RANGE_ALT_OVERHEAD,
-  MetricLabel.RANGE_STAB,
-  MetricLabel.RANGE_ALT_STAB,
-])
-
-categoryPresets.set("Slash", [
-  MetricLabel.DAMAGE_SLASH_LIGHT,
-  MetricLabel.DAMAGE_SLASH_HEAVY,
-  MetricLabel.RANGE_SLASH,
-  MetricLabel.RANGE_ALT_SLASH,
-  MetricLabel.WINDUP_SLASH_LIGHT,
-  MetricLabel.WINDUP_SLASH_HEAVY,
-  MetricLabel.RELEASE_SLASH_LIGHT,
-  MetricLabel.RELEASE_SLASH_HEAVY,
-  MetricLabel.RECOVERY_SLASH_LIGHT,
-  MetricLabel.RECOVERY_SLASH_HEAVY,
-  MetricLabel.COMBO_SLASH_LIGHT,
-  MetricLabel.COMBO_SLASH_HEAVY,
-])
-
-categoryPresets.set("Overhead", [
-  MetricLabel.DAMAGE_OVERHEAD_LIGHT,
-  MetricLabel.DAMAGE_OVERHEAD_HEAVY,
-  MetricLabel.RANGE_OVERHEAD,
-  MetricLabel.RANGE_ALT_OVERHEAD,
-  MetricLabel.WINDUP_OVERHEAD_LIGHT,
-  MetricLabel.WINDUP_OVERHEAD_HEAVY,
-  MetricLabel.RELEASE_OVERHEAD_LIGHT,
-  MetricLabel.RELEASE_OVERHEAD_HEAVY,
-  MetricLabel.RECOVERY_OVERHEAD_LIGHT,
-  MetricLabel.RECOVERY_OVERHEAD_HEAVY,
-  MetricLabel.COMBO_OVERHEAD_LIGHT,
-  MetricLabel.COMBO_OVERHEAD_HEAVY,
-])
-
-categoryPresets.set("Stab", [
-  MetricLabel.DAMAGE_STAB_LIGHT,
-  MetricLabel.DAMAGE_STAB_HEAVY,
-  MetricLabel.RANGE_STAB,
-  MetricLabel.RANGE_ALT_STAB,
-  MetricLabel.WINDUP_STAB_LIGHT,
-  MetricLabel.WINDUP_STAB_HEAVY,
-  MetricLabel.RELEASE_STAB_LIGHT,
-  MetricLabel.RELEASE_STAB_HEAVY,
-  MetricLabel.RECOVERY_STAB_LIGHT,
-  MetricLabel.RECOVERY_STAB_HEAVY,
-  MetricLabel.COMBO_STAB_LIGHT,
-  MetricLabel.COMBO_STAB_HEAVY,
-])
-
-categoryPresets.set("Throw", [
-  MetricLabel.DAMAGE_THROW,
-  MetricLabel.WINDUP_THROW,
-  MetricLabel.RELEASE_THROW,
-  MetricLabel.RECOVERY_THROW,
-])
-
-categoryPresets.set("Special", [
-  MetricLabel.DAMAGE_SPECIAL,
-  MetricLabel.WINDUP_SPECIAL,
-  MetricLabel.RELEASE_SPECIAL,
-  MetricLabel.RECOVERY_SPECIAL,
-])
-
-categoryPresets.set("Leaping Strike", [
-  MetricLabel.DAMAGE_LEAPING_STRIKE,
-  MetricLabel.WINDUP_LEAPING_STRIKE,
-  MetricLabel.RELEASE_LEAPING_STRIKE,
-  MetricLabel.COMBO_LEAPING_STRIKE,
-])
-
-categoryPresets.set("Sprint Charge", [
-  MetricLabel.DAMAGE_SPRINT_CHARGE,
-])
-
-categoryPresets.set("Average", [
-  MetricLabel.DAMAGE_LIGHT_AVERAGE,
-  MetricLabel.DAMAGE_HEAVY_AVERAGE,
-  MetricLabel.WINDUP_LIGHT_AVERAGE,
-  MetricLabel.WINDUP_HEAVY_AVERAGE,
-  MetricLabel.RELEASE_LIGHT_AVERAGE,
-  MetricLabel.RELEASE_HEAVY_AVERAGE,
-  MetricLabel.RECOVERY_LIGHT_AVERAGE,
-  MetricLabel.RECOVERY_HEAVY_AVERAGE,
-  MetricLabel.COMBO_LIGHT_AVERAGE,
-  MetricLabel.COMBO_HEAVY_AVERAGE,
-  MetricLabel.RANGE_AVERAGE,
-  MetricLabel.RANGE_ALT_AVERAGE
-])
+const categorySelector = new SearchSelector<MetricLabel>(
+  new Set(Object.values(MetricLabel)),
+  "#categorySearch",
+  "#categorySearchResults",
+  "#displayedCategories",
+  CATEGORY_PRESETS,
+  "#presetsSelectCategory",
+  c => c,
+  (_, label) => label,
+  redraw
+)
 
 function toId(str: string) {
   return str
@@ -226,7 +81,7 @@ function chartData(
 
   return {
     labels: [...sortedCategories],
-    datasets: [...selectedWeapons].map((w) => {
+    datasets: [...weaponSelector.display].map((w) => {
       return {
         label: w.name,
         data: [...sortedCategories].map((c) => {
@@ -275,7 +130,7 @@ const radar: Chart = new Chart(
         },
       },
     },
-    data: chartData(stats, selectedCategories, unitStats, false),
+    data: chartData(stats, categorySelector.display, unitStats, false),
   }
 );
 
@@ -312,7 +167,7 @@ function redrawBars() {
 
   bars.splice(0, bars.length);
 
-  selectedCategories.forEach((c) => {
+  categorySelector.display.forEach((c) => {
     const outer = document.createElement("div");
     outer.className = "col-md-4";
     outer.id = c + "-bar";
@@ -324,7 +179,7 @@ function redrawBars() {
 }
 
 function redrawTable(dataset: WeaponStats, unitStats: UnitStats) {
-  let sortedCategories = Array.from(selectedCategories);
+  let sortedCategories = Array.from(categorySelector.display);
   sortedCategories.sort((a,b) => {
     return Object.values(MetricLabel).indexOf(a) - Object.values(MetricLabel).indexOf(b);
   });
@@ -370,7 +225,7 @@ function redrawTable(dataset: WeaponStats, unitStats: UnitStats) {
   head.appendChild(headRow);
   table.appendChild(head);
 
-  selectedWeapons.forEach(weapon => {
+  weaponSelector.display.forEach(weapon => {
     let weaponData = dataset.get(weapon.name)!;
 
     let row = document.createElement("tr");
@@ -405,9 +260,9 @@ function redraw() {
   stats = generateMetrics(ALL_WEAPONS, numberOfTargets, horsebackDamageMultiplier, selectedTarget)
   unitStats = unitGroupStats(stats);
 
-  let weaponArray = Array.from(selectedWeapons)
+  let weaponArray = Array.from(weaponSelector.display)
   const INDEX_POSTITIONS: Map<string, Array<string>> = new Map()
-  const indexCategories = Array.from(selectedCategories).filter(c => c.startsWith("Index"))
+  const indexCategories = Array.from(categorySelector.display).filter(c => c.startsWith("Index"))
   indexCategories.forEach((c) => {
     const sortedWeapons = 
         weaponArray.sort((a,b) => {
@@ -424,14 +279,14 @@ function redraw() {
       const value = stats.get(w.name)!.get(c)!.value
       const idx = INDEX_POSTITIONS.get(c)!.indexOf(w.name);
       value.rawResult = idx + 1;
-      value.result = selectedWeapons.size - idx;
+      value.result = weaponSelector.display.size - idx;
     });
-    unitStats.get(c)!.max = selectedWeapons.size;
+    unitStats.get(c)!.max = weaponSelector.display.size;
     unitStats.get(c)!.min = 1;
   });
 
 
-  radar.data = chartData(stats, selectedCategories, unitStats, false);
+  radar.data = chartData(stats, categorySelector.display, unitStats, false);
   radar.update();
 
   redrawBars();
@@ -442,178 +297,24 @@ function redraw() {
   params.set("target", selectedTarget);
   params.set("numberOfTargets", numberOfTargets.toString());
   params.set("tab", selectedTab);
-  params.append("weapon", [...selectedWeapons].map(x => x.id).join("-"));
-  [...selectedCategories].map((c) => params.append("category", c));
+  params.append("weapon", [...weaponSelector.display].map(x => x.id).join("-"));
+  [...categorySelector.display].map((c) => params.append("category", c));
   window.history.replaceState(null, "", `?${params.toString()}`);
 }
 
-function addWeaponDiv(weapon: Weapon) {
-  const div = document.createElement("div");
-  div.id = weapon.name;
-  div.className = "labelled-input";
-  div.style.display = "flex";
-  div.style.alignItems = "center";
-
-  const input = document.createElement("input");
-  input.id = `input-${weapon.name}`;
-  input.checked = true;
-  input.type = "checkbox";
-  input.className = "form-check-input";
-  input.onchange = () => {
-    removeWeapon(weapon);
-  };
-  div.appendChild(input);
-
-  const label = document.createElement("label");
-  label.htmlFor = `input-${weapon.name}`;
-  label.innerText = weapon.name;
-  label.style.padding = "0.2em";
-  label.style.border = `3px ${weaponDash(weapon)} ${weaponColor(weapon, 0.6)}`;
-  div.appendChild(label);
-
-  displayedWeaponsElem.appendChild(div);
-}
-
-function addCategoryDiv(l: MetricLabel) {
-  const div = document.createElement("div");
-  div.id = l;
-  div.className = "labelled-input";
-  div.style.display = "flex";
-  div.style.alignItems = "center";
-
-  const input = document.createElement("input");
-  input.id = `input-${l}`;
-  input.checked = true;
-  input.type = "checkbox";
-  input.className = "form-check-input";
-  input.onchange = () => {
-    setCategory(l, false);
-    updateCategorySearchResults();
-    redraw();
-  };
-  div.appendChild(input);
-
-  const label = document.createElement("label");
-  label.htmlFor = `input-${l}`;
-  label.innerText = l;
-  label.style.padding = "0.2em";
-  div.appendChild(label);
-
-  displayedCategoriesElem.appendChild(div);
-}
-
-// Add an input checkbox with a border to show the weapon has been added
-// Allow the weapon to be removed by unchecking the checkbox
-function addWeapon(weapon: Weapon) {
-  addWeaponDiv(weapon);
-
-  selectedWeapons.add(weapon);
-  redraw();
-
-  updateWeaponSearchResults();
-}
-
-function removeWeapon(weapon: Weapon) {
-  displayedWeaponsElem.removeChild(document.getElementById(weapon.name)!);
-
-  selectedWeapons.delete(weapon);
-  redraw();
-
-  updateWeaponSearchResults();
-}
-
-const weaponSearch = document.getElementById("weaponSearch") as HTMLInputElement;
-weaponSearch.onfocus = () => {
-  weaponSearchResultsElem.style.display = "initial";
-};
-weaponSearch.onblur = () => {
-  // Clear search when clicking out
-  weaponSearch.value = "";
-  updateWeaponSearchResults();
-
-  weaponSearchResultsElem.style.display = "none";
-};
-weaponSearch.oninput = updateWeaponSearchResults;
-
-const categorySearch = document.getElementById("categorySearch") as HTMLInputElement;
-categorySearch.onfocus = () => {
-  categorySearchResultsElem.style.display = "initial";
-};
-categorySearch.onblur = () => {
-  // Clear search when clicking out
-  categorySearch.value = "";
-  updateCategorySearchResults();
-
-  categorySearchResultsElem.style.display = "none";
-};
-categorySearch.oninput = updateCategorySearchResults;
-
-function setCategory(category: MetricLabel, enabled: boolean) {
-  if (enabled) {
-    selectedCategories.add(category);
-    addCategoryDiv(category);
-  } else {
-    selectedCategories.delete(category);
-    displayedCategoriesElem.removeChild(document.getElementById(category)!);
-  }
-}
-
-// Clear all weapon selections
-function clearWeapons() {
-  selectedWeapons.clear();
-  while (displayedWeaponsElem.firstChild) {
-    displayedWeaponsElem.removeChild(displayedWeaponsElem.firstChild);
-  }
-
-  addWeapon(weaponByName("Polehammer")!)
-  redraw();
-  updateWeaponSearchResults();
-}
-
-// Clear all weapon selections
-function clearCategories() {
-  selectedCategories.clear();
-  while (displayedCategoriesElem.firstChild) {
-    displayedCategoriesElem.removeChild(displayedCategoriesElem.firstChild);
-  }
-
-  redraw();
-  updateWeaponSearchResults();
-}
 
 // Choose 3 random weapons
 function random() {
-  clearWeapons();
+  weaponSelector.clearSelection();
   const random = shuffle(ALL_WEAPONS.filter(x => x.name != "Polehammer"));
-  random.slice(0, 2).forEach(addWeapon);
-}
-
-// Choose all weapons
-function allWeapons() {
-  ALL_WEAPONS.forEach((w) => {
-    if(!selectedWeapons.has(w)) {
-      selectedWeapons.add(w);
-      addWeaponDiv(w);
-    }
-  });
-  updateWeaponSearchResults();
-  redraw();
-}
-
-function allCategories() {
-  Object.values(MetricLabel).forEach((l) => {
-    if(!selectedCategories.has(l)) {
-      setCategory(l, true);
-    }
-  });
-  updateCategorySearchResults();
-  redraw();
+  weaponSelector.addSelected(weaponById("ph")!)
+  random.slice(0, 2).forEach(w => weaponSelector.addSelected(w));
 }
 
 // Reset to default category selections
 // Clear all weapon selections
 function reset() {
-  selectedCategories.clear();
+  categorySelector.clearSelection();
   [
     MetricLabel.RANGE_AVERAGE, 
     MetricLabel.RANGE_ALT_AVERAGE, 
@@ -627,18 +328,18 @@ function reset() {
     MetricLabel.RECOVERY_LIGHT_AVERAGE,
     MetricLabel.COMBO_LIGHT_AVERAGE,
     MetricLabel.DAMAGE_LIGHT_AVERAGE,
-  ].map(l => setCategory(l, true));
+  ].map(l => categorySelector.addSelected(l));
   redraw();
 }
 
 
 // Link up to buttons
-document.getElementById("clearWeapons")!.onclick = clearWeapons;
+document.getElementById("clearWeapons")!.onclick = () => weaponSelector.clearSelection();
 document.getElementById("randomWeapons")!.onclick = random;
-document.getElementById("allWeapons")!.onclick = allWeapons;
+document.getElementById("allWeapons")!.onclick = () => weaponSelector.selectAll();
 
-document.getElementById("clearCategories")!.onclick = clearCategories;
-document.getElementById("allCategories")!.onclick = allCategories;
+document.getElementById("clearCategories")!.onclick = () => categorySelector.clearSelection();
+document.getElementById("allCategories")!.onclick = () => categorySelector.selectAll();
 
 // Link up Share button
 document.getElementById("share")!.onclick = () => {
@@ -665,37 +366,6 @@ horsebackDamageMultiplierInput.oninput = () => {
   redraw();
 }
 
-let weaponPresetsSelect = document.querySelector<HTMLSelectElement>("#presetsSelectWeapon")!;
-let categoryPresetsSelect = document.querySelector<HTMLSelectElement>("#presetsSelectCategory")!;
-
-Object.values(WeaponType).forEach(wt => {
-  let elem = new Option(wt, wt) 
-  weaponPresetsSelect.add(elem);
-});
-
-weaponPresetsSelect.onchange = (_ => {
-  clearWeapons();
-  let preset = weaponPresetsSelect.value
-  ALL_WEAPONS.filter(w => w.weaponTypes.includes(preset as WeaponType)).forEach(w => {
-    addWeapon(w);
-  });
-});
-
-categoryPresets.forEach((_, key) =>  {
-  let elem = new Option(key, key)
-  categoryPresetsSelect.add(elem);  
-});
-
-categoryPresetsSelect.onchange = (_ => {
-  clearCategories();
-  let preset = categoryPresetsSelect.value
-  categoryPresets.get(preset)!.forEach(l => {
-    setCategory(l, true);
-    updateCategorySearchResults();
-  })
-  redraw();
-});
-
 // Use query string to init values if possible
 const params = new URLSearchParams(location.search);
 
@@ -721,9 +391,9 @@ if (params.get("numberOfTargets")) {
 if (params.getAll("weapon").length) {
   params.getAll("weapon").forEach((name) => {
     let weapon = weaponByName(name);
-    if (weapon) { addWeapon(weapon) }
+    if (weapon) { weaponSelector.addSelected(weapon) }
     else {
-      name.split("-").map(weaponById).filter(a => a).map(a => a!).forEach(addWeapon)
+      name.split("-").map(weaponById).filter(a => a).map(a => a!).forEach((w) => weaponSelector.addSelected(w))
     }
   });
 } else {
@@ -737,10 +407,10 @@ if (params.getAll("category").length) {
     return result
   });
 
-  compatCategories.forEach(c => setCategory(c as MetricLabel, true))
+  compatCategories.forEach(c => categorySelector.addSelected(c as MetricLabel))
 
   // Setting them failed, so just default
-  if (!selectedCategories.size)
+  if (!categorySelector.display.size)
     reset();
 } else {
   reset();
@@ -757,84 +427,6 @@ Object.values(Target).forEach((t) => {
   radio.checked = selectedTarget === t;
 });
 
-// - Take into account weapons that are already selected
-// - Take into account any filters that are applied
-// - Clear out existing buttons and write new ones depending on the results
-// - If no results, have special entry
-function updateWeaponSearchResults() {
-  // Start assuming no search results
-  weaponSearchResults.clear();
-
-  // Take search text into account
-  const searchText = weaponSearch.value?.toLowerCase();
-  if (searchText) {
-    ALL_WEAPONS.forEach((w) => {
-      if (w.name.toLowerCase().includes(searchText)) {
-        weaponSearchResults.add(w);
-      }
-    });
-  } else {
-    ALL_WEAPONS.forEach((w) => weaponSearchResults.add(w));
-  }
-
-  // Remove any we already have selected
-  selectedWeapons.forEach((w) => weaponSearchResults.delete(w));
-
-  // Clear existing buttons
-  while (weaponSearchResultsElem.firstChild) {
-    weaponSearchResultsElem.removeChild(weaponSearchResultsElem.firstChild);
-  }
-
-  // Add a button for each search result
-  weaponSearchResults.forEach((w) => {
-    const button = document.createElement("button");
-    button.className = "searchResult";
-    button.innerText = w.name;
-    button.onmousedown = (ev) => ev.preventDefault(); // Stop the blur from occurring that will hide the button itself
-    button.onclick = () => addWeapon(w);
-    weaponSearchResultsElem.appendChild(button);
-  });
-}
-
-function updateCategorySearchResults() {
-  // Start assuming no search results
-  categorySearchResults.clear();
-
-  // Take search text into account
-  const searchText = categorySearch.value?.toLowerCase();
-  if (searchText) {
-    Object.values(MetricLabel).forEach((l) => {
-      if (l.toLowerCase().includes(searchText)) {
-        categorySearchResults.add(l);
-      }
-    });
-  } else {
-    Object.values(MetricLabel).forEach(x => categorySearchResults.add(x));
-  }
-
-  // Remove any we already have selected
-  selectedCategories.forEach(l => categorySearchResults.delete(l));
-
-  // Clear existing buttons
-  while (categorySearchResultsElem.firstChild) {
-    categorySearchResultsElem.removeChild(categorySearchResultsElem.firstChild);
-  }
-
-  // Add a button for each search result
-  categorySearchResults.forEach((l) => {
-    const button = document.createElement("button");
-    button.className = "searchResult";
-    button.innerText = l;
-    button.onmousedown = (ev) => ev.preventDefault(); // Stop the blur from occurring that will hide the button itself
-    button.onclick = () => {
-      setCategory(l, true);
-      updateCategorySearchResults();
-      redraw();
-    };
-    categorySearchResultsElem.appendChild(button);
-  });
-}
-
 window.addEventListener('DOMContentLoaded', () => {
   const tabs = document.querySelectorAll('#graph-tabs [role="tab"]');
   // const tabList = document.querySelector('#graph-tabs[role="tablist"]');
@@ -848,6 +440,6 @@ window.addEventListener('DOMContentLoaded', () => {
 });
 
 
-updateWeaponSearchResults();
-updateCategorySearchResults();
+weaponSelector.initialize();
+categorySelector.initialize();
 redraw();
