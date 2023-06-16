@@ -2,6 +2,18 @@ import { MetricLabel } from "../metrics"
 
 let CATEGORY_PRESETS: Map<string, MetricLabel[]> = new Map()
 
+CATEGORY_PRESETS.set("Holding", [
+  MetricLabel.HOLDING_SLASH_LIGHT,
+  MetricLabel.HOLDING_SLASH_HEAVY,
+  MetricLabel.HOLDING_OVERHEAD_LIGHT,
+  MetricLabel.HOLDING_OVERHEAD_HEAVY,
+  MetricLabel.HOLDING_STAB_LIGHT,
+  MetricLabel.HOLDING_STAB_HEAVY,
+  MetricLabel.HOLDING_SPECIAL,
+  MetricLabel.HOLDING_LEAPING_STRIKE,
+  MetricLabel.HOLDING_THROW,
+])
+
 CATEGORY_PRESETS.set("Windup", [
   MetricLabel.WINDUP_SLASH_LIGHT,
   MetricLabel.WINDUP_SLASH_HEAVY,
@@ -85,6 +97,8 @@ CATEGORY_PRESETS.set("Slash", [
   MetricLabel.DAMAGE_SLASH_HEAVY,
   MetricLabel.RANGE_SLASH,
   MetricLabel.RANGE_ALT_SLASH,
+  MetricLabel.HOLDING_SLASH_LIGHT,
+  MetricLabel.HOLDING_SLASH_HEAVY,
   MetricLabel.WINDUP_SLASH_LIGHT,
   MetricLabel.WINDUP_SLASH_HEAVY,
   MetricLabel.RELEASE_SLASH_LIGHT,
@@ -100,6 +114,8 @@ CATEGORY_PRESETS.set("Overhead", [
   MetricLabel.DAMAGE_OVERHEAD_HEAVY,
   MetricLabel.RANGE_OVERHEAD,
   MetricLabel.RANGE_ALT_OVERHEAD,
+  MetricLabel.HOLDING_OVERHEAD_LIGHT,
+  MetricLabel.HOLDING_OVERHEAD_HEAVY,
   MetricLabel.WINDUP_OVERHEAD_LIGHT,
   MetricLabel.WINDUP_OVERHEAD_HEAVY,
   MetricLabel.RELEASE_OVERHEAD_LIGHT,
@@ -115,6 +131,8 @@ CATEGORY_PRESETS.set("Stab", [
   MetricLabel.DAMAGE_STAB_HEAVY,
   MetricLabel.RANGE_STAB,
   MetricLabel.RANGE_ALT_STAB,
+  MetricLabel.HOLDING_STAB_LIGHT,
+  MetricLabel.HOLDING_STAB_HEAVY,
   MetricLabel.WINDUP_STAB_LIGHT,
   MetricLabel.WINDUP_STAB_HEAVY,
   MetricLabel.RELEASE_STAB_LIGHT,

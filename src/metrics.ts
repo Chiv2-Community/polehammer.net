@@ -1,6 +1,18 @@
 import { extractNumber, Weapon } from "./weapon";
 
 export enum MetricPath {
+  HOLDING_AVERAGE_LIGHT  = "attacks.average.light.holding",
+  HOLDING_SLASH_LIGHT    = "attacks.slash.light.holding",
+  HOLDING_OVERHEAD_LIGHT = "attacks.overhead.light.holding",
+  HOLDING_AVERAGE_HEAVY  = "attacks.average.heavy.holding",
+  HOLDING_STAB_LIGHT     = "attacks.stab.light.holding",
+  HOLDING_SLASH_HEAVY    = "attacks.slash.heavy.holding",
+  HOLDING_OVERHEAD_HEAVY = "attacks.overhead.heavy.holding",
+  HOLDING_STAB_HEAVY     = "attacks.stab.heavy.holding",
+  HOLDING_SPECIAL        = "attacks.special.holding",
+  HOLDING_LEAPING_STRIKE = "attacks.sprintAttack.holding",
+  HOLDING_THROW          = "attacks.throw.holding",
+
   WINDUP_AVERAGE_LIGHT  = "attacks.average.light.windup",
   WINDUP_SLASH_LIGHT    = "attacks.slash.light.windup",
   WINDUP_OVERHEAD_LIGHT = "attacks.overhead.light.windup",
@@ -81,6 +93,16 @@ export enum Unit {
 }
 
 export enum MetricLabel {
+  HOLDING_SLASH_LIGHT    = "Holding - Slash (Light)",
+  HOLDING_SLASH_HEAVY    = "Holding - Slash (Heavy)",
+  HOLDING_STAB_LIGHT     = "Holding - Stab (Light)",
+  HOLDING_STAB_HEAVY     = "Holding - Stab (Heavy)",
+  HOLDING_OVERHEAD_LIGHT = "Holding - Overhead (Light)",
+  HOLDING_OVERHEAD_HEAVY = "Holding - Overhead (Heavy)",
+  HOLDING_SPECIAL        = "Holding - Special",
+  HOLDING_LEAPING_STRIKE = "Holding - Leaping Strike",
+  HOLDING_THROW          = "Holding - Throw",
+
   WINDUP_SLASH_LIGHT    = "Windup - Slash (Light)",
   WINDUP_SLASH_HEAVY    = "Windup - Slash (Heavy)",
   WINDUP_STAB_LIGHT     = "Windup - Stab (Light)",

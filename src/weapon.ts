@@ -23,6 +23,7 @@ export type Weapon = {
 
 export type SpecialAttack = {
   damage: number;
+  holding: number;
   windup: number; 
   release: number; 
   recovery: number; 
@@ -41,6 +42,7 @@ export type Swing = {
 
 export type MeleeAttack = {
   damage: number;
+  holding: number;
   windup: number; 
   release: number; 
   recovery: number; 
