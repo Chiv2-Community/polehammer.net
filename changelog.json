@@ -1,1 +1,4322 @@
-{}
+{
+  "Greatsword": [
+    {
+      "path": [
+        "attacks",
+        "slash",
+        "light",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "slash",
+        "heavy",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "overhead",
+        "light",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "overhead",
+        "heavy",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "stab",
+        "light",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "stab",
+        "heavy",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "special",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "throw",
+        "holding"
+      ],
+      "old": 0.8,
+      "new": 800.0
+    }
+  ],
+  "Greatsword Mounted": [
+    {
+      "path": [
+        "attacks",
+        "slash",
+        "light",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "slash",
+        "heavy",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "overhead",
+        "light",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "overhead",
+        "heavy",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "stab",
+        "light",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "stab",
+        "heavy",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "special",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "throw",
+        "holding"
+      ],
+      "old": 0.8,
+      "new": 800.0
+    }
+  ],
+  "Highland Sword": [
+    {
+      "path": [
+        "attacks",
+        "slash",
+        "light",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "slash",
+        "heavy",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "overhead",
+        "light",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "overhead",
+        "heavy",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "stab",
+        "light",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "stab",
+        "heavy",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "special",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "throw",
+        "holding"
+      ],
+      "old": 0.9,
+      "new": 900.0
+    }
+  ],
+  "Longsword": [
+    {
+      "path": [
+        "attacks",
+        "slash",
+        "light",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "slash",
+        "heavy",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "overhead",
+        "light",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "overhead",
+        "heavy",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "stab",
+        "light",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "stab",
+        "heavy",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "special",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "throw",
+        "holding"
+      ],
+      "old": 0.4,
+      "new": 400.0
+    }
+  ],
+  "Messer": [
+    {
+      "path": [
+        "attacks",
+        "slash",
+        "light",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "slash",
+        "heavy",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "overhead",
+        "light",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "overhead",
+        "heavy",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "stab",
+        "light",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "stab",
+        "heavy",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "special",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "throw",
+        "holding"
+      ],
+      "old": 0.4,
+      "new": 400.0
+    }
+  ],
+  "Halberd": [
+    {
+      "path": [
+        "attacks",
+        "slash",
+        "light",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "slash",
+        "heavy",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "overhead",
+        "light",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "overhead",
+        "heavy",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "stab",
+        "light",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "stab",
+        "heavy",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "special",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "throw",
+        "holding"
+      ],
+      "old": 0.6,
+      "new": 600.0
+    }
+  ],
+  "Pole Axe": [
+    {
+      "path": [
+        "attacks",
+        "slash",
+        "light",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "slash",
+        "heavy",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "overhead",
+        "light",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "overhead",
+        "heavy",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "stab",
+        "light",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "stab",
+        "heavy",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "special",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "throw",
+        "holding"
+      ],
+      "old": 0.5,
+      "new": 500.0
+    }
+  ],
+  "Glaive": [
+    {
+      "path": [
+        "attacks",
+        "slash",
+        "light",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "slash",
+        "heavy",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "overhead",
+        "light",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "overhead",
+        "heavy",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "stab",
+        "light",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "stab",
+        "heavy",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "special",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "throw",
+        "holding"
+      ],
+      "old": 0.5,
+      "new": 500.0
+    }
+  ],
+  "Dane Axe": [
+    {
+      "path": [
+        "attacks",
+        "slash",
+        "light",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "slash",
+        "heavy",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "overhead",
+        "light",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "overhead",
+        "heavy",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "stab",
+        "light",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "stab",
+        "heavy",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "special",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "throw",
+        "holding"
+      ],
+      "old": 0.4,
+      "new": 400.0
+    }
+  ],
+  "Battle Axe": [
+    {
+      "path": [
+        "attacks",
+        "slash",
+        "light",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "slash",
+        "heavy",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "overhead",
+        "light",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "overhead",
+        "heavy",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "stab",
+        "light",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "stab",
+        "heavy",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "special",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "throw",
+        "holding"
+      ],
+      "old": 0.4,
+      "new": 400.0
+    }
+  ],
+  "War Axe": [
+    {
+      "path": [
+        "attacks",
+        "slash",
+        "light",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "slash",
+        "heavy",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "overhead",
+        "light",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "overhead",
+        "heavy",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "stab",
+        "light",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "stab",
+        "heavy",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "special",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "throw",
+        "holding"
+      ],
+      "old": 0.4,
+      "new": 400.0
+    }
+  ],
+  "Executioners Axe": [
+    {
+      "path": [
+        "attacks",
+        "slash",
+        "light",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "slash",
+        "heavy",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "overhead",
+        "light",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "overhead",
+        "heavy",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "stab",
+        "light",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "stab",
+        "heavy",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "special",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "throw",
+        "holding"
+      ],
+      "old": 0.4,
+      "new": 400.0
+    }
+  ],
+  "Heavy Mace": [
+    {
+      "path": [
+        "attacks",
+        "slash",
+        "light",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "slash",
+        "heavy",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "overhead",
+        "light",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "overhead",
+        "heavy",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "stab",
+        "light",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "stab",
+        "heavy",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "special",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "throw",
+        "holding"
+      ],
+      "old": 0.4,
+      "new": 400.0
+    }
+  ],
+  "War Club": [
+    {
+      "path": [
+        "attacks",
+        "slash",
+        "light",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "slash",
+        "heavy",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "overhead",
+        "light",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "overhead",
+        "heavy",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "stab",
+        "light",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "stab",
+        "heavy",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "special",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "throw",
+        "holding"
+      ],
+      "old": 0.4,
+      "new": 400.0
+    }
+  ],
+  "Two Handed Hammer": [
+    {
+      "path": [
+        "attacks",
+        "slash",
+        "light",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "slash",
+        "heavy",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "overhead",
+        "light",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "overhead",
+        "heavy",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "stab",
+        "light",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "stab",
+        "heavy",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "special",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "throw",
+        "holding"
+      ],
+      "old": 0.4,
+      "new": 400.0
+    }
+  ],
+  "Maul": [
+    {
+      "path": [
+        "attacks",
+        "slash",
+        "light",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "slash",
+        "heavy",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "overhead",
+        "light",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "overhead",
+        "heavy",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "stab",
+        "light",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "stab",
+        "heavy",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "special",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "throw",
+        "holding"
+      ],
+      "old": 0.5,
+      "new": 500.0
+    }
+  ],
+  "Polehammer": [
+    {
+      "path": [
+        "attacks",
+        "slash",
+        "light",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "slash",
+        "heavy",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "overhead",
+        "light",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "overhead",
+        "heavy",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "stab",
+        "light",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "stab",
+        "heavy",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "special",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "throw",
+        "holding"
+      ],
+      "old": 0.4,
+      "new": 400.0
+    }
+  ],
+  "Katars": [
+    {
+      "path": [
+        "attacks",
+        "slash",
+        "light",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "slash",
+        "heavy",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "overhead",
+        "light",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "overhead",
+        "heavy",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "stab",
+        "light",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "stab",
+        "heavy",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "special",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "throw",
+        "holding"
+      ],
+      "old": 0.4,
+      "new": 400.0
+    }
+  ],
+  "Spear": [
+    {
+      "path": [
+        "attacks",
+        "slash",
+        "light",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "slash",
+        "heavy",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "overhead",
+        "light",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "overhead",
+        "heavy",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "stab",
+        "light",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "stab",
+        "heavy",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "special",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "throw",
+        "holding"
+      ],
+      "old": 0.4,
+      "new": 400.0
+    }
+  ],
+  "Javelin": [
+    {
+      "path": [
+        "attacks",
+        "slash",
+        "light",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "slash",
+        "heavy",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "overhead",
+        "light",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "overhead",
+        "heavy",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "stab",
+        "light",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "stab",
+        "heavy",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "special",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "throw",
+        "holding"
+      ],
+      "old": 0.4,
+      "new": 400.0
+    }
+  ],
+  "Javelin Mounted": [
+    {
+      "path": [
+        "attacks",
+        "slash",
+        "light",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "slash",
+        "heavy",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "overhead",
+        "light",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "overhead",
+        "heavy",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "stab",
+        "light",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "stab",
+        "heavy",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "special",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "throw",
+        "holding"
+      ],
+      "old": 0.4,
+      "new": 400.0
+    }
+  ],
+  "Lance": [
+    {
+      "path": [
+        "attacks",
+        "slash",
+        "light",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "slash",
+        "heavy",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "overhead",
+        "light",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "overhead",
+        "heavy",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "stab",
+        "light",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "stab",
+        "heavy",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "throw",
+        "holding"
+      ],
+      "old": 0.4,
+      "new": 400.0
+    }
+  ],
+  "Lance Mounted": [
+    {
+      "path": [
+        "attacks",
+        "slash",
+        "light",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "slash",
+        "heavy",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "overhead",
+        "light",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "overhead",
+        "heavy",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "stab",
+        "light",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "stab",
+        "heavy",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "throw",
+        "holding"
+      ],
+      "old": 0.4,
+      "new": 400.0
+    }
+  ],
+  "Quarterstaff": [
+    {
+      "path": [
+        "attacks",
+        "slash",
+        "light",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "slash",
+        "heavy",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "overhead",
+        "light",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "overhead",
+        "heavy",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "stab",
+        "light",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "stab",
+        "heavy",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "special",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "throw",
+        "holding"
+      ],
+      "old": 0.6,
+      "new": 600.0
+    }
+  ],
+  "Goedendag": [
+    {
+      "path": [
+        "attacks",
+        "slash",
+        "light",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "slash",
+        "heavy",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "overhead",
+        "light",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "overhead",
+        "heavy",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "stab",
+        "light",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "stab",
+        "heavy",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "special",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "throw",
+        "holding"
+      ],
+      "old": 0.5,
+      "new": 500.0
+    }
+  ],
+  "Sword": [
+    {
+      "path": [
+        "attacks",
+        "slash",
+        "light",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "slash",
+        "heavy",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "overhead",
+        "light",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "overhead",
+        "heavy",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "stab",
+        "light",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "stab",
+        "heavy",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "special",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "throw",
+        "holding"
+      ],
+      "old": 0.4,
+      "new": 400.0
+    }
+  ],
+  "Sword Mounted": [
+    {
+      "path": [
+        "attacks",
+        "slash",
+        "light",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "slash",
+        "heavy",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "overhead",
+        "light",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "overhead",
+        "heavy",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "stab",
+        "light",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "stab",
+        "heavy",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "special",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "throw",
+        "holding"
+      ],
+      "old": 0.4,
+      "new": 400.0
+    }
+  ],
+  "Falchion": [
+    {
+      "path": [
+        "attacks",
+        "slash",
+        "light",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "slash",
+        "heavy",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "overhead",
+        "light",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "overhead",
+        "heavy",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "stab",
+        "light",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "stab",
+        "heavy",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "special",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "throw",
+        "holding"
+      ],
+      "old": 0.4,
+      "new": 400.0
+    }
+  ],
+  "Falchion Mounted": [
+    {
+      "path": [
+        "attacks",
+        "slash",
+        "light",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "slash",
+        "heavy",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "overhead",
+        "light",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "overhead",
+        "heavy",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "stab",
+        "light",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "stab",
+        "heavy",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "special",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "throw",
+        "holding"
+      ],
+      "old": 0.4,
+      "new": 400.0
+    }
+  ],
+  "Axe": [
+    {
+      "path": [
+        "attacks",
+        "slash",
+        "light",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "slash",
+        "heavy",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "overhead",
+        "light",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "overhead",
+        "heavy",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "stab",
+        "light",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "stab",
+        "heavy",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "special",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "throw",
+        "holding"
+      ],
+      "old": 0.4,
+      "new": 400.0
+    }
+  ],
+  "Hatchet": [
+    {
+      "path": [
+        "attacks",
+        "slash",
+        "light",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "slash",
+        "heavy",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "overhead",
+        "light",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "overhead",
+        "heavy",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "stab",
+        "light",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "stab",
+        "heavy",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "special",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "throw",
+        "holding"
+      ],
+      "old": 0.4,
+      "new": 400.0
+    }
+  ],
+  "Cudgel": [
+    {
+      "path": [
+        "attacks",
+        "slash",
+        "light",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "slash",
+        "heavy",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "overhead",
+        "light",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "overhead",
+        "heavy",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "stab",
+        "light",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "stab",
+        "heavy",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "special",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "throw",
+        "holding"
+      ],
+      "old": 0.4,
+      "new": 400.0
+    }
+  ],
+  "Short Sword": [
+    {
+      "path": [
+        "attacks",
+        "slash",
+        "light",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "slash",
+        "heavy",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "overhead",
+        "light",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "overhead",
+        "heavy",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "stab",
+        "light",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "stab",
+        "heavy",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "special",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "throw",
+        "holding"
+      ],
+      "old": 0.4,
+      "new": 400.0
+    }
+  ],
+  "Mace": [
+    {
+      "path": [
+        "attacks",
+        "slash",
+        "light",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "slash",
+        "heavy",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "overhead",
+        "light",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "overhead",
+        "heavy",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "stab",
+        "light",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "stab",
+        "heavy",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "special",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "throw",
+        "holding"
+      ],
+      "old": 0.4,
+      "new": 400.0
+    }
+  ],
+  "Morning Star": [
+    {
+      "path": [
+        "attacks",
+        "slash",
+        "light",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "slash",
+        "heavy",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "overhead",
+        "light",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "overhead",
+        "heavy",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "stab",
+        "light",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "stab",
+        "heavy",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "special",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "throw",
+        "holding"
+      ],
+      "old": 0.4,
+      "new": 400.0
+    }
+  ],
+  "Warhammer": [
+    {
+      "path": [
+        "attacks",
+        "slash",
+        "light",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "slash",
+        "heavy",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "overhead",
+        "light",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "overhead",
+        "heavy",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "stab",
+        "light",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "stab",
+        "heavy",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "special",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "throw",
+        "holding"
+      ],
+      "old": 0.4,
+      "new": 400.0
+    }
+  ],
+  "One Handed Spear": [
+    {
+      "path": [
+        "attacks",
+        "slash",
+        "light",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "slash",
+        "heavy",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "overhead",
+        "light",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "overhead",
+        "heavy",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "stab",
+        "light",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "stab",
+        "heavy",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "special",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "throw",
+        "holding"
+      ],
+      "old": 0.4,
+      "new": 400.0
+    }
+  ],
+  "Rapier": [
+    {
+      "path": [
+        "attacks",
+        "slash",
+        "light",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "slash",
+        "heavy",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "overhead",
+        "light",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "overhead",
+        "heavy",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "stab",
+        "light",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "stab",
+        "heavy",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "throw",
+        "holding"
+      ],
+      "old": 0.4,
+      "new": 400.0
+    }
+  ],
+  "Heavy Cavalry Sword": [
+    {
+      "path": [
+        "attacks",
+        "slash",
+        "light",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "slash",
+        "heavy",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "overhead",
+        "light",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "overhead",
+        "heavy",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "stab",
+        "light",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "stab",
+        "heavy",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "throw",
+        "holding"
+      ],
+      "old": 0.4,
+      "new": 400.0
+    }
+  ],
+  "Heavy Cavalry Sword Mounted": [
+    {
+      "path": [
+        "attacks",
+        "slash",
+        "light",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "overhead",
+        "light",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    }
+  ],
+  "Pickaxe": [
+    {
+      "path": [
+        "attacks",
+        "slash",
+        "light",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "slash",
+        "heavy",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "overhead",
+        "light",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "overhead",
+        "heavy",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "stab",
+        "light",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "stab",
+        "heavy",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "special",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "throw",
+        "holding"
+      ],
+      "old": 0.4,
+      "new": 400.0
+    }
+  ],
+  "Shovel": [
+    {
+      "path": [
+        "attacks",
+        "slash",
+        "light",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "slash",
+        "heavy",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "overhead",
+        "light",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "overhead",
+        "heavy",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "stab",
+        "light",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "stab",
+        "heavy",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "special",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "throw",
+        "holding"
+      ],
+      "old": 0.4,
+      "new": 400.0
+    }
+  ],
+  "Sledgehammer": [
+    {
+      "path": [
+        "attacks",
+        "slash",
+        "light",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "slash",
+        "heavy",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "overhead",
+        "light",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "overhead",
+        "heavy",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "stab",
+        "light",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "stab",
+        "heavy",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "special",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "throw",
+        "holding"
+      ],
+      "old": 0.4,
+      "new": 400.0
+    }
+  ],
+  "Bow": [
+    {
+      "path": [
+        "attacks",
+        "slash",
+        "heavy",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "overhead",
+        "light",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "overhead",
+        "heavy",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "stab",
+        "light",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "stab",
+        "heavy",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "special",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "throw",
+        "holding"
+      ],
+      "old": 0.1,
+      "new": 100.0
+    }
+  ],
+  "Crossbow": [
+    {
+      "path": [
+        "attacks",
+        "slash",
+        "heavy",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "overhead",
+        "light",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "overhead",
+        "heavy",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "stab",
+        "light",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "stab",
+        "heavy",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "special",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "throw",
+        "holding"
+      ],
+      "old": 0.1,
+      "new": 100.0
+    }
+  ],
+  "War Bow": [
+    {
+      "path": [
+        "attacks",
+        "slash",
+        "heavy",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "overhead",
+        "light",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "overhead",
+        "heavy",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "stab",
+        "light",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "stab",
+        "heavy",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "special",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "throw",
+        "holding"
+      ],
+      "old": 0.1,
+      "new": 100.0
+    }
+  ],
+  "Heavy Crossbow": [
+    {
+      "path": [
+        "attacks",
+        "slash",
+        "heavy",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "overhead",
+        "light",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "overhead",
+        "heavy",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "stab",
+        "light",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "stab",
+        "heavy",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "special",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "throw",
+        "holding"
+      ],
+      "old": 0.1,
+      "new": 100.0
+    }
+  ],
+  "Throwing Knife": [
+    {
+      "path": [
+        "attacks",
+        "throw",
+        "holding"
+      ],
+      "old": 0.4,
+      "new": 400.0
+    }
+  ],
+  "Throwing Axe": [
+    {
+      "path": [
+        "attacks",
+        "slash",
+        "light",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "slash",
+        "heavy",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "overhead",
+        "light",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "overhead",
+        "heavy",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "stab",
+        "light",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "stab",
+        "heavy",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "special",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "throw",
+        "holding"
+      ],
+      "old": 0.4,
+      "new": 400.0
+    }
+  ],
+  "Throwing Mallet": [
+    {
+      "path": [
+        "attacks",
+        "slash",
+        "light",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "slash",
+        "heavy",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "overhead",
+        "light",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "overhead",
+        "heavy",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "stab",
+        "light",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "stab",
+        "heavy",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "special",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "throw",
+        "holding"
+      ],
+      "old": 0.4,
+      "new": 400.0
+    }
+  ],
+  "Knife": [
+    {
+      "path": [
+        "attacks",
+        "slash",
+        "light",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "slash",
+        "heavy",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "overhead",
+        "light",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "overhead",
+        "heavy",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "stab",
+        "light",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "stab",
+        "heavy",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "special",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "throw",
+        "holding"
+      ],
+      "old": 0.4,
+      "new": 400.0
+    }
+  ],
+  "Dagger": [
+    {
+      "path": [
+        "attacks",
+        "slash",
+        "light",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "slash",
+        "heavy",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "overhead",
+        "light",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "overhead",
+        "heavy",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "stab",
+        "light",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "stab",
+        "heavy",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "special",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "throw",
+        "holding"
+      ],
+      "old": 0.4,
+      "new": 400.0
+    }
+  ],
+  "Fists": [
+    {
+      "path": [
+        "attacks",
+        "slash",
+        "light",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "slash",
+        "heavy",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "overhead",
+        "light",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "overhead",
+        "heavy",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "stab",
+        "light",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "stab",
+        "heavy",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    }
+  ],
+  "Base Carryable_2h Loot": [
+    {
+      "path": [
+        "attacks",
+        "slash",
+        "light",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "slash",
+        "heavy",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "overhead",
+        "light",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "overhead",
+        "heavy",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "stab",
+        "light",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "stab",
+        "heavy",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "special",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "throw",
+        "holding"
+      ],
+      "old": 0.4,
+      "new": 400.0
+    }
+  ],
+  "Base Carryable_ Two Handed": [
+    {
+      "path": [
+        "attacks",
+        "slash",
+        "heavy",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "overhead",
+        "light",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "overhead",
+        "heavy",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "stab",
+        "light",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "stab",
+        "heavy",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "special",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "throw",
+        "holding"
+      ],
+      "old": 0.25,
+      "new": 250.0
+    }
+  ],
+  "Base Carryable_ One Handed": [
+    {
+      "path": [
+        "attacks",
+        "slash",
+        "light",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "slash",
+        "heavy",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "overhead",
+        "light",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "overhead",
+        "heavy",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "stab",
+        "light",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "stab",
+        "heavy",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "throw",
+        "holding"
+      ],
+      "old": 0.4,
+      "new": 400.0
+    }
+  ],
+  "Carryable_ Candelabra": [
+    {
+      "path": [
+        "attacks",
+        "slash",
+        "light",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "slash",
+        "heavy",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "overhead",
+        "light",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "overhead",
+        "heavy",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "stab",
+        "light",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "stab",
+        "heavy",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "special",
+        "holding"
+      ],
+      "old": 0.35,
+      "new": 350.0
+    },
+    {
+      "path": [
+        "attacks",
+        "throw",
+        "holding"
+      ],
+      "old": 0.4,
+      "new": 400.0
+    }
+  ]
+}
