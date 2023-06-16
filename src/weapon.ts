@@ -20,7 +20,6 @@ export type Weapon = {
   attacks: Attacks;
 };
 
-
 export type SpecialAttack = {
   damage: number;
   holding: number;
@@ -92,15 +91,6 @@ export enum WeaponType {
   OFFICER = "Officer",
   GUARDIAN = "Guardian",
   CRUSADER = "Crusader"
-};
-
-export enum AttackType {
-  SLASH = "slash",
-  OVERHEAD = "overhead",
-  STAB = "stab",
-  THROW = "throw",
-  SPRINT = "sprintAttack",
-  SPECIAL = "special",
 };
 
 function canCleave(w: Weapon, path: string): boolean {
