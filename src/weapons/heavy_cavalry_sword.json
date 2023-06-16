@@ -15,7 +15,7 @@
       "range": 25,
       "altRange": 27,
       "light": {
-        "holding": 0.35,
+        "holding": 350.0,
         "windup": 250.0,
         "release": 500.0,
         "recovery": 900.0,
@@ -46,7 +46,7 @@
         "comboFromBlocked": -1.0
       },
       "heavy": {
-        "holding": 0.35,
+        "holding": 350.0,
         "windup": 500.0,
         "release": 550.0,
         "recovery": 1000.0,
@@ -81,7 +81,7 @@
       "range": 22,
       "altRange": 25,
       "light": {
-        "holding": 0.35,
+        "holding": 350.0,
         "windup": 225.0,
         "release": 475.0,
         "recovery": 900.0,
@@ -112,7 +112,7 @@
         "comboFromBlocked": -1.0
       },
       "heavy": {
-        "holding": 0.35,
+        "holding": 350.0,
         "windup": 475.0,
         "release": 475.0,
         "recovery": 1050.0,
@@ -147,7 +147,7 @@
       "range": 28,
       "altRange": 29,
       "light": {
-        "holding": 0.35,
+        "holding": 350.0,
         "windup": 300.0,
         "release": 425.0,
         "recovery": 900.0,
@@ -178,7 +178,7 @@
         "comboFromBlocked": -1.0
       },
       "heavy": {
-        "holding": 0.35,
+        "holding": 350.0,
         "windup": 525.0,
         "release": 425.0,
         "recovery": 1050.0,
@@ -234,7 +234,7 @@
       "reverseTurnLimitStrength": -1.0
     },
     "throw": {
-      "holding": 0.4,
+      "holding": 400.0,
       "windup": 550.0,
       "release": 400.0,
       "recovery": 550.0,
@@ -383,7 +383,7 @@
     },
     "average": {
       "light": {
-        "holding": 0.3499999999999999,
+        "holding": 350.0,
         "windup": 258.3333333333333,
         "release": 466.6666666666667,
         "recovery": 900.0,
@@ -412,7 +412,7 @@
         "comboFromBlocked": -1.0
       },
       "heavy": {
-        "holding": 0.3499999999999999,
+        "holding": 350.0,
         "windup": 500.0,
         "release": 483.3333333333333,
         "recovery": 1033.3333333333333,

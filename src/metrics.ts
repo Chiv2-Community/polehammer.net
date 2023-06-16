@@ -1,6 +1,19 @@
 import { extractNumber, Weapon } from "./weapon";
 
 export enum MetricPath {
+  HOLDING_AVERAGE_LIGHT  = "attacks.average.light.holding",
+  HOLDING_SLASH_LIGHT    = "attacks.slash.light.holding",
+  HOLDING_OVERHEAD_LIGHT = "attacks.overhead.light.holding",
+  HOLDING_STAB_LIGHT     = "attacks.stab.light.holding",
+  HOLDING_AVERAGE_HEAVY  = "attacks.average.heavy.holding",
+  HOLDING_SLASH_HEAVY    = "attacks.slash.heavy.holding",
+  HOLDING_OVERHEAD_HEAVY = "attacks.overhead.heavy.holding",
+  HOLDING_STAB_HEAVY     = "attacks.stab.heavy.holding",
+  HOLDING_SPECIAL        = "attacks.special.holding",
+  HOLDING_LEAPING_STRIKE = "attacks.sprintAttack.holding",
+  HOLDING_SPRINT_CHARGE  = "attacks.sprintCharge.holding",
+  HOLDING_THROW          = "attacks.throw.holding",
+
   WINDUP_AVERAGE_LIGHT  = "attacks.average.light.windup",
   WINDUP_SLASH_LIGHT    = "attacks.slash.light.windup",
   WINDUP_OVERHEAD_LIGHT = "attacks.overhead.light.windup",
@@ -11,6 +24,7 @@ export enum MetricPath {
   WINDUP_STAB_HEAVY     = "attacks.stab.heavy.windup",
   WINDUP_SPECIAL        = "attacks.special.windup",
   WINDUP_LEAPING_STRIKE = "attacks.sprintAttack.windup",
+  WINDUP_SPRINT_CHARGE  = "attacks.sprintCharge.windup",
   WINDUP_THROW          = "attacks.throw.windup",
   
   RELEASE_AVERAGE_LIGHT  = "attacks.average.light.release",
@@ -23,6 +37,7 @@ export enum MetricPath {
   RELEASE_STAB_HEAVY     = "attacks.stab.heavy.release",
   RELEASE_SPECIAL        = "attacks.special.release",
   RELEASE_LEAPING_STRIKE = "attacks.sprintAttack.release",
+  RELEASE_SPRINT_CHARGE  = "attacks.sprintCharge.release",
   RELEASE_THROW          = "attacks.throw.release",
 
   RECOVERY_AVERAGE_LIGHT  = "attacks.average.light.recovery",
@@ -34,6 +49,8 @@ export enum MetricPath {
   RECOVERY_OVERHEAD_HEAVY = "attacks.overhead.heavy.recovery",
   RECOVERY_STAB_HEAVY     = "attacks.stab.heavy.recovery",
   RECOVERY_SPECIAL        = "attacks.special.recovery",
+  RECOVERY_LEAPING_STRIKE = "attacks.sprintAttack.recovery",
+  RECOVERY_SPRINT_CHARGE  = "attacks.sprintCharge.recovery",
   RECOVERY_THROW          = "attacks.throw.recovery",
   
   COMBO_AVERAGE_LIGHT  = "attacks.average.light.combo",
@@ -44,7 +61,10 @@ export enum MetricPath {
   COMBO_SLASH_HEAVY    = "attacks.slash.heavy.combo",
   COMBO_OVERHEAD_HEAVY = "attacks.overhead.heavy.combo",
   COMBO_STAB_HEAVY     = "attacks.stab.heavy.combo",
+  COMBO_SPECIAL        = "attacks.special.combo",
   COMBO_LEAPING_STRIKE = "attacks.sprintAttack.combo",
+  COMBO_SPRINT_CHARGE  = "attacks.sprintCharge.combo",
+  COMBO_THROW          = "attacks.throw.combo",
 
   RANGE_AVERAGE = "attacks.average.range",
   RANGE_ALT_AVERAGE = "attacks.average.altRange",
@@ -81,6 +101,19 @@ export enum Unit {
 }
 
 export enum MetricLabel {
+  HOLDING_SLASH_LIGHT    = "Holding - Slash (Light)",
+  HOLDING_SLASH_HEAVY    = "Holding - Slash (Heavy)",
+  HOLDING_STAB_LIGHT     = "Holding - Stab (Light)",
+  HOLDING_STAB_HEAVY     = "Holding - Stab (Heavy)",
+  HOLDING_OVERHEAD_LIGHT = "Holding - Overhead (Light)",
+  HOLDING_OVERHEAD_HEAVY = "Holding - Overhead (Heavy)",
+  HOLDING_SPECIAL        = "Holding - Special",
+  HOLDING_LEAPING_STRIKE = "Holding - Leaping Strike",
+  HOLDING_SPRINT_CHARGE  = "Holding - Sprint Charge",
+  HOLDING_THROW          = "Holding - Throw",
+
+  WINDUP_LIGHT_AVERAGE  = "Windup - Average (Light)",
+  WINDUP_HEAVY_AVERAGE  = "Windup - Average (Heavy)",
   WINDUP_SLASH_LIGHT    = "Windup - Slash (Light)",
   WINDUP_SLASH_HEAVY    = "Windup - Slash (Heavy)",
   WINDUP_STAB_LIGHT     = "Windup - Stab (Light)",
@@ -89,8 +122,11 @@ export enum MetricLabel {
   WINDUP_OVERHEAD_HEAVY = "Windup - Overhead (Heavy)",
   WINDUP_SPECIAL        = "Windup - Special",
   WINDUP_LEAPING_STRIKE = "Windup - Leaping Strike",
+  WINDUP_SPRINT_CHARGE  = "Windup - Sprint Charge",
   WINDUP_THROW          = "Windup - Throw",
 
+  RELEASE_LIGHT_AVERAGE  = "Release - Average (Light)",
+  RELEASE_HEAVY_AVERAGE  = "Release - Average (Heavy)",
   RELEASE_SLASH_LIGHT    = "Release - Slash (Light)",
   RELEASE_SLASH_HEAVY    = "Release - Slash (Heavy)",
   RELEASE_STAB_LIGHT     = "Release - Stab (Light)",
@@ -99,8 +135,11 @@ export enum MetricLabel {
   RELEASE_OVERHEAD_HEAVY = "Release - Overhead (Heavy)",
   RELEASE_SPECIAL        = "Release - Special",
   RELEASE_LEAPING_STRIKE = "Release - Leaping Strike",
+  RELEASE_SPRINT_CHARGE  = "Release - Sprint Charge",
   RELEASE_THROW          = "Release - Throw",
 
+  RECOVERY_LIGHT_AVERAGE  = "Recovery - Average (Light)",
+  RECOVERY_HEAVY_AVERAGE  = "Recovery - Average (Heavy)",
   RECOVERY_SLASH_LIGHT    = "Recovery - Slash (Light)",
   RECOVERY_SLASH_HEAVY    = "Recovery - Slash (Heavy)",
   RECOVERY_STAB_LIGHT     = "Recovery - Stab (Light)",
@@ -108,16 +147,25 @@ export enum MetricLabel {
   RECOVERY_OVERHEAD_LIGHT = "Recovery - Overhead (Light)",
   RECOVERY_OVERHEAD_HEAVY = "Recovery - Overhead (Heavy)",
   RECOVERY_SPECIAL        = "Recovery - Special",
+  RECOVERY_LEAPING_STRIKE = "Recovery - Leaping Strike",
+  RECOVERY_SPRINT_CHARGE  = "Recovery - Sprint Charge",
   RECOVERY_THROW          = "Recovery - Throw",
   
+  COMBO_LIGHT_AVERAGE  = "Combo - Average (Light)",
+  COMBO_HEAVY_AVERAGE  = "Combo - Average (Heavy)",
   COMBO_SLASH_LIGHT    = "Combo - Slash (Light)",
   COMBO_SLASH_HEAVY    = "Combo - Slash (Heavy)",
   COMBO_STAB_LIGHT     = "Combo - Stab (Light)",
   COMBO_STAB_HEAVY     = "Combo - Stab (Heavy)",
   COMBO_OVERHEAD_LIGHT = "Combo - Overhead (Light)",
   COMBO_OVERHEAD_HEAVY = "Combo - Overhead (Heavy)",
+  COMBO_SPECIAL        = "Combo - Special",
   COMBO_LEAPING_STRIKE = "Combo - Leaping Strike",
+  COMBO_SPRINT_CHARGE  = "Combo - Sprint Charge",
+  COMBO_THROW          = "Combo - Throw",
   
+  DAMAGE_HEAVY_AVERAGE  = "Damage - Average (Heavy)",
+  DAMAGE_LIGHT_AVERAGE  = "Damage - Average (Light)",
   DAMAGE_SLASH_LIGHT    = "Damage - Slash (Light)",
   DAMAGE_SLASH_HEAVY    = "Damage - Slash (Heavy)",
   DAMAGE_STAB_LIGHT     = "Damage - Stab (Light)",
@@ -129,20 +177,6 @@ export enum MetricLabel {
   DAMAGE_SPRINT_CHARGE  = "Damage - Sprint Charge",
   DAMAGE_THROW          = "Damage - Throw",
 
-  DAMAGE_HEAVY_AVERAGE = "Damage - Average (Heavy)",
-  DAMAGE_LIGHT_AVERAGE = "Damage - Average (Light)",
-
-  WINDUP_HEAVY_AVERAGE = "Windup - Average (Heavy)",
-  WINDUP_LIGHT_AVERAGE = "Windup - Average (Light)",
-
-  RELEASE_HEAVY_AVERAGE = "Release - Average (Heavy)",
-  RELEASE_LIGHT_AVERAGE = "Release - Average (Light)",
-
-  RECOVERY_HEAVY_AVERAGE = "Recovery - Average (Heavy)",
-  RECOVERY_LIGHT_AVERAGE = "Recovery - Average (Light)",
-
-  COMBO_HEAVY_AVERAGE = "Combo - Average (Heavy)",
-  COMBO_LIGHT_AVERAGE = "Combo - Average (Light)",
 
   RANGE_AVERAGE = "Range - Average",
   RANGE_ALT_AVERAGE = "Range - Alt Average",
@@ -152,15 +186,12 @@ export enum MetricLabel {
   RANGE_ALT_OVERHEAD = "Range - Alt. Overhead",
   RANGE_STAB = "Range - Stab",
   RANGE_ALT_STAB = "Range - Alt. Stab",
-  // RANGE_SPECIAL = "Range - Special", TODO
-
-  // RANK = "Rank - Average Percentile",
 }
 
 export function unitGroup(path: MetricPath) {
   if (path.includes(".damage")) {
     return Unit.DAMAGE;
-  } else if (path.includes(".windup") || path.includes(".recovery") || path.includes(".combo")) {
+  } else if (path.includes(".windup") || path.includes(".recovery") || path.includes(".combo") || path.includes(".holding")) {
     return Unit.INVERSE_SPEED;
   } else if (path.includes(".release")) {
     return Unit.SPEED;
@@ -169,7 +200,7 @@ export function unitGroup(path: MetricPath) {
   } else if (path.includes(".rank")) {
     return Unit.RANK;
   }
-  throw `Invalid path: ${path}`;
+  throw `Invalid path (${path}). Update the "unitGroup" function in metrics.ts`;
 }
 
 export const DAMAGE_METRICS = Object.values(MetricPath).filter(

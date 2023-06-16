@@ -23,6 +23,13 @@ export function weaponColor(weapon: Weapon, opacity: number): string {
 }
 
 export function metricColor(value: number, range: {min: number; max: number}): string {
+  if(value == -1 || value == 0)
+    return `hsl(300, ${SATURATION}, ${LIGHTNESS}, ${0.5})`;
+
+  if(range.min == range.max)
+    return `hsl(200, ${SATURATION}, ${LIGHTNESS}, ${0.5})`;
+  
+
   let size = range.max - range.min
   let relativeValue = value - range.min;
   let hueOffset = relativeValue/size * 120

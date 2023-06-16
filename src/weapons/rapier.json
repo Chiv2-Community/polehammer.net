@@ -16,7 +16,7 @@
         "cleaveOverride": false,
         "windup": 120.0,
         "damage": 30,
-        "holding": 0.35,
+        "holding": 350.0,
         "release": 425.0,
         "recovery": 750.0,
         "combo": 200.0,
@@ -46,7 +46,7 @@
       },
       "heavy": {
         "damage": 50,
-        "holding": 0.35,
+        "holding": 350.0,
         "windup": 325.0,
         "release": 425.0,
         "recovery": 850.0,
@@ -83,7 +83,7 @@
         "cleaveOverride": false,
         "windup": 120.0,
         "damage": 35,
-        "holding": 0.35,
+        "holding": 350.0,
         "release": 400.0,
         "recovery": 750.0,
         "combo": 200.0,
@@ -113,7 +113,7 @@
       },
       "heavy": {
         "damage": 55,
-        "holding": 0.35,
+        "holding": 350.0,
         "windup": 325.0,
         "release": 425.0,
         "recovery": 850.0,
@@ -149,7 +149,7 @@
       "light": {
         "windup": 200.0,
         "damage": 50,
-        "holding": 0.35,
+        "holding": 350.0,
         "release": 300.0,
         "recovery": 750.0,
         "combo": 200.0,
@@ -179,7 +179,7 @@
       },
       "heavy": {
         "damage": 70,
-        "holding": 0.35,
+        "holding": 350.0,
         "windup": 450.0,
         "release": 350.0,
         "recovery": 850.0,
@@ -241,7 +241,7 @@
       "comboFromBlocked": -1.0
     },
     "throw": {
-      "holding": 0.4,
+      "holding": 400.0,
       "windup": 550.0,
       "release": 400.0,
       "recovery": 550.0,
@@ -306,7 +306,7 @@
       "light": {
         "windup": 146.66666666666666,
         "damage": 38.333333333333336,
-        "holding": 0.3499999999999999,
+        "holding": 350.0,
         "release": 375.0,
         "recovery": 750.0,
         "combo": 200.0,
@@ -335,7 +335,7 @@
       "heavy": {
         "windup": 366.6666666666667,
         "damage": 58.333333333333336,
-        "holding": 0.3499999999999999,
+        "holding": 350.0,
         "release": 400.0,
         "recovery": 850.0,
         "combo": 200.0,

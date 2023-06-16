@@ -3,7 +3,7 @@
   "attacks": {
     "slash": {
       "light": {
-        "holding": 0.35,
+        "holding": 350.0,
         "windup": 300.0,
         "release": 550.0,
         "recovery": 1100.0,
@@ -34,7 +34,7 @@
         "comboFromBlocked": -1.0
       },
       "heavy": {
-        "holding": 0.35,
+        "holding": 350.0,
         "windup": 550.0,
         "release": 550.0,
         "recovery": 1200.0,
@@ -67,7 +67,7 @@
     },
     "overhead": {
       "light": {
-        "holding": 0.35,
+        "holding": 350.0,
         "windup": 300.0,
         "release": 525.0,
         "recovery": 1100.0,
@@ -98,7 +98,7 @@
         "comboFromBlocked": -1.0
       },
       "heavy": {
-        "holding": 0.35,
+        "holding": 350.0,
         "windup": 550.0,
         "release": 525.0,
         "recovery": 1200.0,
@@ -131,7 +131,7 @@
     },
     "stab": {
       "light": {
-        "holding": 0.35,
+        "holding": 350.0,
         "windup": 300.0,
         "release": 425.0,
         "recovery": 1000.0,
@@ -162,7 +162,7 @@
         "comboFromBlocked": -1.0
       },
       "heavy": {
-        "holding": 0.35,
+        "holding": 350.0,
         "windup": 550.0,
         "release": 400.0,
         "recovery": 1100.0,
@@ -218,7 +218,7 @@
       "reverseTurnLimitStrength": -1.0
     },
     "special": {
-      "holding": 0.35,
+      "holding": 350.0,
       "windup": 1000.0,
       "release": 450.0,
       "recovery": 1350.0,
@@ -249,7 +249,7 @@
       "comboFromBlocked": -1.0
     },
     "throw": {
-      "holding": 0.8,
+      "holding": 800.0,
       "windup": 700.0,
       "release": 500.0,
       "recovery": 550.0,
@@ -367,7 +367,7 @@
     },
     "average": {
       "light": {
-        "holding": 0.3499999999999999,
+        "holding": 350.0,
         "windup": 300.0,
         "release": 500.0,
         "recovery": 1066.6666666666667,
@@ -396,7 +396,7 @@
         "comboFromBlocked": -1.0
       },
       "heavy": {
-        "holding": 0.3499999999999999,
+        "holding": 350.0,
         "windup": 550.0,
         "release": 491.6666666666667,
         "recovery": 1166.6666666666667,
