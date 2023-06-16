@@ -13,6 +13,19 @@ export enum MetricPath {
   HOLDING_LEAPING_STRIKE = "attacks.sprintAttack.holding",
   HOLDING_SPRINT_CHARGE  = "attacks.sprintCharge.holding",
   HOLDING_THROW          = "attacks.throw.holding",
+  
+  RIPOSTE_AVERAGE_LIGHT  = "attacks.average.light.riposte",
+  RIPOSTE_SLASH_LIGHT    = "attacks.slash.light.riposte",
+  RIPOSTE_OVERHEAD_LIGHT = "attacks.overhead.light.riposte",
+  RIPOSTE_STAB_LIGHT     = "attacks.stab.light.riposte",
+  RIPOSTE_AVERAGE_HEAVY  = "attacks.average.heavy.riposte",
+  RIPOSTE_SLASH_HEAVY    = "attacks.slash.heavy.riposte",
+  RIPOSTE_OVERHEAD_HEAVY = "attacks.overhead.heavy.riposte",
+  RIPOSTE_STAB_HEAVY     = "attacks.stab.heavy.riposte",
+  RIPOSTE_SPECIAL        = "attacks.special.riposte",
+  RIPOSTE_LEAPING_STRIKE = "attacks.sprintAttack.riposte",
+  RIPOSTE_SPRINT_CHARGE  = "attacks.sprintCharge.riposte",
+  RIPOSTE_THROW          = "attacks.throw.riposte",
 
   WINDUP_AVERAGE_LIGHT  = "attacks.average.light.windup",
   WINDUP_SLASH_LIGHT    = "attacks.slash.light.windup",
@@ -111,6 +124,17 @@ export enum MetricLabel {
   HOLDING_LEAPING_STRIKE = "Holding - Leaping Strike",
   HOLDING_SPRINT_CHARGE  = "Holding - Sprint Charge",
   HOLDING_THROW          = "Holding - Throw",
+  
+  RIPOSTE_SLASH_LIGHT    = "Riposte - Slash (Light)",
+  RIPOSTE_SLASH_HEAVY    = "Riposte - Slash (Heavy)",
+  RIPOSTE_STAB_LIGHT     = "Riposte - Stab (Light)",
+  RIPOSTE_STAB_HEAVY     = "Riposte - Stab (Heavy)",
+  RIPOSTE_OVERHEAD_LIGHT = "Riposte - Overhead (Light)",
+  RIPOSTE_OVERHEAD_HEAVY = "Riposte - Overhead (Heavy)",
+  RIPOSTE_SPECIAL        = "Riposte - Special",
+  RIPOSTE_LEAPING_STRIKE = "Riposte - Leaping Strike",
+  RIPOSTE_SPRINT_CHARGE  = "Riposte - Sprint Charge",
+  RIPOSTE_THROW          = "Riposte - Throw",
 
   WINDUP_LIGHT_AVERAGE  = "Windup - Average (Light)",
   WINDUP_HEAVY_AVERAGE  = "Windup - Average (Heavy)",
@@ -191,7 +215,7 @@ export enum MetricLabel {
 export function unitGroup(path: MetricPath) {
   if (path.includes(".damage")) {
     return Unit.DAMAGE;
-  } else if (path.includes(".windup") || path.includes(".recovery") || path.includes(".combo") || path.includes(".holding")) {
+  } else if (path.includes(".windup") || path.includes(".recovery") || path.includes(".combo") || path.includes(".holding") || path.includes(".riposte")) {
     return Unit.INVERSE_SPEED;
   } else if (path.includes(".release")) {
     return Unit.SPEED;

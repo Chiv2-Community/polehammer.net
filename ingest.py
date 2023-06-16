@@ -46,6 +46,7 @@ STAT_TRANSFORMS = {
     "recovery": seconds_to_millis,
     "combo": seconds_to_millis,
     "holding": seconds_to_millis,
+    "riposte": seconds_to_millis,
 }
 
 def main():

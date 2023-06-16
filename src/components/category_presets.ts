@@ -29,6 +29,7 @@ CATEGORY_PRESETS.set("Sprint Charge", [MetricLabel.DAMAGE_SPRINT_CHARGE])
 
 
 CATEGORY_PRESETS.set("Holding", buildPreset("holding"));
+CATEGORY_PRESETS.set("Riposte", buildPreset("riposte"));
 CATEGORY_PRESETS.set("Windup", buildPreset("windup"));
 CATEGORY_PRESETS.set("Release", buildPreset("release"));
 CATEGORY_PRESETS.set("Recovery", buildPreset("recovery"));
