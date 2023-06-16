@@ -13,7 +13,7 @@
       "range": 19,
       "altRange": 16,
       "light": {
-        "holding": 0.35,
+        "holding": 350.0,
         "windup": 125.0,
         "release": 400.0,
         "recovery": 700.0,
@@ -44,7 +44,7 @@
         "comboFromBlocked": -1.0
       },
       "heavy": {
-        "holding": 0.35,
+        "holding": 350.0,
         "windup": 375.0,
         "release": 450.0,
         "recovery": 850.0,
@@ -79,7 +79,7 @@
       "range": 33,
       "altRange": 33,
       "light": {
-        "holding": 0.35,
+        "holding": 350.0,
         "windup": 200.0,
         "release": 500.0,
         "recovery": 800.0,
@@ -110,7 +110,7 @@
         "comboFromBlocked": -1.0
       },
       "heavy": {
-        "holding": 0.35,
+        "holding": 350.0,
         "windup": 400.0,
         "release": 525.0,
         "recovery": 950.0,
@@ -145,7 +145,7 @@
       "range": 25,
       "altRange": 28,
       "light": {
-        "holding": 0.35,
+        "holding": 350.0,
         "windup": 350.0,
         "release": 350.0,
         "recovery": 900.0,
@@ -176,7 +176,7 @@
         "comboFromBlocked": -1.0
       },
       "heavy": {
-        "holding": 0.35,
+        "holding": 350.0,
         "windup": 600.0,
         "release": 400.0,
         "recovery": 1050.0,
@@ -232,7 +232,7 @@
       "reverseTurnLimitStrength": -1.0
     },
     "throw": {
-      "holding": 0.6,
+      "holding": 600.0,
       "windup": 650.0,
       "release": 500.0,
       "recovery": 550.0,
@@ -263,7 +263,7 @@
       "comboFromBlocked": -1.0
     },
     "special": {
-      "holding": 0.35,
+      "holding": 350.0,
       "windup": 900.0,
       "release": 550.0,
       "recovery": 1200.0,
@@ -381,7 +381,7 @@
     },
     "average": {
       "light": {
-        "holding": 0.3499999999999999,
+        "holding": 350.0,
         "windup": 225.0,
         "release": 416.6666666666667,
         "recovery": 800.0,
@@ -410,7 +410,7 @@
         "comboFromBlocked": -1.0
       },
       "heavy": {
-        "holding": 0.3499999999999999,
+        "holding": 350.0,
         "windup": 458.3333333333333,
         "release": 458.3333333333333,
         "recovery": 950.0,

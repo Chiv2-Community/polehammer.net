@@ -2,7 +2,7 @@
   "name": "Throwing Knife",
   "attacks": {
     "throw": {
-      "holding": 0.4,
+      "holding": 400.0,
       "windup": 400.0,
       "release": 350.0,
       "recovery": 300.0,

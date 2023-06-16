@@ -18,7 +18,7 @@
       "light": {
         "windup": 200.0,
         "damage": 45.0,
-        "holding": 0.35,
+        "holding": 350.0,
         "release": 500.0,
         "recovery": 900.0,
         "combo": 225.0,
@@ -48,7 +48,7 @@
       },
       "heavy": {
         "damage": 65.0,
-        "holding": 0.35,
+        "holding": 350.0,
         "windup": 375.0,
         "release": 550.0,
         "recovery": 1050.0,
@@ -84,7 +84,7 @@
       "light": {
         "windup": 150.0,
         "damage": 50,
-        "holding": 0.35,
+        "holding": 350.0,
         "release": 500.0,
         "recovery": 900.0,
         "combo": 225.0,
@@ -114,7 +114,7 @@
       },
       "heavy": {
         "damage": 70,
-        "holding": 0.35,
+        "holding": 350.0,
         "windup": 400.0,
         "release": 550.0,
         "recovery": 1050.0,
@@ -150,7 +150,7 @@
       "light": {
         "windup": 200.0,
         "damage": 30,
-        "holding": 0.35,
+        "holding": 350.0,
         "release": 300.0,
         "recovery": 900.0,
         "combo": 225.0,
@@ -180,7 +180,7 @@
       },
       "heavy": {
         "damage": 45,
-        "holding": 0.35,
+        "holding": 350.0,
         "windup": 450.0,
         "release": 300.0,
         "recovery": 1050.0,
@@ -211,7 +211,7 @@
       }
     },
     "special": {
-      "holding": 0.35,
+      "holding": 350.0,
       "windup": 1000.0,
       "release": 450.0,
       "recovery": 1150.0,
@@ -242,7 +242,7 @@
       "comboFromBlocked": -1.0
     },
     "throw": {
-      "holding": 0.4,
+      "holding": 400.0,
       "windup": 650.0,
       "release": 450.0,
       "recovery": 550.0,
@@ -307,7 +307,7 @@
       "light": {
         "windup": 183.33333333333334,
         "damage": 41.666666666666664,
-        "holding": 0.3499999999999999,
+        "holding": 350.0,
         "release": 433.3333333333333,
         "recovery": 900.0,
         "combo": 225.0,
@@ -336,7 +336,7 @@
       "heavy": {
         "windup": 408.3333333333333,
         "damage": 60.0,
-        "holding": 0.3499999999999999,
+        "holding": 350.0,
         "release": 466.6666666666667,
         "recovery": 1050.0,
         "combo": 225.0,

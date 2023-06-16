@@ -3,7 +3,7 @@
   "attacks": {
     "slash": {
       "light": {
-        "holding": 0.35,
+        "holding": 350.0,
         "windup": 400.0,
         "release": 475.0,
         "recovery": 1300.0,
@@ -34,7 +34,7 @@
         "comboFromBlocked": -1.0
       },
       "heavy": {
-        "holding": 0.35,
+        "holding": 350.0,
         "windup": 700.0,
         "release": 500.0,
         "recovery": 1450.0,
@@ -67,7 +67,7 @@
     },
     "overhead": {
       "light": {
-        "holding": 0.35,
+        "holding": 350.0,
         "windup": 500.0,
         "release": 450.0,
         "recovery": 1300.0,
@@ -98,7 +98,7 @@
         "comboFromBlocked": -1.0
       },
       "heavy": {
-        "holding": 0.35,
+        "holding": 350.0,
         "windup": 800.0,
         "release": 450.0,
         "recovery": 1450.0,
@@ -131,7 +131,7 @@
     },
     "stab": {
       "light": {
-        "holding": 0.35,
+        "holding": 350.0,
         "windup": 425.0,
         "release": 350.0,
         "recovery": 1200.0,
@@ -162,7 +162,7 @@
         "comboFromBlocked": -1.0
       },
       "heavy": {
-        "holding": 0.35,
+        "holding": 350.0,
         "windup": 725.0,
         "release": 400.0,
         "recovery": 1250.0,
@@ -218,7 +218,7 @@
       "reverseTurnLimitStrength": -1.0
     },
     "throw": {
-      "holding": 0.5,
+      "holding": 500.0,
       "windup": 650.0,
       "release": 500.0,
       "recovery": 550.0,
@@ -249,7 +249,7 @@
       "comboFromBlocked": -1.0
     },
     "special": {
-      "holding": 0.35,
+      "holding": 350.0,
       "windup": 900.0,
       "release": 400.0,
       "recovery": 1200.0,
@@ -367,7 +367,7 @@
     },
     "average": {
       "light": {
-        "holding": 0.3499999999999999,
+        "holding": 350.0,
         "windup": 441.6666666666667,
         "release": 425.0,
         "recovery": 1266.6666666666667,
@@ -396,7 +396,7 @@
         "comboFromBlocked": -1.0
       },
       "heavy": {
-        "holding": 0.3499999999999999,
+        "holding": 350.0,
         "windup": 741.6666666666666,
         "release": 450.0,
         "recovery": 1383.3333333333333,
