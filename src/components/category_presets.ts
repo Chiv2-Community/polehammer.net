@@ -32,6 +32,7 @@ CATEGORY_PRESETS.set("Holding", buildPreset("holding"));
 CATEGORY_PRESETS.set("Windup", buildPreset("windup"));
 CATEGORY_PRESETS.set("Release", buildPreset("release"));
 CATEGORY_PRESETS.set("Recovery", buildPreset("recovery"));
+CATEGORY_PRESETS.set("Thwack", buildPreset("thwack"));
 CATEGORY_PRESETS.set("Combo", buildPreset("combo"));
 CATEGORY_PRESETS.set("All Damage", buildPreset("damage"));
 

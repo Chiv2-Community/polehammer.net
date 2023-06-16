@@ -39,6 +39,19 @@ export enum MetricPath {
   RELEASE_LEAPING_STRIKE = "attacks.sprintAttack.release",
   RELEASE_SPRINT_CHARGE  = "attacks.sprintCharge.release",
   RELEASE_THROW          = "attacks.throw.release",
+  
+  THWACK_AVERAGE_LIGHT  = "attacks.average.light.thwack",
+  THWACK_SLASH_LIGHT    = "attacks.slash.light.thwack",
+  THWACK_OVERHEAD_LIGHT = "attacks.overhead.light.thwack",
+  THWACK_STAB_LIGHT     = "attacks.stab.light.thwack",
+  THWACK_AVERAGE_HEAVY  = "attacks.average.heavy.thwack",
+  THWACK_SLASH_HEAVY    = "attacks.slash.heavy.thwack",
+  THWACK_OVERHEAD_HEAVY = "attacks.overhead.heavy.thwack",
+  THWACK_STAB_HEAVY     = "attacks.stab.heavy.thwack",
+  THWACK_SPECIAL        = "attacks.special.thwack",
+  THWACK_LEAPING_STRIKE = "attacks.sprintAttack.thwack",
+  THWACK_SPRINT_CHARGE  = "attacks.sprintCharge.thwack",
+  THWACK_THROW          = "attacks.throw.thwack",
 
   RECOVERY_AVERAGE_LIGHT  = "attacks.average.light.recovery",
   RECOVERY_SLASH_LIGHT    = "attacks.slash.light.recovery",
@@ -137,6 +150,19 @@ export enum MetricLabel {
   RELEASE_LEAPING_STRIKE = "Release - Leaping Strike",
   RELEASE_SPRINT_CHARGE  = "Release - Sprint Charge",
   RELEASE_THROW          = "Release - Throw",
+  
+  THWACK_LIGHT_AVERAGE  = "Thwack - Average (Light)",
+  THWACK_HEAVY_AVERAGE  = "Thwack - Average (Heavy)",
+  THWACK_SLASH_LIGHT    = "Thwack - Slash (Light)",
+  THWACK_SLASH_HEAVY    = "Thwack - Slash (Heavy)",
+  THWACK_STAB_LIGHT     = "Thwack - Stab (Light)",
+  THWACK_STAB_HEAVY     = "Thwack - Stab (Heavy)",
+  THWACK_OVERHEAD_LIGHT = "Thwack - Overhead (Light)",
+  THWACK_OVERHEAD_HEAVY = "Thwack - Overhead (Heavy)",
+  THWACK_SPECIAL        = "Thwack - Special",
+  THWACK_LEAPING_STRIKE = "Thwack - Leaping Strike",
+  THWACK_SPRINT_CHARGE  = "Thwack - Sprint Charge",
+  THWACK_THROW          = "Thwack - Throw",
 
   RECOVERY_LIGHT_AVERAGE  = "Recovery - Average (Light)",
   RECOVERY_HEAVY_AVERAGE  = "Recovery - Average (Heavy)",
@@ -191,7 +217,7 @@ export enum MetricLabel {
 export function unitGroup(path: MetricPath) {
   if (path.includes(".damage")) {
     return Unit.DAMAGE;
-  } else if (path.includes(".windup") || path.includes(".recovery") || path.includes(".combo") || path.includes(".holding")) {
+  } else if (path.includes(".windup") || path.includes(".recovery") || path.includes(".combo") || path.includes(".holding") || path.includes(".thwack")) {
     return Unit.INVERSE_SPEED;
   } else if (path.includes(".release")) {
     return Unit.SPEED;

@@ -26,6 +26,7 @@ export type SpecialAttack = {
   windup: number; 
   release: number; 
   recovery: number; 
+  thwack: number;
   combo: number;
   range?: number; // Not measured yet
   cleaveOverride?: boolean;
