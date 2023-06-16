@@ -217,7 +217,7 @@
       "release": 450.0,
       "recovery": 1200.0,
       "combo": 200.0,
-      "riposte": 0.95,
+      "riposte": 950.0,
       "damage": 80.0,
       "turnLimitStrength": 50.0,
       "verticalTurnLimitStrength": 50.0,
