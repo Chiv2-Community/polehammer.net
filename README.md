@@ -1,3 +1,5 @@
+This is the deployed branch.
+
 # Polehammer: Chivalry II Weapon Comparison Tool
 
 * Available at [polehammer.net](https://polehammer.net)
