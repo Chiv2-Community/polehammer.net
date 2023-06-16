@@ -2,7 +2,7 @@ import { MetricLabel } from "../metrics"
 
 let CATEGORY_PRESETS: Map<string, MetricLabel[]> = new Map()
 
-function buildPreset(s: String, ignore: MetricLabel[] = []): MetricLabel[] { 
+function buildPreset(s: string, ignore: MetricLabel[] = []): MetricLabel[] { 
   return Object.values(MetricLabel).filter(x => x.toLowerCase().includes(s)).filter(x => ignore.indexOf(x) == -1)
 }
 
