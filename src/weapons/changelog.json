@@ -1,0 +1,601 @@
+{
+  "Spear": [
+    {
+      "path": [
+        "attacks",
+        "slash",
+        "light",
+        "holding"
+      ],
+      "old": null,
+      "new": 0.35
+    },
+    {
+      "path": [
+        "attacks",
+        "slash",
+        "light",
+        "windup"
+      ],
+      "old": 800,
+      "new": 0.35
+    },
+    {
+      "path": [
+        "attacks",
+        "slash",
+        "light",
+        "release"
+      ],
+      "old": null,
+      "new": 0.35
+    },
+    {
+      "path": [
+        "attacks",
+        "slash",
+        "light",
+        "recovery"
+      ],
+      "old": null,
+      "new": 0.9
+    },
+    {
+      "path": [
+        "attacks",
+        "slash",
+        "light",
+        "combo"
+      ],
+      "old": null,
+      "new": 0.325
+    },
+    {
+      "path": [
+        "attacks",
+        "slash",
+        "light",
+        "riposte"
+      ],
+      "old": null,
+      "new": 0.25
+    },
+    {
+      "path": [
+        "attacks",
+        "slash",
+        "light",
+        "turnLimitStrength"
+      ],
+      "old": null,
+      "new": 47.5
+    },
+    {
+      "path": [
+        "attacks",
+        "slash",
+        "light",
+        "verticalTurnLimitStrength"
+      ],
+      "old": null,
+      "new": 50.0
+    },
+    {
+      "path": [
+        "attacks",
+        "slash",
+        "light",
+        "reverseTurnLimitStrength"
+      ],
+      "old": null,
+      "new": 50.0
+    },
+    {
+      "path": [
+        "attacks",
+        "slash",
+        "heavy",
+        "holding"
+      ],
+      "old": null,
+      "new": 0.35
+    },
+    {
+      "path": [
+        "attacks",
+        "slash",
+        "heavy",
+        "windup"
+      ],
+      "old": null,
+      "new": 0.6
+    },
+    {
+      "path": [
+        "attacks",
+        "slash",
+        "heavy",
+        "release"
+      ],
+      "old": null,
+      "new": 0.4
+    },
+    {
+      "path": [
+        "attacks",
+        "slash",
+        "heavy",
+        "recovery"
+      ],
+      "old": null,
+      "new": 1.05
+    },
+    {
+      "path": [
+        "attacks",
+        "slash",
+        "heavy",
+        "combo"
+      ],
+      "old": null,
+      "new": 0.325
+    },
+    {
+      "path": [
+        "attacks",
+        "slash",
+        "heavy",
+        "riposte"
+      ],
+      "old": null,
+      "new": 0.5
+    },
+    {
+      "path": [
+        "attacks",
+        "slash",
+        "heavy",
+        "turnLimitStrength"
+      ],
+      "old": null,
+      "new": 50.0
+    },
+    {
+      "path": [
+        "attacks",
+        "slash",
+        "heavy",
+        "verticalTurnLimitStrength"
+      ],
+      "old": null,
+      "new": 50.0
+    },
+    {
+      "path": [
+        "attacks",
+        "slash",
+        "heavy",
+        "reverseTurnLimitStrength"
+      ],
+      "old": null,
+      "new": 50.0
+    },
+    {
+      "path": [
+        "attacks",
+        "overhead",
+        "light",
+        "holding"
+      ],
+      "old": null,
+      "new": 0.35
+    },
+    {
+      "path": [
+        "attacks",
+        "overhead",
+        "light",
+        "windup"
+      ],
+      "old": 667,
+      "new": 0.25
+    },
+    {
+      "path": [
+        "attacks",
+        "overhead",
+        "light",
+        "release"
+      ],
+      "old": null,
+      "new": 0.45
+    },
+    {
+      "path": [
+        "attacks",
+        "overhead",
+        "light",
+        "recovery"
+      ],
+      "old": null,
+      "new": 0.85
+    },
+    {
+      "path": [
+        "attacks",
+        "overhead",
+        "light",
+        "combo"
+      ],
+      "old": null,
+      "new": 0.325
+    },
+    {
+      "path": [
+        "attacks",
+        "overhead",
+        "light",
+        "riposte"
+      ],
+      "old": null,
+      "new": 0.25
+    },
+    {
+      "path": [
+        "attacks",
+        "overhead",
+        "light",
+        "turnLimitStrength"
+      ],
+      "old": null,
+      "new": 40.0
+    },
+    {
+      "path": [
+        "attacks",
+        "overhead",
+        "light",
+        "verticalTurnLimitStrength"
+      ],
+      "old": null,
+      "new": 50.0
+    },
+    {
+      "path": [
+        "attacks",
+        "overhead",
+        "light",
+        "reverseTurnLimitStrength"
+      ],
+      "old": null,
+      "new": 50.0
+    },
+    {
+      "path": [
+        "attacks",
+        "overhead",
+        "heavy",
+        "holding"
+      ],
+      "old": null,
+      "new": 0.35
+    },
+    {
+      "path": [
+        "attacks",
+        "overhead",
+        "heavy",
+        "windup"
+      ],
+      "old": null,
+      "new": 0.5
+    },
+    {
+      "path": [
+        "attacks",
+        "overhead",
+        "heavy",
+        "release"
+      ],
+      "old": null,
+      "new": 0.5
+    },
+    {
+      "path": [
+        "attacks",
+        "overhead",
+        "heavy",
+        "recovery"
+      ],
+      "old": null,
+      "new": 1.0
+    },
+    {
+      "path": [
+        "attacks",
+        "overhead",
+        "heavy",
+        "combo"
+      ],
+      "old": null,
+      "new": 0.325
+    },
+    {
+      "path": [
+        "attacks",
+        "overhead",
+        "heavy",
+        "riposte"
+      ],
+      "old": null,
+      "new": 0.5
+    },
+    {
+      "path": [
+        "attacks",
+        "overhead",
+        "heavy",
+        "turnLimitStrength"
+      ],
+      "old": null,
+      "new": 42.5
+    },
+    {
+      "path": [
+        "attacks",
+        "overhead",
+        "heavy",
+        "verticalTurnLimitStrength"
+      ],
+      "old": null,
+      "new": 50.0
+    },
+    {
+      "path": [
+        "attacks",
+        "overhead",
+        "heavy",
+        "reverseTurnLimitStrength"
+      ],
+      "old": null,
+      "new": 50.0
+    },
+    {
+      "path": [
+        "attacks",
+        "stab",
+        "light",
+        "holding"
+      ],
+      "old": null,
+      "new": 0.35
+    },
+    {
+      "path": [
+        "attacks",
+        "stab",
+        "light",
+        "windup"
+      ],
+      "old": 800,
+      "new": 0.35
+    },
+    {
+      "path": [
+        "attacks",
+        "stab",
+        "light",
+        "release"
+      ],
+      "old": null,
+      "new": 0.35
+    },
+    {
+      "path": [
+        "attacks",
+        "stab",
+        "light",
+        "recovery"
+      ],
+      "old": null,
+      "new": 0.9
+    },
+    {
+      "path": [
+        "attacks",
+        "stab",
+        "light",
+        "combo"
+      ],
+      "old": null,
+      "new": 0.325
+    },
+    {
+      "path": [
+        "attacks",
+        "stab",
+        "light",
+        "riposte"
+      ],
+      "old": null,
+      "new": 0.25
+    },
+    {
+      "path": [
+        "attacks",
+        "stab",
+        "light",
+        "turnLimitStrength"
+      ],
+      "old": null,
+      "new": 50.0
+    },
+    {
+      "path": [
+        "attacks",
+        "stab",
+        "light",
+        "verticalTurnLimitStrength"
+      ],
+      "old": null,
+      "new": 50.0
+    },
+    {
+      "path": [
+        "attacks",
+        "stab",
+        "light",
+        "reverseTurnLimitStrength"
+      ],
+      "old": null,
+      "new": -1.0
+    },
+    {
+      "path": [
+        "attacks",
+        "stab",
+        "heavy",
+        "holding"
+      ],
+      "old": null,
+      "new": 0.35
+    },
+    {
+      "path": [
+        "attacks",
+        "stab",
+        "heavy",
+        "windup"
+      ],
+      "old": null,
+      "new": 0.6
+    },
+    {
+      "path": [
+        "attacks",
+        "stab",
+        "heavy",
+        "release"
+      ],
+      "old": null,
+      "new": 0.4
+    },
+    {
+      "path": [
+        "attacks",
+        "stab",
+        "heavy",
+        "recovery"
+      ],
+      "old": null,
+      "new": 1.05
+    },
+    {
+      "path": [
+        "attacks",
+        "stab",
+        "heavy",
+        "combo"
+      ],
+      "old": null,
+      "new": 0.325
+    },
+    {
+      "path": [
+        "attacks",
+        "stab",
+        "heavy",
+        "riposte"
+      ],
+      "old": null,
+      "new": 0.5
+    },
+    {
+      "path": [
+        "attacks",
+        "stab",
+        "heavy",
+        "turnLimitStrength"
+      ],
+      "old": null,
+      "new": 52.5
+    },
+    {
+      "path": [
+        "attacks",
+        "stab",
+        "heavy",
+        "verticalTurnLimitStrength"
+      ],
+      "old": null,
+      "new": 50.0
+    },
+    {
+      "path": [
+        "attacks",
+        "stab",
+        "heavy",
+        "reverseTurnLimitStrength"
+      ],
+      "old": null,
+      "new": -1.0
+    },
+    {
+      "path": [
+        "attacks",
+        "jab"
+      ],
+      "old": null,
+      "new": {
+        "holding": -1.0,
+        "windup": 0.3,
+        "release": -1.0,
+        "recovery": 0.7,
+        "combo": 0.15,
+        "riposte": 0.0,
+        "damage": 10.0,
+        "turnLimitStrength": 37.5,
+        "verticalTurnLimitStrength": 50.0,
+        "reverseTurnLimitStrength": -1.0
+      }
+    },
+    {
+      "path": [
+        "attacks",
+        "shove"
+      ],
+      "old": null,
+      "new": {
+        "holding": -1.0,
+        "windup": 0.45,
+        "release": -1.0,
+        "recovery": 0.9,
+        "combo": 0.1,
+        "riposte": 0.45,
+        "damage": 5.0,
+        "turnLimitStrength": 50.0,
+        "verticalTurnLimitStrength": 50.0,
+        "reverseTurnLimitStrength": -1.0
+      }
+    },
+    {
+      "path": [
+        "attacks",
+        "throw"
+      ],
+      "old": null,
+      "new": {
+        "holding": 0.4,
+        "windup": 1.0,
+        "release": 0.45,
+        "recovery": 0.55,
+        "combo": 0.15,
+        "riposte": 0.0,
+        "damage": 70.0,
+        "turnLimitStrength": 0.0,
+        "verticalTurnLimitStrength": -1.0,
+        "reverseTurnLimitStrength": -1.0
+      }
+    }
+  ]
+}

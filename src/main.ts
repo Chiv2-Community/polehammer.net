@@ -11,7 +11,10 @@ import "./style.scss";
 import { Target } from "./target";
 import { borderDash, weaponColor, weaponDash, metricColor } from "./ui";
 import { shuffle } from "./util";
-import { Weapon, WeaponType } from "./weapon";
+import { Weapon } from "./weapon";
+import { SearchSelector } from "./components/search_selector";
+import CATEGORY_PRESETS from "./components/category_presets";
+import WEAPON_PRESETS from "./components/weapon_presets";
 
 Chart.defaults.font.family = "'Lato', sans-serif";
 Chart.register(...registerables); // the auto import stuff was making typescript angry.
@@ -25,12 +28,34 @@ let unitStats: UnitStats = unitGroupStats(stats);
 
 let selectedTab = "radar-content-tab";
 
-const selectedWeapons: Set<Weapon> = new Set<Weapon>();
-const selectedCategories: Set<MetricLabel> = new Set<MetricLabel>();
-const searchResults: Set<Weapon> = new Set<Weapon>();
+let weaponBorderStyle = (weapon: Weapon, label: HTMLLabelElement) => {
+  label.style.border = `3px ${weaponDash(weapon)} ${weaponColor(weapon, 0.6)}`;
+  return label
+}
 
-const weaponSearchResults = document.querySelector<HTMLDivElement>("#weaponSearchResults")!
-const displayedWeapons = document.querySelector<HTMLFieldSetElement>("#displayedWeapons")!;
+const weaponSelector = new SearchSelector<Weapon>(
+  new Set(ALL_WEAPONS), 
+  "#weaponSearch", 
+  "#weaponSearchResults", 
+  "#displayedWeapons", 
+  WEAPON_PRESETS,
+  "#presetsSelectWeapon",
+  w => w.name, 
+  weaponBorderStyle, 
+  redraw
+);
+
+const categorySelector = new SearchSelector<MetricLabel>(
+  new Set(Object.values(MetricLabel)),
+  "#categorySearch",
+  "#categorySearchResults",
+  "#displayedCategories",
+  CATEGORY_PRESETS,
+  "#presetsSelectCategory",
+  c => c,
+  (_, label) => label,
+  redraw
+)
 
 function toId(str: string) {
   return str
@@ -56,7 +81,7 @@ function chartData(
 
   return {
     labels: [...sortedCategories],
-    datasets: [...selectedWeapons].map((w) => {
+    datasets: [...weaponSelector.display].map((w) => {
       return {
         label: w.name,
         data: [...sortedCategories].map((c) => {
@@ -105,7 +130,7 @@ const radar: Chart = new Chart(
         },
       },
     },
-    data: chartData(stats, selectedCategories, unitStats, false),
+    data: chartData(stats, categorySelector.display, unitStats, false),
   }
 );
 
@@ -142,10 +167,10 @@ function redrawBars() {
 
   bars.splice(0, bars.length);
 
-  selectedCategories.forEach((c) => {
+  categorySelector.display.forEach((c) => {
     const outer = document.createElement("div");
     outer.className = "col-md-4";
-    outer.id = c;
+    outer.id = c + "-bar";
     const elem = document.createElement("canvas");
     outer.appendChild(elem);
     barsElem.appendChild(outer);
@@ -154,7 +179,7 @@ function redrawBars() {
 }
 
 function redrawTable(dataset: WeaponStats, unitStats: UnitStats) {
-  let sortedCategories = Array.from(selectedCategories);
+  let sortedCategories = Array.from(categorySelector.display);
   sortedCategories.sort((a,b) => {
     return Object.values(MetricLabel).indexOf(a) - Object.values(MetricLabel).indexOf(b);
   });
@@ -200,7 +225,7 @@ function redrawTable(dataset: WeaponStats, unitStats: UnitStats) {
   head.appendChild(headRow);
   table.appendChild(head);
 
-  selectedWeapons.forEach(weapon => {
+  weaponSelector.display.forEach(weapon => {
     let weaponData = dataset.get(weapon.name)!;
 
     let row = document.createElement("tr");
@@ -228,7 +253,6 @@ function redrawTable(dataset: WeaponStats, unitStats: UnitStats) {
   });
   
   tableElem.appendChild(table);
-
 }
 
 function redraw() {
@@ -236,9 +260,9 @@ function redraw() {
   stats = generateMetrics(ALL_WEAPONS, numberOfTargets, horsebackDamageMultiplier, selectedTarget)
   unitStats = unitGroupStats(stats);
 
-  let weaponArray = Array.from(selectedWeapons)
+  let weaponArray = Array.from(weaponSelector.display)
   const INDEX_POSTITIONS: Map<string, Array<string>> = new Map()
-  const indexCategories = Array.from(selectedCategories).filter(c => c.startsWith("Index"))
+  const indexCategories = Array.from(categorySelector.display).filter(c => c.startsWith("Index"))
   indexCategories.forEach((c) => {
     const sortedWeapons = 
         weaponArray.sort((a,b) => {
@@ -255,15 +279,14 @@ function redraw() {
       const value = stats.get(w.name)!.get(c)!.value
       const idx = INDEX_POSTITIONS.get(c)!.indexOf(w.name);
       value.rawResult = idx + 1;
-      value.result = selectedWeapons.size - idx;
+      value.result = weaponSelector.display.size - idx;
     });
-    unitStats.get(c)!.max = selectedWeapons.size;
+    unitStats.get(c)!.max = weaponSelector.display.size;
     unitStats.get(c)!.min = 1;
-
   });
 
 
-  radar.data = chartData(stats, selectedCategories, unitStats, false);
+  radar.data = chartData(stats, categorySelector.display, unitStats, false);
   radar.update();
 
   redrawBars();
@@ -274,174 +297,49 @@ function redraw() {
   params.set("target", selectedTarget);
   params.set("numberOfTargets", numberOfTargets.toString());
   params.set("tab", selectedTab);
-  params.append("weapon", [...selectedWeapons].map(x => x.id).join("-"));
-  [...selectedCategories].map((c) => params.append("category", c));
+  params.append("weapon", [...weaponSelector.display].map(x => x.id).join("-"));
+  [...categorySelector.display].map((c) => params.append("category", c));
   window.history.replaceState(null, "", `?${params.toString()}`);
 }
 
-function addWeaponDiv(weapon: Weapon) {
-  const div = document.createElement("div");
-  div.id = weapon.name;
-  div.className = "labelled-input";
-  div.style.display = "flex";
-  div.style.alignItems = "center";
-
-  const input = document.createElement("input");
-  input.id = `input-${weapon.name}`;
-  input.checked = true;
-  input.type = "checkbox";
-  input.className = "form-check-input";
-  input.onchange = () => {
-    removeWeapon(weapon);
-  };
-  div.appendChild(input);
-
-  const label = document.createElement("label");
-  label.htmlFor = `input-${weapon.name}`;
-  label.innerText = weapon.name;
-  label.style.padding = "0.2em";
-  label.style.border = `3px ${weaponDash(weapon)} ${weaponColor(weapon, 0.6)}`;
-  div.appendChild(label);
-
-  displayedWeapons.appendChild(div);
-}
-
-// Add an input checkbox with a border to show the weapon has been added
-// Allow the weapon to be removed by unchecking the checkbox
-function addWeapon(weapon: Weapon) {
-  addWeaponDiv(weapon);
-
-  selectedWeapons.add(weapon);
-  redraw();
-
-  updateSearchResults();
-}
-
-function removeWeapon(weapon: Weapon) {
-  displayedWeapons.removeChild(document.getElementById(weapon.name)!);
-
-  selectedWeapons.delete(weapon);
-  redraw();
-
-  updateSearchResults();
-}
-
-const weaponSearch = document.getElementById(
-  "weaponSearch"
-) as HTMLInputElement;
-weaponSearch.onfocus = () => {
-  weaponSearchResults.style.display = "initial";
-};
-weaponSearch.onblur = () => {
-  // Clear search when clicking out
-  weaponSearch.value = "";
-  updateSearchResults();
-
-  weaponSearchResults.style.display = "none";
-};
-weaponSearch.oninput = updateSearchResults;
-
-function setCategory(category: MetricLabel, enabled: boolean) {
-  const checkbox = document.getElementById(toId(category)) as HTMLInputElement;
-
-  // Manually typing into URL, or old URL and we've changed category names
-  if (!checkbox) {
-    return;
-  }
-
-  checkbox.checked = enabled;
-
-  if (enabled) {
-    selectedCategories.add(category);
-  } else {
-    selectedCategories.delete(category);
-  }
-  redraw();
-}
-
-// Write all categories we know about into the categories list
-Object.values(MetricLabel).forEach((r) => {
-  const [group, name] = r.split(" - ");
-
-  const div = document.createElement("div");
-
-  const input = document.createElement("input");
-  input.id = toId(r);
-  input.checked = selectedCategories.has(r);
-  input.className = "form-check-input";
-  input.setAttribute("type", "checkbox");
-  input.onclick = (ev) => {
-    const enabled = (ev.target as HTMLInputElement).checked;
-    setCategory(r, enabled);
-  };
-  div.className = "labelled-input";
-  div.appendChild(input);
-
-  const label = document.createElement("label");
-  label.htmlFor = toId(r);
-  label.innerText = name;
-  div.appendChild(label);
-
-  const categoryGroup = document.getElementById(
-    `category-${group.replaceAll(' ','-').toLowerCase()}`
-  ) as HTMLFieldSetElement;
-  categoryGroup.appendChild(div);
-});
-
-// Clear all weapon selections
-function clear() {
-  selectedWeapons.clear();
-  while (displayedWeapons.firstChild) {
-    displayedWeapons.removeChild(displayedWeapons.firstChild);
-  }
-
-  addWeapon(weaponByName("Polehammer")!)
-  redraw();
-  updateSearchResults();
-}
 
 // Choose 3 random weapons
 function random() {
-  clear();
+  weaponSelector.clearSelection();
   const random = shuffle(ALL_WEAPONS.filter(x => x.name != "Polehammer"));
-  random.slice(0, 2).forEach(addWeapon);
-}
-
-// Choose all weapons
-function all() {
-  ALL_WEAPONS.forEach((w) => {
-    if(!selectedWeapons.has(w)) {
-      selectedWeapons.add(w);
-      addWeaponDiv(w);
-    }
-  });
-  updateSearchResults();
-  redraw();
+  weaponSelector.addSelected(weaponById("ph")!)
+  random.slice(0, 2).forEach(w => weaponSelector.addSelected(w));
 }
 
 // Reset to default category selections
 // Clear all weapon selections
 function reset() {
-  selectedCategories.clear();
-  selectedCategories.add(MetricLabel.SPEED_AVERAGE);
-  selectedCategories.add(MetricLabel.RANGE_AVERAGE);
-  selectedCategories.add(MetricLabel.DAMAGE_LIGHT_AVERAGE);
-  selectedCategories.add(MetricLabel.DAMAGE_HEAVY_AVERAGE);
-  selectedCategories.add(MetricLabel.DAMAGE_RANGED_AVERAGE);
-  selectedCategories.add(MetricLabel.POLEHAMMER_INDEX);
-  Object.values(MetricLabel).map((r) => {
-    const checkbox = document.getElementById(toId(r)) as HTMLInputElement;
-    checkbox.checked = selectedCategories.has(r);
-  });
+  categorySelector.clearSelection();
+  [
+    MetricLabel.RANGE_AVERAGE, 
+    MetricLabel.RANGE_ALT_AVERAGE, 
+    MetricLabel.WINDUP_HEAVY_AVERAGE, 
+    MetricLabel.RELEASE_HEAVY_AVERAGE, 
+    MetricLabel.RECOVERY_HEAVY_AVERAGE,
+    MetricLabel.COMBO_HEAVY_AVERAGE,
+    MetricLabel.DAMAGE_HEAVY_AVERAGE,
+    MetricLabel.WINDUP_LIGHT_AVERAGE,
+    MetricLabel.RELEASE_LIGHT_AVERAGE,
+    MetricLabel.RECOVERY_LIGHT_AVERAGE,
+    MetricLabel.COMBO_LIGHT_AVERAGE,
+    MetricLabel.DAMAGE_LIGHT_AVERAGE,
+  ].map(l => categorySelector.addSelected(l));
   redraw();
 }
 
 
 // Link up to buttons
-document.getElementById("clear")!.onclick = clear;
-document.getElementById("random")!.onclick = random;
-document.getElementById("all")!.onclick = all;
-document.getElementById("reset")!.onclick = reset;
+document.getElementById("clearWeapons")!.onclick = () => weaponSelector.clearSelection();
+document.getElementById("randomWeapons")!.onclick = random;
+document.getElementById("allWeapons")!.onclick = () => weaponSelector.selectAll();
+
+document.getElementById("clearCategories")!.onclick = () => categorySelector.clearSelection();
+document.getElementById("allCategories")!.onclick = () => categorySelector.selectAll();
 
 // Link up Share button
 document.getElementById("share")!.onclick = () => {
@@ -468,21 +366,6 @@ horsebackDamageMultiplierInput.oninput = () => {
   redraw();
 }
 
-let presetsSelect = document.querySelector<HTMLSelectElement>("#presetsSelect")!;
-
-Object.values(WeaponType).forEach(wt => {
-  let elem = new Option(wt, wt) 
-  presetsSelect.add(elem);
-});
-
-presetsSelect.onchange = (_ => {
-  clear();
-  let preset = presetsSelect.value
-  ALL_WEAPONS.filter(w => w.weaponTypes.includes(preset as WeaponType)).forEach(w => {
-    addWeapon(w);
-  });
-});
-
 // Use query string to init values if possible
 const params = new URLSearchParams(location.search);
 
@@ -508,9 +391,9 @@ if (params.get("numberOfTargets")) {
 if (params.getAll("weapon").length) {
   params.getAll("weapon").forEach((name) => {
     let weapon = weaponByName(name);
-    if (weapon) { addWeapon(weapon) }
+    if (weapon) { weaponSelector.addSelected(weapon) }
     else {
-      name.split("-").map(weaponById).filter(a => a).map(a => a!).forEach(addWeapon)
+      name.split("-").map(weaponById).filter(a => a).map(a => a!).forEach((w) => weaponSelector.addSelected(w))
     }
   });
 } else {
@@ -521,15 +404,13 @@ if (params.getAll("category").length) {
   // Backwards Compat
   let compatCategories = params.getAll("category").map((c) => {
     let result = c.replaceAll("Horizontal", "Slash")
-    if(result.includes("Speed"))
-       result = result.replaceAll(" (Light)", "")
     return result
   });
 
-  compatCategories.forEach(c => setCategory(c as MetricLabel, true))
+  compatCategories.forEach(c => categorySelector.addSelected(c as MetricLabel))
 
   // Setting them failed, so just default
-  if (!selectedCategories.size)
+  if (!categorySelector.display.size)
     reset();
 } else {
   reset();
@@ -546,45 +427,6 @@ Object.values(Target).forEach((t) => {
   radio.checked = selectedTarget === t;
 });
 
-// - Take into account weapons that are already selected
-// - Take into account any filters that are applied
-// - Clear out existing buttons and write new ones depending on the results
-// - If no results, have special entry
-function updateSearchResults() {
-  // Start assuming no search results
-  searchResults.clear();
-
-  // Take search text into account
-  const searchText = weaponSearch.value?.toLowerCase();
-  if (searchText) {
-    ALL_WEAPONS.forEach((w) => {
-      if (w.name.toLowerCase().includes(searchText)) {
-        searchResults.add(w);
-      }
-    });
-  } else {
-    ALL_WEAPONS.forEach((w) => searchResults.add(w));
-  }
-
-  // Remove any we already have selected
-  selectedWeapons.forEach((w) => searchResults.delete(w));
-
-  // Clear existing buttons
-  while (weaponSearchResults.firstChild) {
-    weaponSearchResults.removeChild(weaponSearchResults.firstChild);
-  }
-
-  // Add a button for each search result
-  searchResults.forEach((w) => {
-    const button = document.createElement("button");
-    button.className = "searchResult";
-    button.innerText = w.name;
-    button.onmousedown = (ev) => ev.preventDefault(); // Stop the blur from occurring that will hide the button itself
-    button.onclick = () => addWeapon(w);
-    weaponSearchResults.appendChild(button);
-  });
-}
-
 window.addEventListener('DOMContentLoaded', () => {
   const tabs = document.querySelectorAll('#graph-tabs [role="tab"]');
   // const tabList = document.querySelector('#graph-tabs[role="tablist"]');
@@ -598,4 +440,6 @@ window.addEventListener('DOMContentLoaded', () => {
 });
 
 
-updateSearchResults();
+weaponSelector.initialize();
+categorySelector.initialize();
+redraw();
