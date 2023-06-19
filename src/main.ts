@@ -278,17 +278,17 @@ document.getElementById("share")!.onclick = () => {
   alert("Copied to clipboard!");
 };
 
-new InputHandler(
+let numTargetsInput = new InputHandler(
   "#numberOfTargets",
   "numberOfTargetsOutput",
-  (rawInput: any) => rawInput,
-  (rawInput: any) => {
-    numberOfTargets = Number.parseInt(rawInput);
+  (input: number) => input.toString(),
+  (input: number) => {
+    numberOfTargets = input;
     redraw();
   }
 );
 
-new InputHandler(
+let horsebackDamageInput = new InputHandler(
   "#horsebackDamageMultiplier",
   "horsebackDamageMultiplierOutput",
   (input: number) => input + "%",
@@ -300,6 +300,11 @@ new InputHandler(
 
 // Use query string to init values if possible
 const params = new URLSearchParams(location.search);
+
+if (params.get("numberOfTargets")) {
+  numberOfTargets = Number.parseInt(params.get("numberOfTargets")!);
+  numTargetsInput.set(numberOfTargets);
+}
 
 if(params.get("tab")) {
   selectedTab = params.get("tab")!;
@@ -315,10 +320,6 @@ if (params.get("target")) {
   selectedTarget = params.get("target") as Target;
 }
 
-if (params.get("numberOfTargets")) {
-  numberOfTargets = Number.parseInt(params.get("numberOfTargets")!);
-  numberOfTargetsOutput.innerHTML = numberOfTargets.toString();
-}
 
 if (params.getAll("weapon").length) {
   params.getAll("weapon").forEach((name) => {

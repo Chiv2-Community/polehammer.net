@@ -9,6 +9,11 @@ export class InputHandler {
       this.outputElement = document.getElementById(this.outputSelector)!;
       this.inputElement.oninput = () => this.update();
     }
+
+    public set(value: number) {
+        this.inputElement.value = value.toString();
+        this.update();
+    }
   
     private update() {
       let rawInput = this.inputElement.value;
