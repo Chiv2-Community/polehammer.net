@@ -1,6 +1,6 @@
 import { Chart, ChartData, registerables } from "chart.js";
 import ALL_WEAPONS, { weaponByName, weaponById } from "./all_weapons";
-import { MetricLabel } from "./metrics";
+import { MetricLabel, MetricResult } from "./metrics";
 import {
   generateMetrics,
   unitGroupStats,
@@ -9,12 +9,13 @@ import {
 } from "./stats";
 import "./style.scss";
 import { Target } from "./target";
-import { borderDash, weaponColor, weaponDash, metricColor } from "./ui";
+import { borderDash, metricColor, weaponColor, weaponDash } from "./ui";
 import { shuffle } from "./util";
 import { Weapon } from "./weapon";
 import { SearchSelector } from "./components/search_selector";
 import CATEGORY_PRESETS from "./components/category_presets";
 import WEAPON_PRESETS from "./components/weapon_presets";
+import { Table } from "./components/table";
 
 Chart.defaults.font.family = "'Lato', sans-serif";
 Chart.register(...registerables); // the auto import stuff was making typescript angry.
@@ -56,6 +57,32 @@ const categorySelector = new SearchSelector<MetricLabel>(
   (_, label) => label,
   redraw
 )
+
+const table = new Table(
+  "#statTable", 
+  (header, cellData) => {
+    cellData = cellData as MetricResult;
+    let range = unitStats.get(header)!;
+    let cellContent: string = Math.round(cellData.rawResult).toString();
+    let cell = document.createElement("td");
+    cell.innerHTML = cellContent;
+    cell.className = "border";
+    cell.style.backgroundColor = metricColor(cellData.result, range);
+    return cell;
+  }
+)
+
+function weaponsToRows(weapons: Set<Weapon>): Array<Array<string | MetricResult>> {
+  return Array.from(weapons).map((w) => {
+    return [
+      w.name,
+      ...Array.from(categorySelector.selectedItems).map((c) => {
+        const metric = stats.get(w.name)!.get(c)!;
+        return metric.value
+      }),
+    ];
+  });
+}
 
 function toId(str: string) {
   return str
@@ -178,79 +205,9 @@ function redrawBars() {
   });
 }
 
-function redrawTable(dataset: WeaponStats, unitStats: UnitStats, ) {
-  let sortedCategories = Array.from(categorySelector.selectedItems);
-  sortedCategories.sort((a,b) => {
-    return Object.values(MetricLabel).indexOf(a) - Object.values(MetricLabel).indexOf(b);
-  });
-
-  const tableElem = document.getElementById("statTable")!;
-  tableElem.innerHTML = "";
-
-  const table = document.createElement("table");
-  table.className = "table";
-
-  const head = document.createElement("thead");
-  const headRow = document.createElement("tr");
-  
-  let headers = [""]; // Leave name column blank
-  sortedCategories.forEach((c) => {
-    headers.push(c);
-  });
-
-  let first = false;
-
-  headers.forEach(header => {
-    let headerCol = document.createElement("th");
-    let headerDiv = document.createElement("div");
-    let headerSpan = document.createElement("span");
-
-    if(!first)
-      headerCol.className = "rotated-text";
-
-    headerCol.scope = "col";
-
-    headerSpan.innerHTML = header;
-    headerSpan.className = "border-bottom";
-
-
-    headerDiv.appendChild(headerSpan);
-    headerCol.appendChild(headerDiv);
-    headRow.appendChild(headerCol);
-
-    first = false;
-  });
-  head.appendChild(headRow);
-  table.appendChild(head);
-
-  weaponSelector.selectedItems.forEach(weapon => {
-    let weaponData = dataset.get(weapon.name)!;
-
-    let row = document.createElement("tr");
-
-    let firstCell = document.createElement("th");
-    firstCell.innerHTML = weapon.name;
-    firstCell.scope = "row";
-    firstCell.className = "border w-25";
-    row.appendChild(firstCell);
-
-    sortedCategories.forEach(category => {
-      let metric = weaponData.get(category)!;
-
-      let cellContent: string = Math.round(metric.value.rawResult).toString();
-
-      let cell = document.createElement("td");
-
-      cell.innerHTML = cellContent;
-      cell.className = "border";
-      cell.style.backgroundColor = metricColor(metric.value.result, unitStats.get(category)!);
-
-      row.appendChild(cell);
-    });
-    table.appendChild(row);
-  });
-  
-  tableElem.appendChild(table);
+function redrawTable() {
+  table.setHeaders(Array.from(categorySelector.selectedItems));
+  table.draw(weaponsToRows(weaponSelector.selectedItems));
 }
 
 function redraw() {
@@ -258,37 +215,11 @@ function redraw() {
   stats = generateMetrics(ALL_WEAPONS, numberOfTargets, horsebackDamageMultiplier, selectedTarget)
   unitStats = unitGroupStats(stats);
 
-  let weaponArray = Array.from(weaponSelector.selectedItems)
-  const INDEX_POSTITIONS: Map<string, Array<string>> = new Map()
-  const indexCategories = Array.from(categorySelector.selectedItems).filter(c => c.startsWith("Index"))
-  indexCategories.forEach((c) => {
-    const sortedWeapons = 
-        weaponArray.sort((a,b) => {
-          const l = stats.get(b.name)!.get(c)!.value.result;
-          const r = stats.get(a.name)!.get(c)!.value.result;
-          return l - r;
-        });
-
-    INDEX_POSTITIONS.set(c, sortedWeapons.map(x => x.name))
-  })
-
-  indexCategories.forEach(c => {
-    weaponArray.forEach(w => {
-      const value = stats.get(w.name)!.get(c)!.value
-      const idx = INDEX_POSTITIONS.get(c)!.indexOf(w.name);
-      value.rawResult = idx + 1;
-      value.result = weaponSelector.selectedItems.size - idx;
-    });
-    unitStats.get(c)!.max = weaponSelector.selectedItems.size;
-    unitStats.get(c)!.min = 1;
-  });
-
-
   radar.data = chartData(stats, categorySelector.selectedItems, unitStats, false);
   radar.update();
 
   redrawBars();
-  redrawTable(stats, unitStats);
+  redrawTable();
 
   // Update content of location string so we can share
   const params = new URLSearchParams();

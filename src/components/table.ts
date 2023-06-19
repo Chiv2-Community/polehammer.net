@@ -1,35 +1,30 @@
 import { metricColor } from "../ui";
+import { Range } from "../types";
+import { MetricResult } from "../metrics";
 
-type RowContent = string | number | boolean
-type Range = {min: number, max: number}
+type RowContent = string | MetricResult
 
 export class Table {
     tableElem: HTMLTableElement;
 
     headers: string[];
-    rows: RowContent[][];
-    ranges: Map<string, Range>;
+    createCell: (header: string, content: RowContent) => HTMLTableCellElement;
 
-    constructor(tableElemId: string, ranges: Map<string, Range>, headers: string[], rows: RowContent[][]) {
-        this.tableElem = document.getElementById(tableElemId) as HTMLTableElement;
-        this.headers = headers;
-        this.rows = rows;
-        this.ranges = ranges;
+    constructor(tableElemId: string, createCell: (header: string, content: RowContent) => HTMLTableCellElement) {
+        this.headers = []
+        let maybeTableElem = document.querySelector<HTMLTableElement>(tableElemId);
+        if (!maybeTableElem) {
+            throw new Error("Invalid selector provided: " + tableElemId);
+        }
+        this.tableElem = maybeTableElem!;
+        this.createCell = createCell;
     }
 
     setHeaders(headers: string[]) {
-        this.headers = headers;
+        this.headers = [...headers];
     }
 
-    setRows(rows: RowContent[][]) {
-        this.rows = rows;
-    }
-
-    addRow(row: RowContent[]) {
-        this.rows.push(row);
-    }
-
-    redraw() {
+    draw(rows: RowContent[][]) {
         this.tableElem.innerHTML = "";
 
         const table = document.createElement("table");
@@ -40,7 +35,7 @@ export class Table {
         
         let first = false;
 
-        this.headers.forEach(header => {
+        ["", ...this.headers].forEach(header => {
             let headerCol = document.createElement("th");
             let headerDiv = document.createElement("div");
             let headerSpan = document.createElement("span");
@@ -62,32 +57,23 @@ export class Table {
         head.appendChild(headRow);
         table.appendChild(head);
 
-        this.rows.forEach(rowData => {
+        rows.forEach(rowData => {
             let row = document.createElement("tr");
 
             let firstCell = document.createElement("th");
-            firstCell.innerHTML = rowData[0].toString();
+            firstCell.innerHTML = rowData[0] as string;
             firstCell.scope = "row";
             firstCell.className = "border w-25";
             row.appendChild(firstCell);
                 
             var i = 1;
             this.headers.forEach(header => {
-                let range = this.ranges.get(header)!;
-                let data = rowData[i] as number;
-                let cellContent: string = Math.round(data).toString();
-
-                let cell = document.createElement("td");
-
-                cell.innerHTML = cellContent;
-                cell.className = "border";
-                cell.style.backgroundColor = metricColor(data, unitStats.get(category)!);
-
+                let cell = this.createCell(header, rowData[i]);
                 row.appendChild(cell);
                 i++;
             });
             table.appendChild(row);
         });
-        tableElem.appendChild(table);
+        this.tableElem.appendChild(table);
     }
 }
