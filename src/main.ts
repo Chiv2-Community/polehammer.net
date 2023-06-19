@@ -16,6 +16,7 @@ import { SearchSelector } from "./components/search_selector";
 import CATEGORY_PRESETS from "./components/category_presets";
 import WEAPON_PRESETS from "./components/weapon_presets";
 import { Table } from "./components/table";
+import { InputHandler } from "./components/input_slider";
 
 Chart.defaults.font.family = "'Lato', sans-serif";
 Chart.register(...registerables); // the auto import stuff was making typescript angry.
@@ -93,7 +94,7 @@ function toId(str: string) {
 }
 
 // Normalization will only occur for stat types that have a unit present in the provided normalizationStats.
-// This allows for selective normalization, like for bar charts where we wan't mostly raw data, except for
+// This allows for selective normalization, like for bar charts where we want mostly raw data, except for
 // "speed" (or other inverse metrics) which only make sense as a normalized value
 function chartData(
   dataset: WeaponStats,
@@ -211,7 +212,6 @@ function redrawTable() {
 }
 
 function redraw() {
-
   stats = generateMetrics(ALL_WEAPONS, numberOfTargets, horsebackDamageMultiplier, selectedTarget)
   unitStats = unitGroupStats(stats);
 
@@ -220,8 +220,11 @@ function redraw() {
 
   redrawBars();
   redrawTable();
+  updateUrlParams();
+}
 
-  // Update content of location string so we can share
+
+function updateUrlParams() {
   const params = new URLSearchParams();
   params.set("target", selectedTarget);
   params.set("numberOfTargets", numberOfTargets.toString());
@@ -230,7 +233,6 @@ function redraw() {
   [...categorySelector.selectedItems].map((c) => params.append("category", c));
   window.history.replaceState(null, "", `?${params.toString()}`);
 }
-
 
 // Choose 3 random weapons
 function random() {
@@ -276,24 +278,25 @@ document.getElementById("share")!.onclick = () => {
   alert("Copied to clipboard!");
 };
 
-let numberOfTargetsInput = document.querySelector<HTMLInputElement>("#numberOfTargets")!;
-let numberOfTargetsOutput = document.getElementById("numberOfTargetsOutput")!;
+new InputHandler(
+  "#numberOfTargets",
+  "numberOfTargetsOutput",
+  (rawInput: any) => rawInput,
+  (rawInput: any) => {
+    numberOfTargets = Number.parseInt(rawInput);
+    redraw();
+  }
+);
 
-numberOfTargetsInput.oninput = () => {
-  numberOfTargetsOutput.innerHTML = numberOfTargetsInput.value
-  numberOfTargets = Number.parseInt(numberOfTargetsInput.value)
-  redraw();
-}
-
-let horsebackDamageMultiplierInput = document.querySelector<HTMLInputElement>("#horsebackDamageMultiplier")!;
-let horsebackDamageMultiplierOutput = document.getElementById("horsebackDamageMultiplierOutput")!;
-
-horsebackDamageMultiplierInput.oninput = () => {
-  let rawInput = Number.parseInt(horsebackDamageMultiplierInput.value)
-  horsebackDamageMultiplierOutput.innerHTML = rawInput + "%";
-  horsebackDamageMultiplier = 1 + rawInput/100.0;
-  redraw();
-}
+new InputHandler(
+  "#horsebackDamageMultiplier",
+  "horsebackDamageMultiplierOutput",
+  (input: number) => input + "%",
+  (input: number) => {
+    horsebackDamageMultiplier = 1 + input/100.0;
+    redraw();
+  }
+);
 
 // Use query string to init values if possible
 const params = new URLSearchParams(location.search);

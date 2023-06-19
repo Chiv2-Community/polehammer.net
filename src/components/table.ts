@@ -1,5 +1,3 @@
-import { metricColor } from "../ui";
-import { Range } from "../types";
 import { MetricResult } from "../metrics";
 
 type RowContent = string | MetricResult
