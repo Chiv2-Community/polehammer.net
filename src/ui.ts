@@ -1,5 +1,16 @@
 import ALL_WEAPONS from "./all_weapons";
 import { Weapon } from "./weapon";
+import Cookies from "js-cookie";
+
+let colorBlindModeElem = document.querySelector<HTMLInputElement>("#colorBlindMode")!;
+var colorBlindMode = Cookies.get("colorBlindMode") == "true";
+colorBlindModeElem.checked = colorBlindMode;
+
+colorBlindModeElem.onchange = () => {
+  Cookies.set("colorBlindMode", colorBlindModeElem.checked.toString());
+  colorBlindMode = colorBlindModeElem.checked;
+}
+
 
 const SATURATION = "85%";
 const LIGHTNESS = "45%";
@@ -29,12 +40,14 @@ export function metricColor(value: number, range: {min: number; max: number}): s
   if(range.min == range.max)
     return `hsl(200, ${SATURATION}, ${LIGHTNESS}, ${0.5})`;
   
+  let hueOffset = colorBlindMode ? 41 : 0;
+  let hueRange = colorBlindMode ? 161 : 120;
 
   let size = range.max - range.min
   let relativeValue = value - range.min;
-  let hueOffset = relativeValue/size * 120
+  let hue = relativeValue/size * hueRange;
 
-  return `hsl(${hueOffset}deg, ${SATURATION}, ${LIGHTNESS}, ${0.5})`;
+  return `hsl(${hue + hueOffset}deg, ${SATURATION}, ${LIGHTNESS}, ${0.5})`;
 }
 
 export function weaponDash(weapon: Weapon) {
