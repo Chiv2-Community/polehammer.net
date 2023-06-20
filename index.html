@@ -173,6 +173,20 @@
               Data Collection
               </button>
             </li>
+            <li class="nav-item" role="presentation">
+              <button
+                class="nav-link"
+                id="settings-content-tab"
+                data-bs-toggle="tab"
+                data-bs-target="#settings-content"
+                type="button"
+                role="tab"
+                aria-controls="settings-content"
+                aria-selected="false"
+              >
+              Settings
+              </button>
+            </li>
           </ul>
           <div class="tab-content border rounded-bottom border-top-0" id="visualization-content">
             <div
@@ -225,6 +239,20 @@
                     until I was pushed out of range by the slight knockback you receive when landing a successful hit." 
                   </small>
                   <hr />
+                </div>
+              </div>
+            </div>
+            <div
+              class="tab-pane fade"
+              id="settings-content"
+              role="tabpanel"
+              aria-labelledby="settings-content-tab"
+            >
+              <div id="settings" class="row info">
+                <div class="category-group">Settings</div>
+                <div class="labelled-input" style="display: flex; align-items: center;">
+                  <input style="margin-left: 0.5em" type="checkbox" class="form-check-input" id="colorBlindMode" name="colorBlindMode" value=0 />
+                  <label for="colorBlindMode" style="padding: 0.2em">Color Blind Mode</label>
                 </div>
               </div>
             </div>
