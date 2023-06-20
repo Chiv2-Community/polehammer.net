@@ -8,7 +8,7 @@ import {
 //  Unit,
  // WeaponMetric,
 } from "./metrics";
-import { Target } from "./target";
+import { Target } from "./types";
 import { withBonusMultipliers, Weapon, /*extractNumber */} from "./weapon";
 
 export type WeaponStats = Map<string, LabelledMetrics>;

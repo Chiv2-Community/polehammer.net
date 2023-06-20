@@ -1,5 +1,7 @@
 name: Code Review
+
 on: [pull_request]
+
 jobs:
   tsc:
     name: Review Dog
