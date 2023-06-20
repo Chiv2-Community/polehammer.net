@@ -1,4 +1,4 @@
-import { Chart, ChartData, registerables } from "chart.js";
+import { Chart, registerables } from "chart.js";
 import ALL_WEAPONS, { weaponByName, weaponById } from "./all_weapons";
 import { MetricLabel, MetricResult } from "./metrics";
 import {
@@ -9,7 +9,7 @@ import {
 } from "./stats";
 import "./style.scss";
 import { Target } from "./target";
-import { borderDash, metricColor, weaponColor, weaponDash } from "./ui";
+import { metricColor, weaponColor, weaponDash } from "./ui";
 import { shuffle } from "./util";
 import { Weapon } from "./weapon";
 import { SearchSelector } from "./components/search_selector";
@@ -18,6 +18,7 @@ import WEAPON_PRESETS from "./components/weapon_presets";
 import { Table } from "./components/table";
 import { InputHandler } from "./components/input_slider";
 import { RadarChart } from "./components/chart";
+import { generateNormalizedChartData } from "./data";
 
 Chart.defaults.font.family = "'Lato', sans-serif";
 Chart.register(...registerables); // the auto import stuff was making typescript angry.
@@ -36,7 +37,7 @@ let weaponBorderStyle = (weapon: Weapon, label: HTMLLabelElement) => {
   return label
 }
 
-const weaponSelector = new SearchSelector<Weapon>(
+export const weaponSelector = new SearchSelector<Weapon>(
   new Set(ALL_WEAPONS), 
   "#weaponSearch", 
   "#weaponSearchResults", 
@@ -86,55 +87,6 @@ function weaponsToRows(weapons: Set<Weapon>): Array<Array<string | MetricResult>
   });
 }
 
-function toId(str: string) {
-  return str
-    .replaceAll(" ", "_")
-    .replaceAll("/", "-")
-    .replaceAll("(", ":")
-    .replaceAll(")", ":");
-}
-
-// Normalization will only occur for stat types that have a unit present in the provided normalizationStats.
-// This allows for selective normalization, like for bar charts where we want mostly raw data, except for
-// "speed" (or other inverse metrics) which only make sense as a normalized value
-function chartData(
-  dataset: WeaponStats,
-  categories: Set<MetricLabel>,
-  normalizationStats: UnitStats,
-  setBgColor: boolean
-): ChartData {
-
-  let sortedCategories = Array.from(categories);
-  sortedCategories.sort((a,b) => {
-    return Object.values(MetricLabel).indexOf(a) - Object.values(MetricLabel).indexOf(b);
-  });
-
-  return {
-    labels: [...sortedCategories],
-    datasets: [...weaponSelector.selectedItems].map((w) => {
-      return {
-        label: w.name,
-        data: [...sortedCategories].map((c) => {
-          const metric = dataset.get(w.name)!.get(c)!;
-          let value = metric.value.result;
-          const maybeUnitStats = normalizationStats.get(c);
-          if (maybeUnitStats) {
-            const unitMin = maybeUnitStats!.min;
-            const unitMax = maybeUnitStats!.max;
-
-            // Normalize
-            return (value - unitMin) / (unitMax - unitMin);
-          }
-          return value;
-        }),
-        backgroundColor: setBgColor ? weaponColor(w, 0.6) : weaponColor(w, 0.1),
-        borderColor: weaponColor(w, 0.6),
-        borderDash: borderDash(w),
-      };
-    }),
-  };
-}
-
 const radar: RadarChart = new RadarChart("#radar");
 
 const bars = new Array<Chart>();
@@ -157,7 +109,7 @@ function createBarChart(element: HTMLCanvasElement, category: MetricLabel) {
       responsive: true,
       maintainAspectRatio: false,
     },
-    data: chartData(stats, new Set([category]), barUnitStats, true),
+    data: generateNormalizedChartData(stats, new Set([category]), barUnitStats, true),
   });
 }
 
@@ -190,7 +142,7 @@ function redraw() {
   stats = generateMetrics(ALL_WEAPONS, numberOfTargets, horsebackDamageMultiplier, selectedTarget)
   unitStats = unitGroupStats(stats);
 
-  radar.render(chartData(stats, categorySelector.selectedItems, unitStats, false));
+  radar.render(generateNormalizedChartData(stats, categorySelector.selectedItems, unitStats, false));
 
   redrawBars();
   redrawTable();
@@ -209,7 +161,7 @@ function updateUrlParams() {
 }
 
 // Choose 3 random weapons
-function random() {
+function randomWeapons() {
   weaponSelector.clearSelection();
   const random = shuffle(ALL_WEAPONS.filter(x => x.name != "Polehammer"));
   weaponSelector.addSelected(weaponById("ph")!)
@@ -218,7 +170,7 @@ function random() {
 
 // Reset to default category selections
 // Clear all weapon selections
-function reset() {
+function resetCategories() {
   categorySelector.clearSelection();
   [
     MetricLabel.RANGE_AVERAGE, 
@@ -240,7 +192,7 @@ function reset() {
 
 // Link up to buttons
 document.getElementById("clearWeapons")!.onclick = () => weaponSelector.clearSelection();
-document.getElementById("randomWeapons")!.onclick = random;
+document.getElementById("randomWeapons")!.onclick = randomWeapons;
 document.getElementById("allWeapons")!.onclick = () => weaponSelector.selectAll();
 
 document.getElementById("clearCategories")!.onclick = () => categorySelector.clearSelection();
@@ -304,7 +256,7 @@ if (params.getAll("weapon").length) {
     }
   });
 } else {
-  random();
+  randomWeapons();
 }
 
 if (params.getAll("category").length) {
@@ -318,15 +270,15 @@ if (params.getAll("category").length) {
 
   // Setting them failed, so just default
   if (!categorySelector.selectedItems.size)
-    reset();
+    resetCategories();
 } else {
-  reset();
+  resetCategories();
 }
 
 
 // Link up target radio buttons
 Object.values(Target).forEach((t) => {
-  const radio = document.getElementById(toId(t)) as HTMLInputElement;
+  const radio = document.getElementById(t) as HTMLInputElement;
   radio.onclick = () => {
     selectedTarget = t;
     redraw();
