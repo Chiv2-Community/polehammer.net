@@ -45,6 +45,8 @@ export class Table {
             let headerDiv = document.createElement("div");
             let headerSpan = document.createElement("span");
 
+            var headerContent = header;
+
             if(!first) {
                 headerCol.className = "rotated-text";
                 headerDiv.onclick = () => {
@@ -55,11 +57,19 @@ export class Table {
                     }
                     this.draw(rows);
                 }
+
+                if(this.sortMode && this.sortMode.header == header) {
+                    if(this.sortMode.ascending) {
+                        headerContent = "^ " + headerContent
+                    } else {
+                        headerContent = "v " + headerContent
+                    }
+                }
             }
 
             headerCol.scope = "col";
 
-            headerSpan.innerHTML = header;
+            headerSpan.innerHTML = headerContent;
             headerSpan.className = "border-bottom";
 
 
