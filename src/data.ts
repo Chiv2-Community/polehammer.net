@@ -6,6 +6,7 @@ import {
 } from "./stats";
 import { borderDash, weaponColor } from "./ui";
 import { weaponSelector } from "./main";
+import { Weapon } from "./weapon";
 
 // Normalization will only occur for stat types that have a unit present in the provided normalizationStats.
 // This allows for selective normalization, like for bar charts where we want mostly raw data, except for
@@ -46,4 +47,16 @@ export function generateNormalizedChartData(
       };
     }),
   };
+}
+
+export function weaponsToRows(weapons: Set<Weapon>, categories: Set<MetricLabel>, stats: WeaponStats): Array<Array<string | MetricResult>> {
+  return Array.from(weapons).map((w) => {
+    return [
+      w.name,
+      ...Array.from(categories).map((c) => {
+        const metric = stats.get(w.name)!.get(c)!;
+        return metric.value;
+      }),
+    ];
+  });
 }

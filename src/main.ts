@@ -18,7 +18,7 @@ import WEAPON_PRESETS from "./components/weapon_presets";
 import { Table } from "./components/table";
 import { InputHandler } from "./components/input_slider";
 import { RadarChart } from "./components/chart";
-import { generateNormalizedChartData } from "./data";
+import { generateNormalizedChartData, weaponsToRows } from "./data";
 
 Chart.defaults.font.family = "'Lato', sans-serif";
 Chart.register(...registerables); // the auto import stuff was making typescript angry.
@@ -75,20 +75,7 @@ const table = new Table(
   }
 )
 
-function weaponsToRows(weapons: Set<Weapon>): Array<Array<string | MetricResult>> {
-  return Array.from(weapons).map((w) => {
-    return [
-      w.name,
-      ...Array.from(categorySelector.selectedItems).map((c) => {
-        const metric = stats.get(w.name)!.get(c)!;
-        return metric.value
-      }),
-    ];
-  });
-}
-
 const radar: RadarChart = new RadarChart("#radar");
-
 const bars = new Array<Chart>();
 
 function createBarChart(element: HTMLCanvasElement, category: MetricLabel) {
@@ -135,7 +122,7 @@ function redrawBars() {
 
 function redrawTable() {
   table.setHeaders(Array.from(categorySelector.selectedItems));
-  table.draw(weaponsToRows(weaponSelector.selectedItems));
+  table.draw(weaponsToRows(weaponSelector.selectedItems, categorySelector.selectedItems, stats));
 }
 
 function redraw() {
