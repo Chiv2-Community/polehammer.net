@@ -1,4 +1,4 @@
-import { Target } from "./target";
+import { Target } from "./types";
 import { MetricLabel } from "./metrics";
 
 export type Attacks = {
