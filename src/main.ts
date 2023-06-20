@@ -17,6 +17,7 @@ import CATEGORY_PRESETS from "./components/category_presets";
 import WEAPON_PRESETS from "./components/weapon_presets";
 import { Table } from "./components/table";
 import { InputHandler } from "./components/input_slider";
+import { RadarChart } from "./components/chart";
 
 Chart.defaults.font.family = "'Lato', sans-serif";
 Chart.register(...registerables); // the auto import stuff was making typescript angry.
@@ -102,6 +103,7 @@ function chartData(
   normalizationStats: UnitStats,
   setBgColor: boolean
 ): ChartData {
+
   let sortedCategories = Array.from(categories);
   sortedCategories.sort((a,b) => {
     return Object.values(MetricLabel).indexOf(a) - Object.values(MetricLabel).indexOf(b);
@@ -133,34 +135,7 @@ function chartData(
   };
 }
 
-const radar: Chart = new Chart(
-  document.getElementById("radar") as HTMLCanvasElement,
-  {
-    type: "radar",
-    options: {
-      animation: false,
-      plugins: {
-        legend: {
-          display: false,
-          position: "bottom",
-        },
-      },
-      responsive: true,
-      maintainAspectRatio: true,
-      scales: {
-        radial: {
-          min: 0,
-          max: 1,
-          ticks: {
-            display: false,
-            maxTicksLimit: 2,
-          },
-        },
-      },
-    },
-    data: chartData(stats, categorySelector.selectedItems, unitStats, false),
-  }
-);
+const radar: RadarChart = new RadarChart("#radar");
 
 const bars = new Array<Chart>();
 
@@ -215,8 +190,7 @@ function redraw() {
   stats = generateMetrics(ALL_WEAPONS, numberOfTargets, horsebackDamageMultiplier, selectedTarget)
   unitStats = unitGroupStats(stats);
 
-  radar.data = chartData(stats, categorySelector.selectedItems, unitStats, false);
-  radar.update();
+  radar.render(chartData(stats, categorySelector.selectedItems, unitStats, false));
 
   redrawBars();
   redrawTable();
@@ -278,9 +252,15 @@ document.getElementById("share")!.onclick = () => {
   alert("Copied to clipboard!");
 };
 
-let numTargetsInput = new InputHandler(
+// Use query string to init values if possible
+const params = new URLSearchParams(location.search);
+
+let initialNumTargets = params.get("numberOfTargets") ? Number.parseInt(params.get("numberOfTargets")!) : 1;
+
+new InputHandler(
   "#numberOfTargets",
   "numberOfTargetsOutput",
+  initialNumTargets,
   (input: number) => input.toString(),
   (input: number) => {
     numberOfTargets = input;
@@ -288,9 +268,10 @@ let numTargetsInput = new InputHandler(
   }
 );
 
-let horsebackDamageInput = new InputHandler(
+new InputHandler(
   "#horsebackDamageMultiplier",
   "horsebackDamageMultiplierOutput",
+  0,
   (input: number) => input + "%",
   (input: number) => {
     horsebackDamageMultiplier = 1 + input/100.0;
@@ -298,13 +279,6 @@ let horsebackDamageInput = new InputHandler(
   }
 );
 
-// Use query string to init values if possible
-const params = new URLSearchParams(location.search);
-
-if (params.get("numberOfTargets")) {
-  numberOfTargets = Number.parseInt(params.get("numberOfTargets")!);
-  numTargetsInput.set(numberOfTargets);
-}
 
 if(params.get("tab")) {
   selectedTab = params.get("tab")!;
