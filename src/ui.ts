@@ -39,15 +39,38 @@ export function metricColor(value: number, range: {min: number; max: number}): s
 
   if(range.min == range.max)
     return `hsl(200, ${SATURATION}, ${LIGHTNESS}, ${0.5})`;
-  
-  let hueOffset = colorBlindMode ? 41 : 0;
-  let hueRange = colorBlindMode ? 161 : 120;
 
-  let size = range.max - range.min
-  let relativeValue = value - range.min;
-  let hue = relativeValue/size * hueRange;
+  if(colorBlindMode) {
+    var relativeDistance = (value - range.min) / (range.max - range.min);
 
-  return `hsl(${hue + hueOffset}deg, ${SATURATION}, ${LIGHTNESS}, ${0.5})`;
+    if(relativeDistance > 0.5) {
+      const weight = (relativeDistance - 0.5) * 2;
+      const rgb = mixColors([86, 180, 233], [255, 255, 255], weight)
+      return `rgb(${rgb[0]}, ${rgb[1]}, ${rgb[2]})`
+    } else {
+      const weight = (0.5 - relativeDistance) * 2;
+      const rgb = mixColors([230, 159, 0], [255, 255, 255], weight)
+      return `rgb(${rgb[0]}, ${rgb[1]}, ${rgb[2]})`
+    }
+  } else {
+    let hueOffset = 0;
+    let hueRange = 120;
+
+    let size = range.max - range.min
+    let relativeValue = value - range.min;
+    let hue = relativeValue/size * hueRange;
+
+    return `hsl(${hue + hueOffset}deg, ${SATURATION}, ${LIGHTNESS}, ${0.5})`;
+  }
+}
+
+function mixColors(color1: number[], color2: number[], weight: number): number[] {
+  var w1 = weight;
+  var w2 = 1 - w1;
+  var rgb = [Math.round(color1[0] * w1 + color2[0] * w2),
+      Math.round(color1[1] * w1 + color2[1] * w2),
+      Math.round(color1[2] * w1 + color2[2] * w2)];
+  return rgb;
 }
 
 export function weaponDash(weapon: Weapon) {
