@@ -98,7 +98,7 @@ export class SearchSelector<A> {
     this.searchResults.clear(); 
     const search = this.searchBoxElem.value.toLowerCase();
 
-    var candidates = Array.from(this.allValues);
+    var candidates = [...this.allValues];
     if(search) {
       // filter candidates if search text is present
       candidates = 
@@ -177,7 +177,7 @@ export class SearchSelector<A> {
   }
   
   selectAll(redraw: boolean = true): void {
-    Array.from(this.allValues)
+    [...this.allValues]
       .filter(a => !this.selectedItems.has(a))
       .forEach(a => this.addSelected(a, false));
 

@@ -1,11 +1,10 @@
 import { ChartData } from "chart.js";
-import { MetricLabel } from "./metrics";
+import { MetricLabel, MetricResult } from "./metrics";
 import {
   UnitStats,
   WeaponStats
 } from "./stats";
 import { borderDash, weaponColor } from "./ui";
-import { weaponSelector } from "./main";
 import { Weapon } from "./weapon";
 
 // Normalization will only occur for stat types that have a unit present in the provided normalizationStats.
@@ -13,22 +12,23 @@ import { Weapon } from "./weapon";
 // "speed" (or other inverse metrics) which only make sense as a normalized value
 export function generateNormalizedChartData(
   dataset: WeaponStats,
+  weapons: Set<Weapon>,
   categories: Set<MetricLabel>,
   normalizationStats: UnitStats,
   setBgColor: boolean
 ): ChartData {
 
-  let sortedCategories = Array.from(categories);
+  let sortedCategories = [...categories];
   sortedCategories.sort((a, b) => {
     return Object.values(MetricLabel).indexOf(a) - Object.values(MetricLabel).indexOf(b);
   });
 
   return {
     labels: [...sortedCategories],
-    datasets: [...weaponSelector.selectedItems].map((w) => {
+    datasets: [...weapons].map(w => {
       return {
         label: w.name,
-        data: [...sortedCategories].map((c) => {
+        data: [...sortedCategories].map(c => {
           const metric = dataset.get(w.name)!.get(c)!;
           let value = metric.value.result;
           const maybeUnitStats = normalizationStats.get(c);
@@ -50,10 +50,10 @@ export function generateNormalizedChartData(
 }
 
 export function weaponsToRows(weapons: Set<Weapon>, categories: Set<MetricLabel>, stats: WeaponStats): Array<Array<string | MetricResult>> {
-  return Array.from(weapons).map((w) => {
+  return [...weapons].map(w => {
     return [
       w.name,
-      ...Array.from(categories).map((c) => {
+      ...[...categories].map(c => {
         const metric = stats.get(w.name)!.get(c)!;
         return metric.value;
       }),

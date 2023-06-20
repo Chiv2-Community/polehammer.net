@@ -96,7 +96,13 @@ function createBarChart(element: HTMLCanvasElement, category: MetricLabel) {
       responsive: true,
       maintainAspectRatio: false,
     },
-    data: generateNormalizedChartData(stats, new Set([category]), barUnitStats, true),
+    data: generateNormalizedChartData(
+      stats, 
+      weaponSelector.selectedItems, 
+      new Set([category]), 
+      barUnitStats, 
+      true
+    ),
   });
 }
 
@@ -121,7 +127,7 @@ function redrawBars() {
 }
 
 function redrawTable() {
-  table.setHeaders(Array.from(categorySelector.selectedItems));
+  table.setHeaders([...categorySelector.selectedItems]);
   table.draw(weaponsToRows(weaponSelector.selectedItems, categorySelector.selectedItems, stats));
 }
 
@@ -129,7 +135,7 @@ function redraw() {
   stats = generateMetrics(ALL_WEAPONS, numberOfTargets, horsebackDamageMultiplier, selectedTarget)
   unitStats = unitGroupStats(stats);
 
-  radar.render(generateNormalizedChartData(stats, categorySelector.selectedItems, unitStats, false));
+  radar.render(generateNormalizedChartData(stats, weaponSelector.selectedItems, categorySelector.selectedItems, unitStats, false));
 
   redrawBars();
   redrawTable();
