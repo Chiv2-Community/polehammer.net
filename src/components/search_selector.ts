@@ -1,3 +1,5 @@
+import { deleteChildren } from "../ui"
+
 export class SearchSelector<A> {
   searchBoxElem: HTMLInputElement
 
@@ -112,9 +114,7 @@ export class SearchSelector<A> {
     this.selectedItems.forEach((a) => this.searchResults.delete(a))
 
     // Clear existing buttons
-    while (this.searchResultsElem.firstChild) {
-      this.searchResultsElem.removeChild(this.searchResultsElem.firstChild);
-    }
+    deleteChildren(this.searchResultsElem);
 
     // Add a button for each search result
     this.searchResults.forEach((a) =>  {

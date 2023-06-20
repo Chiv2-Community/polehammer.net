@@ -8,8 +8,8 @@ import {
   WeaponStats,
 } from "./stats";
 import "./style.scss";
-import { Target } from "./target";
-import { metricColor, weaponColor, weaponDash } from "./ui";
+import { Target } from "./types";
+import { deleteChildren, metricColor, weaponColor, weaponDash } from "./ui";
 import { shuffle } from "./util";
 import { Weapon } from "./weapon";
 import { SearchSelector } from "./components/search_selector";
@@ -17,7 +17,7 @@ import CATEGORY_PRESETS from "./components/category_presets";
 import WEAPON_PRESETS from "./components/weapon_presets";
 import { Table } from "./components/table";
 import { InputHandler } from "./components/input_slider";
-import { RadarChart } from "./components/chart";
+import { BarChart, RadarChart } from "./components/chart";
 import { generateNormalizedChartData, weaponsToRows } from "./data";
 
 Chart.defaults.font.family = "'Lato', sans-serif";
@@ -76,42 +76,32 @@ const table = new Table(
 )
 
 const radar: RadarChart = new RadarChart("#radar");
-const bars = new Array<Chart>();
+const bars = new Array<BarChart>();
 
-function createBarChart(element: HTMLCanvasElement, category: MetricLabel) {
+function createBarChart(element: HTMLCanvasElement, category: MetricLabel): BarChart {
   const barUnitStats: UnitStats = new Map();
   if(category.includes("Speed")) {
     barUnitStats.set(category, unitStats.get(category)!);
   }
 
-  return new Chart(element as HTMLCanvasElement, {
-    type: "bar",
-    options: {
-      animation: false,
-      plugins: {
-        legend: {
-          display: false,
-        },
-      },
-      responsive: true,
-      maintainAspectRatio: false,
-    },
-    data: generateNormalizedChartData(
+  let chart = new BarChart(element)
+  chart.render(
+    generateNormalizedChartData(
       stats, 
       weaponSelector.selectedItems, 
       new Set([category]), 
       barUnitStats, 
       true
-    ),
-  });
+    )
+  )
+  return chart;
 }
 
 function redrawBars() {
   const barsElem = document.getElementById("bars")!;
-  bars.forEach((b) => b.destroy());
-  while (barsElem.firstChild) {
-    barsElem.removeChild(barsElem.firstChild);
-  }
+  bars.forEach(b => b.destroy());
+
+  deleteChildren(barsElem)
 
   bars.splice(0, bars.length);
 

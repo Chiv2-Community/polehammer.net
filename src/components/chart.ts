@@ -6,12 +6,17 @@ export abstract class BaseChart {
     
     abstract makeChartConfig(data: ChartData): ChartConfiguration
 
-    constructor(elementId: string) {
-        let maybeChartElement = document.querySelector<HTMLCanvasElement>(elementId);
-        if (!maybeChartElement) {
-            throw new Error("Invalid selector provided: " + elementId);
+    constructor(elementOrSelector: string | HTMLCanvasElement) {
+        if (typeof elementOrSelector === "string") {
+            let maybeChartElement = document.querySelector<HTMLCanvasElement>(elementOrSelector);
+            if (!maybeChartElement) {
+                throw new Error("Invalid selector provided: " + elementOrSelector);
+            }
+            this.chartElement = maybeChartElement!;
+        } else {
+            this.chartElement = elementOrSelector;
         }
-        this.chartElement = maybeChartElement!;
+
         this.chart = undefined;
     }
 
@@ -26,6 +31,13 @@ export abstract class BaseChart {
                 this.makeChartConfig(data)
             )
             this.chart.update();
+        }
+    }
+
+    destroy(): void {
+        if(this.chart) {
+            this.chart.destroy();
+            this.chart = undefined;
         }
     }
 }
@@ -59,38 +71,23 @@ export class RadarChart extends BaseChart {
         return {...this.defaultOptions, data: data} as ChartConfiguration
     }
 }
-  /*
-    private createBarChart(element: HTMLCanvasElement, category: MetricLabel): Chart {
-      const barUnitStats: UnitStats = new Map();
-      if(category.includes("Speed")) {
-        barUnitStats.set(category, this.unitStats.get(category)!);
-      }
-  
-      return new Chart(element as HTMLCanvasElement, {
+
+export class BarChart extends BaseChart {
+    defaultOptions = {
         type: "bar",
-        // ... other options ...
-        data: this.chartData(this.stats, new Set([category]), barUnitStats, true),
-      });
+        options: {
+            animation: false,
+            plugins: {
+                legend: {
+                display: false,
+                },
+            },
+            responsive: true,
+            maintainAspectRatio: false,
+        },
     }
-  
-    redrawBars(elementId: string): void {
-      const barsElem = document.getElementById(elementId)!;
-      this.bars.forEach((b) => b.destroy());
-      while (barsElem.firstChild) {
-        barsElem.removeChild(barsElem.firstChild);
-      }
-  
-      this.bars.splice(0, this.bars.length);
-  
-      this.categorySelector.selectedItems.forEach((c) => {
-        const outer = document.createElement("div");
-        outer.className = "col-md-4";
-        outer.id = c + "-bar";
-        const elem = document.createElement("canvas");
-        outer.appendChild(elem);
-        barsElem.appendChild(outer);
-        this.bars.push(this.createBarChart(elem, c));
-      });
+
+    makeChartConfig(data: ChartData<keyof ChartTypeRegistry, (number | ScatterDataPoint | BubbleDataPoint | null)[], unknown>): ChartConfiguration<keyof ChartTypeRegistry, (number | ScatterDataPoint | BubbleDataPoint | null)[], unknown> {
+        return {...this.defaultOptions, data: data} as ChartConfiguration
     }
-    */
-  
+}
