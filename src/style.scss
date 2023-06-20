@@ -135,7 +135,9 @@ table {
 th.rotated-text{
   white-space: nowrap;
   position: relative;
+  cursor: pointer;
 }
+
 th.rotated-text > div {
   position: absolute;
   bottom: 0;
