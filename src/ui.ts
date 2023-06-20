@@ -58,3 +58,9 @@ export function borderDash(weapon: Weapon) {
       return [2, 2];
   }
 }
+
+export function deleteChildren(element: HTMLElement): void {
+  while (element.firstChild) {
+    element.removeChild(element.firstChild);
+  }
+}
