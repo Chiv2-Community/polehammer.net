@@ -6,6 +6,8 @@ export class Table {
     tableElem: HTMLTableElement;
 
     headers: string[];
+    sortMode: { header: string, ascending: boolean} | undefined
+
     createCell: (header: string, content: RowContent) => HTMLTableCellElement;
 
     constructor(tableElemId: string, createCell: (header: string, content: RowContent) => HTMLTableCellElement) {
@@ -16,10 +18,15 @@ export class Table {
         }
         this.tableElem = maybeTableElem!;
         this.createCell = createCell;
+        this.sortMode = undefined;
     }
 
     setHeaders(headers: string[]) {
         this.headers = [...headers];
+    }
+
+    sort(header: string, ascending: boolean) {
+        this.sortMode = { header, ascending };
     }
 
     draw(rows: RowContent[][]) {
@@ -38,7 +45,17 @@ export class Table {
             let headerDiv = document.createElement("div");
             let headerSpan = document.createElement("span");
 
-            if(!first) headerCol.className = "rotated-text";
+            if(!first) {
+                headerCol.className = "rotated-text";
+                headerDiv.onclick = () => {
+                    if(this.sortMode && this.sortMode.header === header) {
+                        this.sort(header, !this.sortMode.ascending);
+                    } else {
+                        this.sort(header, true);
+                    }
+                    this.draw(rows);
+                }
+            }
 
             headerCol.scope = "col";
 
@@ -54,6 +71,23 @@ export class Table {
         });
         head.appendChild(headRow);
         table.appendChild(head);
+        
+        if (this.sortMode) {
+            let sortHeader = this.sortMode.header;
+            let sortAscending = this.sortMode.ascending;
+            let headerIndex = this.headers.indexOf(sortHeader) + 1;
+            rows.sort((a, b) => {
+                let aVal = a[headerIndex];
+                let bVal = b[headerIndex];
+                if (typeof aVal === "string" && typeof bVal === "string") {
+                    return aVal.localeCompare(bVal) * (sortAscending ? 1 : -1);
+                } else {
+                    aVal = aVal as MetricResult;
+                    bVal = bVal as MetricResult;
+                    return (aVal.rawResult - bVal.rawResult) * (sortAscending ? 1 : -1);
+                }
+            });
+        }
 
         rows.forEach(rowData => {
             let row = document.createElement("tr");
