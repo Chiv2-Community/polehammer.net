@@ -1,10 +1,12 @@
+import { deleteChildren } from "../ui"
+
 export class SearchSelector<A> {
   searchBoxElem: HTMLInputElement
 
   searchResults: Set<A>
   searchResultsElem: HTMLFieldSetElement
 
-  display: Set<A>
+  selectedItems: Set<A>
   displayElem: HTMLFieldSetElement
 
   convertToString: (a: A) => string
@@ -28,7 +30,7 @@ export class SearchSelector<A> {
     editLabel: (a: A, label: HTMLLabelElement) => HTMLLabelElement, 
     redraw: () => void
   ) {
-    this.display = new Set()
+    this.selectedItems = new Set()
     this.searchResults = new Set()
     this.convertToString = convertToString
     this.editLabel = editLabel  
@@ -98,7 +100,7 @@ export class SearchSelector<A> {
     this.searchResults.clear(); 
     const search = this.searchBoxElem.value.toLowerCase();
 
-    var candidates = Array.from(this.allValues);
+    var candidates = [...this.allValues];
     if(search) {
       // filter candidates if search text is present
       candidates = 
@@ -109,12 +111,10 @@ export class SearchSelector<A> {
     candidates.forEach((a) => this.searchResults.add(a))
     
     // remove anything currently displayed
-    this.display.forEach((a) => this.searchResults.delete(a))
+    this.selectedItems.forEach((a) => this.searchResults.delete(a))
 
     // Clear existing buttons
-    while (this.searchResultsElem.firstChild) {
-      this.searchResultsElem.removeChild(this.searchResultsElem.firstChild);
-    }
+    deleteChildren(this.searchResultsElem);
 
     // Add a button for each search result
     this.searchResults.forEach((a) =>  {
@@ -129,14 +129,14 @@ export class SearchSelector<A> {
 
   addSelected(a: A, redraw: boolean = true): void {
     this.addDiv(a);
-    this.display.add(a);
+    this.selectedItems.add(a);
     if(redraw) this.redraw();
     this.updateSearchResults();
   }
   
   removeSelected(a: A, redraw: boolean = true): void {
     this.displayElem.removeChild(document.getElementById(this.convertToString(a))!);
-    this.display.delete(a);
+    this.selectedItems.delete(a);
     if(redraw) this.redraw();
     this.updateSearchResults();
   };
@@ -171,14 +171,14 @@ export class SearchSelector<A> {
   }
 
   clearSelection(redraw: boolean = true): void {
-    this.display.forEach((a) => this.removeSelected(a, false));
+    this.selectedItems.forEach((a) => this.removeSelected(a, false));
     if(redraw) this.redraw();
     this.updateSearchResults()
   }
   
   selectAll(redraw: boolean = true): void {
-    Array.from(this.allValues)
-      .filter(a => !this.display.has(a))
+    [...this.allValues]
+      .filter(a => !this.selectedItems.has(a))
       .forEach(a => this.addSelected(a, false));
 
     if(redraw) this.redraw();
