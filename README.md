@@ -18,6 +18,7 @@ This is the deployed branch.
 * Nihilianth - Provided the most recent patch's weapon stats data file, collaboration with Chiv II DeepStats 
 * Platyplysm - Range Stats, developer of the "Jeoffrey" range unit measurement system
 * PolehammerSupremacy - Professor of Polehammer 
+* Ziggylata - Deciphering strange sprint attack data
 
 # Legacy Credits (before July 2023)
 * Aardvarkk - Website Design, Application Design, Radar Graphs
