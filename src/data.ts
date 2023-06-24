@@ -5,7 +5,7 @@ import {
   WeaponStats
 } from "./stats";
 import { borderDash, weaponColor } from "./ui";
-import { Weapon } from "./weapon";
+import { Weapon } from "chivalry2-weapons";
 
 // Normalization will only occur for stat types that have a unit present in the provided normalizationStats.
 // This allows for selective normalization, like for bar charts where we want mostly raw data, except for
