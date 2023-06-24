@@ -24,3 +24,5 @@ dist-ssr
 *.sw?
 
 weaponsmatchups.csv
+
+vite.config.ts.timestamp*

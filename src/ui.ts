@@ -1,5 +1,4 @@
-import ALL_WEAPONS from "./all_weapons";
-import { Weapon } from "./weapon";
+import { ALL_WEAPONS, Weapon } from "chivalry2-weapons";
 import Cookies from "js-cookie";
 
 let colorBlindModeElem = document.querySelector<HTMLInputElement>("#colorBlindMode")!;
