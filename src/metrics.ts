@@ -1,4 +1,4 @@
-import { extractNumber, Weapon } from "./weapon";
+import { extractNumber, Weapon } from "chivalry2-weapons";
 
 export enum MetricPath {
   HOLDING_AVERAGE_LIGHT  = "attacks.average.light.holding",

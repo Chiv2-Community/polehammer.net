@@ -9,7 +9,7 @@ import {
  // WeaponMetric,
 } from "./metrics";
 import { Target } from "./types";
-import { withBonusMultipliers, Weapon, /*extractNumber */} from "./weapon";
+import { Weapon, withBonusMultipliers } from "chivalry2-weapons";
 
 export type WeaponStats = Map<string, LabelledMetrics>;
 
