@@ -1,5 +1,4 @@
-import ALL_WEAPONS from '../all_weapons';
-import { Weapon, WeaponType } from '../weapon';
+import { ALL_WEAPONS, Weapon, WeaponType } from 'chivalry2-weapons';
 
 const WEAPON_PRESETS = new Map<WeaponType, Weapon[]>();
 

@@ -1,5 +1,5 @@
 import { Chart, registerables } from "chart.js";
-import ALL_WEAPONS, { weaponByName, weaponById } from "./all_weapons";
+import { ALL_WEAPONS, Weapon, weaponByName, weaponById } from "chivalry2-weapons";
 import { MetricLabel, MetricResult } from "./metrics";
 import {
   generateMetrics,
@@ -11,7 +11,6 @@ import "./style.scss";
 import { Target } from "./types";
 import { deleteChildren, metricColor, weaponColor, weaponDash } from "./ui";
 import { shuffle } from "./util";
-import { Weapon } from "./weapon";
 import { SearchSelector } from "./components/search_selector";
 import CATEGORY_PRESETS from "./components/category_presets";
 import WEAPON_PRESETS from "./components/weapon_presets";
