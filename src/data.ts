@@ -15,8 +15,7 @@ export function generateNormalizedChartData(
   weapons: Set<Weapon>,
   categories: Set<MetricLabel>,
   normalizationStats: UnitStats,
-  setBgColor: boolean,
-  useRawValues: boolean = false
+  setBgColor: boolean
 ): ChartData {
 
   let sortedCategories = [...categories];
@@ -31,10 +30,6 @@ export function generateNormalizedChartData(
         label: w.name,
         data: [...sortedCategories].map(c => {
           const metric = dataset.get(w.name)!.get(c)!;
-
-          if(useRawValues) 
-            return metric.value.rawResult;
-
           let value = metric.value.result;
           const maybeUnitStats = normalizationStats.get(c);
           if (maybeUnitStats) {

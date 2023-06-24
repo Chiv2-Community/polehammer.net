@@ -74,7 +74,7 @@ export class RadarChart extends BaseChart {
         }
     }
 
-    makeChartConfig(data: ChartData<keyof ChartTypeRegistry, (number | ScatterDataPoint | BubbleDataPoint | null)[], unknown>): ChartConfiguration<keyof ChartTypeRegistry, (number | ScatterDataPoint | BubbleDataPoint | null)[], unknown> {
+    makeChartConfig(data: ChartData<keyof ChartTypeRegistry, (number | ScatterDataPoint | BubbleDataPoint | null)[], unknown>): ChartConfiguration<keyof ChartTypeRegistry, (number | ScatterDataPoint | BubbleDataPoint | [number, number] | null)[], unknown> {
         return {...this.defaultOptions, data: data} as ChartConfiguration
     }
 }
@@ -94,7 +94,7 @@ export class BarChart extends BaseChart {
         },
     }
 
-    makeChartConfig(data: ChartData<keyof ChartTypeRegistry, (number | ScatterDataPoint | BubbleDataPoint | null)[], unknown>): ChartConfiguration<keyof ChartTypeRegistry, (number | ScatterDataPoint | BubbleDataPoint | null)[], unknown> {
+    makeChartConfig(data: ChartData<keyof ChartTypeRegistry, (number | ScatterDataPoint | BubbleDataPoint | null)[], unknown>): ChartConfiguration<keyof ChartTypeRegistry, (number | ScatterDataPoint | BubbleDataPoint | [number, number] | null)[], unknown> {
         return {...this.defaultOptions, data: data} as ChartConfiguration
     }
 }
