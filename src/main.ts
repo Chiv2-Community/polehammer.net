@@ -90,6 +90,7 @@ function createBarChart(element: HTMLCanvasElement, category: MetricLabel): BarC
       weaponSelector.selectedItems, 
       new Set([category]), 
       barUnitStats, 
+      true,
       true
     )
   )

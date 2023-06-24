@@ -49,24 +49,31 @@ export class RadarChart extends BaseChart {
             animation: false,
             plugins: {
                 legend: {
-                display: false,
-                position: "bottom",
+                    display: false,
+                    position: "bottom",
                 },
+            },
+            elements: {
+                point: {
+                    pointHitRadius: 4,
+
+                }
             },
             responsive: true,
             maintainAspectRatio: true,
             scales: {
-                radial: {
-                min: 0,
-                max: 1,
-                ticks: {
-                    display: false,
-                    maxTicksLimit: 2,
-                },
+                r: {
+                    min: 0,
+                    max: 1,
+                    ticks: {
+                        display: false,
+                        maxTicksLimit: 2,
+                    },
                 },
             }
         }
     }
+
     makeChartConfig(data: ChartData<keyof ChartTypeRegistry, (number | ScatterDataPoint | BubbleDataPoint | null)[], unknown>): ChartConfiguration<keyof ChartTypeRegistry, (number | ScatterDataPoint | BubbleDataPoint | null)[], unknown> {
         return {...this.defaultOptions, data: data} as ChartConfiguration
     }
