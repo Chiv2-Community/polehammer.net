@@ -159,11 +159,7 @@ function randomWeapons() {
 // Clear all weapon selections
 function resetCategories() {
   categorySelector.clearSelection();
-
-  METRICS
-    .filter(m => m.label.includes("Average"))
-    .forEach((m) => categorySelector.addSelected(m));
-
+  CATEGORY_PRESETS.get("Average")!.forEach(c => categorySelector.addSelected(c));
   redraw();
 }
 
