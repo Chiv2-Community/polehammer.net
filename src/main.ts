@@ -1,11 +1,5 @@
 import { Chart, registerables } from "chart.js";
 import { ALL_WEAPONS, Weapon, weaponByName, weaponById, Target} from "chivalry2-weapons";
-import {
-  WeaponMetric,
-  WeaponMetrics,
-  generateMetrics,
-  metricRanges,
-} from "./stats";
 import "./style.scss";
 import { deleteChildren, metricColor, weaponColor, weaponDash } from "./ui";
 import { shuffle } from "./util";
@@ -15,7 +9,14 @@ import WEAPON_PRESETS from "./components/weapon_presets";
 import { Table } from "./components/table";
 import { InputHandler } from "./components/input_slider";
 import { BarChart, RadarChart } from "./components/chart";
-import { generateNormalizedChartData, weaponsToRows } from "./data";
+import { 
+  generateNormalizedChartData, 
+  weaponsToRows,
+  WeaponMetric,
+  WeaponMetrics,
+  generateMetrics,
+  metricRanges,
+} from "./data";
 import { METRICS, METRIC_MAP, NewMetric } from "./metrics";
 
 Chart.defaults.font.family = "'Lato', sans-serif";
@@ -59,16 +60,17 @@ const categorySelector = new SearchSelector<NewMetric>(
   redraw
 )
 
-const table = new Table(
+const table = new Table<WeaponMetric>(
   "#statTable", 
+  x => x.result,
   (header, cellData) => {
-    cellData = cellData as number;
+    cellData = cellData;
     let range = ranges.get(header)!;
-    let cellContent: string = Math.round(cellData).toString();
+    let cellContent: string = Math.round(cellData.result).toString();
     let cell = document.createElement("td");
     cell.innerHTML = cellContent;
     cell.className = "border";
-    cell.style.backgroundColor = metricColor(cellData, range);
+    cell.style.backgroundColor = metricColor(cellData.result, range, !cellData.metric.higherIsBetter);
     return cell;
   }
 )
@@ -122,7 +124,7 @@ function redraw() {
   let selectedWeaponsArray = [...weaponSelector.selectedItems];
 
   stats = generateMetrics(selectedMetricsArray, selectedWeaponsArray, numberOfTargets, horsebackDamageMultiplier, selectedTarget)
-  ranges = metricRanges(selectedMetricsArray, selectedWeaponsArray, selectedTarget, numberOfTargets, horsebackDamageMultiplier);
+  ranges = metricRanges(selectedMetricsArray, ALL_WEAPONS, selectedTarget, numberOfTargets, horsebackDamageMultiplier);
 
   radar.render(generateNormalizedChartData(ranges, stats, false));
 
@@ -138,7 +140,7 @@ function updateUrlParams() {
   params.set("numberOfTargets", numberOfTargets.toString());
   params.set("tab", selectedTab);
   params.append("weapon", [...weaponSelector.selectedItems].map(x => x.id).join("-"));
-  [...categorySelector.selectedItems].map((c) => params.append("category", c.id));
+  params.append("category", [...categorySelector.selectedItems].map(x => x.id).join("-"));
   window.history.replaceState(null, "", `?${params.toString()}`);
 }
 
@@ -242,6 +244,8 @@ if (params.getAll("category").length) {
     if(maybeMetric) {
       categorySelector.addSelected(maybeMetric!);
     }
+
+    c.split("-").map((id) => METRIC_MAP.get(id)).filter(a => a).map(a => a!).forEach((m) => categorySelector.addSelected(m));
 
   });
 

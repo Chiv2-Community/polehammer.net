@@ -1,21 +1,23 @@
 
-type RowContent = string | number
+type RowContent<A> = string | A
 
-export class Table {
+export class Table<A> {
     tableElem: HTMLTableElement;
 
     headers: string[];
-    sortMode: { header: string, ascending: boolean} | undefined
+    sortMode: { header: string, ascending: boolean } | undefined
 
-    createCell: (header: string, content: RowContent) => HTMLTableCellElement;
+    createCell: (header: string, content: A) => HTMLTableCellElement;
+    contentToNumber: (a: A) => number;
 
-    constructor(tableElemId: string, createCell: (header: string, content: RowContent) => HTMLTableCellElement) {
+    constructor(tableElemId: string, contentToNumber: (a: A) => number, createCell: (header: string, content: A) => HTMLTableCellElement) {
         this.headers = []
         let maybeTableElem = document.querySelector<HTMLTableElement>(tableElemId);
         if (!maybeTableElem) {
             throw new Error("Invalid selector provided: " + tableElemId);
         }
         this.tableElem = maybeTableElem!;
+        this.contentToNumber = contentToNumber;
         this.createCell = createCell;
         this.sortMode = undefined;
     }
@@ -28,7 +30,7 @@ export class Table {
         this.sortMode = { header, ascending };
     }
 
-    draw(rows: RowContent[][]) {
+    draw(rows: RowContent<A>[][]) {
         this.tableElem.innerHTML = "";
 
         const table = document.createElement("table");
@@ -91,9 +93,9 @@ export class Table {
                 if (typeof aVal === "string" && typeof bVal === "string") {
                     return aVal.localeCompare(bVal) * (sortAscending ? 1 : -1);
                 } else {
-                    aVal = aVal as number;
-                    bVal = bVal as number;
-                    return (aVal - bVal) * (sortAscending ? 1 : -1);
+                    let a = this.contentToNumber(aVal as A);
+                    let b = this.contentToNumber(bVal as A);
+                    return (a - b) * (sortAscending ? 1 : -1);
                 }
             });
         }
@@ -109,7 +111,7 @@ export class Table {
                 
             var i = 1;
             this.headers.forEach(header => {
-                let cell = this.createCell(header, rowData[i]);
+                let cell = this.createCell(header, rowData[i] as A);
                 row.appendChild(cell);
                 i++;
             });

@@ -32,7 +32,7 @@ export function weaponColor(weaponName: string, opacity: number): string {
   }deg, ${SATURATION}, ${LIGHTNESS}, ${opacity})`;
 }
 
-export function metricColor(value: number, range: {min: number; max: number}): string {
+export function metricColor(value: number, range: {min: number; max: number}, invert: boolean): string {
   if(value == -1 || value == 0)
     return `hsl(300, ${SATURATION}, ${LIGHTNESS}, ${0.5})`;
 
@@ -56,8 +56,10 @@ export function metricColor(value: number, range: {min: number; max: number}): s
     let hueRange = 120;
 
     let size = range.max - range.min
+
     let relativeValue = value - range.min;
-    let hue = relativeValue/size * hueRange;
+    let maybeInvertedRelativeValue = invert ? size - relativeValue : relativeValue;
+    let hue = maybeInvertedRelativeValue/size * hueRange;
 
     return `hsl(${hue + hueOffset}deg, ${SATURATION}, ${LIGHTNESS}, ${0.5})`;
   }

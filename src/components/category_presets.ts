@@ -6,9 +6,9 @@ function buildPreset(s: string, options: {ignore: string[]} = {ignore: []}): New
   return METRICS.filter(x => x.label.toLowerCase().includes(s) && options.ignore.findIndex(i => x.label.toLowerCase().includes(i)) == -1)
 }
 
-CATEGORY_PRESETS.set("Average", buildPreset("average"))
-CATEGORY_PRESETS.set("Average (Light)", buildPreset("average (light)"))
-CATEGORY_PRESETS.set("Average (Heavy)", buildPreset("average (heavy)"))
+CATEGORY_PRESETS.set("Average", buildPreset("average", {ignore: ["holding"]}))
+CATEGORY_PRESETS.set("Average (Light)", buildPreset("average (light)", {ignore: ["holding"]}))
+CATEGORY_PRESETS.set("Average (Heavy)", buildPreset("average (heavy)", {ignore: ["holding"]}))
 
 CATEGORY_PRESETS.set("Slash", buildPreset("slash", {ignore: ["holding"]}));
 CATEGORY_PRESETS.set("Slash (Light)", buildPreset("slash (light)", {ignore: ["holding"]}))
