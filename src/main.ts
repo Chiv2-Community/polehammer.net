@@ -1,5 +1,5 @@
 import { Chart, registerables } from "chart.js";
-import { ALL_WEAPONS, Weapon, weaponByName, weaponById } from "chivalry2-weapons";
+import { ALL_WEAPONS, Weapon, weaponByName, weaponById, Target } from "chivalry2-weapons";
 import { MetricLabel, MetricResult } from "./metrics";
 import {
   generateMetrics,
@@ -8,7 +8,6 @@ import {
   WeaponStats,
 } from "./stats";
 import "./style.scss";
-import { Target } from "./types";
 import { deleteChildren, metricColor, weaponColor, weaponDash } from "./ui";
 import { shuffle } from "./util";
 import { SearchSelector } from "./components/search_selector";
@@ -26,7 +25,7 @@ let selectedTarget = Target.AVERAGE;
 let numberOfTargets = 1;
 let horsebackDamageMultiplier = 1.0;
 
-let stats: WeaponStats = generateMetrics(ALL_WEAPONS, 1, 1, Target.VANGUARD_ARCHER);
+let stats: WeaponStats = generateMetrics(ALL_WEAPONS, 1, 1, Target.VANGUARD);
 let unitStats: UnitStats = unitGroupStats(stats);
 
 let selectedTab = "radar-content-tab";
@@ -260,9 +259,20 @@ if (params.getAll("category").length) {
 
 // Link up target radio buttons
 Object.values(Target).forEach((t) => {
+  // Vanguard and archer are the same. For target selection we use vanguard in place of archer.
+  if(t == Target.ARCHER) 
+    return;
+
+  console.log(t);
   const radio = document.getElementById(t) as HTMLInputElement;
-  radio.onclick = () => {
+  const radioParent = radio.parentElement
+
+  if(!radioParent)
+    throw new Error("Failed to find parent of target selection radio element")
+
+  radio.parentElement.onclick = () => {
     selectedTarget = t;
+    radio.checked = true;
     redraw();
   };
   radio.checked = selectedTarget === t;
