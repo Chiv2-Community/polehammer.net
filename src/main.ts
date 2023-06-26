@@ -215,9 +215,15 @@ const targetPane = document.querySelector(`#${targetPaneId}`)!;
 targetPane.classList.add("active", "show");
 
 if (params.get("target")) {
-  selectedTarget = params.get("target") as Target;
-}
+  let targetString = params.get("target");
 
+  if(targetString?.toUpperCase().includes("VANGUARD")) {
+    // This selects VANGUARD when a legacy link provides "Vanguard / Archer"
+    selectedTarget = Target.VANGUARD;
+  } else {
+    selectedTarget = targetString?.toUpperCase() as Target;
+  }
+}
 
 if (params.getAll("weapon").length) {
   params.getAll("weapon").forEach((name) => {
