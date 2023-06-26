@@ -30,19 +30,19 @@ export class NewMetric {
 function generateCommonMetricsForAttack(idPrefix: string, label: string, cleave: (w: Weapon) => boolean, getAttack: (w: Weapon) => MeleeAttack | SpecialAttack): NewMetric[] {
 
   return [
-    new NewMetric(idPrefix + "d", `${label} - Damage`, Unit.DAMAGE, true, (w, t, numTargets, horsebackDamageMult) => horsebackDamageMult * bonusMult(numTargets, t, w.damageType, cleave(w)) * getAttack(w).damage),
-    new NewMetric(idPrefix + "w", `${label} - Windup`, Unit.SPEED, false, (w) => getAttack(w).windup),
-    new NewMetric(idPrefix + "rl", `${label} - Release`, Unit.SPEED, true, (w) => getAttack(w).release),
-    new NewMetric(idPrefix + "rc",`${label} - Recovery`, Unit.SPEED, false, (w) => getAttack(w).recovery),
-    new NewMetric(idPrefix + "c", `${label} - Combo`, Unit.SPEED, false, (w) => getAttack(w).combo),
-    new NewMetric(idPrefix + "h", `${label} - Holding`, Unit.SPEED, false, (w) => getAttack(w).holding),
+    new NewMetric(idPrefix + "d", `Damage - ${label}`, Unit.DAMAGE, true, (w, t, numTargets, horsebackDamageMult) => horsebackDamageMult * bonusMult(numTargets, t, w.damageType, cleave(w)) * getAttack(w).damage),
+    new NewMetric(idPrefix + "w", `Windup - ${label}`, Unit.SPEED, false, (w) => getAttack(w).windup),
+    new NewMetric(idPrefix + "rl",`Release - ${label}`, Unit.SPEED, true, (w) => getAttack(w).release),
+    new NewMetric(idPrefix + "rc",`Recovery - ${label}`, Unit.SPEED, false, (w) => getAttack(w).recovery),
+    new NewMetric(idPrefix + "c", `Combo - ${label}`, Unit.SPEED, false, (w) => getAttack(w).combo),
+    new NewMetric(idPrefix + "h", `Holding - ${label}`, Unit.SPEED, false, (w) => getAttack(w).holding),
   ];
 }
 
 function generateRangeMetrics(idPrefix: string, label: string, getSwing: (w: Weapon) => Swing) {
   return [
-    new NewMetric(idPrefix + "r", `${label} - Range`, Unit.RANGE, true, w => getSwing(w).range),
-    new NewMetric(idPrefix + "ar", `${label} - AltRange`, Unit.RANGE, true, w => getSwing(w).altRange),
+    new NewMetric(idPrefix + "r", `Range - ${label}`, Unit.RANGE, true, w => getSwing(w).range),
+    new NewMetric(idPrefix + "ar", `Alt Range - ${label}`, Unit.RANGE, true, w => getSwing(w).altRange),
   ];
 }
 

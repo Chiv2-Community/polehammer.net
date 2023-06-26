@@ -91,8 +91,6 @@ function createBarChart(element: HTMLCanvasElement, metric: NewMetric): BarChart
     metricResults.set(w.name, innerStats);
   });
 
-  console.log(metricResults);
-
   chart.render(generateNormalizedChartData(ranges, metricResults, true))
   return chart;
 }
@@ -238,13 +236,28 @@ if (params.getAll("category").length) {
     // Backwards Compat
     let result = c.replaceAll("Horizontal", "Slash")
 
-    let maybeMetric = METRIC_MAP.get(result);
-    if(maybeMetric) {
-      categorySelector.addSelected(maybeMetric!);
+    // Used to do Range - Alt. foo
+    // Now its Alt Range - foo
+    if(result.includes("Alt")) {
+      result = result.replaceAll(/Alt\.? /ig, "")
+      result = "Alt " + result
     }
 
-    c.split("-").map((id) => METRIC_MAP.get(id)).filter(a => a).map(a => a!).forEach((m) => categorySelector.addSelected(m));
-
+    let maybeMetric = METRIC_MAP.get(result);
+    if(maybeMetric) {
+      categorySelector.addSelected(maybeMetric!, false);
+    }
+    
+    let backwardCompatLabel = METRICS.find(m => m.label == result)
+    if(backwardCompatLabel) {
+      categorySelector.addSelected(backwardCompatLabel, false);
+    }
+    
+    c.split("-")
+      .map((id) => METRIC_MAP.get(id))
+      .filter(a => a)
+      .map(a => a!)
+      .forEach((m) => categorySelector.addSelected(m, false));
   });
 
   // Setting them failed, so just default
@@ -261,7 +274,6 @@ Object.values(Target).forEach((t) => {
   if(t == Target.ARCHER) 
     return;
 
-  console.log(t);
   const radio = document.getElementById(t) as HTMLInputElement;
   const radioParent = radio.parentElement
 
