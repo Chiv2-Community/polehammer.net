@@ -1,14 +1,12 @@
 import { Chart, registerables } from "chart.js";
-import { ALL_WEAPONS, Weapon, weaponByName, weaponById } from "chivalry2-weapons";
-import { MetricLabel, MetricResult } from "./metrics";
+import { ALL_WEAPONS, Weapon, weaponByName, weaponById, Target} from "chivalry2-weapons";
+import { METRICS, METRIC_MAP, NewMetric } from "./metrics";
 import {
+  WeaponMetrics,
   generateMetrics,
-  unitGroupStats,
-  UnitStats,
-  WeaponStats,
+  metricRanges,
 } from "./stats";
 import "./style.scss";
-import { Target } from "./types";
 import { deleteChildren, metricColor, weaponColor, weaponDash } from "./ui";
 import { shuffle } from "./util";
 import { SearchSelector } from "./components/search_selector";
@@ -26,13 +24,13 @@ let selectedTarget = Target.AVERAGE;
 let numberOfTargets = 1;
 let horsebackDamageMultiplier = 1.0;
 
-let stats: WeaponStats = generateMetrics(ALL_WEAPONS, 1, 1, Target.VANGUARD_ARCHER);
-let unitStats: UnitStats = unitGroupStats(stats);
+let stats = generateMetrics(METRICS, ALL_WEAPONS, 1, 1, Target.VANGUARD);
+let ranges = metricRanges(METRICS, ALL_WEAPONS, selectedTarget, numberOfTargets, horsebackDamageMultiplier);
 
 let selectedTab = "radar-content-tab";
 
 let weaponBorderStyle = (weapon: Weapon, label: HTMLLabelElement) => {
-  label.style.border = `3px ${weaponDash(weapon)} ${weaponColor(weapon, 0.6)}`;
+  label.style.border = `3px ${weaponDash(weapon.name)} ${weaponColor(weapon.name, 0.6)}`;
   return label
 }
 
@@ -48,14 +46,14 @@ export const weaponSelector = new SearchSelector<Weapon>(
   redraw
 );
 
-const categorySelector = new SearchSelector<MetricLabel>(
-  new Set(Object.values(MetricLabel)),
+const categorySelector = new SearchSelector<NewMetric>(
+  new Set(METRICS),
   "#categorySearch",
   "#categorySearchResults",
   "#displayedCategories",
   CATEGORY_PRESETS,
   "#presetsSelectCategory",
-  c => c,
+  m => m.label,
   (_, label) => label,
   redraw
 )
@@ -63,13 +61,13 @@ const categorySelector = new SearchSelector<MetricLabel>(
 const table = new Table(
   "#statTable", 
   (header, cellData) => {
-    cellData = cellData as MetricResult;
-    let range = unitStats.get(header)!;
-    let cellContent: string = Math.round(cellData.rawResult).toString();
+    cellData = cellData as number;
+    let range = ranges.get(header)!;
+    let cellContent: string = Math.round(cellData).toString();
     let cell = document.createElement("td");
     cell.innerHTML = cellContent;
     cell.className = "border";
-    cell.style.backgroundColor = metricColor(cellData.result, range);
+    cell.style.backgroundColor = metricColor(cellData, range);
     return cell;
   }
 )
@@ -77,22 +75,18 @@ const table = new Table(
 const radar: RadarChart = new RadarChart("#radar");
 const bars = new Array<BarChart>();
 
-function createBarChart(element: HTMLCanvasElement, category: MetricLabel): BarChart {
-  const barUnitStats: UnitStats = new Map();
-  if(category.includes("Speed")) {
-    barUnitStats.set(category, unitStats.get(category)!);
-  }
-
+function createBarChart(element: HTMLCanvasElement, metric: NewMetric): BarChart {
   let chart = new BarChart(element)
-  chart.render(
-    generateNormalizedChartData(
-      stats, 
-      weaponSelector.selectedItems, 
-      new Set([category]), 
-      barUnitStats, 
-      true
-    )
-  )
+
+  // We only need results for this bar's metric
+  let metricResults: WeaponMetrics = new Map()
+  weaponSelector.selectedItems.forEach(w => {
+    metricResults.set(w.name, stats.get(w.name)!)
+  });
+
+  console.log(metricResults);
+
+  chart.render(generateNormalizedChartData(ranges, metricResults, true))
   return chart;
 }
 
@@ -116,15 +110,18 @@ function redrawBars() {
 }
 
 function redrawTable() {
-  table.setHeaders([...categorySelector.selectedItems]);
-  table.draw(weaponsToRows(weaponSelector.selectedItems, categorySelector.selectedItems, stats));
+  table.setHeaders([...categorySelector.selectedItems].map(c => c.label));
+  table.draw(weaponsToRows(stats));
 }
 
 function redraw() {
-  stats = generateMetrics(ALL_WEAPONS, numberOfTargets, horsebackDamageMultiplier, selectedTarget)
-  unitStats = unitGroupStats(stats);
+  let selectedMetricsArray = [...categorySelector.selectedItems];
+  let selectedWeaponsArray = [...weaponSelector.selectedItems];
 
-  radar.render(generateNormalizedChartData(stats, weaponSelector.selectedItems, categorySelector.selectedItems, unitStats, false));
+  stats = generateMetrics(selectedMetricsArray, selectedWeaponsArray, numberOfTargets, horsebackDamageMultiplier, selectedTarget)
+  ranges = metricRanges(selectedMetricsArray, selectedWeaponsArray, selectedTarget, numberOfTargets, horsebackDamageMultiplier);
+
+  radar.render(generateNormalizedChartData(ranges, stats, false));
 
   redrawBars();
   redrawTable();
@@ -138,7 +135,7 @@ function updateUrlParams() {
   params.set("numberOfTargets", numberOfTargets.toString());
   params.set("tab", selectedTab);
   params.append("weapon", [...weaponSelector.selectedItems].map(x => x.id).join("-"));
-  [...categorySelector.selectedItems].map((c) => params.append("category", c));
+  [...categorySelector.selectedItems].map((c) => params.append("category", c.id));
   window.history.replaceState(null, "", `?${params.toString()}`);
 }
 
@@ -146,28 +143,20 @@ function updateUrlParams() {
 function randomWeapons() {
   weaponSelector.clearSelection();
   const random = shuffle(ALL_WEAPONS.filter(x => x.name != "Polehammer"));
-  weaponSelector.addSelected(weaponById("ph")!)
-  random.slice(0, 2).forEach(w => weaponSelector.addSelected(w));
+  weaponSelector.addSelected(weaponById("ph")!, false)
+  random.slice(0, 2).forEach(w => weaponSelector.addSelected(w, false));
+  redraw();
 }
 
 // Reset to default category selections
 // Clear all weapon selections
 function resetCategories() {
   categorySelector.clearSelection();
-  [
-    MetricLabel.RANGE_AVERAGE, 
-    MetricLabel.RANGE_ALT_AVERAGE, 
-    MetricLabel.WINDUP_HEAVY_AVERAGE, 
-    MetricLabel.RELEASE_HEAVY_AVERAGE, 
-    MetricLabel.RECOVERY_HEAVY_AVERAGE,
-    MetricLabel.COMBO_HEAVY_AVERAGE,
-    MetricLabel.DAMAGE_HEAVY_AVERAGE,
-    MetricLabel.WINDUP_LIGHT_AVERAGE,
-    MetricLabel.RELEASE_LIGHT_AVERAGE,
-    MetricLabel.RECOVERY_LIGHT_AVERAGE,
-    MetricLabel.COMBO_LIGHT_AVERAGE,
-    MetricLabel.DAMAGE_LIGHT_AVERAGE,
-  ].map(l => categorySelector.addSelected(l));
+
+  METRICS
+    .filter(m => m.label.includes("Average"))
+    .forEach((m) => categorySelector.addSelected(m));
+
   redraw();
 }
 
@@ -242,13 +231,16 @@ if (params.getAll("weapon").length) {
 }
 
 if (params.getAll("category").length) {
-  // Backwards Compat
-  let compatCategories = params.getAll("category").map((c) => {
+  params.getAll("category").forEach((c) => {
+    // Backwards Compat
     let result = c.replaceAll("Horizontal", "Slash")
-    return result
-  });
 
-  compatCategories.forEach(c => categorySelector.addSelected(c as MetricLabel))
+    let maybeMetric = METRIC_MAP.get(result);
+    if(maybeMetric) {
+      categorySelector.addSelected(maybeMetric!);
+    }
+
+  });
 
   // Setting them failed, so just default
   if (!categorySelector.selectedItems.size)
@@ -260,6 +252,9 @@ if (params.getAll("category").length) {
 
 // Link up target radio buttons
 Object.values(Target).forEach((t) => {
+  if (t === Target.ARCHER) return; // Archer and vanguard share a target selection
+
+  console.log(t)
   const radio = document.getElementById(t) as HTMLInputElement;
   radio.onclick = () => {
     selectedTarget = t;

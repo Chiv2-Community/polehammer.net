@@ -1,6 +1,5 @@
-import { MetricResult } from "../metrics";
 
-type RowContent = string | MetricResult
+type RowContent = string | number
 
 export class Table {
     tableElem: HTMLTableElement;
@@ -92,9 +91,9 @@ export class Table {
                 if (typeof aVal === "string" && typeof bVal === "string") {
                     return aVal.localeCompare(bVal) * (sortAscending ? 1 : -1);
                 } else {
-                    aVal = aVal as MetricResult;
-                    bVal = bVal as MetricResult;
-                    return (aVal.rawResult - bVal.rawResult) * (sortAscending ? 1 : -1);
+                    aVal = aVal as number;
+                    bVal = bVal as number;
+                    return (aVal - bVal) * (sortAscending ? 1 : -1);
                 }
             });
         }

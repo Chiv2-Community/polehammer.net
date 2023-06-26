@@ -1,40 +1,35 @@
 import { ChartData } from "chart.js";
-import { MetricLabel, MetricResult } from "./metrics";
 import {
-  UnitStats,
-  WeaponStats
+  MetricRanges,
+  WeaponMetrics,
 } from "./stats";
 import { borderDash, weaponColor } from "./ui";
-import { Weapon } from "chivalry2-weapons";
 
 // Normalization will only occur for stat types that have a unit present in the provided normalizationStats.
 // This allows for selective normalization, like for bar charts where we want mostly raw data, except for
 // "speed" (or other inverse metrics) which only make sense as a normalized value
 export function generateNormalizedChartData(
-  dataset: WeaponStats,
-  weapons: Set<Weapon>,
-  categories: Set<MetricLabel>,
-  normalizationStats: UnitStats,
-  setBgColor: boolean
+  ranges: MetricRanges,
+  metrics: WeaponMetrics,
+  setBgColor: boolean,
 ): ChartData {
+  if(metrics.size == 0) {
+    return {labels: [], datasets: []};
+  }
 
-  let sortedCategories = [...categories];
-  sortedCategories.sort((a, b) => {
-    return Object.values(MetricLabel).indexOf(a) - Object.values(MetricLabel).indexOf(b);
-  });
+  let labels = [...metrics.values().next().value.keys()];
 
   return {
-    labels: [...sortedCategories],
-    datasets: [...weapons].map(w => {
+    labels: labels,
+    datasets: [...metrics.keys()].map(w => {
       return {
-        label: w.name,
-        data: [...sortedCategories].map(c => {
-          const metric = dataset.get(w.name)!.get(c)!;
-          let value = metric.value.result;
-          const maybeUnitStats = normalizationStats.get(c);
-          if (maybeUnitStats) {
-            const unitMin = maybeUnitStats!.min;
-            const unitMax = maybeUnitStats!.max;
+        label: w,
+        data: [...metrics.get(w)!.keys()].map(m => {
+          const value = metrics.get(w)!.get(m)!.value;
+          const maybeRange = ranges.get(m);
+          if (maybeRange) {
+            const unitMin = maybeRange!.min;
+            const unitMax = maybeRange!.max;
 
             // Normalize
             return (value - unitMin) / (unitMax - unitMin);
@@ -49,14 +44,12 @@ export function generateNormalizedChartData(
   };
 }
 
-export function weaponsToRows(weapons: Set<Weapon>, categories: Set<MetricLabel>, stats: WeaponStats): Array<Array<string | MetricResult>> {
-  return [...weapons].map(w => {
-    return [
-      w.name,
-      ...[...categories].map(c => {
-        const metric = stats.get(w.name)!.get(c)!;
-        return metric.value;
-      }),
-    ];
+export function weaponsToRows(weaponMetrics: WeaponMetrics): Array<Array<string | number>> {
+  let results: Array<Array<string | number>> = [];
+  weaponMetrics.forEach((metricsMap, weaponName) => {
+    let metrics = [...metricsMap.values()].map(m => m.value);
+    results.push([weaponName, ...metrics]);
   });
+
+  return results;
 }
