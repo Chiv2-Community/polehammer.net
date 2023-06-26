@@ -16,6 +16,7 @@ import {
   WeaponMetrics,
   generateMetrics,
   metricRanges,
+  MetricRanges,
 } from "./data";
 import { METRICS, METRIC_MAP, NewMetric } from "./metrics";
 
@@ -26,8 +27,6 @@ let selectedTarget = Target.AVERAGE;
 let numberOfTargets = 1;
 let horsebackDamageMultiplier = 1.0;
 
-let stats = generateMetrics(METRICS, ALL_WEAPONS, 1, 1, Target.VANGUARD);
-let ranges = metricRanges(METRICS, ALL_WEAPONS, selectedTarget, numberOfTargets, horsebackDamageMultiplier);
 
 let selectedTab = "radar-content-tab";
 
@@ -59,6 +58,9 @@ const categorySelector = new SearchSelector<NewMetric>(
   (_, label) => label,
   redraw
 )
+
+let stats: WeaponMetrics = new Map()
+let ranges: MetricRanges = new Map()
 
 const table = new Table<WeaponMetric>(
   "#statTable", 
