@@ -8,8 +8,7 @@ import {
 //  Unit,
  // WeaponMetric,
 } from "./metrics";
-import { Target } from "./types";
-import { Weapon, withBonusMultipliers } from "chivalry2-weapons";
+import { Target, Weapon, withBonusMultipliers } from "chivalry2-weapons";
 
 export type WeaponStats = Map<string, LabelledMetrics>;
 
