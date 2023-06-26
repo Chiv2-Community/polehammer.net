@@ -1,7 +1,7 @@
 import { Chart, registerables } from "chart.js";
 import { ALL_WEAPONS, Weapon, weaponByName, weaponById, Target} from "chivalry2-weapons";
-import { METRICS, METRIC_MAP, NewMetric } from "./metrics";
 import {
+  WeaponMetric,
   WeaponMetrics,
   generateMetrics,
   metricRanges,
@@ -16,6 +16,7 @@ import { Table } from "./components/table";
 import { InputHandler } from "./components/input_slider";
 import { BarChart, RadarChart } from "./components/chart";
 import { generateNormalizedChartData, weaponsToRows } from "./data";
+import { METRICS, METRIC_MAP, NewMetric } from "./metrics";
 
 Chart.defaults.font.family = "'Lato', sans-serif";
 Chart.register(...registerables); // the auto import stuff was making typescript angry.
@@ -81,7 +82,9 @@ function createBarChart(element: HTMLCanvasElement, metric: NewMetric): BarChart
   // We only need results for this bar's metric
   let metricResults: WeaponMetrics = new Map()
   weaponSelector.selectedItems.forEach(w => {
-    metricResults.set(w.name, stats.get(w.name)!)
+    let innerStats: Map<string, WeaponMetric> = new Map()
+    innerStats.set(metric.label, stats.get(w.name)!.get(metric.label)!)
+    metricResults.set(w.name, innerStats);
   });
 
   console.log(metricResults);
@@ -252,12 +255,20 @@ if (params.getAll("category").length) {
 
 // Link up target radio buttons
 Object.values(Target).forEach((t) => {
-  if (t === Target.ARCHER) return; // Archer and vanguard share a target selection
+  // Vanguard and archer are the same. For target selection we use vanguard in place of archer.
+  if(t == Target.ARCHER) 
+    return;
 
-  console.log(t)
+  console.log(t);
   const radio = document.getElementById(t) as HTMLInputElement;
-  radio.onclick = () => {
+  const radioParent = radio.parentElement
+
+  if(!radioParent)
+    throw new Error("Failed to find parent of target selection radio element")
+
+  radio.parentElement.onclick = () => {
     selectedTarget = t;
+    radio.checked = true;
     redraw();
   };
   radio.checked = selectedTarget === t;

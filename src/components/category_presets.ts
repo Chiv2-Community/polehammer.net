@@ -2,29 +2,29 @@ import { METRICS, NewMetric } from "../metrics"
 
 let CATEGORY_PRESETS: Map<string, NewMetric[]> = new Map()
 
-function buildPreset(s: string, ignore: string[] = []): NewMetric[] { 
-  return METRICS.filter(x => x.label.toLowerCase().includes(s) && ignore.findIndex(i => x.label.toLowerCase().includes(i)) == -1)
+function buildPreset(s: string, options: {ignore: string[]} = {ignore: []}): NewMetric[] { 
+  return METRICS.filter(x => x.label.toLowerCase().includes(s) && options.ignore.findIndex(i => x.label.toLowerCase().includes(i)) == -1)
 }
 
 CATEGORY_PRESETS.set("Average", buildPreset("average"))
 CATEGORY_PRESETS.set("Average (Light)", buildPreset("average (light)"))
 CATEGORY_PRESETS.set("Average (Heavy)", buildPreset("average (heavy)"))
 
-CATEGORY_PRESETS.set("Slash", buildPreset("slash", ["holding"]));
-CATEGORY_PRESETS.set("Slash (Light)", buildPreset("slash (light)", ["holding"]))
-CATEGORY_PRESETS.set("Slash (Heavy)", buildPreset("slash (heavy)", ["holding"]))
+CATEGORY_PRESETS.set("Slash", buildPreset("slash", {ignore: ["holding"]}));
+CATEGORY_PRESETS.set("Slash (Light)", buildPreset("slash (light)", {ignore: ["holding"]}))
+CATEGORY_PRESETS.set("Slash (Heavy)", buildPreset("slash (heavy)", {ignore: ["holding"]}))
 
-CATEGORY_PRESETS.set("Overhead", buildPreset("overhead", ["holding"]));
-CATEGORY_PRESETS.set("Overhead (Light)", buildPreset("overhead (light)", ["holding"]))
-CATEGORY_PRESETS.set("Overhead (Heavy)", buildPreset("overhead (heavy)", ["holding"]))
+CATEGORY_PRESETS.set("Overhead", buildPreset("overhead", {ignore: ["holding"]}));
+CATEGORY_PRESETS.set("Overhead (Light)", buildPreset("overhead (light)", {ignore: ["holding"]}))
+CATEGORY_PRESETS.set("Overhead (Heavy)", buildPreset("overhead (heavy)", {ignore: ["holding"]}))
 
-CATEGORY_PRESETS.set("Stab", buildPreset("stab", ["holding"]));
-CATEGORY_PRESETS.set("Stab (Light)", buildPreset("stab (light)", ["holding"]))
-CATEGORY_PRESETS.set("Stab (Heavy)", buildPreset("stab (heavy)", ["holding"]))
+CATEGORY_PRESETS.set("Stab", buildPreset("stab", {ignore: ["holding"]}));
+CATEGORY_PRESETS.set("Stab (Light)", buildPreset("stab (light)", {ignore: ["holding"]}))
+CATEGORY_PRESETS.set("Stab (Heavy)", buildPreset("stab (heavy)", {ignore: ["holding"]}))
 
-CATEGORY_PRESETS.set("Throw", buildPreset("throw", ["combo"]))
-CATEGORY_PRESETS.set("Special", buildPreset("special", ["combo", "holding"]));
-CATEGORY_PRESETS.set("Leaping Strike", buildPreset("leaping strike", ["holding", "recovery"]));
+CATEGORY_PRESETS.set("Throw", buildPreset("throw", {ignore: ["combo"]}))
+CATEGORY_PRESETS.set("Special", buildPreset("special", {ignore: ["combo", "holding"]}));
+CATEGORY_PRESETS.set("Leaping Strike", buildPreset("leaping strike", {ignore: ["holding", "recovery"]}));
 CATEGORY_PRESETS.set("Sprint Charge", METRICS.filter(x => x.label.includes("Sprint Charge")).filter(x => x.label.includes("Damage")))
 
 
