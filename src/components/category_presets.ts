@@ -1,8 +1,8 @@
-import { METRICS, NewMetric } from "../metrics"
+import { METRICS, Metric } from "../metrics"
 
-let CATEGORY_PRESETS: Map<string, NewMetric[]> = new Map()
+let CATEGORY_PRESETS: Map<string, Metric[]> = new Map()
 
-function buildPreset(s: string, options: {ignore: string[]} = {ignore: []}): NewMetric[] { 
+function buildPreset(s: string, options: {ignore: string[]} = {ignore: []}): Metric[] { 
   return METRICS.filter(x => x.label.toLowerCase().includes(s) && options.ignore.findIndex(i => x.label.toLowerCase().includes(i)) == -1)
 }
 

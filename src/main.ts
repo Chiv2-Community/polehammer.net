@@ -18,7 +18,7 @@ import {
   metricRanges,
   MetricRanges,
 } from "./data";
-import { METRICS, METRIC_MAP, NewMetric } from "./metrics";
+import { METRICS, METRIC_MAP, Metric } from "./metrics";
 
 Chart.defaults.font.family = "'Lato', sans-serif";
 Chart.register(...registerables); // the auto import stuff was making typescript angry.
@@ -47,7 +47,7 @@ export const weaponSelector = new SearchSelector<Weapon>(
   redraw
 );
 
-const categorySelector = new SearchSelector<NewMetric>(
+const categorySelector = new SearchSelector<Metric>(
   new Set(METRICS),
   "#categorySearch",
   "#categorySearchResults",
@@ -80,7 +80,7 @@ const table = new Table<WeaponMetric>(
 const radar: RadarChart = new RadarChart("#radar");
 const bars = new Array<BarChart>();
 
-function createBarChart(element: HTMLCanvasElement, metric: NewMetric): BarChart {
+function createBarChart(element: HTMLCanvasElement, metric: Metric): BarChart {
   let chart = new BarChart(element)
 
   // We only need results for this bar's metric
