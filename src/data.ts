@@ -1,10 +1,10 @@
 import { ChartData } from "chart.js";
 import { borderDash, weaponColor } from "./ui";
-import { NewMetric, Range } from "./metrics";
+import { Metric, Range } from "./metrics";
 import { Target, Weapon } from "chivalry2-weapons";
 
 export type WeaponMetrics = Map<string, Map<string, WeaponMetric>>;
-export type WeaponMetric = { result: number, metric: NewMetric };
+export type WeaponMetric = { result: number, metric: Metric };
 export type MetricRanges = Map<string, Range>;
 
 // Normalization will only occur for stat types that have a unit present in the provided normalizationStats.
@@ -60,7 +60,7 @@ export function weaponsToRows(weaponMetrics: WeaponMetrics): Array<Array<string 
 }
 
 
-export function generateMetrics(metrics: NewMetric[], inputWeapons: Weapon[], numberOfTargets: number, horsebackDamageMult: number, target: Target): WeaponMetrics {
+export function generateMetrics(metrics: Metric[], inputWeapons: Weapon[], numberOfTargets: number, horsebackDamageMult: number, target: Target): WeaponMetrics {
   return new Map(
     inputWeapons.map((w) => [
       w.name,
@@ -79,7 +79,7 @@ export function generateMetrics(metrics: NewMetric[], inputWeapons: Weapon[], nu
 
 // Across given weapon stats, calculate min and max (at max possible bonus)
 // values for use in normalizing results for chart display
-export function metricRanges(metrics: NewMetric[], weapons: Weapon[], target: Target, numberOfTargets: number, horsebackDamageMult: number): Map<string, { min: number; max: number; }> {
+export function metricRanges(metrics: Metric[], weapons: Weapon[], target: Target, numberOfTargets: number, horsebackDamageMult: number): Map<string, { min: number; max: number; }> {
   const unitGroupStats = new Map<string, { min: number; max: number }>();
   metrics.forEach((m) => {
     const range = m.getMinMax(weapons, target, numberOfTargets, horsebackDamageMult);
