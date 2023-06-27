@@ -1,31 +1,31 @@
-import { MetricLabel } from "../metrics"
+import { METRICS, Metric } from "../metrics"
 
-let CATEGORY_PRESETS: Map<string, MetricLabel[]> = new Map()
+let CATEGORY_PRESETS: Map<string, Metric[]> = new Map()
 
-function buildPreset(s: string, options: {ignore: MetricLabel[]} = {ignore: []}): MetricLabel[] { 
-  return Object.values(MetricLabel).filter(x => x.toLowerCase().includes(s)).filter(x => options.ignore.indexOf(x) == -1)
+function buildPreset(s: string, options: {ignore: string[]} = {ignore: []}): Metric[] { 
+  return METRICS.filter(x => x.label.toLowerCase().includes(s) && options.ignore.findIndex(i => x.label.toLowerCase().includes(i)) == -1)
 }
 
-CATEGORY_PRESETS.set("Average", buildPreset("average"))
-CATEGORY_PRESETS.set("Average (Light)", buildPreset("average (light)"))
-CATEGORY_PRESETS.set("Average (Heavy)", buildPreset("average (heavy)"))
+CATEGORY_PRESETS.set("Average", buildPreset("average", {ignore: ["holding"]}))
+CATEGORY_PRESETS.set("Average (Light)", buildPreset("average (light)", {ignore: ["holding"]}))
+CATEGORY_PRESETS.set("Average (Heavy)", buildPreset("average (heavy)", {ignore: ["holding"]}))
 
-CATEGORY_PRESETS.set("Slash", buildPreset("slash", {ignore: [MetricLabel.HOLDING_SLASH_LIGHT, MetricLabel.HOLDING_SLASH_HEAVY]}));
-CATEGORY_PRESETS.set("Slash (Light)", buildPreset("slash (light)", {ignore: [MetricLabel.HOLDING_SLASH_LIGHT]}))
-CATEGORY_PRESETS.set("Slash (Heavy)", buildPreset("slash (heavy)", {ignore: [MetricLabel.HOLDING_SLASH_HEAVY]}))
+CATEGORY_PRESETS.set("Slash", buildPreset("slash", {ignore: ["holding"]}));
+CATEGORY_PRESETS.set("Slash (Light)", buildPreset("slash (light)", {ignore: ["holding"]}))
+CATEGORY_PRESETS.set("Slash (Heavy)", buildPreset("slash (heavy)", {ignore: ["holding"]}))
 
-CATEGORY_PRESETS.set("Overhead", buildPreset("overhead", {ignore: [MetricLabel.HOLDING_OVERHEAD_LIGHT, MetricLabel.HOLDING_OVERHEAD_HEAVY]}));
-CATEGORY_PRESETS.set("Overhead (Light)", buildPreset("overhead (light)", {ignore: [MetricLabel.HOLDING_OVERHEAD_LIGHT]}))
-CATEGORY_PRESETS.set("Overhead (Heavy)", buildPreset("overhead (heavy)", {ignore: [MetricLabel.HOLDING_OVERHEAD_HEAVY]}))
+CATEGORY_PRESETS.set("Overhead", buildPreset("overhead", {ignore: ["holding"]}));
+CATEGORY_PRESETS.set("Overhead (Light)", buildPreset("overhead (light)", {ignore: ["holding"]}))
+CATEGORY_PRESETS.set("Overhead (Heavy)", buildPreset("overhead (heavy)", {ignore: ["holding"]}))
 
-CATEGORY_PRESETS.set("Stab", buildPreset("stab", {ignore: [MetricLabel.HOLDING_STAB_LIGHT, MetricLabel.HOLDING_STAB_HEAVY]}));
-CATEGORY_PRESETS.set("Stab (Light)", buildPreset("stab (light)", {ignore: [MetricLabel.HOLDING_STAB_LIGHT]}))
-CATEGORY_PRESETS.set("Stab (Heavy)", buildPreset("stab (heavy)", {ignore: [MetricLabel.HOLDING_STAB_HEAVY]}))
+CATEGORY_PRESETS.set("Stab", buildPreset("stab", {ignore: ["holding"]}));
+CATEGORY_PRESETS.set("Stab (Light)", buildPreset("stab (light)", {ignore: ["holding"]}))
+CATEGORY_PRESETS.set("Stab (Heavy)", buildPreset("stab (heavy)", {ignore: ["holding"]}))
 
-CATEGORY_PRESETS.set("Throw", buildPreset("throw", {ignore: [MetricLabel.COMBO_THROW]}))
-CATEGORY_PRESETS.set("Special", buildPreset("special", {ignore: [MetricLabel.HOLDING_SPECIAL, MetricLabel.COMBO_SPECIAL]}));
-CATEGORY_PRESETS.set("Leaping Strike", buildPreset("leaping strike", {ignore: [MetricLabel.HOLDING_LEAPING_STRIKE, MetricLabel.RECOVERY_LEAPING_STRIKE]}));
-CATEGORY_PRESETS.set("Sprint Charge", [MetricLabel.DAMAGE_SPRINT_CHARGE])
+CATEGORY_PRESETS.set("Throw", buildPreset("throw", {ignore: ["combo"]}))
+CATEGORY_PRESETS.set("Special", buildPreset("special", {ignore: ["combo", "holding"]}));
+CATEGORY_PRESETS.set("Leaping Strike", buildPreset("leaping strike", {ignore: ["holding", "recovery"]}));
+CATEGORY_PRESETS.set("Sprint Charge", METRICS.filter(x => x.label.includes("Sprint Charge")).filter(x => x.label.includes("Damage")))
 
 
 CATEGORY_PRESETS.set("Holding", buildPreset("holding"));
@@ -36,18 +36,8 @@ CATEGORY_PRESETS.set("Recovery", buildPreset("recovery"));
 CATEGORY_PRESETS.set("Combo", buildPreset("combo"));
 CATEGORY_PRESETS.set("All Damage", buildPreset("damage"));
 
-CATEGORY_PRESETS.set("Light Damage", [
-  MetricLabel.DAMAGE_SLASH_LIGHT,
-  MetricLabel.DAMAGE_OVERHEAD_LIGHT,
-  MetricLabel.DAMAGE_STAB_LIGHT,
-])
-
-CATEGORY_PRESETS.set("Heavy Damage", [
-  MetricLabel.DAMAGE_SLASH_HEAVY,
-  MetricLabel.DAMAGE_OVERHEAD_HEAVY,
-  MetricLabel.DAMAGE_STAB_HEAVY,
-])
-
+CATEGORY_PRESETS.set("Light Damage", METRICS.filter(x => x.label.includes("Light")).filter(x => x.label.includes("Damage")))
+CATEGORY_PRESETS.set("Heavy Damage", METRICS.filter(x => x.label.includes("Heavy")).filter(x => x.label.includes("Damage")))
 CATEGORY_PRESETS.set("Range", buildPreset("range"))
 
 export default CATEGORY_PRESETS;
