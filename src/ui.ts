@@ -1,4 +1,4 @@
-import { ALL_WEAPONS, Weapon } from "chivalry2-weapons";
+import { ALL_WEAPONS } from "chivalry2-weapons";
 import Cookies from "js-cookie";
 
 let colorBlindModeElem = document.querySelector<HTMLInputElement>("#colorBlindMode")!;
@@ -25,14 +25,14 @@ const PALETTE_DEGS = [...Array(PALETTE_SIZE)].map((_, idx) => {
   return (idx * 360) / PALETTE_SIZE + (idx % 2) * 180;
 });
 
-export function weaponColor(weapon: Weapon, opacity: number): string {
-  const idx = ALL_WEAPONS.indexOf(weapon);
+export function weaponColor(weaponName: string, opacity: number): string {
+  const idx = ALL_WEAPONS.findIndex(w => w.name == weaponName);
   return `hsl(${
     PALETTE_DEGS[idx % PALETTE_DEGS.length]
   }deg, ${SATURATION}, ${LIGHTNESS}, ${opacity})`;
 }
 
-export function metricColor(value: number, range: {min: number; max: number}): string {
+export function metricColor(value: number, range: {min: number; max: number}, invert: boolean): string {
   if(value == -1 || value == 0)
     return `hsl(300, ${SATURATION}, ${LIGHTNESS}, ${0.5})`;
 
@@ -56,8 +56,10 @@ export function metricColor(value: number, range: {min: number; max: number}): s
     let hueRange = 120;
 
     let size = range.max - range.min
+
     let relativeValue = value - range.min;
-    let hue = relativeValue/size * hueRange;
+    let maybeInvertedRelativeValue = invert ? size - relativeValue : relativeValue;
+    let hue = maybeInvertedRelativeValue/size * hueRange;
 
     return `hsl(${hue + hueOffset}deg, ${SATURATION}, ${LIGHTNESS}, ${0.5})`;
   }
@@ -72,8 +74,8 @@ function mixColors(color1: number[], color2: number[], weight: number): number[]
   return rgb;
 }
 
-export function weaponDash(weapon: Weapon) {
-  const idx = ALL_WEAPONS.indexOf(weapon);
+export function weaponDash(weaponName: string) {
+  const idx = ALL_WEAPONS.findIndex(w => w.name === weaponName);
   if (idx >= 2 * PALETTE_SIZE) {
     return "dotted";
   } else if (idx >= PALETTE_SIZE) {
@@ -83,8 +85,8 @@ export function weaponDash(weapon: Weapon) {
   }
 }
 
-export function borderDash(weapon: Weapon) {
-  switch (weaponDash(weapon)) {
+export function borderDash(weaponName: string) {
+  switch (weaponDash(weaponName)) {
     case "solid":
       return undefined;
     case "dashed":

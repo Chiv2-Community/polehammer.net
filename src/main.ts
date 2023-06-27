@@ -1,14 +1,6 @@
 import { Chart, registerables } from "chart.js";
-import { ALL_WEAPONS, Weapon, weaponByName, weaponById } from "chivalry2-weapons";
-import { MetricLabel, MetricResult } from "./metrics";
-import {
-  generateMetrics,
-  unitGroupStats,
-  UnitStats,
-  WeaponStats,
-} from "./stats";
+import { ALL_WEAPONS, Weapon, weaponByName, weaponById, Target} from "chivalry2-weapons";
 import "./style.scss";
-import { Target } from "./types";
 import { deleteChildren, metricColor, weaponColor, weaponDash } from "./ui";
 import { shuffle } from "./util";
 import { SearchSelector } from "./components/search_selector";
@@ -17,7 +9,16 @@ import WEAPON_PRESETS from "./components/weapon_presets";
 import { Table } from "./components/table";
 import { InputHandler } from "./components/input_slider";
 import { BarChart, RadarChart } from "./components/chart";
-import { generateNormalizedChartData, weaponsToRows } from "./data";
+import { 
+  generateNormalizedChartData, 
+  weaponsToRows,
+  WeaponMetric,
+  WeaponMetrics,
+  generateMetrics,
+  metricRanges,
+  MetricRanges,
+} from "./data";
+import { METRICS, METRIC_MAP, Metric } from "./metrics";
 
 Chart.defaults.font.family = "'Lato', sans-serif";
 Chart.register(...registerables); // the auto import stuff was making typescript angry.
@@ -26,13 +27,11 @@ let selectedTarget = Target.AVERAGE;
 let numberOfTargets = 1;
 let horsebackDamageMultiplier = 1.0;
 
-let stats: WeaponStats = generateMetrics(ALL_WEAPONS, 1, 1, Target.VANGUARD_ARCHER);
-let unitStats: UnitStats = unitGroupStats(stats);
 
 let selectedTab = "radar-content-tab";
 
 let weaponBorderStyle = (weapon: Weapon, label: HTMLLabelElement) => {
-  label.style.border = `3px ${weaponDash(weapon)} ${weaponColor(weapon, 0.6)}`;
+  label.style.border = `3px ${weaponDash(weapon.name)} ${weaponColor(weapon.name, 0.6)}`;
   return label
 }
 
@@ -48,28 +47,32 @@ export const weaponSelector = new SearchSelector<Weapon>(
   redraw
 );
 
-const categorySelector = new SearchSelector<MetricLabel>(
-  new Set(Object.values(MetricLabel)),
+const categorySelector = new SearchSelector<Metric>(
+  new Set(METRICS),
   "#categorySearch",
   "#categorySearchResults",
   "#displayedCategories",
   CATEGORY_PRESETS,
   "#presetsSelectCategory",
-  c => c,
+  m => m.label,
   (_, label) => label,
   redraw
 )
 
-const table = new Table(
+let stats: WeaponMetrics = new Map()
+let ranges: MetricRanges = new Map()
+
+const table = new Table<WeaponMetric>(
   "#statTable", 
+  x => x.result,
   (header, cellData) => {
-    cellData = cellData as MetricResult;
-    let range = unitStats.get(header)!;
-    let cellContent: string = Math.round(cellData.rawResult).toString();
+    cellData = cellData;
+    let range = ranges.get(header)!;
+    let cellContent: string = Math.round(cellData.result).toString();
     let cell = document.createElement("td");
     cell.innerHTML = cellContent;
     cell.className = "border";
-    cell.style.backgroundColor = metricColor(cellData.result, range);
+    cell.style.backgroundColor = metricColor(cellData.result, range, !cellData.metric.higherIsBetter);
     return cell;
   }
 )
@@ -77,22 +80,18 @@ const table = new Table(
 const radar: RadarChart = new RadarChart("#radar");
 const bars = new Array<BarChart>();
 
-function createBarChart(element: HTMLCanvasElement, category: MetricLabel): BarChart {
-  const barUnitStats: UnitStats = new Map();
-  if(category.includes("Speed")) {
-    barUnitStats.set(category, unitStats.get(category)!);
-  }
-
+function createBarChart(element: HTMLCanvasElement, metric: Metric): BarChart {
   let chart = new BarChart(element)
-  chart.render(
-    generateNormalizedChartData(
-      stats, 
-      weaponSelector.selectedItems, 
-      new Set([category]), 
-      barUnitStats, 
-      true
-    )
-  )
+
+  // We only need results for this bar's metric
+  let metricResults: WeaponMetrics = new Map()
+  weaponSelector.selectedItems.forEach(w => {
+    let innerStats: Map<string, WeaponMetric> = new Map()
+    innerStats.set(metric.label, stats.get(w.name)!.get(metric.label)!)
+    metricResults.set(w.name, innerStats);
+  });
+
+  chart.render(generateNormalizedChartData(ranges, metricResults, true))
   return chart;
 }
 
@@ -116,15 +115,18 @@ function redrawBars() {
 }
 
 function redrawTable() {
-  table.setHeaders([...categorySelector.selectedItems]);
-  table.draw(weaponsToRows(weaponSelector.selectedItems, categorySelector.selectedItems, stats));
+  table.setHeaders([...categorySelector.selectedItems].map(c => c.label));
+  table.draw(weaponsToRows(stats));
 }
 
 function redraw() {
-  stats = generateMetrics(ALL_WEAPONS, numberOfTargets, horsebackDamageMultiplier, selectedTarget)
-  unitStats = unitGroupStats(stats);
+  let selectedMetricsArray = [...categorySelector.selectedItems];
+  let selectedWeaponsArray = [...weaponSelector.selectedItems];
 
-  radar.render(generateNormalizedChartData(stats, weaponSelector.selectedItems, categorySelector.selectedItems, unitStats, false));
+  stats = generateMetrics(selectedMetricsArray, selectedWeaponsArray, numberOfTargets, horsebackDamageMultiplier, selectedTarget)
+  ranges = metricRanges(selectedMetricsArray, ALL_WEAPONS, selectedTarget, numberOfTargets, horsebackDamageMultiplier);
+
+  radar.render(generateNormalizedChartData(ranges, stats, false));
 
   redrawBars();
   redrawTable();
@@ -138,7 +140,7 @@ function updateUrlParams() {
   params.set("numberOfTargets", numberOfTargets.toString());
   params.set("tab", selectedTab);
   params.append("weapon", [...weaponSelector.selectedItems].map(x => x.id).join("-"));
-  [...categorySelector.selectedItems].map((c) => params.append("category", c));
+  params.append("category", [...categorySelector.selectedItems].map(x => x.id).join("-"));
   window.history.replaceState(null, "", `?${params.toString()}`);
 }
 
@@ -146,28 +148,16 @@ function updateUrlParams() {
 function randomWeapons() {
   weaponSelector.clearSelection();
   const random = shuffle(ALL_WEAPONS.filter(x => x.name != "Polehammer"));
-  weaponSelector.addSelected(weaponById("ph")!)
-  random.slice(0, 2).forEach(w => weaponSelector.addSelected(w));
+  weaponSelector.addSelected(weaponById("ph")!, false)
+  random.slice(0, 2).forEach(w => weaponSelector.addSelected(w, false));
+  redraw();
 }
 
 // Reset to default category selections
 // Clear all weapon selections
 function resetCategories() {
   categorySelector.clearSelection();
-  [
-    MetricLabel.RANGE_AVERAGE, 
-    MetricLabel.RANGE_ALT_AVERAGE, 
-    MetricLabel.WINDUP_HEAVY_AVERAGE, 
-    MetricLabel.RELEASE_HEAVY_AVERAGE, 
-    MetricLabel.RECOVERY_HEAVY_AVERAGE,
-    MetricLabel.COMBO_HEAVY_AVERAGE,
-    MetricLabel.DAMAGE_HEAVY_AVERAGE,
-    MetricLabel.WINDUP_LIGHT_AVERAGE,
-    MetricLabel.RELEASE_LIGHT_AVERAGE,
-    MetricLabel.RECOVERY_LIGHT_AVERAGE,
-    MetricLabel.COMBO_LIGHT_AVERAGE,
-    MetricLabel.DAMAGE_LIGHT_AVERAGE,
-  ].map(l => categorySelector.addSelected(l));
+  CATEGORY_PRESETS.get("Average")!.forEach(c => categorySelector.addSelected(c));
   redraw();
 }
 
@@ -225,9 +215,15 @@ const targetPane = document.querySelector(`#${targetPaneId}`)!;
 targetPane.classList.add("active", "show");
 
 if (params.get("target")) {
-  selectedTarget = params.get("target") as Target;
-}
+  let targetString = params.get("target");
 
+  if(targetString?.toUpperCase().includes("VANGUARD")) {
+    // This selects VANGUARD when a legacy link provides "Vanguard / Archer"
+    selectedTarget = Target.VANGUARD;
+  } else {
+    selectedTarget = targetString?.toUpperCase() as Target;
+  }
+}
 
 if (params.getAll("weapon").length) {
   params.getAll("weapon").forEach((name) => {
@@ -242,13 +238,33 @@ if (params.getAll("weapon").length) {
 }
 
 if (params.getAll("category").length) {
-  // Backwards Compat
-  let compatCategories = params.getAll("category").map((c) => {
+  params.getAll("category").forEach((c) => {
+    // Backwards Compat
     let result = c.replaceAll("Horizontal", "Slash")
-    return result
-  });
 
-  compatCategories.forEach(c => categorySelector.addSelected(c as MetricLabel))
+    // Used to do Range - Alt. foo
+    // Now its Alt Range - foo
+    if(result.includes("Alt")) {
+      result = result.replaceAll(/Alt\.? /ig, "")
+      result = "Alt " + result
+    }
+
+    let maybeMetric = METRIC_MAP.get(result);
+    if(maybeMetric) {
+      categorySelector.addSelected(maybeMetric!, false);
+    }
+    
+    let backwardCompatLabel = METRICS.find(m => m.label == result)
+    if(backwardCompatLabel) {
+      categorySelector.addSelected(backwardCompatLabel, false);
+    }
+    
+    c.split("-")
+      .map((id) => METRIC_MAP.get(id))
+      .filter(a => a)
+      .map(a => a!)
+      .forEach((m) => categorySelector.addSelected(m, false));
+  });
 
   // Setting them failed, so just default
   if (!categorySelector.selectedItems.size)
@@ -260,9 +276,19 @@ if (params.getAll("category").length) {
 
 // Link up target radio buttons
 Object.values(Target).forEach((t) => {
+  // Vanguard and archer are the same. For target selection we use vanguard in place of archer.
+  if(t == Target.ARCHER) 
+    return;
+
   const radio = document.getElementById(t) as HTMLInputElement;
-  radio.onclick = () => {
+  const radioParent = radio.parentElement
+
+  if(!radioParent)
+    throw new Error("Failed to find parent of target selection radio element")
+
+  radio.parentElement.onclick = () => {
     selectedTarget = t;
+    radio.checked = true;
     redraw();
   };
   radio.checked = selectedTarget === t;
