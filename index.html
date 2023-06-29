@@ -258,10 +258,11 @@
                   <ul>
                     <li><span>Holding</span>: The beginning phase of an attack, when the player is lifting (chambering) the weapon. This is a fixed 350ms for all weapons. It is not displayed by default because they are all the same.</li>
                     <li><span>Windup</span>: The amount of time during the weapon swing that the weapon has no active hitbox.  A grunt is sounded when this phase begins.</li>
+                    <li><span>Riposte</span>: Replaces the windup phase when attacking with a riposte.</li>
                     <li><span>Release</span>: The duration that the hitbox is active.</li>
                     <li><span>Recovery</span>: The amount of time after the hitbox goes inactive until the player returns to neutral and can perform another action.</li>
                     <li><span>Combo</span>: When chaining two attacks together, the combo duration effectively replaces the recovery duration.</li>
-
+                    <li><span>Thwack</span>: Replaces the recovery phase when a weapon with hitstop lands a hit. The release is interuppted and a recovery phase with this duration is used.</li>
                   </ul>
 
                   An attack consists of multiple phases. <br /> 
@@ -272,7 +273,10 @@
                   When attacking during the recovery of the previous attack, there are some modifications to this sequence. <br />
                   &nbsp;&nbsp;&nbsp;&nbsp;<span>Holding</span> -> <span>Windup</span> -> <span>Release</span> -> <span class="red">Holding+Combo</span> -> <span>Windup</span> -> <span>Release</span> -> <span>Recovery</span> <br />
                   <br />
-                  Note that the recovery phase of the first attack is gone, and is replaced by a single attack phase which lasts as long as the holding time + the combo time. Meaning that the combo time effectively replaces the recovery time.
+                  Note that the recovery phase of the first attack is gone, and is replaced by a single attack phase which lasts as long as the holding time + the combo time. Meaning that the combo time effectively replaces the recovery time. <br />
+                  <br />
+                  When attacking with a riposte, the riposte value replaces the windup value in a swing. <br />
+                  When using a blunt weapon with hitstop, the recovery phase is replaced with thwack upon a successful hit.
                 </div>
               </div>
             </div>
