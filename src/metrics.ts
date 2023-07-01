@@ -1,4 +1,4 @@
-import { bonusMult, DamageType, MeleeAttack, SpecialAttack, Swing, Target, Weapon } from "chivalry2-weapons";
+import { bonusDamageMult, DamageType, MeleeAttack, SpecialAttack, staminaDamageMult, Swing, Target, Weapon } from "chivalry2-weapons";
 
 type GenerateMetricValue = (w: Weapon, t: Target, numTargets: number, horsebackDamageMult: number) => number;
 
@@ -28,9 +28,23 @@ export class Metric {
 }
 
 function generateCommonMetricsForAttack(idPrefix: string, label: string, cleave: (w: Weapon) => boolean, getAttack: (w: Weapon) => MeleeAttack | SpecialAttack): Metric[] {
+  function calcDamage(w: Weapon, target: Target, numTargets: number, horsebackDamageMult: number): number {
+    let attack = getAttack(w);
+    let damageTypeMultiplier = bonusDamageMult(target, attack.damageTypeOverride || w.damageType);
+    let cleaveMultiplier = cleave(w) ? numTargets : 1;
+    return getAttack(w).damage * damageTypeMultiplier * cleaveMultiplier * horsebackDamageMult;
+  }
+  
+  function calcStaminaDamage(w: Weapon, numTargets: number, horsebackDamageMult: number): number {
+    let attack = getAttack(w);
+    let damageTypeMultiplier = staminaDamageMult(attack.damageTypeOverride || w.damageType);
+    let cleaveMultiplier = cleave(w) ? numTargets : 1;
+    return getAttack(w).damage * damageTypeMultiplier * cleaveMultiplier * horsebackDamageMult;
+  }
 
   return [
-    new Metric(idPrefix + "d", `Damage - ${label}`, Unit.DAMAGE, true, (w, t, numTargets, horsebackDamageMult) => horsebackDamageMult * bonusMult(numTargets, t, w.damageType, cleave(w)) * getAttack(w).damage),
+    new Metric(idPrefix + "d", `Damage - ${label}`, Unit.DAMAGE, true, calcDamage),
+    new Metric(idPrefix + "sd", `Stamina Damage - ${label}`, Unit.DAMAGE, true, (w, _, targets, horsebackMult) => calcStaminaDamage(w, targets, horsebackMult)),
     new Metric(idPrefix + "w", `Windup - ${label}`, Unit.SPEED, false, (w) => getAttack(w).windup),
     new Metric(idPrefix + "rp", `Riposte - ${label}`, Unit.SPEED, false, (w) => getAttack(w).riposte),
     new Metric(idPrefix + "rl",`Release - ${label}`, Unit.SPEED, true, (w) => getAttack(w).release),
