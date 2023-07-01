@@ -33,6 +33,12 @@ export class Table<A> {
     draw(rows: RowContent<A>[][]) {
         this.tableElem.innerHTML = "";
 
+        const longestHeaderLength = Math.max(...this.headers.map(h => h.length));
+        const lastHeaderLength = (this.headers[this.headers.length - 1] || '').length;
+
+        this.tableElem.style.marginTop = `${longestHeaderLength * 0.35}rem`;
+        this.tableElem.style.marginRight = `${lastHeaderLength * 0.35}rem`;
+
         const table = document.createElement("table");
         table.className = "table";
 
