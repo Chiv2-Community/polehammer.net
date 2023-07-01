@@ -24,7 +24,7 @@ CATEGORY_PRESETS.set("Stab (Heavy)", buildPreset("stab (heavy)", {ignore: ["hold
 
 CATEGORY_PRESETS.set("Throw", buildPreset("throw", {ignore: ["combo"]}))
 CATEGORY_PRESETS.set("Special", buildPreset("special", {ignore: ["combo", "holding"]}));
-CATEGORY_PRESETS.set("Leaping Strike", buildPreset("leaping strike", {ignore: ["holding", "recovery"]}));
+CATEGORY_PRESETS.set("Leaping Strike", buildPreset("leaping strike", {ignore: ["holding", "recovery", "riposte"]}));
 CATEGORY_PRESETS.set("Sprint Charge", METRICS.filter(x => x.label.includes("Sprint Charge")).filter(x => x.label.includes("Damage")))
 
 
