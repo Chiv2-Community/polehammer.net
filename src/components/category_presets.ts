@@ -34,10 +34,15 @@ CATEGORY_PRESETS.set("Release", buildPreset("release"));
 CATEGORY_PRESETS.set("Recovery", buildPreset("recovery"));
 CATEGORY_PRESETS.set("Thwack", buildPreset("thwack"));
 CATEGORY_PRESETS.set("Combo", buildPreset("combo"));
-CATEGORY_PRESETS.set("All Damage", buildPreset("damage"));
 
-CATEGORY_PRESETS.set("Light Damage", METRICS.filter(x => x.label.includes("Light")).filter(x => x.label.includes("Damage")))
-CATEGORY_PRESETS.set("Heavy Damage", METRICS.filter(x => x.label.includes("Heavy")).filter(x => x.label.includes("Damage")))
+CATEGORY_PRESETS.set("All Damage", buildPreset("damage", {ignore: ["stamina"]}));
+CATEGORY_PRESETS.set("Light Damage", METRICS.filter(x => x.label.includes("Light")).filter(x => x.label.includes("Damage")).filter(x => !x.label.includes("Stamina")))
+CATEGORY_PRESETS.set("Heavy Damage", METRICS.filter(x => x.label.includes("Heavy")).filter(x => x.label.includes("Damage")).filter(x => !x.label.includes("Stamina")))
+
+CATEGORY_PRESETS.set("All Stamina Damage", buildPreset("stamina damage"));
+CATEGORY_PRESETS.set("Light Stamina Damage", METRICS.filter(x => x.label.includes("Light")).filter(x => x.label.includes("Stamina Damage")))
+CATEGORY_PRESETS.set("Heavy Stamina Damage", METRICS.filter(x => x.label.includes("Heavy")).filter(x => x.label.includes("Stamina Damage")))
+
 CATEGORY_PRESETS.set("Range", buildPreset("range"))
 
 export default CATEGORY_PRESETS;
