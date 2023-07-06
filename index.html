@@ -170,6 +170,20 @@
             <li class="nav-item" role="presentation">
               <button
                 class="nav-link"
+                id="definitions-content-tab"
+                data-bs-toggle="tab"
+                data-bs-target="#definitions-content"
+                type="button"
+                role="tab"
+                aria-controls="definitions-content"
+                aria-selected="false"
+              >
+              Definitions
+              </button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button
+                class="nav-link"
                 id="data-collection-content-tab"
                 data-bs-toggle="tab"
                 data-bs-target="#data-collection-content"
@@ -220,6 +234,54 @@
               aria-labelledby="table-content-tab"
             >
               <div id="statTable" class=".table-responsive" style="margin-top:9.1rem;margin-right:7rem;display:flex; flex-direction:column; justify-content: space-around;">
+              </div>
+            </div>
+            <div
+              class="tab-pane fade"
+              id="definitions-content"
+              role="tabpanel"
+              aria-labelledby="definitions-content-tab"
+            >
+              <div id="definitions" class="row info">
+                <div class="category-group">Damage</div>
+                <div>
+                  Damage measures the max potential damage output (in HP) for a given attack with a given weapon.  Damage is effected by horse speed, number of targets, whether or not the weapon cleaves, and damage type.
+                </div>
+                <div class="category-group">Range</div>
+                <div>
+                  Range is measured in "Jeoffrey's". Higher range means that the weapon can hit targets that are further away. It also effects the effective damage area in front of the user.  A long weapon slashing covers much more ground than a short weapon slashing.
+                </div>
+                <div class="category-group">Speed</div>
+                <div>
+                  There are several speed categories, all measured in milliseconds. <br />
+                  
+                  <ul>
+                    <li><span>Holding</span>: The beginning phase of an attack, when the player is lifting (chambering) the weapon. This is a fixed 350ms for all weapons. It is not displayed by default because they are all the same.</li>
+                    <li><span>Windup</span>: The amount of time during the weapon swing that the weapon has no active hitbox.  A grunt is sounded when this phase begins.</li>
+                    <li><span>Riposte</span>: Replaces the windup phase when attacking with a riposte.</li>
+                    <li><span>Release</span>: The duration that the hitbox is active.</li>
+                    <li><span>Recovery</span>: The amount of time after the hitbox goes inactive until the player returns to neutral and can perform another action.</li>
+                    <li><span>Combo</span>: When chaining two attacks together, the combo duration effectively replaces the recovery duration.</li>
+                    <li><span>Thwack</span>: Replaces the recovery phase when a weapon with hitstop lands a hit. The release is interuppted and a recovery phase with this duration is used.</li>
+                  </ul>
+
+                  An attack consists of multiple phases. <br /> 
+                  <br />
+                  From neutral, these phases are: <br />
+                  &nbsp;&nbsp;&nbsp;&nbsp;<span>Holding</span> -> <span>Windup</span> -> <span>Release</span> -> <span>Recovery</span> <br /> 
+                  <br />
+                  When attacking during the recovery of the previous attack, there are some modifications to this sequence. <br />
+                  &nbsp;&nbsp;&nbsp;&nbsp;<span>Holding</span> -> <span>Windup</span> -> <span>Release</span> -> <span class="red">Holding+Combo</span> -> <span>Windup</span> -> <span>Release</span> -> <span>Recovery</span> <br />
+                  <br />
+                  Note that the recovery phase of the first attack is gone, and is replaced by a single attack phase which lasts as long as the holding time + the combo time. Meaning that the combo time effectively replaces the recovery time. <br />
+                  <br />
+                  When attacking with a riposte the phases are: <br />
+                  &nbsp;&nbsp;&nbsp;&nbsp;<span>Holding</span> -> <span class="red">Riposte</span> -> <span>Release</span> -> <span>Recovery</span> <br /> 
+                  <br />
+                  Note that the Windup phase has been replaced by the Riposte phase <br />
+                  <br />
+                  When using a blunt weapon with hitstop, the recovery phase is replaced with thwack upon a successful hit. This is true in all above scenarios.
+                </div>
               </div>
             </div>
             <div
