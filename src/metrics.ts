@@ -40,15 +40,15 @@ function generateCommonMetricsForAttack(idPrefix: string, label: string, cleave:
   }
   
   function calcHitsToKill(w: Weapon, target: Target, numTargets: number, horsebackDamageMult: number): number {
-    let attack = getAttack(w);
     if(target == AVERAGE) {
       let nonAverageTargets = ALL_TARGETS.filter(t => t != AVERAGE);
       let hitsToKillSum = nonAverageTargets.reduce((acc, t) => acc + calcHitsToKill(w, t, numTargets, horsebackDamageMult), 0);
-      return hitsToKillSum / nonAverageTargets.length;
-    } else {
-      let damageTypeMultiplier = target.damageMultiplier(attack.damageTypeOverride || w.damageType);
-      return Math.ceil(target.hp / (getAttack(w).damage * damageTypeMultiplier * horsebackDamageMult));
-    }
+      return Math.ceil(hitsToKillSum / nonAverageTargets.length);
+    } 
+
+    let attack = getAttack(w);
+    let damageTypeMultiplier = target.damageMultiplier(attack.damageTypeOverride || w.damageType);
+    return Math.ceil(target.hp / (getAttack(w).damage * damageTypeMultiplier * horsebackDamageMult));
   }
   
   function calcStaminaDamage(w: Weapon, numTargets: number, horsebackDamageMult: number): number {
