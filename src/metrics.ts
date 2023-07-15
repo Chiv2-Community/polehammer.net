@@ -1,4 +1,4 @@
-import { bonusDamageMult, DamageType, MeleeAttack, SpecialAttack, staminaDamageMult, Swing, Target, Weapon } from "chivalry2-weapons";
+import { DamageType, MeleeAttack, SpecialAttack, Swing, Target, Weapon } from "chivalry2-weapons";
 
 type GenerateMetricValue = (w: Weapon, t: Target, numTargets: number, horsebackDamageMult: number) => number;
 
@@ -30,16 +30,15 @@ export class Metric {
 function generateCommonMetricsForAttack(idPrefix: string, label: string, cleave: (w: Weapon) => boolean, getAttack: (w: Weapon) => MeleeAttack | SpecialAttack): Metric[] {
   function calcDamage(w: Weapon, target: Target, numTargets: number, horsebackDamageMult: number): number {
     let attack = getAttack(w);
-    let damageTypeMultiplier = bonusDamageMult(target, attack.damageTypeOverride || w.damageType);
+    let damageTypeMultiplier = target.damageMultiplier(attack.damageTypeOverride || w.damageType);
     let cleaveMultiplier = cleave(w) ? numTargets : 1;
     return getAttack(w).damage * damageTypeMultiplier * cleaveMultiplier * horsebackDamageMult;
   }
   
   function calcStaminaDamage(w: Weapon, numTargets: number, horsebackDamageMult: number): number {
     let attack = getAttack(w);
-    let damageTypeMultiplier = staminaDamageMult(attack.damageTypeOverride || w.damageType);
     let cleaveMultiplier = cleave(w) ? numTargets : 1;
-    return getAttack(w).damage * damageTypeMultiplier * cleaveMultiplier * horsebackDamageMult;
+    return attack.staminaDamage * cleaveMultiplier * horsebackDamageMult;
   }
 
   return [

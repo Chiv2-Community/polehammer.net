@@ -1,5 +1,5 @@
 import { Chart, registerables } from "chart.js";
-import { ALL_WEAPONS, Weapon, weaponByName, weaponById, Target} from "chivalry2-weapons";
+import { ALL_WEAPONS, Weapon, weaponByName, weaponById, targetByName, ARCHER, VANGUARD, AVERAGE, ALL_TARGETS} from "chivalry2-weapons";
 import "./style.scss";
 import { deleteChildren, metricColor, weaponColor, weaponDash } from "./ui";
 import { shuffle } from "./util";
@@ -23,7 +23,7 @@ import { METRICS, METRIC_MAP, Metric } from "./metrics";
 Chart.defaults.font.family = "'Lato', sans-serif";
 Chart.register(...registerables); // the auto import stuff was making typescript angry.
 
-let selectedTarget = Target.AVERAGE;
+let selectedTarget = AVERAGE;
 let numberOfTargets = 1;
 let horsebackDamageMultiplier = 1.0;
 
@@ -136,7 +136,7 @@ function redraw() {
 
 function updateUrlParams() {
   const params = new URLSearchParams();
-  params.set("target", selectedTarget);
+  params.set("target", selectedTarget.characterClass);
   params.set("numberOfTargets", numberOfTargets.toString());
   params.set("tab", selectedTab);
   params.append("weapon", [...weaponSelector.selectedItems].map(x => x.id).join("-"));
@@ -217,11 +217,11 @@ targetPane.classList.add("active", "show");
 if (params.get("target")) {
   let targetString = params.get("target");
 
-  if(targetString?.toUpperCase().includes("VANGUARD")) {
+  if(targetString == null || targetString?.toUpperCase().includes("VANGUARD")) {
     // This selects VANGUARD when a legacy link provides "Vanguard / Archer"
-    selectedTarget = Target.VANGUARD;
+    selectedTarget = VANGUARD
   } else {
-    selectedTarget = targetString?.toUpperCase() as Target;
+    selectedTarget = targetByName(targetString) || AVERAGE!;
   }
 }
 
@@ -275,12 +275,12 @@ if (params.getAll("category").length) {
 
 
 // Link up target radio buttons
-Object.values(Target).forEach((t) => {
+ALL_TARGETS.forEach((t) => {
   // Vanguard and archer are the same. For target selection we use vanguard in place of archer.
-  if(t == Target.ARCHER) 
+  if(t == ARCHER)
     return;
 
-  const radio = document.getElementById(t) as HTMLInputElement;
+  const radio = document.getElementById(t.characterClass.toUpperCase()) as HTMLInputElement;
   const radioParent = radio.parentElement
 
   if(!radioParent)
