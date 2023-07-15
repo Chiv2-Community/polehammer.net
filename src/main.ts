@@ -1,5 +1,5 @@
 import { Chart, registerables } from "chart.js";
-import { ALL_WEAPONS, Weapon, weaponByName, weaponById, Target, ALL_TARGETS, targetByName, ARCHER, VANGUARD, AVERAGE} from "chivalry2-weapons";
+import { ALL_WEAPONS, Weapon, weaponByName, weaponById, Target, targetByName, ARCHER, VANGUARD, AVERAGE} from "chivalry2-weapons";
 import "./style.scss";
 import { deleteChildren, metricColor, weaponColor, weaponDash } from "./ui";
 import { shuffle } from "./util";
@@ -23,7 +23,7 @@ import { METRICS, METRIC_MAP, Metric } from "./metrics";
 Chart.defaults.font.family = "'Lato', sans-serif";
 Chart.register(...registerables); // the auto import stuff was making typescript angry.
 
-let selectedTarget = targetByName("Average")!;
+let selectedTarget = AVERAGE;
 let numberOfTargets = 1;
 let horsebackDamageMultiplier = 1.0;
 
