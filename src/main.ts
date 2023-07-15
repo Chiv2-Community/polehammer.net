@@ -1,5 +1,5 @@
 import { Chart, registerables } from "chart.js";
-import { ALL_WEAPONS, Weapon, weaponByName, weaponById, Target, targetByName, ARCHER, VANGUARD, AVERAGE, ALL_TARGETS} from "chivalry2-weapons";
+import { ALL_WEAPONS, Weapon, weaponByName, weaponById, targetByName, ARCHER, VANGUARD, AVERAGE, ALL_TARGETS} from "chivalry2-weapons";
 import "./style.scss";
 import { deleteChildren, metricColor, weaponColor, weaponDash } from "./ui";
 import { shuffle } from "./util";
