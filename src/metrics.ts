@@ -50,6 +50,11 @@ function generateCommonMetricsForAttack(idPrefix: string, label: string, cleave:
     new Metric(idPrefix + "rc",`Recovery - ${label}`, Unit.SPEED, false, (w) => getAttack(w).recovery),
     new Metric(idPrefix + "c", `Combo - ${label}`, Unit.SPEED, false, (w) => getAttack(w).combo),
     new Metric(idPrefix + "h", `Holding - ${label}`, Unit.SPEED, false, (w) => getAttack(w).holding),
+    new Metric(idPrefix + "tls", `Turn Limit Strength - ${label}`, Unit.SPEED, false, (w) => getAttack(w).turnLimitStrength),
+
+    // These are the same for everything
+    // new Metric(idPrefix + "vtls", `Vertical Turn Limit Strength - ${label}`, Unit.SPEED, false, (w) => getAttack(w).verticalTurnLimitStrength),
+    // new Metric(idPrefix + "rtls", `Reverse Turn Limit Strength - ${label}`, Unit.SPEED, false, (w) => getAttack(w).reverseTurnLimitStrength),
   ];
 }
 
