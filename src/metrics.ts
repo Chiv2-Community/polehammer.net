@@ -45,6 +45,7 @@ function generateCommonMetricsForAttack(idPrefix: string, label: string, cleave:
     new Metric(idPrefix + "d", `Damage - ${label}`, Unit.DAMAGE, true, calcDamage),
     new Metric(idPrefix + "sd", `Stamina Damage - ${label}`, Unit.DAMAGE, true, (w, _, targets, horsebackMult) => calcStaminaDamage(w, targets, horsebackMult)),
     new Metric(idPrefix + "w", `Windup - ${label}`, Unit.SPEED, false, (w) => getAttack(w).windup),
+    new Metric(idPrefix + "rp", `Riposte - ${label}`, Unit.SPEED, false, (w) => getAttack(w).riposte),
     new Metric(idPrefix + "rl",`Release - ${label}`, Unit.SPEED, true, (w) => getAttack(w).release),
     new Metric(idPrefix + "rc",`Recovery - ${label}`, Unit.SPEED, false, (w) => getAttack(w).recovery),
     new Metric(idPrefix + "c", `Combo - ${label}`, Unit.SPEED, false, (w) => getAttack(w).combo),
