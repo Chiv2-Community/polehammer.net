@@ -20,7 +20,11 @@ export class Metric {
   }
 
   getMinMax(weapons: Weapon[], t: Target, numTargets: number, horsebackDamageMult: number): Range {
-    let values = weapons.map(w => this.generate(w, t, numTargets, horsebackDamageMult));
+    let values = 
+      weapons
+        .map(w => this.generate(w, t, numTargets, horsebackDamageMult))
+        .filter(v => v > 0) // ignore -1 and 0 values when making a min/max
+        
     let min = Math.min(...values);
     let max = Math.max(...values);
     return {min: min, max: max};
