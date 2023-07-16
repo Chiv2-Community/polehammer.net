@@ -89,7 +89,7 @@ function lightCleaves(dt: DamageType, attack: MeleeAttack | SpecialAttack) {
 }
 
 export const METRICS: Metric[] = [
-  new Metric("sdn", "Stamina Drain Negation", true, (w) => w.staminaDamageNegation || 0),
+  new Metric("sdn", "Stamina Damage Negation", true, (w) => w.staminaDamageNegation || 0),
 
   ...generateCommonMetricsForAttack("al", "Average (Light)", w => lightCleaves(w.damageType, w.attacks.average.light), w => w.attacks.average.light),
   ...generateCommonMetricsForAttack("ah", "Average (Heavy)", w => w.attacks.average.heavy.cleaveOverride || true, w => w.attacks.average.heavy),
