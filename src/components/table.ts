@@ -9,8 +9,9 @@ export class Table<A> {
 
     createCell: (header: string, content: A) => HTMLTableCellElement;
     contentToNumber: (a: A) => number;
+    onChange: () => void;
 
-    constructor(tableElemId: string, contentToNumber: (a: A) => number, createCell: (header: string, content: A) => HTMLTableCellElement) {
+    constructor(tableElemId: string, contentToNumber: (a: A) => number, createCell: (header: string, content: A) => HTMLTableCellElement, onChange: () => void) {
         this.headers = []
         let maybeTableElem = document.querySelector<HTMLTableElement>(tableElemId);
         if (!maybeTableElem) {
@@ -19,6 +20,7 @@ export class Table<A> {
         this.tableElem = maybeTableElem!;
         this.contentToNumber = contentToNumber;
         this.createCell = createCell;
+        this.onChange = onChange;
         this.sortMode = undefined;
     }
 
@@ -124,5 +126,6 @@ export class Table<A> {
             table.appendChild(row);
         });
         this.tableElem.appendChild(table);
+        this.onChange();
     }
 }

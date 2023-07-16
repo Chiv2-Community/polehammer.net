@@ -73,7 +73,8 @@ const table = new Table<WeaponMetric>(
     cell.className = "border";
     cell.style.backgroundColor = metricColor(cellData.result, range, !cellData.metric.higherIsBetter);
     return cell;
-  }
+  },
+  updateUrlParams
 )
 
 const radar: RadarChart = new RadarChart("#radar");
@@ -139,6 +140,13 @@ function updateUrlParams() {
   params.set("target", selectedTarget.characterClass);
   params.set("numberOfTargets", numberOfTargets.toString());
   params.set("tab", selectedTab);
+
+  let sortId = METRICS.find((m) => m.label == table.sortMode?.header)?.id;
+  if(sortId) {
+    params.set("sort", sortId);
+    params.set("sortAscending", table.sortMode!.ascending.toString());
+  }
+
   params.append("weapon", [...weaponSelector.selectedItems].map(x => x.id).join("-"));
   params.append("category", [...categorySelector.selectedItems].map(x => x.id).join("-"));
   window.history.replaceState(null, "", `?${params.toString()}`);
@@ -295,6 +303,17 @@ ALL_TARGETS.forEach((t) => {
   };
   radio.checked = selectedTarget === t;
 });
+
+if(params.get("sort")) {
+  let sort = params.get("sort")!;
+  let sortAscendingParam = params.get("sortAscending");
+  let sortMetric = METRICS.find(m => m.id == sort)
+
+  if(sortMetric) {
+    let sortAscending = sortAscendingParam == null ? sortMetric.higherIsBetter : sortAscendingParam == "true";
+    table.sort(sortMetric.label, sortAscending);
+  }
+}
 
 window.addEventListener('DOMContentLoaded', () => {
   const tabs = document.querySelectorAll('#graph-tabs [role="tab"]');
