@@ -32,6 +32,10 @@ export class Table<A> {
         this.sortMode = { header, ascending };
     }
 
+    clearSort() {
+        this.sortMode = undefined;
+    }
+
     draw(rows: RowContent<A>[][]) {
         this.tableElem.innerHTML = "";
 
@@ -59,9 +63,16 @@ export class Table<A> {
             if(!first) {
                 headerCol.className = "rotated-text";
                 headerDiv.onclick = () => {
-                    if(this.sortMode && this.sortMode.header === header) {
-                        this.sort(header, !this.sortMode.ascending);
+                    if(this.sortMode?.header === header) {
+                        if(this.sortMode.ascending) {
+                            // second click
+                            this.sort(header, false);
+                        } else {
+                            // third click
+                            this.clearSort();
+                        }
                     } else {
+                        // first click
                         this.sort(header, true);
                     }
                     this.draw(rows);
