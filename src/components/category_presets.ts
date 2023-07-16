@@ -45,7 +45,7 @@ CATEGORY_PRESETS.set("All Stamina Damage", buildPreset("stamina damage"));
 CATEGORY_PRESETS.set("Light Stamina Damage", METRICS.filter(x => x.label.includes("Light")).filter(x => x.label.includes("Stamina Damage")))
 CATEGORY_PRESETS.set("Heavy Stamina Damage", METRICS.filter(x => x.label.includes("Heavy")).filter(x => x.label.includes("Stamina Damage")))
 
-CATEGORY_PRESETS.set("Stamina Drain Negation", buildPreset("stamina drain negation"));
+CATEGORY_PRESETS.set("Stamina Damage Negation", buildPreset("stamina damage negation"));
 
 CATEGORY_PRESETS.set("Range", buildPreset("range"))
 
