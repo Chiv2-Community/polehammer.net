@@ -33,14 +33,23 @@
                 <label for="Average">Average</label>
               </div>
               <div class="labelled-input">
-                <!-- Vanguard and archer are the same in terms of damage output -->
+                <input
+                  type="radio"
+                  name="target"
+                  id="ARCHER"                   
+                  class="form-check-input flex-shrink-0"
+                />
+                <label for="Archer">Archer</label>
+              </div>
+              <small>+0%</small>
+              <div class="labelled-input">
                 <input
                   type="radio"
                   name="target"
                   id="VANGUARD"                   
                   class="form-check-input flex-shrink-0"
                 />
-                <label for="Vanguard / Archer">Vanguard / Archer</label>
+                <label for="Vanguard">Vanguard</label>
               </div>
               <small>+0%</small>
               <div class="labelled-input">
@@ -247,14 +256,32 @@
                 <div>
                   Damage measures the max potential damage output (in HP) for a given attack with a given weapon.  Damage is effected by horse speed, number of targets, whether or not the weapon cleaves, and damage type.
                 </div>
+                <div class="category-group">Stamina Damage</div>
+                <div>
+                  Stamina damage measures the max potential stamina damage output (in HP) for a given attack with a given weapon.  Damage is effected by horse speed, number of targets, whether or not the weapon cleaves, and damage type. <br />
+                  Stamina damage is the amount of stamina that is lost when an attack is blocked. <br />
+                   <br />
+                  If a weapon has "Stamina Damage Negation", then the wielder will receive that percentage less in stamina damage, when they block attacks. <br />
+                  For example: <br />
+                  <ul>
+                    <li>A user is wielding the Heavy Mace, and blocks a Polehammer special attack</li>
+                    <li>Polehammer special attack does 38 stamina damage</li>
+                    <li>The Heavy Mace has 10% stamina damage negation</li>
+                    <li>The 10% stamina damage negation reduces the 38 stamina damage by 3.8</li>
+                    <li>The Heavy Mace wielder only recieves 34.2 stamina damage</li>
+                  </ul>
+                </div>
                 <div class="category-group">Range</div>
                 <div>
                   Range is measured in "Jeoffrey's". Higher range means that the weapon can hit targets that are further away. It also effects the effective damage area in front of the user.  A long weapon slashing covers much more ground than a short weapon slashing.
                 </div>
+                <div class="category-group">Turn Limit Strength</div>
+                <div>
+                  Turn Limit strength determines how strongly the game will limit turn speeds during an attack.  The higher this value, the less the player can turn during an attack.
+                </div>
                 <div class="category-group">Speed</div>
                 <div>
                   There are several speed categories, all measured in milliseconds. <br />
-                  
                   <ul>
                     <li><span>Holding</span>: The beginning phase of an attack, when the player is lifting (chambering) the weapon. This is a fixed 350ms for all weapons. It is not displayed by default because they are all the same.</li>
                     <li><span>Windup</span>: The amount of time during the weapon swing that the weapon has no active hitbox.  A grunt is sounded when this phase begins.</li>
