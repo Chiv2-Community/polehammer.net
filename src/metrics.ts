@@ -67,7 +67,7 @@ function generateCommonMetricsForAttack(idPrefix: string, label: string, cleave:
     new Metric(idPrefix + "rl",`Release - ${label}`, true, (w) => getAttack(w).release),
     new Metric(idPrefix + "rc",`Recovery - ${label}`, false, (w) => getAttack(w).recovery),
     new Metric(idPrefix + "c", `Combo - ${label}`, false, (w) => getAttack(w).combo),
-    new Metric(idPrefix + "t",`Thwack - ${label}`, Unit.SPEED, false, (w) => getAttack(w).thwack),
+    new Metric(idPrefix + "t",`Thwack - ${label}`, false, (w) => getAttack(w).thwack),
     new Metric(idPrefix + "tls", `Turn Limit Strength - ${label}`, false, (w) => getAttack(w).turnLimitStrength),
 
     // These are the same for everything
