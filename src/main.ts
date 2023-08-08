@@ -1,5 +1,5 @@
 import { Chart, registerables } from "chart.js";
-import { ALL_WEAPONS, Weapon, weaponByName, weaponById, Target, targetByName, ARCHER, ALL_TARGETS } from "chivalry2-weapons";
+import { ALL_WEAPONS, Weapon, weaponByName, weaponById, targetByName, VANGUARD, AVERAGE, ALL_TARGETS} from "chivalry2-weapons";
 import "./style.scss";
 import { deleteChildren, metricColor, weaponColor, weaponDash } from "./ui";
 import { shuffle } from "./util";
@@ -23,10 +23,9 @@ import { METRICS, METRIC_MAP, Metric } from "./metrics";
 Chart.defaults.font.family = "'Lato', sans-serif";
 Chart.register(...registerables); // the auto import stuff was making typescript angry.
 
-let selectedTarget = targetByName("Average")!;
+let selectedTarget = AVERAGE;
 let numberOfTargets = 1;
 let horsebackDamageMultiplier = 1.0;
-
 
 let selectedTab = "radar-content-tab";
 
@@ -74,7 +73,8 @@ const table = new Table<WeaponMetric>(
     cell.className = "border";
     cell.style.backgroundColor = metricColor(cellData.result, range, !cellData.metric.higherIsBetter);
     return cell;
-  }
+  },
+  updateUrlParams
 )
 
 const radar: RadarChart = new RadarChart("#radar");
@@ -123,6 +123,7 @@ function redraw() {
   let selectedMetricsArray = [...categorySelector.selectedItems];
   let selectedWeaponsArray = [...weaponSelector.selectedItems];
 
+
   stats = generateMetrics(selectedMetricsArray, selectedWeaponsArray, numberOfTargets, horsebackDamageMultiplier, selectedTarget)
   ranges = metricRanges(selectedMetricsArray, ALL_WEAPONS, selectedTarget, numberOfTargets, horsebackDamageMultiplier);
 
@@ -139,34 +140,43 @@ function updateUrlParams() {
   params.set("target", selectedTarget.characterClass);
   params.set("numberOfTargets", numberOfTargets.toString());
   params.set("tab", selectedTab);
+
+  let sortId = METRICS.find((m) => m.label == table.sortMode?.header)?.id;
+  if(sortId) {
+    params.set("sort", sortId);
+    params.set("sortAscending", table.sortMode!.ascending.toString());
+  }
+
   params.append("weapon", [...weaponSelector.selectedItems].map(x => x.id).join("-"));
   params.append("category", [...categorySelector.selectedItems].map(x => x.id).join("-"));
   window.history.replaceState(null, "", `?${params.toString()}`);
 }
 
 // Choose 3 random weapons
-function randomWeapons() {
-  weaponSelector.clearSelection();
+function randomWeapons(shouldRedraw: boolean) {
+  weaponSelector.clearSelection(false);
   const random = shuffle(ALL_WEAPONS.filter(x => x.name != "Polehammer"));
   weaponSelector.addSelected(weaponById("ph")!, false)
   random.slice(0, 2).forEach(w => weaponSelector.addSelected(w, false));
-  redraw();
+  if(shouldRedraw)
+    redraw();
 }
 
 // Reset to default category selections
 // Clear all weapon selections
-function resetCategories() {
-  categorySelector.clearSelection();
-  CATEGORY_PRESETS.get("Average")!.forEach(c => categorySelector.addSelected(c));
-  redraw();
+function resetCategories(shouldRedraw: boolean) {
+  categorySelector.clearSelection(false);
+  CATEGORY_PRESETS.get("Average (Light)")!.forEach(c => categorySelector.addSelected(c, false));
+
+  if(shouldRedraw)
+    redraw();
 }
 
 
 // Link up to buttons
 document.getElementById("clearWeapons")!.onclick = () => weaponSelector.clearSelection();
-document.getElementById("randomWeapons")!.onclick = randomWeapons;
+document.getElementById("randomWeapons")!.onclick = () => randomWeapons(true);
 document.getElementById("allWeapons")!.onclick = () => weaponSelector.selectAll();
-
 document.getElementById("clearCategories")!.onclick = () => categorySelector.clearSelection();
 document.getElementById("allCategories")!.onclick = () => categorySelector.selectAll();
 
@@ -186,9 +196,11 @@ new InputHandler(
   "numberOfTargetsOutput",
   initialNumTargets,
   (input: number) => input.toString(),
-  (input: number) => {
+  (input: number, shouldRedraw: boolean) => {
     numberOfTargets = input;
-    redraw();
+
+    if(shouldRedraw)
+      redraw();
   }
 );
 
@@ -197,9 +209,11 @@ new InputHandler(
   "horsebackDamageMultiplierOutput",
   0,
   (input: number) => input + "%",
-  (input: number) => {
+  (input: number, shouldRedraw: boolean) => {
     horsebackDamageMultiplier = 1 + input/100.0;
-    redraw();
+
+    if(shouldRedraw)
+      redraw();
   }
 );
 
@@ -217,24 +231,24 @@ targetPane.classList.add("active", "show");
 if (params.get("target")) {
   let targetString = params.get("target");
 
-  if(targetString === null || targetString?.toUpperCase().includes("VANGUARD")) {
-    // This selects VANGUARD when a legacy link provides "Vanguard / Archer"
-    selectedTarget = targetByName("Vanguard")!;
+  if(targetString == null || targetString?.toUpperCase().includes("VANGUARD")) {
+    // Legacy backward compat for old links which used 'VANGUARD / ARCHER'
+    selectedTarget = VANGUARD
   } else {
-    selectedTarget = targetByName(targetString)!
+    selectedTarget = targetByName(targetString) || AVERAGE!;
   }
 }
 
 if (params.getAll("weapon").length) {
   params.getAll("weapon").forEach((name) => {
     let weapon = weaponByName(name);
-    if (weapon) { weaponSelector.addSelected(weapon) }
+    if (weapon) { weaponSelector.addSelected(weapon, false) }
     else {
-      name.split("-").map(weaponById).filter(a => a).map(a => a!).forEach((w) => weaponSelector.addSelected(w))
+      name.split("-").map(weaponById).filter(a => a).map(a => a!).forEach((w) => weaponSelector.addSelected(w, false))
     }
   });
 } else {
-  randomWeapons();
+  randomWeapons(false);
 }
 
 if (params.getAll("category").length) {
@@ -268,20 +282,15 @@ if (params.getAll("category").length) {
 
   // Setting them failed, so just default
   if (!categorySelector.selectedItems.size)
-    resetCategories();
+    resetCategories(false);
 } else {
-  resetCategories();
+  resetCategories(false);
 }
 
 
 // Link up target radio buttons
-ALL_TARGETS
-  // Vanguard and archer are the same. For target selection we use vanguard in place of archer
-  // and remove archer from the list
-  .filter((t) => t.characterClass != ARCHER.characterClass)
-  .forEach((t) => {
-
-  const radio = document.getElementById(t.characterClass) as HTMLInputElement;
+ALL_TARGETS.forEach((t) => {
+  const radio = document.getElementById(t.characterClass.toUpperCase()) as HTMLInputElement;
   const radioParent = radio.parentElement
 
   if(!radioParent)
@@ -294,6 +303,17 @@ ALL_TARGETS
   };
   radio.checked = selectedTarget === t;
 });
+
+if(params.get("sort")) {
+  let sort = params.get("sort")!;
+  let sortAscendingParam = params.get("sortAscending");
+  let sortMetric = METRICS.find(m => m.id == sort)
+
+  if(sortMetric) {
+    let sortAscending = sortAscendingParam == null ? sortMetric.higherIsBetter : sortAscendingParam == "true";
+    table.sort(sortMetric.label, sortAscending);
+  }
+}
 
 window.addEventListener('DOMContentLoaded', () => {
   const tabs = document.querySelectorAll('#graph-tabs [role="tab"]');

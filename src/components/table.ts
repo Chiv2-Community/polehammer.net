@@ -9,8 +9,9 @@ export class Table<A> {
 
     createCell: (header: string, content: A) => HTMLTableCellElement;
     contentToNumber: (a: A) => number;
+    onChange: () => void;
 
-    constructor(tableElemId: string, contentToNumber: (a: A) => number, createCell: (header: string, content: A) => HTMLTableCellElement) {
+    constructor(tableElemId: string, contentToNumber: (a: A) => number, createCell: (header: string, content: A) => HTMLTableCellElement, onChange: () => void) {
         this.headers = []
         let maybeTableElem = document.querySelector<HTMLTableElement>(tableElemId);
         if (!maybeTableElem) {
@@ -19,6 +20,7 @@ export class Table<A> {
         this.tableElem = maybeTableElem!;
         this.contentToNumber = contentToNumber;
         this.createCell = createCell;
+        this.onChange = onChange;
         this.sortMode = undefined;
     }
 
@@ -30,8 +32,18 @@ export class Table<A> {
         this.sortMode = { header, ascending };
     }
 
+    clearSort() {
+        this.sortMode = undefined;
+    }
+
     draw(rows: RowContent<A>[][]) {
         this.tableElem.innerHTML = "";
+
+        const longestHeaderLength = Math.max(...this.headers.map(h => h.length));
+        const lastHeaderLength = (this.headers[this.headers.length - 1] || '').length;
+
+        this.tableElem.style.marginTop = `${longestHeaderLength * 0.35}rem`;
+        this.tableElem.style.marginRight = `${lastHeaderLength * 0.35}rem`;
 
         const table = document.createElement("table");
         table.className = "table";
@@ -51,9 +63,16 @@ export class Table<A> {
             if(!first) {
                 headerCol.className = "rotated-text";
                 headerDiv.onclick = () => {
-                    if(this.sortMode && this.sortMode.header === header) {
-                        this.sort(header, !this.sortMode.ascending);
+                    if(this.sortMode?.header === header) {
+                        if(this.sortMode.ascending) {
+                            // second click
+                            this.sort(header, false);
+                        } else {
+                            // third click
+                            this.clearSort();
+                        }
                     } else {
+                        // first click
                         this.sort(header, true);
                     }
                     this.draw(rows);
@@ -118,5 +137,6 @@ export class Table<A> {
             table.appendChild(row);
         });
         this.tableElem.appendChild(table);
+        this.onChange();
     }
 }

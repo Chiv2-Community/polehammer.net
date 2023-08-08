@@ -1,4 +1,4 @@
-import { bonusMult, DamageType, MeleeAttack, SpecialAttack, Swing, Target, Weapon } from "chivalry2-weapons";
+import { ALL_TARGETS, AVERAGE, DamageType, MeleeAttack, SpecialAttack, Swing, Target, Weapon } from "chivalry2-weapons";
 
 type GenerateMetricValue = (w: Weapon, t: Target, numTargets: number, horsebackDamageMult: number) => number;
 
@@ -7,14 +7,12 @@ export type Range = { min: number; max: number; };
 export class Metric {
   id: string;
   label: string;
-  unit: Unit;
   higherIsBetter: boolean;
   generate: GenerateMetricValue;
 
-  constructor(id: string, label: string, unit: Unit, higherIsBetter: boolean, generate: GenerateMetricValue) {
+  constructor(id: string, label: string, higherIsBetter: boolean, generate: GenerateMetricValue) {
     this.id = id;
     this.label = label;
-    this.unit = unit;
     this.higherIsBetter = higherIsBetter;
     this.generate = generate;
   }
@@ -32,21 +30,53 @@ export class Metric {
 }
 
 function generateCommonMetricsForAttack(idPrefix: string, label: string, cleave: (w: Weapon) => boolean, getAttack: (w: Weapon) => MeleeAttack | SpecialAttack): Metric[] {
+  function calcDamage(w: Weapon, target: Target, numTargets: number, horsebackDamageMult: number): number {
+    let attack = getAttack(w);
+    let damageTypeMultiplier = target.damageMultiplier(attack.damageTypeOverride || w.damageType);
+    let cleaveMultiplier = cleave(w) ? numTargets : 1;
+    return getAttack(w).damage * damageTypeMultiplier * cleaveMultiplier * horsebackDamageMult;
+  }
+  
+  function calcHitsToKill(w: Weapon, target: Target, numTargets: number, horsebackDamageMult: number): number {
+    if(target == AVERAGE) {
+      let nonAverageTargets = ALL_TARGETS.filter(t => t != AVERAGE);
+      let hitsToKillSum = nonAverageTargets.reduce((acc, t) => acc + calcHitsToKill(w, t, numTargets, horsebackDamageMult), 0);
+      return Math.ceil(hitsToKillSum / nonAverageTargets.length);
+    } 
+
+    let attack = getAttack(w);
+    let damageTypeMultiplier = target.damageMultiplier(attack.damageTypeOverride || w.damageType);
+    return Math.ceil(target.hp / (getAttack(w).damage * damageTypeMultiplier * horsebackDamageMult));
+  }
+  
+  function calcStaminaDamage(w: Weapon, numTargets: number, horsebackDamageMult: number): number {
+    let attack = getAttack(w);
+    let cleaveMultiplier = cleave(w) ? numTargets : 1;
+    return attack.staminaDamage * cleaveMultiplier * horsebackDamageMult;
+  }
 
   return [
-    new Metric(idPrefix + "d", `Damage - ${label}`, Unit.DAMAGE, true, (w, t, numTargets, horsebackDamageMult) => horsebackDamageMult * bonusMult(numTargets, t, w.damageType, cleave(w)) * getAttack(w).damage),
-    new Metric(idPrefix + "w", `Windup - ${label}`, Unit.SPEED, false, (w) => getAttack(w).windup),
-    new Metric(idPrefix + "rl",`Release - ${label}`, Unit.SPEED, true, (w) => getAttack(w).release),
-    new Metric(idPrefix + "rc",`Recovery - ${label}`, Unit.SPEED, false, (w) => getAttack(w).recovery),
-    new Metric(idPrefix + "c", `Combo - ${label}`, Unit.SPEED, false, (w) => getAttack(w).combo),
-    new Metric(idPrefix + "h", `Holding - ${label}`, Unit.SPEED, false, (w) => getAttack(w).holding),
+    new Metric(idPrefix + "d", `Damage - ${label}`, true, calcDamage),
+    new Metric(idPrefix + "htk", `Hits To Kill - ${label}`, false, calcHitsToKill),
+    new Metric(idPrefix + "sd", `Stamina Damage - ${label}`, true, (w, _, targets, horsebackMult) => calcStaminaDamage(w, targets, horsebackMult)),
+    new Metric(idPrefix + "w", `Windup - ${label}`, false, (w) => getAttack(w).windup),
+    new Metric(idPrefix + "rp", `Riposte - ${label}`, false, (w) => getAttack(w).riposte),
+    new Metric(idPrefix + "rl",`Release - ${label}`, true, (w) => getAttack(w).release),
+    new Metric(idPrefix + "rc",`Recovery - ${label}`, false, (w) => getAttack(w).recovery),
+    new Metric(idPrefix + "c", `Combo - ${label}`, false, (w) => getAttack(w).combo),
+    new Metric(idPrefix + "h", `Holding - ${label}`, false, (w) => getAttack(w).holding),
+    new Metric(idPrefix + "tls", `Turn Limit Strength - ${label}`, false, (w) => getAttack(w).turnLimitStrength),
+
+    // These are the same for everything
+    // new Metric(idPrefix + "vtls", `Vertical Turn Limit Strength - ${label}`, Unit.SPEED, false, (w) => getAttack(w).verticalTurnLimitStrength),
+    // new Metric(idPrefix + "rtls", `Reverse Turn Limit Strength - ${label}`, Unit.SPEED, false, (w) => getAttack(w).reverseTurnLimitStrength),
   ];
 }
 
 function generateRangeMetrics(idPrefix: string, label: string, getSwing: (w: Weapon) => Swing) {
   return [
-    new Metric(idPrefix + "r", `Range - ${label}`, Unit.RANGE, true, w => getSwing(w).range),
-    new Metric(idPrefix + "ar", `Alt Range - ${label}`, Unit.RANGE, true, w => getSwing(w).altRange),
+    new Metric(idPrefix + "r", `Range - ${label}`, true, w => getSwing(w).range),
+    new Metric(idPrefix + "ar", `Alt Range - ${label}`, true, w => getSwing(w).altRange),
   ];
 }
 
@@ -59,6 +89,8 @@ function lightCleaves(dt: DamageType, attack: MeleeAttack | SpecialAttack) {
 }
 
 export const METRICS: Metric[] = [
+  new Metric("sdn", "Stamina Damage Negation", true, (w) => w.staminaDamageNegation || 0),
+
   ...generateCommonMetricsForAttack("al", "Average (Light)", w => lightCleaves(w.damageType, w.attacks.average.light), w => w.attacks.average.light),
   ...generateCommonMetricsForAttack("ah", "Average (Heavy)", w => w.attacks.average.heavy.cleaveOverride || true, w => w.attacks.average.heavy),
   ...generateRangeMetrics("a", "Average", w => w.attacks.average),
@@ -92,13 +124,3 @@ METRICS.map(m => m.id).forEach((cur) => {
     throw new Error(`Duplicate metric id: ${cur}`);
   }
 })
-
-// Metric Groups share the same units (damage/hitpoints, milliseconds, etc.)
-// and are used to determine consistent min/max scales for normalization across categories
-export enum Unit {
-  INDEX = "Index",
-  SPEED = "Milliseconds",
-  RANGE = "Jeoffreys",
-  DAMAGE = "Hitpoints",
-  RANK = "Rank"
-}
