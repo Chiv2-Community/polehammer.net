@@ -71,7 +71,7 @@ export const METRICS: Metric[] = [
   ...generateCommonMetricsForAttack("oh", "Overhead (Heavy)", w => w.attacks.overhead.heavy.cleaveOverride || true, w => w.attacks.overhead.heavy),
   ...generateRangeMetrics("o", "Overhead", w => w.attacks.overhead),
 
-  ...generateCommonMetricsForAttack("stl", "Stab (Light)", w => lightCleaves(w.damageType, w.attacks.stab.light), w => w.attacks.stab.light),
+  ...generateCommonMetricsForAttack("stl", "Stab (Light)", w => w.attacks.stab.light.cleaveOverride || true, w => w.attacks.stab.light),
   ...generateCommonMetricsForAttack("sth", "Stab (Heavy)", w => w.attacks.stab.heavy.cleaveOverride || true, w => w.attacks.stab.heavy),
   ...generateRangeMetrics("st", "Stab", w => w.attacks.stab),
 
