@@ -132,6 +132,13 @@ const baseMetrics = [
   ...generateCommonMetricsForAttack(["t"], "Throw", _ => false, w => w.attacks.throw),
 ]
 
+// N.B.: We don't use the average attack from the weapon because it doesn't take into account
+//       the idea that some attacks may cleave while others don't. It just assumes that either
+//       all attacks cleave or none do.  This, in conjunection with the number of targets 
+//       setting means that we must re-calculate averages for at least damage related metrics.
+//
+//       We could probably still use the average attack for things like windup, release, and range
+//       but I like being consistent.
 const averageAttackMetrics = [
   averageMetric(["a", "l", "d"], "Damage - Average (Light)", baseMetrics),
   averageMetric(["a", "l", "htk"], "Hits To Kill - Average (Light)", baseMetrics),
