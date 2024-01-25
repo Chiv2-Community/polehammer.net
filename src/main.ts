@@ -141,14 +141,14 @@ function updateUrlParams() {
   params.set("numberOfTargets", numberOfTargets.toString());
   params.set("tab", selectedTab);
 
-  let sortId = METRICS.find((m) => m.label == table.sortMode?.header)?.id;
+  let sortId = METRICS.find((m) => m.label == table.sortMode?.header)?.idString;
   if(sortId) {
     params.set("sort", sortId);
     params.set("sortAscending", table.sortMode!.ascending.toString());
   }
 
   params.append("weapon", [...weaponSelector.selectedItems].map(x => x.id).join("-"));
-  params.append("category", [...categorySelector.selectedItems].map(x => x.id).join("-"));
+  params.append("category", [...categorySelector.selectedItems].map(x => x.idString).join("-"));
   window.history.replaceState(null, "", `?${params.toString()}`);
 }
 
@@ -307,7 +307,7 @@ ALL_TARGETS.forEach((t) => {
 if(params.get("sort")) {
   let sort = params.get("sort")!;
   let sortAscendingParam = params.get("sortAscending");
-  let sortMetric = METRICS.find(m => m.id == sort)
+  let sortMetric = METRICS.find(m => m.idString == sort)
 
   if(sortMetric) {
     let sortAscending = sortAscendingParam == null ? sortMetric.higherIsBetter : sortAscendingParam == "true";
