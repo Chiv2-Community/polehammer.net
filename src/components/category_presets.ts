@@ -51,13 +51,12 @@ CATEGORY_PRESETS.set("Range", buildPreset("range"))
 
 CATEGORY_PRESETS.set("Turn Limit Strength", buildPreset("turn limit strength"))
 
-
 CATEGORY_PRESETS.set("Holding", buildPreset("holding"));
 CATEGORY_PRESETS.set("Riposte", buildPreset("riposte"));
 CATEGORY_PRESETS.set("Windup", buildPreset("windup"));
 CATEGORY_PRESETS.set("Release", buildPreset("release"));
 CATEGORY_PRESETS.set("Recovery", buildPreset("recovery"));
+CATEGORY_PRESETS.set("Thwack", buildPreset("thwack"));
 CATEGORY_PRESETS.set("Combo", buildPreset("combo"));
-
 
 export default CATEGORY_PRESETS;

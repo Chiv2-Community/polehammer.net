@@ -86,9 +86,11 @@ function generateCommonMetricsForAttack(id: string[], label: string, cleave: (w:
     new Metric(id.concat(["rp"]), `Riposte - ${label}`, false, (w) => getAttack(w).riposte),
     new Metric(id.concat(["rl"]),`Release - ${label}`, true, (w) => getAttack(w).release),
     new Metric(id.concat(["rc"]),`Recovery - ${label}`, false, (w) => getAttack(w).recovery),
+    new Metric(id.concat(["t"]), `Thwack - ${label}`, false, (w) => getAttack(w).thwack),
     new Metric(id.concat(["c"]), `Combo - ${label}`, false, (w) => getAttack(w).combo),
     new Metric(id.concat(["h"]), `Holding - ${label}`, false, (w) => getAttack(w).holding),
     new Metric(id.concat(["tls"]), `Turn Limit Strength - ${label}`, false, (w) => getAttack(w).turnLimitStrength),
+
 
     // These are the same for everything
     // new Metric(idPrefix + "vtls", `Vertical Turn Limit Strength - ${label}`, Unit.SPEED, false, (w) => getAttack(w).verticalTurnLimitStrength),
@@ -147,6 +149,7 @@ const averageAttackMetrics = [
   averageMetric(["a", "l", "rp"], "Riposte - Average (Light)", baseMetrics),
   averageMetric(["a", "l", "rl"], "Release - Average (Light)", baseMetrics),
   averageMetric(["a", "l", "rc"], "Recovery - Average (Light)", baseMetrics),
+  averageMetric(["a", "l", "t"], "Thwack - Average (Light)", baseMetrics),
   averageMetric(["a", "l", "c"], "Combo - Average (Light)", baseMetrics),
   averageMetric(["a", "l", "h"], "Holding - Average (Light)", baseMetrics),
   averageMetric(["a", "l", "tls"], "Turn Limit Strength - Average (Light)", baseMetrics),
@@ -158,6 +161,7 @@ const averageAttackMetrics = [
   averageMetric(["a", "h", "rp"], "Riposte - Average (Heavy)", baseMetrics),
   averageMetric(["a", "h", "rl"], "Release - Average (Heavy)", baseMetrics),
   averageMetric(["a", "h", "rc"], "Recovery - Average (Heavy)", baseMetrics),
+  averageMetric(["a", "h", "t"], "Thwack - Average (Heavy)", baseMetrics),
   averageMetric(["a", "h", "c"], "Combo - Average (Heavy)", baseMetrics),
   averageMetric(["a", "h", "h"], "Holding - Average (Heavy)", baseMetrics),
   averageMetric(["a", "h", "tls"], "Turn Limit Strength - Average (Heavy)", baseMetrics),
