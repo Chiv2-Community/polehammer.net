@@ -2,7 +2,7 @@
 1. Install NPM and NodeJS. Follow the instructions from the official site: https://docs.npmjs.com/downloading-and-installing-node-js-and-npm
 2. Execute `npm run dev` on the command line
 3. You will see a line that reads something like `➜  Local:   http://localhost:3000/`
-4. Copy the URL, and paste it in to your browser.
+4. Copy the URL from your command line and paste it in to your browser.
 
 Do not host on the public internet this way.
 
