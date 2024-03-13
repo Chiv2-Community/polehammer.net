@@ -1,4 +1,15 @@
+# Firebase 
 This is the deployed branch.
+
+# Running the site locally
+1. Download the latest site zip file, or clone with github
+2. Install NPM and NodeJS. Follow the instructions from the official site: https://docs.npmjs.com/downloading-and-installing-node-js-and-npm
+3. Execute `npm run dev` on the command line, while in the project root directory
+4. You will see a line that reads something like `➜  Local:   http://localhost:3000/`
+5. Copy the URL from your command line and paste it in to your browser.
+
+Do not host on the public internet this way.
+
 
 # Polehammer: Chivalry II Weapon Comparison Tool
 * Available at [polehammer.net](https://polehammer.net)
