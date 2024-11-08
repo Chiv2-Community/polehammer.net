@@ -32,8 +32,8 @@ export function weaponColor(weaponName: string, opacity: number): string {
   }deg, ${SATURATION}, ${LIGHTNESS}, ${opacity})`;
 }
 
-export function metricColor(value: number, range: {min: number; max: number}, invert: boolean): string {
-  if(value == -1 || value == 0)
+export function metricColor(value: number | undefined, range: {min: number; max: number}, invert: boolean): string {
+  if(value == -1 || value == 0 || value == undefined)
     return `hsl(300, ${SATURATION}, ${LIGHTNESS}, ${0.5})`;
 
   if(range.min == range.max)

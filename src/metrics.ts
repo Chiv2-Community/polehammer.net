@@ -63,6 +63,9 @@ function averageMetric(id: string[], label: string, metrics: Metric[]): Metric {
 function generateCommonMetricsForAttack(id: string[], label: string, cleave: (w: Weapon) => boolean, getAttack: (w: Weapon) => MeleeAttack | SpecialAttack | undefined): Metric[] {
   function calcDamage(w: Weapon, target: Target, numTargets: number, horsebackDamageMult: number): number | undefined {
     let attack = getAttack(w);
+    if(label.indexOf("Leaping Strike") != -1) {
+      console.log(w);
+    }
     if(attack == undefined) return undefined;
 
     let damageTypeMultiplier = target.damageMultiplier(attack.damageTypeOverride || w.damageType);
@@ -111,7 +114,6 @@ function generateCommonMetricsForAttack(id: string[], label: string, cleave: (w:
     new Metric(id.concat(["c"]), `Combo - ${label}`, false, (w) => getAttack(w)?.combo),
     new Metric(id.concat(["h"]), `Holding - ${label}`, false, (w) => getAttack(w)?.holding),
     new Metric(id.concat(["tls"]), `Turn Limit Strength - ${label}`, false, (w) => getAttack(w)?.turnLimitStrength),
-
 
     // These are the same for everything
     // new Metric(idPrefix + "vtls", `Vertical Turn Limit Strength - ${label}`, Unit.SPEED, false, (w) => getAttack(w).verticalTurnLimitStrength),
