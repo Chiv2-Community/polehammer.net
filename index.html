@@ -331,16 +331,25 @@
                 </div>
                 <div class="category-group">Range</div>
                 <div>
-                  Range is measured in "Jeoffrey's".  A single "Jeoffrey" is the distance the player moves back when a 
-                  target is struck. To measure a weapon's range, the process was to hug a target, face it 
-                  perpendicularly, and hit it repeatedly until the target is no longer in range.  The number of hits 
-                  until the first miss is the number of "Jeoffrey's" that represents the weapon's range. This method 
-                  gives us a resolution of 1 Jeoffrey which means some minor differences in range may not be apparent. 
-                  Yet.
-                  <small class="mt-3">
-                    Platyplysm- "I measured these values by striking the tip of the spinning traps on Tournament Grounds 
-                    until I was pushed out of range by the slight knockback you receive when landing a successful hit." 
-                  </small>
+                  Range is measured in UE4 units (centimeters), and is the distance from the center of the player to the furthest distance the weapon can hit. 
+                  <br />
+                  The range was found using DrLong's WeaponLength mod which can be found in the Unchained Launcher.
+                  <br />
+                  <br />
+                  The process used in the WeaponLength mod is as follows:
+                  <ol>
+                    <li>Spawn a target X units from the player</li>
+                    <li>
+                      Swing the weapon
+                      <ul>
+                        <li>If the attack misses, decrease the distance by 50%</li>
+                        <li>If the attack hits, increase the distance by 50%</li>
+                      </ul>
+                    </li>
+                    <li>Repeat until the change in distance between iterations is less than 0.001</li>
+                    <li>The results are then written to a save file and processed in the <a href="https://github.com/Chiv2-Community/chivalry2-weapons">chivalry 2 weapons repository</a></li>
+                  </ol>
+                  The results of all test iterations can be seen <a href="https://github.com/Chiv2-Community/chivalry2-weapons/blob/main/processed_data/range-output.json">here</a> 
                   <hr />
                 </div>
               </div>
