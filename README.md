@@ -1,3 +1,6 @@
+# Firebase 
+This is the deployed branch.
+
 # Running the site locally
 1. Download the latest site zip file, or clone with github
 2. Install NPM and NodeJS. Follow the instructions from the official site: https://docs.npmjs.com/downloading-and-installing-node-js-and-npm
