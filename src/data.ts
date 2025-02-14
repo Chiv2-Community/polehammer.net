@@ -4,7 +4,7 @@ import { Metric, Range } from "./metrics";
 import { Target, Weapon } from "chivalry2-weapons";
 
 export type WeaponMetrics = Map<string, Map<string, WeaponMetric>>;
-export type WeaponMetric = { result: number, metric: Metric };
+export type WeaponMetric = { result: number | undefined, metric: Metric };
 export type MetricRanges = Map<string, Range>;
 
 // Normalization will only occur for stat types that have a unit present in the provided normalizationStats.
@@ -19,7 +19,7 @@ export function generateNormalizedChartData(
     return {labels: [], datasets: []};
   }
 
-  let labels = [...metrics.values().next().value.keys()];
+  const labels = [...metrics.values().next().value!.keys()];
 
   return {
     labels: labels,
@@ -30,6 +30,9 @@ export function generateNormalizedChartData(
           const value = metrics.get(w)!.get(m)!;
           const maybeRange = ranges.get(m);
           
+          if (value.result === undefined || value.result == -1)
+            return NaN;
+
           // normalize values if range is present
           if (maybeRange) {
             let normalizedResult = (value.result - maybeRange.min) / (maybeRange.max - maybeRange.min);

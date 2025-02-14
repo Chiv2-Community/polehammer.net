@@ -10,7 +10,6 @@ This is the deployed branch.
 
 Do not host on the public internet this way.
 
-
 # Polehammer: Chivalry II Weapon Comparison Tool
 * Available at [polehammer.net](https://polehammer.net)
 * Compare any combination of weapons using quantitative values for damage, range, and speed.
@@ -20,8 +19,8 @@ Do not host on the public internet this way.
 * Examine and use the underlying **JSON** data (`/src/weapons`)
 * Please submit pull requests for weapon stats that are incorrect as the game is updated or as weapons are added!
 <img width="640" alt="Screen Shot 2022-05-11 at 12 11 49 AM" src="https://user-images.githubusercontent.com/1251092/167790496-d3ca93d4-8e6a-4a89-8374-3d1c5e0ceda9.png">
-# Updated Credits
 
+# Updated Credits
 * Aardvarkk - Website Design, Application Design, Radar Graphs
 * Gimmic - Provided method for accessing weapon stats directly from game code, developer of [Chivstats.xyz](https://chivstats.xyz)
 * Jacoby6000 - JSON Data Model, Responsive Design, Bar Graphs, Updated Category Selection UI, "PolehammerPoster" ChatGPT4 Bot Integration, Maintenance and Updates

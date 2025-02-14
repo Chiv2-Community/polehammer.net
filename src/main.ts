@@ -63,11 +63,11 @@ let ranges: MetricRanges = new Map()
 
 const table = new Table<WeaponMetric>(
   "#statTable", 
-  x => x.result,
+  x => x.result == undefined ? -1 : x.result,
   (header, cellData) => {
     cellData = cellData;
     let range = ranges.get(header)!;
-    let cellContent: string = Math.round(cellData.result).toString();
+    let cellContent: string = (cellData.result != undefined && cellData.result != -1) ? Math.round(cellData.result).toString() : "N/A";
     let cell = document.createElement("td");
     cell.innerHTML = cellContent;
     cell.className = "border";

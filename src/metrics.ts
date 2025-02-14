@@ -1,6 +1,6 @@
 import { ALL_TARGETS, AVERAGE, DamageType, MeleeAttack, SpecialAttack, Swing, Target, Weapon } from "chivalry2-weapons";
 
-type GenerateMetricValue = (w: Weapon, t: Target, numTargets: number, horsebackDamageMult: number) => number;
+type GenerateMetricValue = (w: Weapon, t: Target, numTargets: number, horsebackDamageMult: number) => number | undefined;
 
 export type Range = { min: number; max: number; };
 
@@ -24,6 +24,7 @@ export class Metric {
     let values = 
       weapons
         .map(w => this.generate(w, t, numTargets, horsebackDamageMult))
+        .map(v => v == undefined ? -1 : v)
         .filter(v => v > 0) // ignore -1 and 0 values when making a min/max
         
     let min = Math.min(...values);
@@ -31,7 +32,7 @@ export class Metric {
     return {min: min, max: max};
   }
 
-  mapGenerate(f: (original: number) => number): Metric {
+  mapGenerate(f: (original: number | undefined) => number | undefined): Metric {
     return new Metric(this.id, this.label, this.higherIsBetter, (w, t, numTargets, horsebackDamageMult) => f(this.generate(w, t, numTargets, horsebackDamageMult)));
   }
 }
@@ -45,52 +46,74 @@ function averageMetric(id: string[], label: string, metrics: Metric[]): Metric {
     label,
     validMetrics.every(m => m.higherIsBetter),
     (w, t, numTargets, horsebackDamageMult) => {
-      let sum = validMetrics.reduce((acc, m) => acc + m.generate(w, t, numTargets, horsebackDamageMult), 0);
+      let sum = validMetrics.reduce((acc, m) => {
+        let result = m.generate(w, t, numTargets, horsebackDamageMult)
+        if (result == undefined) {
+          return acc;
+        }
+
+        return acc + result;
+      }, 0);
       return sum / validMetrics.length;
     }
   )
 
 }
 
-function generateCommonMetricsForAttack(id: string[], label: string, cleave: (w: Weapon) => boolean, getAttack: (w: Weapon) => MeleeAttack | SpecialAttack): Metric[] {
-  function calcDamage(w: Weapon, target: Target, numTargets: number, horsebackDamageMult: number): number {
+function generateCommonMetricsForAttack(id: string[], label: string, cleave: (w: Weapon) => boolean, getAttack: (w: Weapon) => MeleeAttack | SpecialAttack | undefined): Metric[] {
+  function calcDamage(w: Weapon, target: Target, numTargets: number, horsebackDamageMult: number): number | undefined {
     let attack = getAttack(w);
+    if(label.indexOf("Leaping Strike") != -1) {
+      console.log(w);
+    }
+    if(attack == undefined) return undefined;
+
     let damageTypeMultiplier = target.damageMultiplier(attack.damageTypeOverride || w.damageType);
     let cleaveMultiplier = cleave(w) ? numTargets : 1;
-    return getAttack(w).damage * damageTypeMultiplier * cleaveMultiplier * horsebackDamageMult;
+    return attack.damage * damageTypeMultiplier * cleaveMultiplier * horsebackDamageMult;
   }
   
-  function calcHitsToKill(w: Weapon, target: Target, numTargets: number, horsebackDamageMult: number): number {
+  function calcHitsToKill(w: Weapon, target: Target, numTargets: number, horsebackDamageMult: number): number | undefined {
     if(target == AVERAGE) {
       let nonAverageTargets = ALL_TARGETS.filter(t => t != AVERAGE);
-      let hitsToKillSum = nonAverageTargets.reduce((acc, t) => acc + calcHitsToKill(w, t, numTargets, horsebackDamageMult), 0);
+      let hitsToKillSum = nonAverageTargets.reduce((acc, t) => {
+        let hitsToKill = calcHitsToKill(w, t, numTargets, horsebackDamageMult);
+        if(hitsToKill == undefined) {
+          return acc;
+        } 
+        
+        return acc + hitsToKill;
+      }, 0);
       return Math.ceil(hitsToKillSum / nonAverageTargets.length);
     } 
 
     let attack = getAttack(w);
+    if(attack == undefined) return undefined;
+
     let damageTypeMultiplier = target.damageMultiplier(attack.damageTypeOverride || w.damageType);
-    return Math.ceil(target.hp / (getAttack(w).damage * damageTypeMultiplier * horsebackDamageMult));
+    return Math.ceil(target.hp / (attack.damage * damageTypeMultiplier * horsebackDamageMult));
   }
   
-  function calcStaminaDamage(w: Weapon, numTargets: number, horsebackDamageMult: number): number {
+  function calcStaminaDamage(w: Weapon, numTargets: number, horsebackDamageMult: number): number | undefined {
     let attack = getAttack(w);
+    if(attack == undefined) return undefined;
+
     let cleaveMultiplier = cleave(w) ? numTargets : 1;
     return attack.staminaDamage * cleaveMultiplier * horsebackDamageMult;
   }
 
   return [
     new Metric(id.concat(["d"]), `Damage - ${label}`, true, calcDamage),
-    new Metric(id.concat(["htk"]), `Hits To Kill - ${label}`, false, calcHitsToKill).mapGenerate(v => Math.ceil(v)),
+    new Metric(id.concat(["htk"]), `Hits To Kill - ${label}`, false, calcHitsToKill).mapGenerate(v => v == undefined ? undefined : Math.ceil(v)),
     new Metric(id.concat(["sd"]), `Stamina Damage - ${label}`, true, (w, _, targets, horsebackMult) => calcStaminaDamage(w, targets, horsebackMult)),
-    new Metric(id.concat(["w"]), `Windup - ${label}`, false, (w) => getAttack(w).windup),
-    new Metric(id.concat(["rp"]), `Riposte - ${label}`, false, (w) => getAttack(w).riposte),
-    new Metric(id.concat(["rl"]),`Release - ${label}`, true, (w) => getAttack(w).release),
-    new Metric(id.concat(["rc"]),`Recovery - ${label}`, false, (w) => getAttack(w).recovery),
-    new Metric(id.concat(["t"]), `Thwack - ${label}`, false, (w) => getAttack(w).thwack),
-    new Metric(id.concat(["c"]), `Combo - ${label}`, false, (w) => getAttack(w).combo),
-    new Metric(id.concat(["h"]), `Holding - ${label}`, false, (w) => getAttack(w).holding),
-    new Metric(id.concat(["tls"]), `Turn Limit Strength - ${label}`, false, (w) => getAttack(w).turnLimitStrength),
-
+    new Metric(id.concat(["w"]), `Windup - ${label}`, false, (w) => getAttack(w)?.windup),
+    new Metric(id.concat(["rp"]), `Riposte - ${label}`, false, (w) => getAttack(w)?.riposte),
+    new Metric(id.concat(["rl"]),`Release - ${label}`, true, (w) => getAttack(w)?.release),
+    new Metric(id.concat(["rc"]),`Recovery - ${label}`, false, (w) => getAttack(w)?.recovery),
+    new Metric(id.concat(["t"]), `Thwack - ${label}`, false, (w) => getAttack(w)?.thwack),
+    new Metric(id.concat(["c"]), `Combo - ${label}`, false, (w) => getAttack(w)?.combo),
+    new Metric(id.concat(["h"]), `Holding - ${label}`, false, (w) => getAttack(w)?.holding),
+    new Metric(id.concat(["tls"]), `Turn Limit Strength - ${label}`, false, (w) => getAttack(w)?.turnLimitStrength),
 
     // These are the same for everything
     // new Metric(idPrefix + "vtls", `Vertical Turn Limit Strength - ${label}`, Unit.SPEED, false, (w) => getAttack(w).verticalTurnLimitStrength),
